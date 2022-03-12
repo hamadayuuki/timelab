@@ -10,11 +10,15 @@ import QRScanner
 
 class QrScanViewController: UIViewController {
 
+    private var qrFrameSize: CGRect!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // QRScanner - メルカリ
-        let qrScannerView = QRScannerView(frame: view.bounds)
+        qrFrameSize = CGRect(x: 0.0, y: 0.0, width: 500, height: 500)
+        let qrScannerView = QRScannerView(frame: qrFrameSize)
+        qrScannerView.backgroundColor = .red
         view.addSubview(qrScannerView)
         qrScannerView.configure(delegate: self)
         qrScannerView.startRunning()

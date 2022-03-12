@@ -13,6 +13,7 @@
 		D48D59A427DA298700A0993A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D48D59A227DA298700A0993A /* LaunchScreen.storyboard */; };
 		D48D59AB27DB8B3F00A0993A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D48D59A027DA298700A0993A /* Assets.xcassets */; };
 		D4B36D8127DCBCD500C71343 /* QrScanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B36D8027DCBCD500C71343 /* QrScanViewController.swift */; };
+		D4C8796427DCCA3500A8365D /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = D4C8796327DCCA3500A8365D /* SnapKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D42A107B27DC9B4D007060B4 /* QRScanner in Frameworks */,
+				D4C8796427DCCA3500A8365D /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -116,6 +118,7 @@
 			name = "TIMELAB-Prototype";
 			packageProductDependencies = (
 				D42A107A27DC9B4D007060B4 /* QRScanner */,
+				D4C8796327DCCA3500A8365D /* SnapKit */,
 			);
 			productName = "TIMELAB-Prototype";
 			productReference = D48D599427DA298600A0993A /* TIMELAB-Prototype.app */;
@@ -147,6 +150,7 @@
 			mainGroup = D48D598B27DA298600A0993A;
 			packageReferences = (
 				D42A107927DC9B4D007060B4 /* XCRemoteSwiftPackageReference "QRScanner" */,
+				D4C8796227DCCA3500A8365D /* XCRemoteSwiftPackageReference "SnapKit" */,
 			);
 			productRefGroup = D48D599527DA298600A0993A /* Products */;
 			projectDirPath = "";
@@ -398,6 +402,14 @@
 				minimumVersion = 1.0.0;
 			};
 		};
+		D4C8796227DCCA3500A8365D /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit";
+			requirement = {
+				branch = develop;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -405,6 +417,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D42A107927DC9B4D007060B4 /* XCRemoteSwiftPackageReference "QRScanner" */;
 			productName = QRScanner;
+		};
+		D4C8796327DCCA3500A8365D /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D4C8796227DCCA3500A8365D /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

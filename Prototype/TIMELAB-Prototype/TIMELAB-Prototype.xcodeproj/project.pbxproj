@@ -7,21 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D42A107B27DC9B4D007060B4 /* QRScanner in Frameworks */ = {isa = PBXBuildFile; productRef = D42A107A27DC9B4D007060B4 /* QRScanner */; };
 		D48D599827DA298600A0993A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48D599727DA298600A0993A /* AppDelegate.swift */; };
 		D48D599A27DA298600A0993A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48D599927DA298600A0993A /* SceneDelegate.swift */; };
-		D48D599C27DA298600A0993A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48D599B27DA298600A0993A /* ViewController.swift */; };
-		D48D59A127DA298700A0993A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D48D59A027DA298700A0993A /* Assets.xcassets */; };
 		D48D59A427DA298700A0993A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D48D59A227DA298700A0993A /* LaunchScreen.storyboard */; };
+		D48D59AB27DB8B3F00A0993A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D48D59A027DA298700A0993A /* Assets.xcassets */; };
+		D4B36D8127DCBCD500C71343 /* QrScanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B36D8027DCBCD500C71343 /* QrScanViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		D48D599427DA298600A0993A /* TIMELAB-Prototype.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TIMELAB-Prototype.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D48D599727DA298600A0993A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D48D599927DA298600A0993A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		D48D599B27DA298600A0993A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		D48D59A027DA298700A0993A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D48D59A327DA298700A0993A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D48D59A527DA298700A0993A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D4B36D8027DCBCD500C71343 /* QrScanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QrScanViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,6 +30,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D42A107B27DC9B4D007060B4 /* QRScanner in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -56,12 +58,44 @@
 			children = (
 				D48D599727DA298600A0993A /* AppDelegate.swift */,
 				D48D599927DA298600A0993A /* SceneDelegate.swift */,
-				D48D599B27DA298600A0993A /* ViewController.swift */,
+				D4B36D7C27DCBB5700C71343 /* Model */,
+				D4B36D7D27DCBB6200C71343 /* View */,
+				D4B36D7E27DCBB7400C71343 /* ViewModel */,
 				D48D59A027DA298700A0993A /* Assets.xcassets */,
 				D48D59A227DA298700A0993A /* LaunchScreen.storyboard */,
 				D48D59A527DA298700A0993A /* Info.plist */,
 			);
 			path = "TIMELAB-Prototype";
+			sourceTree = "<group>";
+		};
+		D4B36D7C27DCBB5700C71343 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		D4B36D7D27DCBB6200C71343 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D4B36D7F27DCBC9D00C71343 /* QrScanView */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		D4B36D7E27DCBB7400C71343 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		D4B36D7F27DCBC9D00C71343 /* QrScanView */ = {
+			isa = PBXGroup;
+			children = (
+				D4B36D8027DCBCD500C71343 /* QrScanViewController.swift */,
+			);
+			path = QrScanView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -80,6 +114,9 @@
 			dependencies = (
 			);
 			name = "TIMELAB-Prototype";
+			packageProductDependencies = (
+				D42A107A27DC9B4D007060B4 /* QRScanner */,
+			);
 			productName = "TIMELAB-Prototype";
 			productReference = D48D599427DA298600A0993A /* TIMELAB-Prototype.app */;
 			productType = "com.apple.product-type.application";
@@ -108,6 +145,9 @@
 				Base,
 			);
 			mainGroup = D48D598B27DA298600A0993A;
+			packageReferences = (
+				D42A107927DC9B4D007060B4 /* XCRemoteSwiftPackageReference "QRScanner" */,
+			);
 			productRefGroup = D48D599527DA298600A0993A /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -122,8 +162,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D48D59AB27DB8B3F00A0993A /* Assets.xcassets in Resources */,
 				D48D59A427DA298700A0993A /* LaunchScreen.storyboard in Resources */,
-				D48D59A127DA298700A0993A /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -134,7 +174,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D48D599C27DA298600A0993A /* ViewController.swift in Sources */,
+				D4B36D8127DCBCD500C71343 /* QrScanViewController.swift in Sources */,
 				D48D599827DA298600A0993A /* AppDelegate.swift in Sources */,
 				D48D599A27DA298600A0993A /* SceneDelegate.swift in Sources */,
 			);
@@ -280,6 +320,7 @@
 				DEVELOPMENT_TEAM = BR3T8YBB5L;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "TIMELAB-Prototype/Info.plist";
+				INFOPLIST_KEY_NSCameraUsageDescription = "TIMELAB はカメラ機能の使用を求めています。許可しますか？";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -307,6 +348,7 @@
 				DEVELOPMENT_TEAM = BR3T8YBB5L;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "TIMELAB-Prototype/Info.plist";
+				INFOPLIST_KEY_NSCameraUsageDescription = "TIMELAB はカメラ機能の使用を求めています。許可しますか？";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -346,6 +388,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		D42A107927DC9B4D007060B4 /* XCRemoteSwiftPackageReference "QRScanner" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/mercari/QRScanner";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		D42A107A27DC9B4D007060B4 /* QRScanner */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D42A107927DC9B4D007060B4 /* XCRemoteSwiftPackageReference "QRScanner" */;
+			productName = QRScanner;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = D48D598C27DA298600A0993A /* Project object */;
 }

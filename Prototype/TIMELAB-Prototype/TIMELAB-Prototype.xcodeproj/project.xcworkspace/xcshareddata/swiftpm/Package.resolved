@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "QRScanner",
+        "repositoryURL": "https://github.com/mercari/QRScanner",
+        "state": {
+          "branch": null,
+          "revision": "b9bbcabf8ce54974b56a63f403abc43930684314",
+          "version": "1.9.0"
+        }
+      }
+    ]
+  },
+  "version": 1
+}

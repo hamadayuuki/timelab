@@ -14,39 +14,7 @@ class QrScanViewController: UIViewController {
 
     private var qrScannerView: QRScannerView!
     private var qrFrameSize: CGRect!
-    
-    lazy var maskCALayer: CALayer = {
-        
-        let centerX = view.bounds.width / 2.0
-        let centerY = view.bounds.height / 2.0
-        let maskWidth = 350.0
-        let maskHeight = 500.0
-        
-        // くり抜かれる レイヤー
-        let maskBackgroundLayer = CALayer()
-        maskBackgroundLayer.bounds = view.bounds
-        maskBackgroundLayer.position = view.center
-        maskBackgroundLayer.backgroundColor = UIColor.black.cgColor
-        maskBackgroundLayer.opacity = 0.2
-
-        // くり抜く レイヤー
-        let maskLayer = CAShapeLayer()
-        maskLayer.bounds = maskBackgroundLayer.bounds
-        let startPosition: [String: CGFloat] = ["x": centerX - (maskWidth / 2.0), "y": centerY - (maskHeight / 2.0)]
-        let maskRect =  CGRect(x: startPosition["x"]!, y: startPosition["y"]!, width: maskWidth, height: maskHeight)
-        
-        // 描画
-        let path =  UIBezierPath(rect: maskRect)
-        path.append(UIBezierPath(rect: maskLayer.bounds))
-        maskLayer.fillColor = UIColor.black.cgColor
-        maskLayer.path = path.cgPath
-        maskLayer.position = CGPoint(x: centerX, y: centerY)
-        
-        // マスクのルールをeven/oddに設定する
-        maskLayer.fillRule = CAShapeLayerFillRule.evenOdd
-        maskBackgroundLayer.mask = maskLayer
-        return maskBackgroundLayer
-    }()
+    private var maskCALayer: MaskCALayer!
     
     let qrTextLabel: UILabel = {
         let label = UILabel()
@@ -81,12 +49,13 @@ class QrScanViewController: UIViewController {
             make.height.equalTo(100)
         }
         
-       view.layer.addSublayer(maskCALayer)
-        qrScannerView.snp.makeConstraints { (make) -> Void in
-            make.center.equalTo(self.view)
-            make.width.equalTo(view.bounds.width)
-            make.height.equalTo(view.bounds.height)
-         }
+//        maskCALayer = MaskCALayer(view: self.view, maskWidth: 300, maskHeight: 300)
+//        view.layer.addSublayer(maskCALayer)
+//        qrScannerView.snp.makeConstraints { (make) -> Void in
+//            make.center.equalTo(self.view)
+//            make.width.equalTo(view.bounds.width)
+//            make.height.equalTo(view.bounds.height)
+//         }
     }
     
    

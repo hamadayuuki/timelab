@@ -8,6 +8,7 @@
 import UIKit
 import QRScanner
 import SnapKit
+import CoreAudio
 
 class QrScanViewController: UIViewController {
 
@@ -46,6 +47,14 @@ class QrScanViewController: UIViewController {
         maskBackgroundLayer.mask = maskLayer
         return maskBackgroundLayer
     }()
+    
+    let qrTextLabel: UILabel = {
+        let label = UILabel()
+        label.text = ""
+        label.textColor = .black
+        label.backgroundColor = .white
+        return label
+    }()
 
     
     override func viewDidLoad() {
@@ -65,8 +74,14 @@ class QrScanViewController: UIViewController {
     }
     
     private func setLayout() {
-       view.layer.addSublayer(maskCALayer)
+        view.addSubview(qrTextLabel)
+        qrTextLabel.snp.makeConstraints { make -> Void in
+            make.center.equalTo(self.view)
+            make.width.equalTo(200)
+            make.height.equalTo(100)
+        }
         
+       view.layer.addSublayer(maskCALayer)
         qrScannerView.snp.makeConstraints { (make) -> Void in
             make.center.equalTo(self.view)
             make.width.equalTo(view.bounds.width)
@@ -84,6 +99,7 @@ extension QrScanViewController: QRScannerViewDelegate {
     }
     func qrScannerView(_ qrScannerView: QRScannerView, didSuccess code: String) {
         print(code)
+        qrTextLabel.text = code
     }
 }
 

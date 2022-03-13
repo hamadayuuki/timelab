@@ -16,7 +16,7 @@ class RegisterTextField: UITextField {
         self.frame = CGRect(x: 0, y: 0, width: 300, height: 70)   // 下線のため
         self.placeholder = placeholder
         self.font = .systemFont(ofSize: 30)
-        setUnderLine(color: .orange)
+        setUnderLine(color: .orange, thickness: 0.5)
     }
     
     private func setupLayout() {

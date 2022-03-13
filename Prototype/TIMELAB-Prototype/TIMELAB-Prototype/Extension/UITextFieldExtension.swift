@@ -8,13 +8,13 @@
 import UIKit
 
 extension UITextField {
-    func setUnderLine(color: UIColor) {
+    func setUnderLine(color: UIColor, thickness: CGFloat) {
         print("frame: ", frame)
         // 枠線を非表示にする
         borderStyle = .none
         let underline = UIView()
-        // heightにはアンダーラインの高さを入れる
-        underline.frame = CGRect(x: 0, y: frame.height, width: frame.width, height: 0.5)
+        // heightにはアンダーラインの高さを入れる, 標準が 0.5
+        underline.frame = CGRect(x: 0, y: frame.height, width: frame.width, height: thickness)
         // 枠線の色
         underline.backgroundColor = color
         addSubview(underline)

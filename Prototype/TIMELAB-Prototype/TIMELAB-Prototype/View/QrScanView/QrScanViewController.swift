@@ -20,17 +20,18 @@ class QrScanViewController: UIViewController {
         let label = UILabel()
         label.text = ""
         label.textColor = .black
+        label.font = .systemFont(ofSize: 20, weight: .bold)
+        label.adjustsFontSizeToFitWidth = true   // 大きさを自動で変更
+        label.textAlignment = .center
         label.backgroundColor = .white
         return label
     }()
-
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupQrScanner()
         setLayout()
-        
     }
     
     private func setupQrScanner() {
@@ -44,7 +45,8 @@ class QrScanViewController: UIViewController {
     private func setLayout() {
         view.addSubview(qrTextLabel)
         qrTextLabel.snp.makeConstraints { make -> Void in
-            make.center.equalTo(self.view)
+            make.centerX.equalTo(view.bounds.width / 2)
+            make.centerY.equalTo((view.bounds.height / 2) + 100)
             make.width.equalTo(200)
             make.height.equalTo(100)
         }
@@ -57,8 +59,6 @@ class QrScanViewController: UIViewController {
 //            make.height.equalTo(view.bounds.height)
 //         }
     }
-    
-   
 
 }
 

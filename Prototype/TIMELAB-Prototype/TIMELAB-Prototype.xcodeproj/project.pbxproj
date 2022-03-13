@@ -23,6 +23,7 @@
 		D4C8797927DE1ED700A8365D /* RegisterTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C8797827DE1ED700A8365D /* RegisterTextField.swift */; };
 		D4C8797C27DE227000A8365D /* UITextFieldExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C8797B27DE227000A8365D /* UITextFieldExtension.swift */; };
 		D4C8797E27DE3B8600A8365D /* RegisterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C8797D27DE3B8600A8365D /* RegisterButton.swift */; };
+		D4C8798127DE417300A8365D /* RegisterUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C8798027DE417300A8365D /* RegisterUserViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		D4C8797827DE1ED700A8365D /* RegisterTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterTextField.swift; sourceTree = "<group>"; };
 		D4C8797B27DE227000A8365D /* UITextFieldExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldExtension.swift; sourceTree = "<group>"; };
 		D4C8797D27DE3B8600A8365D /* RegisterButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterButton.swift; sourceTree = "<group>"; };
+		D4C8798027DE417300A8365D /* RegisterUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterUserViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +103,7 @@
 			children = (
 				D4B36D7F27DCBC9D00C71343 /* QrScanView */,
 				D4C8797527DE1D3700A8365D /* RegisterLabRoomView */,
+				D4C8797F27DE411C00A8365D /* RegisterUserView */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -137,6 +140,14 @@
 				D4C8797B27DE227000A8365D /* UITextFieldExtension.swift */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		D4C8797F27DE411C00A8365D /* RegisterUserView */ = {
+			isa = PBXGroup;
+			children = (
+				D4C8798027DE417300A8365D /* RegisterUserViewController.swift */,
+			);
+			path = RegisterUserView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -224,6 +235,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D4C8797E27DE3B8600A8365D /* RegisterButton.swift in Sources */,
+				D4C8798127DE417300A8365D /* RegisterUserViewController.swift in Sources */,
 				D4B36D8127DCBCD500C71343 /* QrScanViewController.swift in Sources */,
 				D4C8797727DE1D6100A8365D /* RegisterLabRoomViewController.swift in Sources */,
 				D4C8797C27DE227000A8365D /* UITextFieldExtension.swift in Sources */,

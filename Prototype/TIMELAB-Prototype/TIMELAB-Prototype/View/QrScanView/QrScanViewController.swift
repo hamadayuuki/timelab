@@ -8,13 +8,15 @@
 import UIKit
 import QRScanner
 import SnapKit
-import CoreAudio
+import RxSwift
+import RxCocoa
 
 class QrScanViewController: UIViewController {
 
     private var qrScannerView: QRScannerView!
     private var qrFrameSize: CGRect!
     private var maskCALayer: MaskCALayer!
+    private let disposeBag  = DisposeBag()
     
     let qrTextLabel: UILabel = {
         let label = UILabel()
@@ -27,11 +29,20 @@ class QrScanViewController: UIViewController {
         return label
     }()
     
+    let reloadButton: UIButton = {
+       let button = UIButton()
+        button.setTitle("再読み込み", for: .normal)
+        button.backgroundColor = .orange
+        button.layer.cornerRadius = 10
+        return button
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupQrScanner()
         setLayout()
+        setupBinding()
     }
     
     private func setupQrScanner() {
@@ -51,6 +62,14 @@ class QrScanViewController: UIViewController {
             make.height.equalTo(100)
         }
         
+        view.addSubview(reloadButton)
+        reloadButton.snp.makeConstraints { make -> Void in
+            make.centerX.equalTo(view.bounds.width / 2)
+            make.centerY.equalTo(view.bounds.height * 0.8)
+            make.width.equalTo(200)
+            make.height.equalTo(100)
+        }
+        
 //        maskCALayer = MaskCALayer(view: self.view, maskWidth: 300, maskHeight: 300)
 //        view.layer.addSublayer(maskCALayer)
 //        qrScannerView.snp.makeConstraints { (make) -> Void in
@@ -58,6 +77,14 @@ class QrScanViewController: UIViewController {
 //            make.width.equalTo(view.bounds.width)
 //            make.height.equalTo(view.bounds.height)
 //         }
+    }
+    
+    private func setupBinding() {
+        reloadButton.rx.tap
+            .subscribe { [weak self] _ in
+                self?.viewDidLoad()
+            }
+            .disposed(by: disposeBag)
     }
 
 }

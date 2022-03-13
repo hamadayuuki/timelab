@@ -19,7 +19,7 @@ class QrScanViewController: UIViewController {
         let centerX = view.bounds.width / 2.0
         let centerY = view.bounds.height / 2.0
         let maskWidth = 350.0
-        let maskHeight = 350.0
+        let maskHeight = 500.0
         
         // くり抜かれる レイヤー
         let maskBackgroundLayer = CALayer()
@@ -58,10 +58,9 @@ class QrScanViewController: UIViewController {
     
     private func setupQrScanner() {
         // QRScanner - メルカリ
-//        qrFrameSize = CGRect(x: 0.0, y: 0.0, width: 500, height: 500)
-        qrScannerView = QRScannerView(frame: view.bounds/*qrFrameSize*/)
+        qrScannerView = QRScannerView(frame: view.bounds)
         view.addSubview(qrScannerView)   // qrScannerView 直後に置かないとエラー発生
-        qrScannerView.configure(delegate: self)
+        qrScannerView.configure(delegate: self, input: .init(isBlurEffectEnabled: true))
         qrScannerView.startRunning()
     }
     

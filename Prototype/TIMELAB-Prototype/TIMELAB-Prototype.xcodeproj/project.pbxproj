@@ -18,6 +18,7 @@
 		D4C8796D27DDB07300A8365D /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = D4C8796C27DDB07300A8365D /* RxCocoa */; };
 		D4C8796F27DDB07300A8365D /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = D4C8796E27DDB07300A8365D /* RxRelay */; };
 		D4C8797127DDB07300A8365D /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = D4C8797027DDB07300A8365D /* RxSwift */; };
+		D4C8797427DDB22A00A8365D /* PKHUD in Frameworks */ = {isa = PBXBuildFile; productRef = D4C8797327DDB22A00A8365D /* PKHUD */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +40,7 @@
 				D4C8796D27DDB07300A8365D /* RxCocoa in Frameworks */,
 				D42A107B27DC9B4D007060B4 /* QRScanner in Frameworks */,
 				D4C8797127DDB07300A8365D /* RxSwift in Frameworks */,
+				D4C8797427DDB22A00A8365D /* PKHUD in Frameworks */,
 				D4C8796F27DDB07300A8365D /* RxRelay in Frameworks */,
 				D4C8796427DCCA3500A8365D /* SnapKit in Frameworks */,
 			);
@@ -131,6 +133,7 @@
 				D4C8796C27DDB07300A8365D /* RxCocoa */,
 				D4C8796E27DDB07300A8365D /* RxRelay */,
 				D4C8797027DDB07300A8365D /* RxSwift */,
+				D4C8797327DDB22A00A8365D /* PKHUD */,
 			);
 			productName = "TIMELAB-Prototype";
 			productReference = D48D599427DA298600A0993A /* TIMELAB-Prototype.app */;
@@ -164,6 +167,7 @@
 				D42A107927DC9B4D007060B4 /* XCRemoteSwiftPackageReference "QRScanner" */,
 				D4C8796227DCCA3500A8365D /* XCRemoteSwiftPackageReference "SnapKit" */,
 				D4C8796B27DDB07300A8365D /* XCRemoteSwiftPackageReference "RxSwift" */,
+				D4C8797227DDB22A00A8365D /* XCRemoteSwiftPackageReference "PKHUD" */,
 			);
 			productRefGroup = D48D599527DA298600A0993A /* Products */;
 			projectDirPath = "";
@@ -432,6 +436,14 @@
 				minimumVersion = 6.0.0;
 			};
 		};
+		D4C8797227DDB22A00A8365D /* XCRemoteSwiftPackageReference "PKHUD" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pkluz/PKHUD";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -459,6 +471,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D4C8796B27DDB07300A8365D /* XCRemoteSwiftPackageReference "RxSwift" */;
 			productName = RxSwift;
+		};
+		D4C8797327DDB22A00A8365D /* PKHUD */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D4C8797227DDB22A00A8365D /* XCRemoteSwiftPackageReference "PKHUD" */;
+			productName = PKHUD;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

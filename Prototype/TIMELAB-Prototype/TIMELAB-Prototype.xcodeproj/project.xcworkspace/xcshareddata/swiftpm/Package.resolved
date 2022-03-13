@@ -2,6 +2,15 @@
   "object": {
     "pins": [
       {
+        "package": "PKHUD",
+        "repositoryURL": "https://github.com/pkluz/PKHUD",
+        "state": {
+          "branch": "master",
+          "revision": "8fd26f23057c6bebd6695524b1c3e05e93aba571",
+          "version": null
+        }
+      },
+      {
         "package": "QRScanner",
         "repositoryURL": "https://github.com/mercari/QRScanner",
         "state": {

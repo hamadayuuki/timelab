@@ -82,6 +82,7 @@ class QrScanViewController: UIViewController {
     private func setupBinding() {
         reloadButton.rx.tap
             .subscribe { [weak self] _ in
+                self?.loadView()
                 self?.viewDidLoad()
             }
             .disposed(by: disposeBag)

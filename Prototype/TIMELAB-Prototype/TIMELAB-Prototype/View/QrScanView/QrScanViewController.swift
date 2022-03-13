@@ -37,6 +37,15 @@ class QrScanViewController: UIViewController {
         return button
     }()
     
+    let createLabRoomButton: UIButton = {
+        let button = UIButton()
+         button.setTitle("+", for: .normal)
+         button.titleLabel?.textColor = .white
+         button.backgroundColor = .blue
+         button.layer.cornerRadius = 30
+         return button
+     }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -70,6 +79,14 @@ class QrScanViewController: UIViewController {
             make.height.equalTo(100)
         }
         
+        view.addSubview(createLabRoomButton)
+        createLabRoomButton.snp.makeConstraints { make -> Void in
+            make.centerX.equalTo(view.bounds.width * 0.8)
+            make.centerY.equalTo(view.bounds.height * 0.1)
+            make.width.equalTo(60)
+            make.height.equalTo(60)
+        }
+        
 //        maskCALayer = MaskCALayer(view: self.view, maskWidth: 300, maskHeight: 300)
 //        view.layer.addSublayer(maskCALayer)
 //        qrScannerView.snp.makeConstraints { (make) -> Void in
@@ -84,6 +101,12 @@ class QrScanViewController: UIViewController {
             .subscribe { [weak self] _ in
                 self?.loadView()
                 self?.viewDidLoad()
+            }
+            .disposed(by: disposeBag)
+        
+        createLabRoomButton.rx.tap
+            .subscribe { [weak self] _ in
+                
             }
             .disposed(by: disposeBag)
     }

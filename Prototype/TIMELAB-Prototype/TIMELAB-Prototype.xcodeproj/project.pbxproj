@@ -19,6 +19,10 @@
 		D4C8796F27DDB07300A8365D /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = D4C8796E27DDB07300A8365D /* RxRelay */; };
 		D4C8797127DDB07300A8365D /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = D4C8797027DDB07300A8365D /* RxSwift */; };
 		D4C8797427DDB22A00A8365D /* PKHUD in Frameworks */ = {isa = PBXBuildFile; productRef = D4C8797327DDB22A00A8365D /* PKHUD */; };
+		D4C8797727DE1D6100A8365D /* RegisterLabRoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C8797627DE1D6100A8365D /* RegisterLabRoomViewController.swift */; };
+		D4C8797927DE1ED700A8365D /* RegisterTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C8797827DE1ED700A8365D /* RegisterTextField.swift */; };
+		D4C8797C27DE227000A8365D /* UITextFieldExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C8797B27DE227000A8365D /* UITextFieldExtension.swift */; };
+		D4C8797E27DE3B8600A8365D /* RegisterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C8797D27DE3B8600A8365D /* RegisterButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +34,10 @@
 		D48D59A527DA298700A0993A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D4B36D8027DCBCD500C71343 /* QrScanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QrScanViewController.swift; sourceTree = "<group>"; };
 		D4C8796927DDA4FC00A8365D /* MaskCALayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaskCALayer.swift; sourceTree = "<group>"; };
+		D4C8797627DE1D6100A8365D /* RegisterLabRoomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterLabRoomViewController.swift; sourceTree = "<group>"; };
+		D4C8797827DE1ED700A8365D /* RegisterTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterTextField.swift; sourceTree = "<group>"; };
+		D4C8797B27DE227000A8365D /* UITextFieldExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldExtension.swift; sourceTree = "<group>"; };
+		D4C8797D27DE3B8600A8365D /* RegisterButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +78,7 @@
 			children = (
 				D48D599727DA298600A0993A /* AppDelegate.swift */,
 				D48D599927DA298600A0993A /* SceneDelegate.swift */,
+				D4C8797A27DE225B00A8365D /* Extension */,
 				D4B36D7C27DCBB5700C71343 /* Model */,
 				D4B36D7D27DCBB6200C71343 /* View */,
 				D4B36D7E27DCBB7400C71343 /* ViewModel */,
@@ -91,6 +100,7 @@
 			isa = PBXGroup;
 			children = (
 				D4B36D7F27DCBC9D00C71343 /* QrScanView */,
+				D4C8797527DE1D3700A8365D /* RegisterLabRoomView */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -109,6 +119,24 @@
 				D4C8796927DDA4FC00A8365D /* MaskCALayer.swift */,
 			);
 			path = QrScanView;
+			sourceTree = "<group>";
+		};
+		D4C8797527DE1D3700A8365D /* RegisterLabRoomView */ = {
+			isa = PBXGroup;
+			children = (
+				D4C8797627DE1D6100A8365D /* RegisterLabRoomViewController.swift */,
+				D4C8797827DE1ED700A8365D /* RegisterTextField.swift */,
+				D4C8797D27DE3B8600A8365D /* RegisterButton.swift */,
+			);
+			path = RegisterLabRoomView;
+			sourceTree = "<group>";
+		};
+		D4C8797A27DE225B00A8365D /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				D4C8797B27DE227000A8365D /* UITextFieldExtension.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -195,7 +223,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4C8797E27DE3B8600A8365D /* RegisterButton.swift in Sources */,
 				D4B36D8127DCBCD500C71343 /* QrScanViewController.swift in Sources */,
+				D4C8797727DE1D6100A8365D /* RegisterLabRoomViewController.swift in Sources */,
+				D4C8797C27DE227000A8365D /* UITextFieldExtension.swift in Sources */,
+				D4C8797927DE1ED700A8365D /* RegisterTextField.swift in Sources */,
 				D4C8796A27DDA4FC00A8365D /* MaskCALayer.swift in Sources */,
 				D48D599827DA298600A0993A /* AppDelegate.swift in Sources */,
 				D48D599A27DA298600A0993A /* SceneDelegate.swift in Sources */,

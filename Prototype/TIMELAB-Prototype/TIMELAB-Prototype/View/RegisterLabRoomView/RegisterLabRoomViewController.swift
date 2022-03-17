@@ -13,14 +13,24 @@ class RegisterLabRoomViewController: UIViewController {
     
     let disposeBag = DisposeBag()
     
-    let univercityTextField = RegisterTextField(placeholder: "〇〇大学")
-    let facultyTextField = RegisterTextField(placeholder: "〇〇学部")
-    let departmentTextField = RegisterTextField(placeholder: "〇〇学科")
-    let labRoomNameTextField = RegisterTextField(placeholder: "〇〇研究室")
-    let registerButton = RegisterButton()
+    // UI Parts
+    var universityLabel: RegisterLabel!   // 大学
+    var universityTextField: RegisterTextField!
+    var validateUniversityLabel: RegisterLabel!
+    var departmentLabel: RegisterLabel!   // 学部
+    var departmentTextField: RegisterTextField!
+    var validateDepartmentLabel: RegisterLabel!
+    var courseLabel: RegisterLabel!   // 学科
+    var courseTextField: RegisterTextField!
+    var validateCourseLabel: RegisterLabel!
+    var labLabel: RegisterLabel!   // 研究室
+    var labTextField: RegisterTextField!
+    var validateLabLabel: RegisterLabel!
+    var registerButton: RegisterButton!   // 登録ボタン
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         setupLayout()
         setupBinding()
     }
@@ -28,10 +38,41 @@ class RegisterLabRoomViewController: UIViewController {
     private func setupLayout() {
         self.view.backgroundColor = .white
         
-        let registerVerticalView = UIStackView(arrangedSubviews: [univercityTextField, facultyTextField, departmentTextField, labRoomNameTextField])
+        let width = view.bounds.width
+        let height = view.bounds.height
+        
+        universityLabel = RegisterLabel(text: "大学名", size: 18)
+        universityTextField = RegisterTextField(placeholder: "")
+        validateUniversityLabel = RegisterLabel(text: "", size: 10)
+        departmentLabel = RegisterLabel(text: "学部", size: 18)
+        departmentTextField = RegisterTextField(placeholder: "")
+        validateDepartmentLabel = RegisterLabel(text: "", size: 10)
+        courseLabel = RegisterLabel(text: "学科/コース", size: 18)
+        courseTextField = RegisterTextField(placeholder: "")
+        validateCourseLabel = RegisterLabel(text: "", size: 10)
+        labLabel = RegisterLabel(text: "研究室/ゼミ", size: 18)
+        labTextField = RegisterTextField(placeholder: "")
+        validateLabLabel = RegisterLabel(text: "", size: 10)
+        
+        registerButton = RegisterButton()
+        
+        let universityVerticalView = UIStackView(arrangedSubviews: [universityLabel, universityTextField, validateUniversityLabel])
+        universityVerticalView.axis = .vertical
+        universityVerticalView.spacing = 5
+        let departmentVerticalView = UIStackView(arrangedSubviews: [departmentLabel, departmentTextField, validateDepartmentLabel])
+        departmentVerticalView.axis = .vertical
+        departmentVerticalView.spacing = 5
+        let courseVerticalView = UIStackView(arrangedSubviews: [courseLabel, courseTextField, validateCourseLabel])
+        courseVerticalView.axis = .vertical
+        courseVerticalView.spacing = 5
+        let labVerticalView = UIStackView(arrangedSubviews: [labLabel, labTextField, validateLabLabel])
+        labVerticalView.axis = .vertical
+        labVerticalView.spacing = 5
+        
+        let registerVerticalView = UIStackView(arrangedSubviews: [universityVerticalView, departmentVerticalView, courseVerticalView, labVerticalView])
         registerVerticalView.axis = .vertical
         registerVerticalView.distribution = .fillEqually   // 要素の大きさを均等にする
-        registerVerticalView.spacing = 50
+        registerVerticalView.spacing = 20
         
         view.addSubview(registerVerticalView)
         registerVerticalView.snp.makeConstraints { make -> Void in
@@ -46,6 +87,15 @@ class RegisterLabRoomViewController: UIViewController {
             make.width.equalTo(100)
             make.height.equalTo(70)
         }
+        
+        // 背景をタップしたらキーボードを隠す
+        let tapBackground = UITapGestureRecognizer()
+        tapBackground.rx.event
+            .subscribe(onNext: { [weak self] _ in
+                self?.view.endEditing(true)
+            })
+            .disposed(by: disposeBag)
+        view.addGestureRecognizer(tapBackground)
     }
     
     private func setupBinding() {

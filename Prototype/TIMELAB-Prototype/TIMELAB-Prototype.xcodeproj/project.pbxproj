@@ -24,6 +24,7 @@
 		D4C8797C27DE227000A8365D /* UITextFieldExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C8797B27DE227000A8365D /* UITextFieldExtension.swift */; };
 		D4C8797E27DE3B8600A8365D /* RegisterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C8797D27DE3B8600A8365D /* RegisterButton.swift */; };
 		D4C8798127DE417300A8365D /* RegisterUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C8798027DE417300A8365D /* RegisterUserViewController.swift */; };
+		D4C87A1327E3332900A8365D /* RegisterLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C87A1227E3332900A8365D /* RegisterLabel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		D4C8797B27DE227000A8365D /* UITextFieldExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldExtension.swift; sourceTree = "<group>"; };
 		D4C8797D27DE3B8600A8365D /* RegisterButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterButton.swift; sourceTree = "<group>"; };
 		D4C8798027DE417300A8365D /* RegisterUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterUserViewController.swift; sourceTree = "<group>"; };
+		D4C87A1227E3332900A8365D /* RegisterLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterLabel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,6 +132,7 @@
 				D4C8797627DE1D6100A8365D /* RegisterLabRoomViewController.swift */,
 				D4C8797827DE1ED700A8365D /* RegisterTextField.swift */,
 				D4C8797D27DE3B8600A8365D /* RegisterButton.swift */,
+				D4C87A1227E3332900A8365D /* RegisterLabel.swift */,
 			);
 			path = RegisterLabRoomView;
 			sourceTree = "<group>";
@@ -237,6 +240,7 @@
 				D4C8797E27DE3B8600A8365D /* RegisterButton.swift in Sources */,
 				D4C8798127DE417300A8365D /* RegisterUserViewController.swift in Sources */,
 				D4B36D8127DCBCD500C71343 /* QrScanViewController.swift in Sources */,
+				D4C87A1327E3332900A8365D /* RegisterLabel.swift in Sources */,
 				D4C8797727DE1D6100A8365D /* RegisterLabRoomViewController.swift in Sources */,
 				D4C8797C27DE227000A8365D /* UITextFieldExtension.swift in Sources */,
 				D4C8797927DE1ED700A8365D /* RegisterTextField.swift in Sources */,

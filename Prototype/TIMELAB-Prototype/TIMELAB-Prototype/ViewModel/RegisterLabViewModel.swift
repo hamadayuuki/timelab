@@ -10,9 +10,10 @@ import RxSwift
 import RxCocoa
 
 class RegisterLabViewModel {
-    let emailValidation: Driver<ValidationResult>
-    let passwordValidation: Driver<ValidationResult>
-    let passwordConfirmValidation: Driver<ValidationResult>
+    let universityValidation: Driver<ValidationResult>
+    let departmentValidation: Driver<ValidationResult>
+    let courseValidation: Driver<ValidationResult>
+    let labValidation: Driver<ValidationResult>
     
     let isSignUp: Driver<Bool>
     let canSignUp: Driver<Bool>
@@ -21,38 +22,44 @@ class RegisterLabViewModel {
     
     // input: V から通知を受け取れるよう、初期化
     init(input: (
-        email: Driver<String>,
-        password: Driver<String>,
-        passwordConfirm: Driver<String>,
-        signUpTaps: Signal<Void>   // tap を受け取るときは Signal
-    )/*, signUpAPI: FireAuthModel*/) {
+        university: Driver<String>,
+        department: Driver<String>,
+        course: Driver<String>,
+        lab: Driver<String>,
+        registerButton: Signal<Void>   // tap を受け取るときは Signal
+    ), signUpAPI: RegisterModel) {
         
         // M とのつながり
-//        let registerModel = RegisterValidationModel()
+        let registerLabValidationModel = RegisterLabValidationModel()
         
         // V からの通知(データも?)を受け取り M に処理を任せる, V から呼ばれることでデータ送信(VM→V)を行える
-        emailValidation = input.email
-            .map { email in
-//                registerModel.ValidateEmail(email: email)
+        universityValidation = input.university
+            .map { university in
+                registerLabValidationModel.ValidateUniversity(university: university)
             }
-        passwordValidation = input.password
-            .map { password in
-//                registerModel.ValidatePassword(password: password)
+        departmentValidation = input.department
+            .map { department in
+                registerLabValidationModel.ValidateDepartment(department: department)
             }
-        passwordConfirmValidation = Driver.combineLatest(input.password, input.passwordConfirm)
-            .map { (password, passwordConfirm) in
-//                registerModel.ValidatePasswordConfirm(password: password, passwordConfirm: passwordConfirm)
+        courseValidation = input.course
+            .map { course in
+                registerLabValidationModel.ValidateCourse(course: course)
+            }
+        labValidation = input.lab
+            .map { lab in
+                registerLabValidationModel.ValidateLab(lab: lab)
             }
         
         // アカウント作成
-        let emailAndPassword = Driver.combineLatest(input.email, input.password) { (email: $0, password: $1) }
-        let result = input.signUpTaps
+        let signUpDatas = Driver.combineLatest(input.university, input.department, input.course, input.lab) { (university: $0, department: $1, course: $2, lab: $3) }
+        let result = input.registerButton
             .asObservable()
-//            .withLatestFrom(emailAndPassword)
-//            .flatMapLatest { tuple in
-//                signUpAPI.createUserToFireAuth(email: tuple.email, password: tuple.password)
-//            }
-//            .share(replay: 1)
+            .withLatestFrom(signUpDatas)
+            .flatMapLatest { tuple in
+//                signUpAPI.createUserToFireAuth(email: tuple.university, password: tuple.department)
+                signUpAPI.createLabToFireStore(university: tuple.university, department: tuple.department, course: tuple.course, lab: tuple.lab)
+            }
+            .share(replay: 1)
         
         // M でのアカウント登録結果を受け取り、V に渡している, M→VM, VM→M
         isSignUp = result
@@ -62,8 +69,8 @@ class RegisterLabViewModel {
         
         // アカウント作成可能か
         // ! ここに isSignUp をいれないと、アカウント登録が呼ばれない → 実装を変更する必要あり
-        canSignUp = Driver.combineLatest(emailValidation, passwordValidation, passwordConfirmValidation){ (email, password, passwordConfirm) in
-//            registerModel.ValidateCanRegister(emailIsValid: email.isValid, passwordIsValid: password.isValid, passwordConfirmIsValid: passwordConfirm.isValid)
+        canSignUp = Driver.combineLatest(universityValidation, departmentValidation, courseValidation, labValidation){ (university, department, course, lab) in
+            registerLabValidationModel.ValidateCanRegister(universityIsValid: university.isValid, departmentIsValid: department.isValid, courseIsValid: course.isValid, labIsValid: lab.isValid)
         }
         .distinctUntilChanged()
     }

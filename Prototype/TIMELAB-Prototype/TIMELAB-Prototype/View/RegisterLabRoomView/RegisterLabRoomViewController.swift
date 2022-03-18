@@ -8,6 +8,7 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import PKHUD
 
 class RegisterLabRoomViewController: UIViewController {
     
@@ -27,6 +28,8 @@ class RegisterLabRoomViewController: UIViewController {
     var labTextField: RegisterTextField!
     var validateLabLabel: RegisterLabel!
     var registerButton: RegisterButton!   // 登録ボタン
+    
+    var isProgressView = false   // ローディング画面のフラグ
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -99,11 +102,76 @@ class RegisterLabRoomViewController: UIViewController {
     }
     
     private func setupBinding() {
+        
+        let registerLabViewModel: RegisterLabViewModel!
+        
+        // VM とのつながり, input にイベントを送る(テキストの変更やボタンのタップ等), 送るだけ, 登録のようなイメージ
+        registerLabViewModel = RegisterLabViewModel(input: (
+            university: universityTextField.rx.text.orEmpty.asDriver(),
+            department: departmentTextField.rx.text.orEmpty.asDriver(),
+            course: courseTextField.rx.text.orEmpty.asDriver(),
+            lab: labTextField.rx.text.orEmpty.asDriver(),
+            registerButton: registerButton.rx.tap.asSignal()   // ボタンのタップには Single を使用する
+        ), signUpAPI: RegisterModel())
+        
+        // MV からデータ受け取る, データの値を変更
+        registerLabViewModel.universityValidation
+            .drive(validateUniversityLabel.rx.validationResult)   // VM で 戻り値を ValidationResult にしているため,受け取りもvalidationResultにする
+            .disposed(by: disposeBag)
+        
+        registerLabViewModel.departmentValidation
+            .drive(validateDepartmentLabel.rx.validationResult)
+            .disposed(by: disposeBag)
+        
+        registerLabViewModel.courseValidation
+            .drive(validateCourseLabel.rx.validationResult)
+            .disposed(by: disposeBag)
+        
+        registerLabViewModel.labValidation
+            .drive(validateLabLabel.rx.validationResult)
+            .disposed(by: disposeBag)
+        
+        registerLabViewModel.canSignUp
+            .drive(onNext: { [weak self] valid  in
+                self?.registerButton.isEnabled = valid
+                self?.registerButton.alpha = valid ? 1.0 : 0.5
+                print("valid: ", valid)
+            })
+            .disposed(by: disposeBag)
+        
+        // ! ローディング画面を閉じるプログラムより 先(上) に書く必要がある, 後(下) に書くと実行が後回しになる
         registerButton.rx.tap
-            .subscribe { [weak self] _ in
-                // FireStore への登録
-                print("登録ボタンが押されました")
+            .subscribe { _ in
+                print("登録ボタンをタップしました")
+                print("rx.tap selfisProgressView: ", self.isProgressView)
+                HUD.show(.progress)
+                self.isProgressView = true
             }
             .disposed(by: disposeBag)
+        
+        // これがないと アカウント登録メソッド(M) が呼ばれない
+        registerLabViewModel.isSignUp
+            .drive { result in
+                print("result: ", result)
+                print("self.isProgressView: ", self.isProgressView)
+                if self.isProgressView {
+                    HUD.hide()
+                    // 画面遷移
+//                    let homeViewController = HomeViewController()
+//                    self.present(homeViewController, animated: true, completion: nil)
+                }
+            }
+            .disposed(by: disposeBag)
+        
+    }
+}
+
+// 登録時に使用するUILabelに型を追加
+extension Reactive where Base: UILabel {
+    var  validationResult: Binder<ValidationResult> {
+        return Binder(base) { label, result in
+            label.textColor = result.testColor
+            label.text = result.description
+        }
     }
 }

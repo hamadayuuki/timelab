@@ -27,6 +27,7 @@
 		D4C87A1327E3332900A8365D /* RegisterLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C87A1227E3332900A8365D /* RegisterLabel.swift */; };
 		D4C87A1527E484C600A8365D /* RegisterLabViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C87A1427E484C600A8365D /* RegisterLabViewModel.swift */; };
 		D4C87A1827E4859600A8365D /* ValidationResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C87A1727E4859600A8365D /* ValidationResult.swift */; };
+		D4C87A1C27E4869700A8365D /* RegisterValidationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C87A1B27E4869700A8365D /* RegisterValidationModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +47,7 @@
 		D4C87A1227E3332900A8365D /* RegisterLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterLabel.swift; sourceTree = "<group>"; };
 		D4C87A1427E484C600A8365D /* RegisterLabViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterLabViewModel.swift; sourceTree = "<group>"; };
 		D4C87A1727E4859600A8365D /* ValidationResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationResult.swift; sourceTree = "<group>"; };
+		D4C87A1B27E4869700A8365D /* RegisterValidationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterValidationModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +103,7 @@
 		D4B36D7C27DCBB5700C71343 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				D4C87A1B27E4869700A8365D /* RegisterValidationModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -261,6 +264,7 @@
 				D4C87A1527E484C600A8365D /* RegisterLabViewModel.swift in Sources */,
 				D4C8796A27DDA4FC00A8365D /* MaskCALayer.swift in Sources */,
 				D48D599827DA298600A0993A /* AppDelegate.swift in Sources */,
+				D4C87A1C27E4869700A8365D /* RegisterValidationModel.swift in Sources */,
 				D48D599A27DA298600A0993A /* SceneDelegate.swift in Sources */,
 				D4C87A1827E4859600A8365D /* ValidationResult.swift in Sources */,
 			);

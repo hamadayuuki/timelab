@@ -25,6 +25,8 @@
 		D4C8797E27DE3B8600A8365D /* RegisterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C8797D27DE3B8600A8365D /* RegisterButton.swift */; };
 		D4C8798127DE417300A8365D /* RegisterUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C8798027DE417300A8365D /* RegisterUserViewController.swift */; };
 		D4C87A1327E3332900A8365D /* RegisterLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C87A1227E3332900A8365D /* RegisterLabel.swift */; };
+		D4C87A1527E484C600A8365D /* RegisterLabViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C87A1427E484C600A8365D /* RegisterLabViewModel.swift */; };
+		D4C87A1827E4859600A8365D /* ValidationResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C87A1727E4859600A8365D /* ValidationResult.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +44,8 @@
 		D4C8797D27DE3B8600A8365D /* RegisterButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterButton.swift; sourceTree = "<group>"; };
 		D4C8798027DE417300A8365D /* RegisterUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterUserViewController.swift; sourceTree = "<group>"; };
 		D4C87A1227E3332900A8365D /* RegisterLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterLabel.swift; sourceTree = "<group>"; };
+		D4C87A1427E484C600A8365D /* RegisterLabViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterLabViewModel.swift; sourceTree = "<group>"; };
+		D4C87A1727E4859600A8365D /* ValidationResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationResult.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +86,7 @@
 			children = (
 				D48D599727DA298600A0993A /* AppDelegate.swift */,
 				D48D599927DA298600A0993A /* SceneDelegate.swift */,
+				D4C87A1627E4857800A8365D /* Other */,
 				D4C8797A27DE225B00A8365D /* Extension */,
 				D4B36D7C27DCBB5700C71343 /* Model */,
 				D4B36D7D27DCBB6200C71343 /* View */,
@@ -113,6 +118,7 @@
 		D4B36D7E27DCBB7400C71343 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				D4C87A1427E484C600A8365D /* RegisterLabViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -151,6 +157,14 @@
 				D4C8798027DE417300A8365D /* RegisterUserViewController.swift */,
 			);
 			path = RegisterUserView;
+			sourceTree = "<group>";
+		};
+		D4C87A1627E4857800A8365D /* Other */ = {
+			isa = PBXGroup;
+			children = (
+				D4C87A1727E4859600A8365D /* ValidationResult.swift */,
+			);
+			path = Other;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -244,9 +258,11 @@
 				D4C8797727DE1D6100A8365D /* RegisterLabRoomViewController.swift in Sources */,
 				D4C8797C27DE227000A8365D /* UITextFieldExtension.swift in Sources */,
 				D4C8797927DE1ED700A8365D /* RegisterTextField.swift in Sources */,
+				D4C87A1527E484C600A8365D /* RegisterLabViewModel.swift in Sources */,
 				D4C8796A27DDA4FC00A8365D /* MaskCALayer.swift in Sources */,
 				D48D599827DA298600A0993A /* AppDelegate.swift in Sources */,
 				D48D599A27DA298600A0993A /* SceneDelegate.swift in Sources */,
+				D4C87A1827E4859600A8365D /* ValidationResult.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

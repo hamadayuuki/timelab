@@ -12,7 +12,8 @@ import FirebaseAuth
 
 // Model には Protocol を作成する
 protocol RegisterModelProtocol {
-    func createUserToFireAuth(emai: String, password: String) -> Observable<Bool>
+    func createUserToFireAuth(emai: String, password: String) -> Observable<User>
+    func createUserToFireStore(email: String, uid: String, name: String) -> Observable<Bool>
     func createLabToFireStore(university: String, department: String, course: String, lab: String) -> Observable<Bool>
 }
 
@@ -20,28 +21,58 @@ class RegisterModel {
     init() { }
     
     // アカウント登録の状態を通知するために create を使い、アカウント登録を Observable化
-    //                                                            ↓ 完了を Bool で通知する
-    func createUserToFireAuth(email: String, password: String) -> Observable<Bool> {
+    //                                                                         ↓ VM で FireStroeへユーザー情報を登録できるよう User型 で通知
+    func createUserToFireAuth(name: String, email: String, password: String) -> Observable<User> {
+        print("name: ", name)
         print("email: ", email)
         print("password: ", password)
         
-        return Observable<Bool>.create { observer in
+        return Observable<User>.create { observer in
             // FireAuth への登録, email/password のチェックは完了している
             Auth.auth().createUser(withEmail: email, password: password) { (auth, err) in
                 if let err = err {
                     print("登録失敗: ", err)
-                    observer.onNext(false)
+                    let user = User(name: "", email: "", uid: "", isValid: false)
+                    observer.onNext(user)
                 }
                 
                 guard let uid = auth?.user.uid else { return }
                 print("登録成功: ", uid)
-                observer.onNext(true)
+                let user = User(name: name, email: email, uid: uid, isValid: true)
+                observer.onNext(user)
             }
             return Disposables.create {
                 print("Observable: Dispose")
             }
             
         }// return
+    }
+    
+    func createUserToFireStore(email: String, uid: String, name: String) -> Observable<Bool> {
+        print("FireStoreへユーザー登録")
+        
+        return Observable<Bool>.create { observer in
+            
+            let document = [
+                "name": name,
+                "email": email,
+                "createAt": Timestamp()
+            ] as [String : Any]
+            
+            Firestore.firestore().collection("user").document(uid).setData(document) { err in
+                if let err = err {
+                    print("FireStoreへの登録に失敗: ", err)
+                    observer.onNext(false)
+                }
+                print("FireStoreへの登録に成功")
+                observer.onNext(true)
+            }
+            return Disposables.create {
+                print("Observable: Dispose")
+            }
+            
+        }
+        
     }
     
     func createLabToFireStore(university: String, department: String, course: String, lab: String) -> Observable<Bool> {

@@ -38,6 +38,7 @@ class RegisterUserViewController: UIViewController {
         super.viewDidLoad()
         
         setupLayout()
+        setupBinding()
     }
     
     private func setupLayout() {
@@ -107,6 +108,7 @@ class RegisterUserViewController: UIViewController {
         
         // VM とのつながり, input にイベントを送る(テキストの変更やボタンのタップ等), 送るだけ, 登録のようなイメージ
         registerUserViewModel = RegisterUserViewModel(input: (
+            name: nameTextField.rx.text.orEmpty.asDriver(),
             email: emailTextField.rx.text.orEmpty.asDriver(),
             password: passwordTextField.rx.text.orEmpty.asDriver(),
             passwordConfirm: passwordConfirmTextField.rx.text.orEmpty.asDriver(),
@@ -114,8 +116,12 @@ class RegisterUserViewController: UIViewController {
         ), signUpAPI: RegisterModel())
         
         // MV からデータ受け取る, データの値を変更
+        registerUserViewModel.nameValidation
+            .drive(validateNameLabel.rx.validationResult)   // VM で 戻り値を ValidationResult にしているため,受け取りもvalidationResultにする
+            .disposed(by: disposeBag)
+        
         registerUserViewModel.emailValidation
-            .drive(validateEmailLabel.rx.validationResult)   // VM で 戻り値を ValidationResult にしているため,受け取りもvalidationResultにする
+            .drive(validateEmailLabel.rx.validationResult)
             .disposed(by: disposeBag)
         
         registerUserViewModel.passwordValidation
@@ -126,7 +132,7 @@ class RegisterUserViewController: UIViewController {
             .drive(validatePasswordConfirmLabel.rx.validationResult)
             .disposed(by: disposeBag)
         
-        registerUserViewModel.canSignUp
+        let canSingUp = registerUserViewModel.canSignUp
             .drive(onNext: { [weak self] valid  in
                 self?.registerButton.isEnabled = valid
                 self?.registerButton.alpha = valid ? 1.0 : 0.5
@@ -134,15 +140,24 @@ class RegisterUserViewController: UIViewController {
             })
             .disposed(by: disposeBag)
         
+//        let fireAuthAndStore = Driver.combineLatest(canSingUp) { (auth: $0) }
         // これがないと アカウント登録メソッド(M) が呼ばれない
         registerUserViewModel.isSignUp
             .drive { result in
-                print("result: ", result)
-                if self.isProgressView {
+                print("V, FireAuth へユーザー登録 result: ", result)
+            }
+            .disposed(by: disposeBag)
+        
+        registerUserViewModel.isUserToFireStore
+            .drive { result in   // この後の .disposed(by: disposedBag) がないと Bool型 として受け取られない
+                print("V, FireStore へユーザー登録: ", result)
+                if self.isProgressView && result {
                     HUD.hide()
                     // 画面遷移
 //                    let homeViewController = HomeViewController()
 //                    self.present(homeViewController, animated: true, completion: nil)
+                } else {
+                    HUD.show(.error)
                 }
             }
             .disposed(by: disposeBag)

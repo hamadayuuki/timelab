@@ -11,20 +11,25 @@ import RxCocoa
 // データの状態を確認して、返す
 class RegisterUserValidationModel {
     
-    //                                   ↓ データの状態(enum)
+    //                                 ↓ データの状態(enum)
+    func ValidateName(name: String) -> ValidationResult {
+        if (name.count == 0) { return .empty(message: "必須") }
+        return .ok(message: "")
+    }
+    
     func ValidateEmail(email: String) -> ValidationResult {
-        if (email.count == 0) { return .empty(message: "") }
+        if (email.count == 0) { return .empty(message: "必須") }
         return .ok(message: "")
     }
     
     func ValidatePassword(password: String) -> ValidationResult {
-        if (password.count == 0) { return .empty(message: "") }
+        if (password.count == 0) { return .empty(message: "必須") }
         if (password.count < 8) { return .failed(message: "8文字以上にしてください") }
         return .ok(message: "OK")
     }
     
     func ValidatePasswordConfirm(password: String, passwordConfirm: String) -> ValidationResult {
-        if (passwordConfirm.count == 0) { return .empty(message: "") }
+        if (passwordConfirm.count == 0) { return .empty(message: "必須") }
         if (passwordConfirm.count < 8) { return .failed(message: "") }
         if (password == passwordConfirm) { return .ok(message: "OK") }
         return .failed(message: "")

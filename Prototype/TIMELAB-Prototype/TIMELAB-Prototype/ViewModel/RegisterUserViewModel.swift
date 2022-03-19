@@ -10,17 +10,21 @@ import RxSwift
 import RxCocoa
 
 class RegisterUserViewModel {
+    let nameValidation: Driver<ValidationResult>
     let emailValidation: Driver<ValidationResult>
     let passwordValidation: Driver<ValidationResult>
     let passwordConfirmValidation: Driver<ValidationResult>
     
+    let signUpResult: Observable<User>
     let isSignUp: Driver<Bool>
     let canSignUp: Driver<Bool>
+    let isUserToFireStore: Driver<Bool>
     
     let disposeBag = DisposeBag()   // ここで初期化しないと 処理が走らない場合あり
     
     // input: V から通知を受け取れるよう、初期化
     init(input: (
+        name: Driver<String>,
         email: Driver<String>,
         password: Driver<String>,
         passwordConfirm: Driver<String>,
@@ -31,6 +35,10 @@ class RegisterUserViewModel {
         let registerModel = RegisterUserValidationModel()
         
         // V からの通知(データも?)を受け取り M に処理を任せる, V から呼ばれることでデータ送信(VM→V)を行える
+        nameValidation = input.name
+            .map { name in
+                registerModel.ValidateName(name: name)
+            }
         emailValidation = input.email
             .map { email in
                 registerModel.ValidateEmail(email: email)
@@ -45,20 +53,35 @@ class RegisterUserViewModel {
             }
         
         // アカウント作成
-        let emailAndPassword = Driver.combineLatest(input.email, input.password) { (email: $0, password: $1) }
-        let result = input.signUpTaps
+        let nameAndEmailAndPassword = Driver.combineLatest(input.name, input.email, input.password) { (name: $0, email: $1, password: $2) }
+        signUpResult = input.signUpTaps
             .asObservable()
-            .withLatestFrom(emailAndPassword)
+            .withLatestFrom(nameAndEmailAndPassword)
             .flatMapLatest { tuple in
-                signUpAPI.createUserToFireAuth(email: tuple.email, password: tuple.password)
+                signUpAPI.createUserToFireAuth(name: tuple.name, email: tuple.email, password: tuple.password)   // User型 で返ってくる
             }
             .share(replay: 1)
         
         // M でのアカウント登録結果を受け取り、V に渡している, M→VM, VM→M
-        isSignUp = result
+        //         ↓ Observable<User>
+        isSignUp = signUpResult
             .filter { $0 != nil }
-            .map { result in return result }
+            .map { user in return user.isValid }
             .asDriver(onErrorJustReturn: false )
+        
+        // TODO: FireStore での登録が行われるよう変更
+        // ユーザー情報を FireStore へ登録できたか V へ通知
+        isUserToFireStore = signUpResult
+            .filter { $0 != nil }
+            .map { user in
+                if user.isValid {
+                    /*let isUserToFireStore = */signUpAPI.createUserToFireStore(email: user.email, uid: user.uid, name: user.name)
+                    return true   // TODO: FireStoreへの登録結果を使用する
+                }
+                return false
+            }
+            .asDriver(onErrorJustReturn: false)
+            
         
         // アカウント作成可能か
         // ! ここに isSignUp をいれないと、アカウント登録が呼ばれない → 実装を変更する必要あり

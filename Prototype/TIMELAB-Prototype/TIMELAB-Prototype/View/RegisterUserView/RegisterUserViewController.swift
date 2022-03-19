@@ -9,6 +9,7 @@ import UIKit
 import SnapKit
 import RxSwift
 import RxCocoa
+import PKHUD
 
 class RegisterUserViewController: UIViewController {
     
@@ -28,6 +29,10 @@ class RegisterUserViewController: UIViewController {
     var registerButton: RegisterButton!
     
     let disposeBag = DisposeBag()
+    
+    var registerUserViewModel: RegisterUserViewModel!
+    
+    var isProgressView  = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -96,5 +101,58 @@ class RegisterUserViewController: UIViewController {
             })
             .disposed(by: disposeBag)
         view.addGestureRecognizer(tapBackground)
+    }
+    
+    private func setupBinding() {
+        
+        // VM とのつながり, input にイベントを送る(テキストの変更やボタンのタップ等), 送るだけ, 登録のようなイメージ
+        registerUserViewModel = RegisterUserViewModel(input: (
+            email: emailTextField.rx.text.orEmpty.asDriver(),
+            password: passwordTextField.rx.text.orEmpty.asDriver(),
+            passwordConfirm: passwordConfirmTextField.rx.text.orEmpty.asDriver(),
+            signUpTaps: registerButton.rx.tap.asSignal()   // ボタンのタップには Single を使用する
+        ), signUpAPI: RegisterModel())
+        
+        // MV からデータ受け取る, データの値を変更
+        registerUserViewModel.emailValidation
+            .drive(validateEmailLabel.rx.validationResult)   // VM で 戻り値を ValidationResult にしているため,受け取りもvalidationResultにする
+            .disposed(by: disposeBag)
+        
+        registerUserViewModel.passwordValidation
+            .drive(validatePasswordLabel.rx.validationResult)
+            .disposed(by: disposeBag)
+        
+        registerUserViewModel.passwordConfirmValidation
+            .drive(validatePasswordConfirmLabel.rx.validationResult)
+            .disposed(by: disposeBag)
+        
+        registerUserViewModel.canSignUp
+            .drive(onNext: { [weak self] valid  in
+                self?.registerButton.isEnabled = valid
+                self?.registerButton.alpha = valid ? 1.0 : 0.5
+                print("valid: ", valid)
+            })
+            .disposed(by: disposeBag)
+        
+        // これがないと アカウント登録メソッド(M) が呼ばれない
+        registerUserViewModel.isSignUp
+            .drive { result in
+                print("result: ", result)
+                if self.isProgressView {
+                    HUD.hide()
+                    // 画面遷移
+//                    let homeViewController = HomeViewController()
+//                    self.present(homeViewController, animated: true, completion: nil)
+                }
+            }
+            .disposed(by: disposeBag)
+        
+        registerButton.rx.tap
+            .subscribe { _ in
+                HUD.show(.progress)
+                self.isProgressView = true
+            }
+            .disposed(by: disposeBag)
+        
     }
 }

@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		D42A107B27DC9B4D007060B4 /* QRScanner in Frameworks */ = {isa = PBXBuildFile; productRef = D42A107A27DC9B4D007060B4 /* QRScanner */; };
+		D42DD5A627E625010023AF01 /* RegisterUserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42DD5A527E625010023AF01 /* RegisterUserViewModel.swift */; };
+		D42DD5A827E625560023AF01 /* RegisterUserValidationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42DD5A727E625560023AF01 /* RegisterUserValidationModel.swift */; };
 		D48D599827DA298600A0993A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48D599727DA298600A0993A /* AppDelegate.swift */; };
 		D48D599A27DA298600A0993A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48D599927DA298600A0993A /* SceneDelegate.swift */; };
 		D48D59A427DA298700A0993A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D48D59A227DA298700A0993A /* LaunchScreen.storyboard */; };
@@ -40,6 +42,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D42DD5A527E625010023AF01 /* RegisterUserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterUserViewModel.swift; sourceTree = "<group>"; };
+		D42DD5A727E625560023AF01 /* RegisterUserValidationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterUserValidationModel.swift; sourceTree = "<group>"; };
 		D48D599427DA298600A0993A /* TIMELAB-Prototype.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TIMELAB-Prototype.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D48D599727DA298600A0993A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D48D599927DA298600A0993A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -123,6 +127,7 @@
 			isa = PBXGroup;
 			children = (
 				D4C87A1B27E4869700A8365D /* RegisterLabValidationModel.swift */,
+				D42DD5A727E625560023AF01 /* RegisterUserValidationModel.swift */,
 				D4C87A1D27E4886D00A8365D /* RegisterModel.swift */,
 			);
 			path = Model;
@@ -142,6 +147,7 @@
 			isa = PBXGroup;
 			children = (
 				D4C87A1427E484C600A8365D /* RegisterLabViewModel.swift */,
+				D42DD5A527E625010023AF01 /* RegisterUserViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -283,9 +289,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D42DD5A627E625010023AF01 /* RegisterUserViewModel.swift in Sources */,
 				D4C8797E27DE3B8600A8365D /* RegisterButton.swift in Sources */,
 				D4C8798127DE417300A8365D /* RegisterUserViewController.swift in Sources */,
 				D4B36D8127DCBCD500C71343 /* QrScanViewController.swift in Sources */,
+				D42DD5A827E625560023AF01 /* RegisterUserValidationModel.swift in Sources */,
 				D4C87A1327E3332900A8365D /* RegisterLabel.swift in Sources */,
 				D4C8797727DE1D6100A8365D /* RegisterLabRoomViewController.swift in Sources */,
 				D4C8797C27DE227000A8365D /* UITextFieldExtension.swift in Sources */,

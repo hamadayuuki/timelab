@@ -69,20 +69,23 @@ class RegisterUserViewModel {
             .map { user in return user.isValid }
             .asDriver(onErrorJustReturn: false )
         
-        // TODO: FireStore での登録が行われるよう変更
-        // ユーザー情報を FireStore へ登録できたか V へ通知
-        isUserToFireStore = signUpResult
+        // ユーザー情報を FireStore へ登録
+        //  ↓ Observable<Observable<Bool>>
+        let userToFireStoreResult = signUpResult
             .filter { $0 != nil }
             .map { user in
-                if user.isValid {
-                    /*let isUserToFireStore = */signUpAPI.createUserToFireStore(email: user.email, uid: user.uid, name: user.name)
-                    return true   // TODO: FireStoreへの登録結果を使用する
-                }
-                return false
+                signUpAPI.createUserToFireStore(email: user.email, uid: user.uid, name: user.name)
+            }
+            .share(replay: 1)
+        
+        // ユーザー情報を FireStore へ登録できたかどうか を V へ通知
+        isUserToFireStore = userToFireStoreResult
+            .filter { $0 != nil }
+            .flatMapLatest { bool in   // 値を通知する時には flatMapLatest を使う,
+                return bool
             }
             .asDriver(onErrorJustReturn: false)
             
-        
         // アカウント作成可能か
         // ! ここに isSignUp をいれないと、アカウント登録が呼ばれない → 実装を変更する必要あり
         canSignUp = Driver.combineLatest(emailValidation, passwordValidation, passwordConfirmValidation){ (email, password, passwordConfirm) in

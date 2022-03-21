@@ -157,7 +157,12 @@ class RegisterUserViewController: UIViewController {
 //                    let homeViewController = HomeViewController()
 //                    self.present(homeViewController, animated: true, completion: nil)
                 } else {
-                    HUD.show(.error)
+                    HUD.flash(.error, delay: 1) { _ in
+                        self.nameTextField.text = ""
+                        self.emailTextField.text = ""
+                        self.passwordTextField.text = ""
+                        self.passwordConfirmTextField.text = ""
+                    }
                 }
             }
             .disposed(by: disposeBag)

@@ -11,6 +11,10 @@
 		D42DD5A627E625010023AF01 /* RegisterUserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42DD5A527E625010023AF01 /* RegisterUserViewModel.swift */; };
 		D42DD5A827E625560023AF01 /* RegisterUserValidationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42DD5A727E625560023AF01 /* RegisterUserValidationModel.swift */; };
 		D42DD5AA27E632E60023AF01 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42DD5A927E632E60023AF01 /* User.swift */; };
+		D42DD63427E906B40023AF01 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42DD63327E906B40023AF01 /* CalendarViewController.swift */; };
+		D42DD63727E9072D0023AF01 /* RankingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42DD63627E9072D0023AF01 /* RankingViewController.swift */; };
+		D42DD63A27E907A50023AF01 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42DD63927E907A50023AF01 /* TabBarViewController.swift */; };
+		D42DD63C27E909D80023AF01 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42DD63B27E909D80023AF01 /* NavigationController.swift */; };
 		D48D599827DA298600A0993A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48D599727DA298600A0993A /* AppDelegate.swift */; };
 		D48D599A27DA298600A0993A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48D599927DA298600A0993A /* SceneDelegate.swift */; };
 		D48D59A427DA298700A0993A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D48D59A227DA298700A0993A /* LaunchScreen.storyboard */; };
@@ -46,6 +50,10 @@
 		D42DD5A527E625010023AF01 /* RegisterUserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterUserViewModel.swift; sourceTree = "<group>"; };
 		D42DD5A727E625560023AF01 /* RegisterUserValidationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterUserValidationModel.swift; sourceTree = "<group>"; };
 		D42DD5A927E632E60023AF01 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		D42DD63327E906B40023AF01 /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
+		D42DD63627E9072D0023AF01 /* RankingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingViewController.swift; sourceTree = "<group>"; };
+		D42DD63927E907A50023AF01 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
+		D42DD63B27E909D80023AF01 /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		D48D599427DA298600A0993A /* TIMELAB-Prototype.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TIMELAB-Prototype.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D48D599727DA298600A0993A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D48D599927DA298600A0993A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -91,6 +99,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D42DD63227E906830023AF01 /* CalendarView */ = {
+			isa = PBXGroup;
+			children = (
+				D42DD63327E906B40023AF01 /* CalendarViewController.swift */,
+			);
+			path = CalendarView;
+			sourceTree = "<group>";
+		};
+		D42DD63527E907140023AF01 /* RankingView */ = {
+			isa = PBXGroup;
+			children = (
+				D42DD63627E9072D0023AF01 /* RankingViewController.swift */,
+			);
+			path = RankingView;
+			sourceTree = "<group>";
+		};
+		D42DD63827E907720023AF01 /* TabBarView */ = {
+			isa = PBXGroup;
+			children = (
+				D42DD63927E907A50023AF01 /* TabBarViewController.swift */,
+				D42DD63B27E909D80023AF01 /* NavigationController.swift */,
+			);
+			path = TabBarView;
+			sourceTree = "<group>";
+		};
 		D48D598B27DA298600A0993A = {
 			isa = PBXGroup;
 			children = (
@@ -138,9 +171,12 @@
 		D4B36D7D27DCBB6200C71343 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				D4B36D7F27DCBC9D00C71343 /* QrScanView */,
 				D4C8797527DE1D3700A8365D /* RegisterLabRoomView */,
 				D4C8797F27DE411C00A8365D /* RegisterUserView */,
+				D4B36D7F27DCBC9D00C71343 /* QrScanView */,
+				D42DD63227E906830023AF01 /* CalendarView */,
+				D42DD63527E907140023AF01 /* RankingView */,
+				D42DD63827E907720023AF01 /* TabBarView */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -294,10 +330,13 @@
 			files = (
 				D42DD5A627E625010023AF01 /* RegisterUserViewModel.swift in Sources */,
 				D4C8797E27DE3B8600A8365D /* RegisterButton.swift in Sources */,
+				D42DD63727E9072D0023AF01 /* RankingViewController.swift in Sources */,
 				D4C8798127DE417300A8365D /* RegisterUserViewController.swift in Sources */,
 				D4B36D8127DCBCD500C71343 /* QrScanViewController.swift in Sources */,
 				D42DD5A827E625560023AF01 /* RegisterUserValidationModel.swift in Sources */,
 				D4C87A1327E3332900A8365D /* RegisterLabel.swift in Sources */,
+				D42DD63427E906B40023AF01 /* CalendarViewController.swift in Sources */,
+				D42DD63A27E907A50023AF01 /* TabBarViewController.swift in Sources */,
 				D4C8797727DE1D6100A8365D /* RegisterLabRoomViewController.swift in Sources */,
 				D42DD5AA27E632E60023AF01 /* User.swift in Sources */,
 				D4C8797C27DE227000A8365D /* UITextFieldExtension.swift in Sources */,
@@ -308,6 +347,7 @@
 				D48D599827DA298600A0993A /* AppDelegate.swift in Sources */,
 				D4C87A1C27E4869700A8365D /* RegisterLabValidationModel.swift in Sources */,
 				D48D599A27DA298600A0993A /* SceneDelegate.swift in Sources */,
+				D42DD63C27E909D80023AF01 /* NavigationController.swift in Sources */,
 				D4C87A1827E4859600A8365D /* ValidationResult.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

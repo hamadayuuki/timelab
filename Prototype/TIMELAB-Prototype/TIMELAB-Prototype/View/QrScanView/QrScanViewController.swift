@@ -63,6 +63,8 @@ class QrScanViewController: UIViewController {
     }
     
     private func setLayout() {
+        self.title = "QRコード"
+        
         view.addSubview(qrTextLabel)
         qrTextLabel.snp.makeConstraints { make -> Void in
             make.centerX.equalTo(view.bounds.width / 2)

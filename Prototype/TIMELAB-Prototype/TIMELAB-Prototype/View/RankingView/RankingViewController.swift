@@ -11,6 +11,7 @@ class RankingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.title = "ランキング"
         view.backgroundColor = .green
     }
 }

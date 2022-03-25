@@ -32,5 +32,10 @@ class TabBarViewController: UITabBarController {
         // Tabs
         setViewControllers([qrScanNavigationView, calendarNavigationView, rankingNavigationView], animated: true)
     }
+    
+    // 実行中のアプリがiPhoneのメモリを使いすぎた際に呼び出される
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
 }
 

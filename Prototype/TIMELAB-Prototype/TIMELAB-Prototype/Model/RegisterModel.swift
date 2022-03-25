@@ -82,12 +82,23 @@ class RegisterModel {
         
         return Observable<Bool>.create { observer in
             
-            /*
-             研究室登録の処理 を書く
-             */
+            let document = [
+                "allUsers": [""],
+                "host": [""],
+                "client": [""],
+                "university": university,
+                "department": department,
+                "course": course,
+                "name": lab,
+                "type": 0,
+                "createAt": Timestamp(),
+                "updateAt": Timestamp()
+            ] as [String : Any]
             
-            // 3.0秒間 待機してから true を通知
-            DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+            Firestore.firestore().collection("Labs").document().setData(document) { err in
+                if let err = err {
+                    observer.onNext(false)
+                }
                 observer.onNext(true)
             }
             return Disposables.create {

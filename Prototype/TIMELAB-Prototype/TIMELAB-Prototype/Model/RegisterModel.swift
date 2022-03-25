@@ -53,7 +53,12 @@ class RegisterModel {
             let document = [
                 "name": name,
                 "email": email,
-                "createAt": Timestamp()
+                "type": 0,
+                "rooms": [""],
+                "times": [""],
+                "memos": [""],
+                "createAt": Timestamp(),
+                "updateAt": Timestamp()
             ] as [String : Any]
             
             Firestore.firestore().collection("user").document(uid).setData(document) { err in

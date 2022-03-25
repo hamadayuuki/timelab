@@ -6,11 +6,20 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
+
 
 class QrScanViewModel {
     let qrScanModel = QrScanModel()
+    let isCheckAndRegistRoom: Driver<Bool>
     
-    func callCheckAndRegistRoom(roomId: String) {
-        qrScanModel.checkAndRegistRoom(roomId: roomId)
+    //   ↓ これで roomId を受け取ってから checkAndRegistRoom() を呼べる
+    init(roomId: String) {
+        isCheckAndRegistRoom = qrScanModel.checkAndRegistRoom(roomId: roomId)
+            .map { result in
+                return result
+            }
+            .asDriver(onErrorJustReturn: false)
     }
 }

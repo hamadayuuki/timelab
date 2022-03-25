@@ -17,7 +17,7 @@ class QrScanViewController: UIViewController {
     private var qrFrameSize: CGRect!
     private var maskCALayer: MaskCALayer!
     private let disposeBag  = DisposeBag()
-    private let qrScanViewModel = QrScanViewModel()
+    private var qrScanViewModel: QrScanViewModel!
     
     let qrTextLabel: UILabel = {
         let label = UILabel()
@@ -151,10 +151,16 @@ extension QrScanViewController: QRScannerViewDelegate {
     func qrScannerView(_ qrScannerView: QRScannerView, didFailure error: QRScannerError) {
         print(error)
     }
+    
     func qrScannerView(_ qrScannerView: QRScannerView, didSuccess code: String) {
+        qrScanViewModel = QrScanViewModel(roomId: code)
         print(code)
         qrTextLabel.text = code
-        qrScanViewModel.callCheckAndRegistRoom(roomId: code)   // 研究室への入退室
+        qrScanViewModel.isCheckAndRegistRoom
+            .drive { result in
+                print("V, ユーザーの入退室結果: ", result)
+            }
+            .disposed(by: disposeBag)
     }
 }
 

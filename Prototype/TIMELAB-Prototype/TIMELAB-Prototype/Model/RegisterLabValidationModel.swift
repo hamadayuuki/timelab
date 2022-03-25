@@ -33,10 +33,6 @@ class RegisterLabValidationModel {
     }
     
     func ValidateCanRegister(universityIsValid: Bool, departmentIsValid: Bool, courseIsValid: Bool, labIsValid: Bool) -> Bool {
-        print("universityIsValid: ", universityIsValid)
-        print("departmentIsValid: ", departmentIsValid)
-        print("courseIsValid: ", courseIsValid)
-        print("labIsValid: ", labIsValid)
         if (universityIsValid && departmentIsValid && courseIsValid && labIsValid) {
             return true
         }

@@ -36,9 +36,6 @@ class RegisterUserValidationModel {
     }
     
     func ValidateCanRegister(emailIsValid: Bool, passwordIsValid: Bool, passwordConfirmIsValid: Bool) -> Bool {
-        print("emailIsValid: ", emailIsValid)
-        print("passwordIsValid: ", passwordIsValid)
-        print("passwordConfirmIsValid: ", passwordConfirmIsValid)
         if (emailIsValid && passwordIsValid && passwordConfirmIsValid) {
             return true
         }

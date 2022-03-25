@@ -15,6 +15,8 @@
 		D42DD63727E9072D0023AF01 /* RankingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42DD63627E9072D0023AF01 /* RankingViewController.swift */; };
 		D42DD63A27E907A50023AF01 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42DD63927E907A50023AF01 /* TabBarViewController.swift */; };
 		D42DD63C27E909D80023AF01 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42DD63B27E909D80023AF01 /* NavigationController.swift */; };
+		D476DF7527EDFD5F00A1EDE3 /* QrScanViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D476DF7427EDFD5F00A1EDE3 /* QrScanViewModel.swift */; };
+		D476DF7727EDFF7600A1EDE3 /* QrScanModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D476DF7627EDFF7600A1EDE3 /* QrScanModel.swift */; };
 		D48D599827DA298600A0993A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48D599727DA298600A0993A /* AppDelegate.swift */; };
 		D48D599A27DA298600A0993A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48D599927DA298600A0993A /* SceneDelegate.swift */; };
 		D48D59A427DA298700A0993A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D48D59A227DA298700A0993A /* LaunchScreen.storyboard */; };
@@ -54,6 +56,8 @@
 		D42DD63627E9072D0023AF01 /* RankingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingViewController.swift; sourceTree = "<group>"; };
 		D42DD63927E907A50023AF01 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		D42DD63B27E909D80023AF01 /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
+		D476DF7427EDFD5F00A1EDE3 /* QrScanViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QrScanViewModel.swift; sourceTree = "<group>"; };
+		D476DF7627EDFF7600A1EDE3 /* QrScanModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QrScanModel.swift; sourceTree = "<group>"; };
 		D48D599427DA298600A0993A /* TIMELAB-Prototype.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TIMELAB-Prototype.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D48D599727DA298600A0993A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D48D599927DA298600A0993A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -164,6 +168,7 @@
 				D4C87A1B27E4869700A8365D /* RegisterLabValidationModel.swift */,
 				D42DD5A727E625560023AF01 /* RegisterUserValidationModel.swift */,
 				D4C87A1D27E4886D00A8365D /* RegisterModel.swift */,
+				D476DF7627EDFF7600A1EDE3 /* QrScanModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -186,6 +191,7 @@
 			children = (
 				D4C87A1427E484C600A8365D /* RegisterLabViewModel.swift */,
 				D42DD5A527E625010023AF01 /* RegisterUserViewModel.swift */,
+				D476DF7427EDFD5F00A1EDE3 /* QrScanViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -328,12 +334,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D476DF7727EDFF7600A1EDE3 /* QrScanModel.swift in Sources */,
 				D42DD5A627E625010023AF01 /* RegisterUserViewModel.swift in Sources */,
 				D4C8797E27DE3B8600A8365D /* RegisterButton.swift in Sources */,
 				D42DD63727E9072D0023AF01 /* RankingViewController.swift in Sources */,
 				D4C8798127DE417300A8365D /* RegisterUserViewController.swift in Sources */,
 				D4B36D8127DCBCD500C71343 /* QrScanViewController.swift in Sources */,
 				D42DD5A827E625560023AF01 /* RegisterUserValidationModel.swift in Sources */,
+				D476DF7527EDFD5F00A1EDE3 /* QrScanViewModel.swift in Sources */,
 				D4C87A1327E3332900A8365D /* RegisterLabel.swift in Sources */,
 				D42DD63427E906B40023AF01 /* CalendarViewController.swift in Sources */,
 				D42DD63A27E907A50023AF01 /* TabBarViewController.swift in Sources */,

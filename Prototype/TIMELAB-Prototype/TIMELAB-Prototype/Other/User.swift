@@ -12,9 +12,11 @@ struct User {
     var name: String
     var email: String
     var uid: String
+    var roomsId: Array<String> = [""]   // 取得時に使用予定, 未使用
     var createAt: Timestamp
     var isValid: Bool
     
+    // FireStore への登録で使用
     init(name: String, email: String, uid: String, isValid: Bool) {
         self.name = name
         self.email = email

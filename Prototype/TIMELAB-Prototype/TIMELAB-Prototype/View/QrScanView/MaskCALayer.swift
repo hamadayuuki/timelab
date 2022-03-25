@@ -17,8 +17,8 @@ class MaskCALayer: CALayer {
         // くり抜かれる レイヤー
         self.bounds = view.bounds
         self.position = view.center
-        self.backgroundColor = UIColor.black.cgColor
-        self.opacity = 0.2
+        self.backgroundColor = UIColor.white.cgColor
+        self.opacity = 0.8
 
         // くり抜く レイヤー
         let maskLayer = CAShapeLayer()

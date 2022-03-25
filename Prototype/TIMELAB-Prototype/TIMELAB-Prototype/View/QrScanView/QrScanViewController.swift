@@ -46,6 +46,17 @@ class QrScanViewController: UIViewController {
          return button
      }()
     
+    var qrCodeUIImageView: UIImageView = {
+        let image = UIImage(named: "qrCode")
+        let uiImageView = UIImageView(image: image ?? UIImage())
+        return uiImageView
+    }()
+    var qrWindowUIImageView: UIImageView = {
+        let image = UIImage(named: "qrWindow")
+        let uiImageView = UIImageView(image: image ?? UIImage())
+        return uiImageView
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -57,6 +68,7 @@ class QrScanViewController: UIViewController {
     private func setupQrScanner() {
         // QRScanner - メルカリ
         qrScannerView = QRScannerView(frame: view.bounds)
+        qrScannerView.focusImage = UIImage()
         view.addSubview(qrScannerView)   // qrScannerView 直後に置かないとエラー発生
         qrScannerView.configure(delegate: self, input: .init(isBlurEffectEnabled: true))
         qrScannerView.startRunning()
@@ -64,6 +76,32 @@ class QrScanViewController: UIViewController {
     
     private func setLayout() {
         self.title = "QRコード"
+        qrTextLabel.text = ""
+        
+        // 最背面に配置する
+        maskCALayer = MaskCALayer(view: self.view, maskWidth: 300, maskHeight: 300)
+        view.layer.addSublayer(maskCALayer)
+        qrScannerView.snp.makeConstraints { (make) -> Void in
+            make.center.equalTo(self.view)
+            make.width.equalTo(view.bounds.width)
+            make.height.equalTo(view.bounds.height)
+         }
+        
+        view.addSubview(qrCodeUIImageView)
+        qrCodeUIImageView.snp.makeConstraints { (make) -> Void in
+            make.centerX.equalTo(view.bounds.width / 2)
+            make.centerY.equalTo(view.bounds.height / 2)
+            make.width.equalTo(280)
+            make.height.equalTo(280)
+         }
+        
+        view.addSubview(qrWindowUIImageView)
+        qrWindowUIImageView.snp.makeConstraints { (make) -> Void in
+            make.centerX.equalTo(view.bounds.width / 2)
+            make.centerY.equalTo(view.bounds.height / 2)
+            make.width.equalTo(300)   // 画像が描画される時にできる余白 100
+            make.height.equalTo(300)
+         }
         
         view.addSubview(qrTextLabel)
         qrTextLabel.snp.makeConstraints { make -> Void in
@@ -84,18 +122,11 @@ class QrScanViewController: UIViewController {
         view.addSubview(createLabRoomButton)
         createLabRoomButton.snp.makeConstraints { make -> Void in
             make.centerX.equalTo(view.bounds.width * 0.8)
-            make.centerY.equalTo(view.bounds.height * 0.1)
+            make.centerY.equalTo(view.bounds.height * 0.2)
             make.width.equalTo(60)
             make.height.equalTo(60)
         }
         
-//        maskCALayer = MaskCALayer(view: self.view, maskWidth: 300, maskHeight: 300)
-//        view.layer.addSublayer(maskCALayer)
-//        qrScannerView.snp.makeConstraints { (make) -> Void in
-//            make.center.equalTo(self.view)
-//            make.width.equalTo(view.bounds.width)
-//            make.height.equalTo(view.bounds.height)
-//         }
     }
     
     private func setupBinding() {

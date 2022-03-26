@@ -154,8 +154,8 @@ class RegisterUserViewController: UIViewController {
                 if self.isProgressView && result {
                     HUD.hide()
                     // 画面遷移
-//                    let homeViewController = HomeViewController()
-//                    self.present(homeViewController, animated: true, completion: nil)
+                    let qrScanViewController = QrScanViewController()
+                    self.present(qrScanViewController, animated: true, completion: nil)
                 } else {
                     HUD.flash(.error, delay: 1) { _ in
                         self.nameTextField.text = ""

@@ -105,7 +105,6 @@ class QrScanModel {
                 "name": name,
                 "uid": uid,
                 "enterAt": timestamp,
-                "state": "stay",
                 "enterTime": enterTimeArray
             ] as [String : Any]
             
@@ -114,8 +113,15 @@ class QrScanModel {
             userRef.collection("Times").document(timesDocumentId).setData(document) {  err in
                 if let err = err { observer.onNext(false) }
                 print("FireStoreへの登録に成功")
+            }
+            
+            // 滞在状態(state) を変更
+            userRef.updateData(["state": "stay"]) { stateErr in
+                if let stateErr = stateErr { observer.onNext(false) }
+                print("stete の更新に成功")
                 observer.onNext(true)
             }
+            
             return Disposables.create {
                 print("Observable: Dispose")
             }

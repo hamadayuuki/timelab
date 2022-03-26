@@ -58,7 +58,8 @@ class RegisterModel {
                 "times": [],
                 "memos": [],
                 "createAt": Timestamp(),
-                "updateAt": Timestamp()
+                "updateAt": Timestamp(),
+                "state": ""
             ] as [String : Any]
             
             Firestore.firestore().collection("user").document(uid).setData(document) { err in

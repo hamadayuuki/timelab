@@ -54,9 +54,9 @@ class RegisterModel {
                 "name": name,
                 "email": email,
                 "type": 0,
-                "rooms": [""],
-                "times": [""],
-                "memos": [""],
+                "rooms": [],
+                "times": [],
+                "memos": [],
                 "createAt": Timestamp(),
                 "updateAt": Timestamp()
             ] as [String : Any]
@@ -83,9 +83,9 @@ class RegisterModel {
         return Observable<Bool>.create { observer in
             
             let document = [
-                "allUsers": [""],
-                "host": [""],
-                "client": [""],
+                "allUsers": [],
+                "host": [],
+                "client": [],
                 "university": university,
                 "department": department,
                 "course": course,

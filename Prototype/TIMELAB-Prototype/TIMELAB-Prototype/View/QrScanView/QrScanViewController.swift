@@ -154,13 +154,20 @@ extension QrScanViewController: QRScannerViewDelegate {
     
     func qrScannerView(_ qrScannerView: QRScannerView, didSuccess code: String) {
         qrScanViewModel = QrScanViewModel(roomId: code)
-        print(code)
         qrTextLabel.text = code
+        
         qrScanViewModel.isCheckAndRegistRoom
-            .drive { result in
-                print("V, ユーザーの入退室結果: ", result)
+            .drive { bool in
+                print("V, ユーザーが対象の研究室を登録しているか: ", bool)
             }
             .disposed(by: disposeBag)
+        
+        qrScanViewModel.isRegisterEnterTime
+            .drive { bool in
+                print("V, ユーザーの入室登録: ", bool)
+            }
+            .disposed(by: disposeBag)
+        
     }
 }
 

@@ -17,6 +17,7 @@
 		D42DD63C27E909D80023AF01 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42DD63B27E909D80023AF01 /* NavigationController.swift */; };
 		D476DF7527EDFD5F00A1EDE3 /* QrScanViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D476DF7427EDFD5F00A1EDE3 /* QrScanViewModel.swift */; };
 		D476DF7727EDFF7600A1EDE3 /* QrScanModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D476DF7627EDFF7600A1EDE3 /* QrScanModel.swift */; };
+		D476DF7927EECD4D00A1EDE3 /* Time.swift in Sources */ = {isa = PBXBuildFile; fileRef = D476DF7827EECD4D00A1EDE3 /* Time.swift */; };
 		D48D599827DA298600A0993A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48D599727DA298600A0993A /* AppDelegate.swift */; };
 		D48D599A27DA298600A0993A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48D599927DA298600A0993A /* SceneDelegate.swift */; };
 		D48D59A427DA298700A0993A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D48D59A227DA298700A0993A /* LaunchScreen.storyboard */; };
@@ -58,6 +59,7 @@
 		D42DD63B27E909D80023AF01 /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		D476DF7427EDFD5F00A1EDE3 /* QrScanViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QrScanViewModel.swift; sourceTree = "<group>"; };
 		D476DF7627EDFF7600A1EDE3 /* QrScanModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QrScanModel.swift; sourceTree = "<group>"; };
+		D476DF7827EECD4D00A1EDE3 /* Time.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Time.swift; sourceTree = "<group>"; };
 		D48D599427DA298600A0993A /* TIMELAB-Prototype.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TIMELAB-Prototype.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D48D599727DA298600A0993A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D48D599927DA298600A0993A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -237,6 +239,7 @@
 			children = (
 				D4C87A1727E4859600A8365D /* ValidationResult.swift */,
 				D42DD5A927E632E60023AF01 /* User.swift */,
+				D476DF7827EECD4D00A1EDE3 /* Time.swift */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -346,6 +349,7 @@
 				D42DD63427E906B40023AF01 /* CalendarViewController.swift in Sources */,
 				D42DD63A27E907A50023AF01 /* TabBarViewController.swift in Sources */,
 				D4C8797727DE1D6100A8365D /* RegisterLabRoomViewController.swift in Sources */,
+				D476DF7927EECD4D00A1EDE3 /* Time.swift in Sources */,
 				D42DD5AA27E632E60023AF01 /* User.swift in Sources */,
 				D4C8797C27DE227000A8365D /* UITextFieldExtension.swift in Sources */,
 				D4C8797927DE1ED700A8365D /* RegisterTextField.swift in Sources */,

@@ -13,6 +13,7 @@ import FirebaseFirestore
 
 protocol checkAndRegistRoomProtocol {
     func checkAndRegistRoom(roomId: String) -> Observable<Bool>
+    func registerEnterTime() -> Observable<Bool>
 }
 
 class QrScanModel {
@@ -22,33 +23,37 @@ class QrScanModel {
     func checkAndRegistRoom(roomId: String) -> Observable<Bool> {
         
         return Observable<Bool>.create { observer in
-            let db = Firestore.firestore()
-            let uid = "D5X29pC9eoXlDrxxpKaBLw4pq0h1"   // アカウントは指定, TODO: FireAuthのログイン機能を使用して uid を取得し使用する
-            
-            // FireStore からデータの取得
-            db.collection("user").document(uid).getDocument { (document, err) in
-                if let err = err {
-                    print("err: ", err)
-                    observer.onNext(false)
-                }
-                if let document = document {
-                    let data = document.data()
-                    let roomsArray: Array<String> = data?["rooms"] as? Array<String> ?? [""]   // "rooms" の要素を配列で取得
-                    print("roomsArray: ", roomsArray)
-                    print("type(of: roomsArray): ", type(of: roomsArray))
-                    // 新たに 研究室/部屋 を登録
-                    if !roomsArray.contains(roomId) {
-                        print("部屋を追加")
-                        db.collection("user").document(uid).updateData([
-                            "rooms": FieldValue.arrayUnion([roomId])
-                        ])
+            if let user = Auth.auth().currentUser {
+                let uid = user.uid
+                
+                let db = Firestore.firestore()
+    //            let uid = "D5X29pC9eoXlDrxxpKaBLw4pq0h1"   // アカウントは指定, TODO: FireAuthのログイン機能を使用して uid を取得し使用する
+                
+                // FireStore からデータの取得
+                db.collection("user").document(uid).getDocument { (document, err) in
+                    if let err = err {
+                        print("err: ", err)
+                        observer.onNext(false)
                     }
-                    self.registerEnterTime()   // TODO: 呼び出し場所の検討, ここでも良いかも？
-                    self.registerLeaveTime()   // TODO: 呼び出し場所の検討, ここではだめ
-                    observer.onNext(true)
-                } else {
-                    print("Document does not exist")
-                    observer.onNext(false)
+                    if let document = document {
+                        let data = document.data()
+                        let roomsArray: Array<String> = data?["rooms"] as? Array<String> ?? [""]   // "rooms" の要素を配列で取得
+                        print("roomsArray: ", roomsArray)
+                        print("type(of: roomsArray): ", type(of: roomsArray))
+                        // 新たに 研究室/部屋 を登録
+                        if !roomsArray.contains(roomId) {
+                            print("部屋を追加")
+                            db.collection("user").document(uid).updateData([
+                                "rooms": FieldValue.arrayUnion([roomId])
+                            ])
+                        }
+    //                    self.registerEnterTime()   // TODO: 呼び出し場所の検討, ここでも良いかも？
+    //                    self.registerLeaveTime()   // TODO: 呼び出し場所の検討, ここではだめ
+                        observer.onNext(true)
+                    } else {
+                        print("Document does not exist")
+                        observer.onNext(false)
+                    }
                 }
             }
             return Disposables.create {
@@ -58,25 +63,68 @@ class QrScanModel {
         
     }
     
-    func registerEnterTime() {
-        let db = Firestore.firestore()
-        let uid = "D5X29pC9eoXlDrxxpKaBLw4pq0h1"
-        let timestamp = Timestamp()
-        let timeDate = timestamp.dateValue()
-        let enterTimeArray = createTimeArray(timeDate: timeDate)
+    // FireAuth のログイン情報記録機能 を使用し uid を取得、その後 FireStore からデータを取得している
+    func fetchUser() -> Observable<[String: Any]?> {
+        print(#function)
         
-        let document = [
-            "name": "name",
-            "uid": uid,
-            "enterAt": timestamp,
-            "state": "stay",
-            "enterTime": enterTimeArray
-        ] as [String : Any]
+        return Observable<[String: Any]?>.create { observer in
+            if let user = Auth.auth().currentUser {
+                let uid = user.uid
 
-        db.collection("times").document(uid).setData(document) { err in
-            if let err = err { print("FireStoreへの入室時刻登録に失敗: ", err) }
-            print("FireStoreへの入室時刻登録に成功")
+                // FireStore からデータの取得
+                let db = Firestore.firestore()
+                db.collection("user").document(uid).getDocument { (document, err) in
+                   if let document = document {
+                       var data = document.data()
+                       data?.updateValue(uid, forKey: "uid")   // 入室時にuidを使うため
+                       observer.onNext(data)
+                    } else {
+                        print("Document does not exist")
+                        observer.onNext(["": ""])
+                    }
+                }
+            } else {
+                print("現在、ログイン中でない")
+                observer.onNext(["": ""])
+            }
+            return Disposables.create {
+                print("Observable: Dispose")
+            }
         }
+        
+    }
+    
+    func registerEnterTime(name: String, uid: String) -> Observable<Bool> {
+        print("M, registerEnterTime, name: ", name)
+        print("M, registerEnterTime, uid: ", uid)
+        
+        return Observable<Bool>.create { observer in
+            let db = Firestore.firestore()
+            let timestamp = Timestamp()
+            let timeDate = timestamp.dateValue()
+            let enterTimeArray = self.createTimeArray(timeDate: timeDate)
+            
+            let document = [
+                "name": name,
+                "uid": uid,
+                "enterAt": timestamp,
+                "state": "stay",
+                "enterTime": enterTimeArray
+            ] as [String : Any]
+
+            db.collection("times").document(uid).setData(document) { err in
+                if let err = err {
+                    print("FireStoreへの入室時刻登録に失敗: ", err)
+                    observer.onNext(false)
+                }
+                print("FireStoreへの入室時刻登録に成功")
+                observer.onNext(true)
+            }
+            return Disposables.create {
+                print("Observable: Dispose")
+            }
+        }
+        
     }
     
     func registerLeaveTime() {
@@ -100,7 +148,7 @@ class QrScanModel {
         let stateDocument = ["state": "returnedHome"]
         db.collection("times").document(uid).updateData(stateDocument) { err in
             if let err = err { print("FireStoreへの退室時刻登録に失敗: ", err) }
-            print("FireStoreへの退室時刻登録に成功")
+            print("FireStoreの 'state'更新 に成功")
         }
     }
     

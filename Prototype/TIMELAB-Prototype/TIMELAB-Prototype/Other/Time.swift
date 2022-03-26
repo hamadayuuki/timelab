@@ -7,7 +7,8 @@
 
 import Firebase
 
-// 未使用
+// TODO: FireStore への読み取り/書き込み に使用する
+// https://firebase.google.com/docs/firestore/manage-data/add-data?hl=ja#custom_objects
 struct Time {
     var name: String = ""
     var uid: String = ""

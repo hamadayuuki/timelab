@@ -8,6 +8,8 @@
 import UIKit
 import Firebase   // Timestamp
 
+// TODO: FireStore への読み取り/書き込み に使用する
+// https://firebase.google.com/docs/firestore/manage-data/add-data?hl=ja#custom_objects
 struct User {
     var name: String
     var email: String

@@ -99,6 +99,7 @@ class QrScanModel {
             let timestamp = Timestamp()
             let timeDate = timestamp.dateValue()
             let enterTimeArray = self.createTimeArray(timeDate: timeDate)
+            let timesDocumentId = enterTimeArray["year"]! + enterTimeArray["month"]! + enterTimeArray["day"]! + enterTimeArray["hour24"]! + enterTimeArray["minute"]!
             
             let document = [
                 "name": name,
@@ -107,13 +108,12 @@ class QrScanModel {
                 "state": "stay",
                 "enterTime": enterTimeArray
             ] as [String : Any]
-
-            db.collection("times").document(uid).setData(document) { err in
-                if let err = err {
-                    print("FireStoreへの入室時刻登録に失敗: ", err)
-                    observer.onNext(false)
-                }
-                print("FireStoreへの入室時刻登録に成功")
+            
+            // サブコレクション("Times") への登録
+            let userRef = db.collection("user").document(uid)
+            userRef.collection("Times").document(timesDocumentId).setData(document) {  err in
+                if let err = err { observer.onNext(false) }
+                print("FireStoreへの登録に成功")
                 observer.onNext(true)
             }
             return Disposables.create {
@@ -149,7 +149,7 @@ class QrScanModel {
     }
     
     // ["year": "2022", "month": "3", "day": "26", "hour24": "1", "minute": "38", "second": "34", "week": "土"] ← 2022年 3月 26日 1:38:34 (土)
-    func createTimeArray(timeDate: Date) -> [String: Any] {
+    func createTimeArray(timeDate: Date) -> [String: String] {
         
         let formatter = DateFormatter()
         formatter.calendar = Calendar(identifier: .gregorian)

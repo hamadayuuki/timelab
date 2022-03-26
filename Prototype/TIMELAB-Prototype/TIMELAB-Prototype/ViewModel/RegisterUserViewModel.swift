@@ -15,7 +15,7 @@ class RegisterUserViewModel {
     let passwordValidation: Driver<ValidationResult>
     let passwordConfirmValidation: Driver<ValidationResult>
     
-    let signUpResult: Observable<User>
+    let signUpResult: Driver<User>
     let isSignUp: Driver<Bool>
     let canSignUp: Driver<Bool>
     let isUserToFireStore: Driver<Bool>
@@ -60,19 +60,21 @@ class RegisterUserViewModel {
             .flatMapLatest { tuple in
                 signUpAPI.createUserToFireAuth(name: tuple.name, email: tuple.email, password: tuple.password)   // User型 で返ってくる
             }
-            .share(replay: 1)
+            .asDriver(onErrorJustReturn: User(name: "", email: "", uid: "", isValid: false))
         
         // M でのアカウント登録結果を受け取り、V に渡している, M→VM, VM→M
         //         ↓ Observable<User>
         isSignUp = signUpResult
-            .filter { $0 != nil }
+            .asObservable()
+            .filter { $0.isValid }
             .map { user in return user.isValid }
             .asDriver(onErrorJustReturn: false )
         
         // ユーザー情報を FireStore へ登録
         //  ↓ Observable<Observable<Bool>>
         let userToFireStoreResult = signUpResult
-            .filter { $0 != nil }
+            .asObservable()
+            .filter { $0.isValid }
             .map { user in
                 signUpAPI.createUserToFireStore(email: user.email, uid: user.uid, name: user.name)
             }

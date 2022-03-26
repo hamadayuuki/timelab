@@ -156,12 +156,20 @@ class RegisterUserViewController: UIViewController {
                     // 画面遷移
                     let qrScanViewController = QrScanViewController()
                     self.present(qrScanViewController, animated: true, completion: nil)
-                } else {
+                }
+            }
+            .disposed(by: disposeBag)
+        
+        registerUserViewModel.signUpResult
+            .drive { user in
+                if !user.isValid {   // false の場合、ユーザー情報をFireStoreへ登録する処理 は実行されない
+                    // ×画面 を描画
                     HUD.flash(.error, delay: 1) { _ in
                         self.nameTextField.text = ""
                         self.emailTextField.text = ""
                         self.passwordTextField.text = ""
                         self.passwordConfirmTextField.text = ""
+                        self.setupBinding()   // validate の文字を初期化するため、通知を送る
                     }
                 }
             }

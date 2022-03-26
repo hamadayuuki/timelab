@@ -26,10 +26,8 @@ class QrScanModel {
             if let user = Auth.auth().currentUser {
                 let uid = user.uid
                 
-                let db = Firestore.firestore()
-    //            let uid = "D5X29pC9eoXlDrxxpKaBLw4pq0h1"   // アカウントは指定, TODO: FireAuthのログイン機能を使用して uid を取得し使用する
-                
                 // FireStore からデータの取得
+                let db = Firestore.firestore()
                 db.collection("user").document(uid).getDocument { (document, err) in
                     if let err = err {
                         print("err: ", err)
@@ -47,8 +45,6 @@ class QrScanModel {
                                 "rooms": FieldValue.arrayUnion([roomId])
                             ])
                         }
-    //                    self.registerEnterTime()   // TODO: 呼び出し場所の検討, ここでも良いかも？
-    //                    self.registerLeaveTime()   // TODO: 呼び出し場所の検討, ここではだめ
                         observer.onNext(true)
                     } else {
                         print("Document does not exist")

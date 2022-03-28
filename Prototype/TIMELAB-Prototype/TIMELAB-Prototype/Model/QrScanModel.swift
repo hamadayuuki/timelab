@@ -5,6 +5,8 @@
 //  Created by 濵田　悠樹 on 2022/03/25.
 //
 
+// TODO: FireStore を使う時の プログラム順 を揃える (例: dbを定義 → documentを定義 → ・・・)
+
 import RxSwift
 import RxCocoa
 import Firebase
@@ -72,7 +74,7 @@ class QrScanModel {
                 db.collection("user").document(uid).getDocument { (document, err) in
                    if let document = document {
                        var data = document.data()
-                       data?.updateValue(uid, forKey: "uid")   // 入室時にuidを使うため
+                       data?.updateValue(uid, forKey: "uid")   // ["uid": "~~~"] を追加, 入室時にuidを使うため
                        observer.onNext(data)
                     } else {
                         print("Document does not exist")
@@ -100,17 +102,20 @@ class QrScanModel {
             let timeDate = timestamp.dateValue()
             let enterTimeArray = self.createTimeArray(timeDate: timeDate)
             let timesDocumentId = enterTimeArray["year"]! + enterTimeArray["month"]! + enterTimeArray["day"]! + enterTimeArray["hour24"]! + enterTimeArray["minute"]!
+            let userRef = db.collection("user").document(uid)
+            let timesRef = userRef.collection("Times").document(timesDocumentId)   // "ref" を保存するため宣言
             
             let document = [
                 "name": name,
                 "uid": uid,
                 "enterAt": timestamp,
-                "enterTime": enterTimeArray
+                "enterTime": enterTimeArray,
+                "ref": timesRef,   // 退出時 どのフィールドに書き込むか指定するために使用
+                "creatAt": timestamp
             ] as [String : Any]
             
             // サブコレクション("Times") への登録
-            let userRef = db.collection("user").document(uid)
-            userRef.collection("Times").document(timesDocumentId).setData(document) {  err in
+            timesRef.setData(document) {  err in
                 if let err = err { observer.onNext(false) }
                 print("FireStoreへの登録に成功")
             }
@@ -129,32 +134,72 @@ class QrScanModel {
         
     }
     
-    func registerLeaveTime() {
-        let db = Firestore.firestore()
-        let uid = "D5X29pC9eoXlDrxxpKaBLw4pq0h1"
-        let timestamp = Timestamp()
-        let timeDate = timestamp.dateValue()
-        let leaveTimeArray = createTimeArray(timeDate: timeDate)
+    // 退室時刻を登録するときに使用する リファレンス を取得する
+    // 扱いやすいように 通知を[String: Any] にする
+    func fetchLatestTimesRef(uid: String) -> Observable<[String: Any]?> {
         
-        let document = [
-            "leaveAt": Timestamp(),
-            "leaveTime": leaveTimeArray
-        ] as [String : Any]
-        //                                                     ↓ これがないとフィールド全体が上書きされる, 追加 ではなく 上書きになってしまう
-        db.collection("times").document(uid).setData(document, merge: true) { err in
-            if let err = err { print("FireStoreへの退室時刻登録に失敗: ", err) }
-            print("FireStoreへの退室時刻登録に成功")
+        return Observable<[String: Any]?>.create { observer in
+            let db = Firestore.firestore()
+            
+            let timesRef = db.collection("user").document(uid).collection("Times")
+            timesRef.order(by: "creatAt", descending: true).limit(to: 1).getDocuments { (documents, err) in
+                if let err = err {
+                    print("User/Times コレクションから creatAt最新の値を取得するとき err発生: ", err)
+                    observer.onCompleted()   // DocumentReferenceの戻り値なし のため使用
+                } else {
+                    let document = documents?.documents[0]   // [0] のみ存在
+                    let data = document?.data()
+                    let latestTimesRef: DocumentReference = data?["ref"] as! DocumentReference   // documents が読み込めている時点で存在しているため、エラーはない
+                    print("M, fetchLatestTimes(), data?['ref']: ", latestTimesRef)
+                    observer.onNext(["ref": latestTimesRef])
+                }
+            }
+            
+            return Disposables.create {
+                print("Observable: Dispose")
+            }
         }
         
-        // "state" の更新
-        let stateDocument = ["state": "returnedHome"]
-        db.collection("times").document(uid).updateData(stateDocument) { err in
-            if let err = err { print("FireStoreへの退室時刻登録に失敗: ", err) }
-            print("FireStoreの 'state'更新 に成功")
-        }
     }
     
-    // ["year": "2022", "month": "3", "day": "26", "hour24": "1", "minute": "38", "second": "34", "week": "土"] ← 2022年 3月 26日 1:38:34 (土)
+    func registerLeaveTime(uid: String, latestTimesRef: DocumentReference) -> Observable<Bool> {
+        
+        return Observable<Bool>.create { observer in
+            let db = Firestore.firestore()
+            let userRef = db.collection("user").document(uid)
+            let timestamp = Timestamp()
+            let timeDate = timestamp.dateValue()
+            let leaveTimeArray = self.createTimeArray(timeDate: timeDate)
+            
+            let document = [
+                "leaveAt": Timestamp(),
+                "leaveTime": leaveTimeArray
+            ] as [String : Any]
+            
+            // サブコレクション("Times") への登録
+            //                               ↓ これがないとフィールド全体が上書きされる, 追加 ではなく 上書きになってしまう
+            latestTimesRef.setData(document, merge: true) {  err in
+                if let err = err { observer.onNext(false) }
+                print("FireStoreへの登録に成功")
+            }
+            
+            // 滞在状態(state) を変更
+            let stateDocument = ["state": "returnHome"]
+            userRef.updateData(stateDocument) { stateErr in
+                if let stateErr = stateErr { observer.onNext(false) }
+                print("stete の更新に成功")
+                observer.onNext(true)
+            }
+            
+            return Disposables.create {
+                print("Observable: Dispose")
+            }
+        }
+        
+    }
+    
+    // ["year": "2022", "month": "03", "day": "26", "hour24": "01", "minute": "38", "second": "34", "week": "土"] ← 2022年 3月 26日 1:38:34 (土)
+    // 曜日以外: 0パディングあり, 全要素: String型
     func createTimeArray(timeDate: Date) -> [String: String] {
         
         let formatter = DateFormatter()
@@ -167,19 +212,19 @@ class QrScanModel {
         let year = formatter.string(from: timeDate)   // 2022
         print(formatter.string(from: timeDate))
         
-        formatter.dateFormat = "M"
-        let month = formatter.string(from: timeDate)   // 3
+        formatter.dateFormat = "MM"
+        let month = formatter.string(from: timeDate)   // 03
         
-        formatter.dateFormat = "d"
+        formatter.dateFormat = "dd"
         let day = formatter.string(from: timeDate)   // 26
         
-        formatter.dateFormat = "H"   // 24時間表記
-        let hour24 = formatter.string(from: timeDate)   // 1
+        formatter.dateFormat = "HH"   // 24時間表記
+        let hour24 = formatter.string(from: timeDate)   // 01
         
-        formatter.dateFormat = "m"
+        formatter.dateFormat = "mm"
         let minute = formatter.string(from: timeDate)   // 38
         
-        formatter.dateFormat = "s"
+        formatter.dateFormat = "ss"
         let second = formatter.string(from: timeDate)   // 34
         
         formatter.dateFormat = "E"

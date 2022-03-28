@@ -10,6 +10,7 @@ import QRScanner
 import SnapKit
 import RxSwift
 import RxCocoa
+import FirebaseAuth   // TODO: ログイン完了は M で実装, FirebaseAuth のインポートをなくす
 
 class QrScanViewController: UIViewController {
 
@@ -61,9 +62,17 @@ class QrScanViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupQrScanner()
-        setLayout()
-        setupBinding()
+        // TODO: ログイン完了は M で実装, FirebaseAuth のインポートをなくす
+        // ログイン完了しているかどうかで画面遷移
+        if Auth.auth().currentUser == nil {
+            let registerUserViewController = RegisterUserViewController()
+            self.present(registerUserViewController, animated: true, completion: nil)
+        } else {
+            setupQrScanner()
+            setLayout()
+            setupBinding()
+        }
+        
     }
     
     private func setupQrScanner() {
@@ -157,17 +166,32 @@ extension QrScanViewController: QRScannerViewDelegate {
         qrTextLabel.text = code
         
         qrScanViewModel.isCheckAndRegistRoom
-            .drive { bool in
-                print("V, ユーザーが対象の研究室を登録しているか: ", bool)
+            .drive { isCheckAndRegist in
+                print("V, ユーザーが対象の研究室を登録しているか: ", isCheckAndRegist)
             }
             .disposed(by: disposeBag)
         
-        qrScanViewModel.isRegisterEnterTime
-            .drive { bool in
-                print("V, ユーザーの入室登録: ", bool)
+        qrScanViewModel.isRegisterEnterTime   // ?filter で除外された時は 何も返ってこないため、ここは実行されない
+            .drive { isEnter in
+                print("V, ユーザーの入室登録: ", isEnter)
+                if isEnter {
+                    // TODO: 入室後の画面を作成し遷移する
+                    let calendarViewController = CalendarViewController()
+                    self.present(calendarViewController, animated: true, completion: nil)
+                }
             }
             .disposed(by: disposeBag)
         
+        qrScanViewModel.isRegisterLeaveTime
+            .drive { isLeave in
+                print("V, ユーザーの退室登録: ", isLeave)
+                if isLeave {
+                    // TODO: 退室後の画面を作成し遷移する
+                    let rankingView = RankingViewController()
+                    self.present(rankingView, animated: true, completion: nil)
+                }
+            }
+            .disposed(by: disposeBag)
     }
 }
 

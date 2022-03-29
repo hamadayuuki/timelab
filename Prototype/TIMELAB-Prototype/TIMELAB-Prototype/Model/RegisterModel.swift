@@ -85,8 +85,9 @@ class RegisterModel {
             
             let document = [
                 "allUsers": [],
-                "host": [],
-                "client": [],
+                "usersState": [:],
+                "hosts": [],
+                "clients": [],
                 "university": university,
                 "department": department,
                 "course": course,
@@ -96,7 +97,7 @@ class RegisterModel {
                 "updateAt": Timestamp()
             ] as [String : Any]
             
-            Firestore.firestore().collection("Labs").document().setData(document) { err in
+            Firestore.firestore().collection("Rooms").document().setData(document) { err in
                 if let err = err {
                     observer.onNext(false)
                 }

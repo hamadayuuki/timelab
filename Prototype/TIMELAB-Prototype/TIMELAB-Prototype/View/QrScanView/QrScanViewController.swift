@@ -165,6 +165,7 @@ extension QrScanViewController: QRScannerViewDelegate {
         qrScanViewModel = QrScanViewModel(roomId: code)
         qrTextLabel.text = code
         
+        // ! ここで定義しないと VM, M のプログラムは動かない
         qrScanViewModel.isCheckAndRegistRoom
             .drive { isCheckAndRegist in
                 print("V, ユーザーが対象の研究室を登録しているか: ", isCheckAndRegist)
@@ -179,6 +180,12 @@ extension QrScanViewController: QRScannerViewDelegate {
                     let calendarViewController = CalendarViewController()
                     self.present(calendarViewController, animated: true, completion: nil)
                 }
+            }
+            .disposed(by: disposeBag)
+        
+        qrScanViewModel.isRegistUserStateToRooms
+            .drive { isRegistUserState in
+                print("研究室ごとのユーザー滞在状態の更新: ", isRegistUserState)
             }
             .disposed(by: disposeBag)
         

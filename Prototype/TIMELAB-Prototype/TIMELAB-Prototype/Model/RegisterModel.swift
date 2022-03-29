@@ -53,16 +53,13 @@ class RegisterModel {
             let document = [
                 "name": name,
                 "email": email,
-                "type": 0,
+                "type": "client",   // TODO: 可変に
                 "rooms": [],
-                "times": [],
-                "memos": [],
                 "createAt": Timestamp(),
-                "updateAt": Timestamp(),
-                "state": ""
+                "updateAt": Timestamp()
             ] as [String : Any]
             
-            Firestore.firestore().collection("user").document(uid).setData(document) { err in
+            Firestore.firestore().collection("Users").document(uid).setData(document) { err in
                 if let err = err {
                     print("FireStoreへの登録に失敗: ", err)
                     observer.onNext(false)
@@ -85,14 +82,13 @@ class RegisterModel {
             
             let document = [
                 "allUsers": [],
-                "usersState": [:],
                 "hosts": [],
                 "clients": [],
                 "university": university,
                 "department": department,
                 "course": course,
                 "name": lab,
-                "type": 0,
+                "type": "Lab",   // "Lab" か "Room", TODO: 可変に
                 "createAt": Timestamp(),
                 "updateAt": Timestamp()
             ] as [String : Any]

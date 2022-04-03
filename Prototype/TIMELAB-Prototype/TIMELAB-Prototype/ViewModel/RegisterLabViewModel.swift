@@ -17,6 +17,7 @@ class RegisterLabViewModel {
     
     let isSignUp: Driver<Bool>
     let canSignUp: Driver<Bool>
+    let qrCodeData: Driver<Data>
     
     let disposeBag = DisposeBag()   // ここで初期化しないと 処理が走らない場合あり
     
@@ -31,6 +32,7 @@ class RegisterLabViewModel {
         
         // M とのつながり
         let registerLabValidationModel = RegisterLabValidationModel()
+        let registerModel = RegisterModel()
         
         // V からの通知(データも?)を受け取り M に処理を任せる, V から呼ばれることでデータ送信(VM→V)を行える
         universityValidation = input.university
@@ -52,7 +54,8 @@ class RegisterLabViewModel {
         
         // アカウント作成
         let signUpDatas = Driver.combineLatest(input.university, input.department, input.course, input.lab) { (university: $0, department: $1, course: $2, lab: $3) }
-        let result = input.registerButton
+        //  ↓ Observable<String>, documentId が通知される
+        let roomsDocumentId = input.registerButton
             .asObservable()
             .withLatestFrom(signUpDatas)
             .flatMapLatest { tuple in
@@ -62,9 +65,9 @@ class RegisterLabViewModel {
             .share(replay: 1)
         
         // M でのアカウント登録結果を受け取り、V に渡している, M→VM, VM→M
-        isSignUp = result
+        isSignUp = roomsDocumentId
             .filter { $0 != nil }
-            .map { result in return result }
+            .map { result in return result != "" }
             .asDriver(onErrorJustReturn: false )
         
         // アカウント作成可能か
@@ -73,5 +76,13 @@ class RegisterLabViewModel {
             registerLabValidationModel.ValidateCanRegister(universityIsValid: university.isValid, departmentIsValid: department.isValid, courseIsValid: course.isValid, labIsValid: lab.isValid)
         }
         .distinctUntilChanged()
+        
+        // timelab-api で作成したQRコードを Data型 で受け取る
+        qrCodeData = roomsDocumentId
+            .flatMap { documentId in
+                registerModel.fetchQrCodeFromTimeLabAPI(roomId: documentId)
+            }
+            .asDriver(onErrorJustReturn: Data())
+        
     }
 }

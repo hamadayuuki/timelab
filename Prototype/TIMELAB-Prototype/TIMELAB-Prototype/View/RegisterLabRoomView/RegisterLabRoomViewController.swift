@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 import RxSwift
 import RxCocoa
 import PKHUD
@@ -163,6 +164,14 @@ class RegisterLabRoomViewController: UIViewController {
             }
             .disposed(by: disposeBag)
         
+        registerLabViewModel.qrCodeData
+            .drive { qrCodeData in
+                if qrCodeData != Data() {
+                    let confirmRoomQrCodeViewController = ConfirmRoomQrCodeViewController(qrCodeData: qrCodeData)
+                    self.present(confirmRoomQrCodeViewController, animated: true, completion: nil)
+                }
+            }
+            .disposed(by: disposeBag)
     }
 }
 

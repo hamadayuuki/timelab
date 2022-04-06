@@ -18,18 +18,18 @@ class QrCodeScannerViewController: UIViewController {
     let qrTextLabel: UILabel = {
         let label = UILabel()
         label.text = ""
-        label.textColor = .black
+        label.textColor = Color.navyBlue.UIColor
         label.font = .systemFont(ofSize: 20, weight: .bold)
         label.adjustsFontSizeToFitWidth = true   // 大きさを自動で変更
         label.textAlignment = .center
-        label.backgroundColor = .white
+        label.backgroundColor = Color.white.UIColor
         return label
     }()
     
     let reloadButton: UIButton = {
        let button = UIButton()
         button.setTitle("再読み込み", for: .normal)
-        button.backgroundColor = .orange
+        button.backgroundColor = Color.orange.UIColor
         button.layer.cornerRadius = 10
         return button
     }()
@@ -37,8 +37,8 @@ class QrCodeScannerViewController: UIViewController {
     let createLabRoomButton: UIButton = {
         let button = UIButton()
          button.setTitle("+", for: .normal)
-         button.titleLabel?.textColor = .white
-         button.backgroundColor = .blue
+         button.titleLabel?.textColor = Color.white.UIColor
+         button.backgroundColor = Color.navyBlue.UIColor
          button.layer.cornerRadius = 30
          return button
      }()

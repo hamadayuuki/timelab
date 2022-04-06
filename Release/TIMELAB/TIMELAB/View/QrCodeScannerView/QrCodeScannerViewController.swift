@@ -14,45 +14,11 @@ class QrCodeScannerViewController: UIViewController {
     // MARK: UI Parts
     private var qrCodeScannerView: QRScannerView!
     private var maskCaLayer: MaskCaLayer!
-    
-    let qrTextLabel: UILabel = {
-        let label = UILabel()
-        label.text = ""
-        label.textColor = Color.navyBlue.UIColor
-        label.font = .systemFont(ofSize: 20, weight: .bold)
-        label.adjustsFontSizeToFitWidth = true   // 大きさを自動で変更
-        label.textAlignment = .center
-        label.backgroundColor = Color.white.UIColor
-        return label
-    }()
-    
-    let reloadButton: UIButton = {
-       let button = UIButton()
-        button.setTitle("再読み込み", for: .normal)
-        button.backgroundColor = Color.orange.UIColor
-        button.layer.cornerRadius = 10
-        return button
-    }()
-    
-    let createLabRoomButton: UIButton = {
-        let button = UIButton()
-         button.setTitle("+", for: .normal)
-         button.titleLabel?.textColor = Color.white.UIColor
-         button.backgroundColor = Color.navyBlue.UIColor
-         button.layer.cornerRadius = 30
-         return button
-     }()
-    
-    var qrCodeUIImageView: UIImageView = {
-        let image = UIImage(named: "qrCode")
-        let uiImageView = UIImageView(image: image ?? UIImage())
-        return uiImageView
-    }()
-    var qrWindowUIImageView: UIImageView = {
-        let image = UIImage(named: "qrWindow")
-        let uiImageView = UIImageView(image: image ?? UIImage())
-        return uiImageView
-    }()
+    var qrTextLabel: QrCodeScannerLabel!
+    var reloadButton: QrCodeScannerButton!
+    var createRoomButton: QrCodeScannerButton!
+    var qrWindowUIImageView: QrCodeScannerUIImageView!
+    var qrCodeUIImageView: QrCodeScannerUIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -73,10 +39,18 @@ class QrCodeScannerViewController: UIViewController {
     
     private func setLayout() {
         self.title = "QRコード"
-        qrTextLabel.text = ""
+        
+        maskCaLayer = MaskCaLayer(view: self.view, maskWidth: 300, maskHeight: 300, cornerRadius: 10.0)
+        qrTextLabel = QrCodeScannerLabel(text: "", size: 20.0, weight: .bold, color: Color.white.UIColor)
+        qrTextLabel.adjustsFontSizeToFitWidth = true   // 大きさを自動で変更
+        qrTextLabel.textAlignment = .center
+        qrTextLabel.backgroundColor = Color.white.UIColor
+        reloadButton = QrCodeScannerButton(text: "再読み込み", textColor: Color.white.UIColor, backgroudColor: Color.orange.UIColor, cornerRadius: 20)
+        createRoomButton = QrCodeScannerButton(text: "+", backgroudColor: Color.white.UIColor, cornerRadius: 10)
+        qrWindowUIImageView = QrCodeScannerUIImageView(name: "qrWindow")
+        qrCodeUIImageView = QrCodeScannerUIImageView(name: "qrCode")
         
         // 最背面に配置する
-        maskCaLayer = MaskCaLayer(view: self.view, maskWidth: 300, maskHeight: 300, cornerRadius: 10.0)
         view.layer.addSublayer(maskCaLayer)
         qrCodeScannerView.snp.makeConstraints { (make) -> Void in
             make.center.equalTo(self.view)
@@ -116,8 +90,8 @@ class QrCodeScannerViewController: UIViewController {
             make.height.equalTo(100)
         }
         
-        view.addSubview(createLabRoomButton)
-        createLabRoomButton.snp.makeConstraints { make -> Void in
+        view.addSubview(createRoomButton)
+        createRoomButton.snp.makeConstraints { make -> Void in
             make.centerX.equalTo(view.bounds.width * 0.8)
             make.centerY.equalTo(view.bounds.height * 0.2)
             make.width.equalTo(60)

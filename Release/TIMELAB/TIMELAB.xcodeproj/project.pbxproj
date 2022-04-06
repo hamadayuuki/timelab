@@ -23,6 +23,8 @@
 		D427F66F27FD46AF00E7F4E9 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = D427F66E27FD46AF00E7F4E9 /* RxCocoa */; };
 		D427F67127FD46AF00E7F4E9 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = D427F67027FD46AF00E7F4E9 /* RxRelay */; };
 		D427F67327FD46AF00E7F4E9 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = D427F67227FD46AF00E7F4E9 /* RxSwift */; };
+		D427F67627FD78CA00E7F4E9 /* QrCodeScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D427F67527FD78CA00E7F4E9 /* QrCodeScannerViewController.swift */; };
+		D427F67827FD7FD600E7F4E9 /* MaskCaLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D427F67727FD7FD600E7F4E9 /* MaskCaLayer.swift */; };
 		D476DFBA27FD398500A1EDE3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D476DFB927FD398500A1EDE3 /* AppDelegate.swift */; };
 		D476DFBC27FD398500A1EDE3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D476DFBB27FD398500A1EDE3 /* SceneDelegate.swift */; };
 		D476DFBE27FD398500A1EDE3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D476DFBD27FD398500A1EDE3 /* ViewController.swift */; };
@@ -31,6 +33,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D427F67527FD78CA00E7F4E9 /* QrCodeScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QrCodeScannerViewController.swift; sourceTree = "<group>"; };
+		D427F67727FD7FD600E7F4E9 /* MaskCaLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaskCaLayer.swift; sourceTree = "<group>"; };
 		D476DFB627FD398500A1EDE3 /* TIMELAB.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TIMELAB.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D476DFB927FD398500A1EDE3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D476DFBB27FD398500A1EDE3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -67,6 +71,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D427F67427FD78A300E7F4E9 /* QrCodeScannerView */ = {
+			isa = PBXGroup;
+			children = (
+				D427F67527FD78CA00E7F4E9 /* QrCodeScannerViewController.swift */,
+				D427F67727FD7FD600E7F4E9 /* MaskCaLayer.swift */,
+			);
+			path = QrCodeScannerView;
+			sourceTree = "<group>";
+		};
 		D476DFAD27FD398500A1EDE3 = {
 			isa = PBXGroup;
 			children = (
@@ -88,6 +101,7 @@
 			children = (
 				D476DFB927FD398500A1EDE3 /* AppDelegate.swift */,
 				D476DFBB27FD398500A1EDE3 /* SceneDelegate.swift */,
+				D427F67427FD78A300E7F4E9 /* QrCodeScannerView */,
 				D476DFBD27FD398500A1EDE3 /* ViewController.swift */,
 				D476DFC227FD398700A1EDE3 /* Assets.xcassets */,
 				D476DFC427FD398700A1EDE3 /* LaunchScreen.storyboard */,
@@ -194,8 +208,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				D476DFBE27FD398500A1EDE3 /* ViewController.swift in Sources */,
+				D427F67627FD78CA00E7F4E9 /* QrCodeScannerViewController.swift in Sources */,
 				D476DFBA27FD398500A1EDE3 /* AppDelegate.swift in Sources */,
 				D476DFBC27FD398500A1EDE3 /* SceneDelegate.swift in Sources */,
+				D427F67827FD7FD600E7F4E9 /* MaskCaLayer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

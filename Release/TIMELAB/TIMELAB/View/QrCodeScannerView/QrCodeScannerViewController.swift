@@ -80,15 +80,16 @@ class QrCodeScannerViewController: UIViewController {
         let moveQrCodeScannerVertical = UIStackView(arrangedSubviews: [moveQrCodeScannerViewButton, moveQrCodeScannerLabel])
         moveQrCodeScannerVertical.axis = .vertical
         
-        // 遷移ボタンを分ける中央線
-        moveHorizontalCenterLine = QrCodeScannerUIImageView(name: "CenterLine")
-        moveHorizontalCenterLine.backgroundColor = Color.navyBlue.UIColor
-        
         let moveButtonHorizontalView = UIStackView(arrangedSubviews: [moveIdAndPasswordVertical, moveQrCodeScannerVertical])
         moveButtonHorizontalView.axis = .horizontal
         moveButtonHorizontalView.distribution = .fillProportionally
         moveButtonHorizontalView.backgroundColor = Color.navyBlue.UIColor
         
+        // 遷移ボタンを分ける中央線
+        moveHorizontalCenterLine = QrCodeScannerUIImageView(name: "CenterLine")
+        moveHorizontalCenterLine.backgroundColor = Color.navyBlue.UIColor
+        
+        // MARK: - addSubview/layer
         // 最背面に配置する
         view.layer.addSublayer(maskCaLayer)
         qrCodeScannerView.snp.makeConstraints { (make) -> Void in
@@ -96,6 +97,22 @@ class QrCodeScannerViewController: UIViewController {
             make.width.equalTo(view.bounds.width)
             make.height.equalTo(view.bounds.height)
          }
+        
+        view.addSubview(createRoomButton)
+        createRoomButton.snp.makeConstraints { make -> Void in
+            make.centerX.equalTo(view.bounds.width * 0.8)
+            make.centerY.equalTo(view.bounds.height * 0.2)
+            make.width.equalTo(60)
+            make.height.equalTo(60)
+        }
+        
+        view.addSubview(qrTextLabel)
+        qrTextLabel.snp.makeConstraints { make -> Void in
+            make.centerX.equalTo(view.bounds.width * 0.4)
+            make.centerY.equalTo(view.bounds.height * 0.2)
+            make.width.equalTo(200)
+            make.height.equalTo(100)
+        }
         
         view.addSubview(qrCodeUIImageView)
         qrCodeUIImageView.snp.makeConstraints { (make) -> Void in
@@ -121,28 +138,12 @@ class QrCodeScannerViewController: UIViewController {
             make.height.equalTo(50)
          }
         
-        view.addSubview(qrTextLabel)
-        qrTextLabel.snp.makeConstraints { make -> Void in
-            make.centerX.equalTo(view.bounds.width * 0.4)
-            make.centerY.equalTo(view.bounds.height * 0.2)
-            make.width.equalTo(200)
-            make.height.equalTo(100)
-        }
-        
         view.addSubview(reloadButton)
         reloadButton.snp.makeConstraints { make -> Void in
             make.centerX.equalTo(view.bounds.width * 0.8)
             make.centerY.equalTo(view.bounds.height * 0.8)
             make.width.equalTo(130)
             make.height.equalTo(65)
-        }
-        
-        view.addSubview(createRoomButton)
-        createRoomButton.snp.makeConstraints { make -> Void in
-            make.centerX.equalTo(view.bounds.width * 0.8)
-            make.centerY.equalTo(view.bounds.height * 0.2)
-            make.width.equalTo(60)
-            make.height.equalTo(60)
         }
         
         moveIdAndPasswordLabel.snp.makeConstraints { make -> Void in

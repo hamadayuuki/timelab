@@ -18,6 +18,7 @@ class QrCodeScannerButton: UIButton {
         self.setTitleColor(textColor, for: .normal)
         self.backgroundColor = backgroudColor
         self.layer.cornerRadius = cornerRadius
+        var isSelected = false
     }
     
     required init?(coder: NSCoder) {

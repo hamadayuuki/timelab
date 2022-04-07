@@ -8,8 +8,12 @@
 import UIKit
 import SnapKit
 import QRScanner
+import RxCocoa
+import RxSwift
 
 class QrCodeScannerViewController: UIViewController {
+    
+    let disposeBag = DisposeBag()
     
     // MARK: - UI Parts
     private var qrCodeScannerView: QRScannerView!
@@ -32,6 +36,7 @@ class QrCodeScannerViewController: UIViewController {
         
         setupQrScanner()
         setLayout()
+        setupBinding()
     }
     
     // MARK: - Layout Functions
@@ -171,6 +176,15 @@ class QrCodeScannerViewController: UIViewController {
         }
         
     }
+    
+    func setupBinding() {
+        flashButton.rx.tap
+            .subscribe { _ in
+                self.qrCodeScannerView.setTorchActive(isOn: !self.flashButton.isSelected)
+            }
+            .disposed(by: disposeBag)
+    }
+    
 }
 
 extension QrCodeScannerViewController: QRScannerViewDelegate {
@@ -218,5 +232,10 @@ extension QrCodeScannerViewController: QRScannerViewDelegate {
 //                }
 //            }
 //            .disposed(by: disposeBag)
+    }
+    
+    // ライトのオンオフ
+    func qrScannerView(_ qrScannerView: QRScannerView, didChangeTorchActive isOn: Bool) {
+        self.flashButton.isSelected = isOn
     }
 }

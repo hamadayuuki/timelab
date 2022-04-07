@@ -12,8 +12,9 @@ class QrCodeScannerLabel: UILabel {
         super.init(frame: .zero)
         
         self.text = text
-        self.font = .systemFont(ofSize: size, weight: .heavy)
+        self.font = .systemFont(ofSize: size, weight: weight)
         self.textColor = color
+        self.backgroundColor = backgroundColor
     }
     
     required init?(coder: NSCoder) {

@@ -8,10 +8,12 @@
 import UIKit
 
 class QrCodeScannerButton: UIButton {
-    init(imageName: String = "", text: String, textColor: UIColor = Color.navyBlue.UIColor, backgroudColor: UIColor = UIColor.clear, cornerRadius: CGFloat) {
+    init(imageName: String = "", imageSize: CGSize = CGSize(width: 0.0, height: 0.0), text: String = "", textColor: UIColor = Color.navyBlue.UIColor, backgroudColor: UIColor = UIColor.clear, cornerRadius: CGFloat = 0.0) {
         super.init(frame: .zero)
         
-        self.setImage(UIImage(named: imageName) ?? UIImage(), for: .normal)
+        var image = UIImage(named: imageName) ?? UIImage()
+        image = image.reSizeImage(reSize: imageSize)
+        self.setImage(image, for: .normal)
         self.setTitle(text, for: .normal)
         self.setTitleColor(textColor, for: .normal)
         self.backgroundColor = backgroudColor

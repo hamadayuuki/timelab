@@ -11,7 +11,7 @@ import QRScanner
 
 class QrCodeScannerViewController: UIViewController {
     
-    // MARK: UI Parts
+    // MARK: - UI Parts
     private var qrCodeScannerView: QRScannerView!
     private var maskCaLayer: MaskCaLayer!
     var qrTextLabel: QrCodeScannerLabel!
@@ -19,7 +19,14 @@ class QrCodeScannerViewController: UIViewController {
     var createRoomButton: QrCodeScannerButton!
     var qrWindowUIImageView: QrCodeScannerUIImageView!
     var qrCodeUIImageView: QrCodeScannerUIImageView!
+    var flashButton: QrCodeScannerButton!
+    var moveIdAndPasswordViewButton: QrCodeScannerButton!
+    var moveIdAndPasswordLabel: QrCodeScannerLabel!
+    var moveHorizontalCenterLine: QrCodeScannerUIImageView!
+    var moveQrCodeScannerViewButton: QrCodeScannerButton!
+    var moveQrCodeScannerLabel: QrCodeScannerLabel!
     
+    // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -27,7 +34,7 @@ class QrCodeScannerViewController: UIViewController {
         setLayout()
     }
     
-    // MARK: Layout Functions
+    // MARK: - Layout Functions
     private func setupQrScanner() {
         // QRScanner - メルカリ
         qrCodeScannerView = QRScannerView(frame: view.bounds)
@@ -41,14 +48,41 @@ class QrCodeScannerViewController: UIViewController {
         self.title = "QRコード"
         
         maskCaLayer = MaskCaLayer(view: self.view, maskWidth: 300, maskHeight: 300, cornerRadius: 10.0)
-        qrTextLabel = QrCodeScannerLabel(text: "", size: 20.0, weight: .bold, color: Color.white.UIColor)
+        
+        qrTextLabel = QrCodeScannerLabel(text: "", size: 20.0, weight: .bold, color: Color.navyBlue.UIColor, backgroundColor: Color.white.UIColor)
         qrTextLabel.adjustsFontSizeToFitWidth = true   // 大きさを自動で変更
         qrTextLabel.textAlignment = .center
-        qrTextLabel.backgroundColor = Color.white.UIColor
+        
+        // 再読み込みボタン
         reloadButton = QrCodeScannerButton(text: "再読み込み", textColor: Color.white.UIColor, backgroudColor: Color.orange.UIColor, cornerRadius: 20)
         createRoomButton = QrCodeScannerButton(text: "+", backgroudColor: Color.white.UIColor, cornerRadius: 10)
-        qrWindowUIImageView = QrCodeScannerUIImageView(name: "qrWindow")
-        qrCodeUIImageView = QrCodeScannerUIImageView(name: "qrCode")
+        qrWindowUIImageView = QrCodeScannerUIImageView(name: "QrWindow")
+        qrCodeUIImageView = QrCodeScannerUIImageView(name: "WrCode")
+        
+        flashButton = QrCodeScannerButton(imageName: "Flash", imageSize: CGSize(width: 30, height: 30), text: "ライト", textColor: Color.white.UIColor, backgroudColor: Color.navyBlue.UIColor, cornerRadius: 20)
+        
+        // ID・パスワードでの入室画面への遷移ボタン
+        moveIdAndPasswordViewButton = QrCodeScannerButton(imageName: "IdAndPassword", imageSize: CGSize(width: 60.0, height: 60.0), textColor: Color.white.UIColor)
+        moveIdAndPasswordLabel = QrCodeScannerLabel(text: "ID・パスワードで入室", size: 11, weight: .regular, color: Color.white.UIColor)
+        moveIdAndPasswordLabel.textAlignment = .center
+        let moveIdAndPasswordVertical = UIStackView(arrangedSubviews: [moveIdAndPasswordViewButton, moveIdAndPasswordLabel])
+        moveIdAndPasswordVertical.axis = .vertical
+        
+        // QRコード読み取りでの入室画面への遷移ボタン
+        moveQrCodeScannerViewButton = QrCodeScannerButton(imageName: "QrCodeIcon", imageSize: CGSize(width: 30.0, height: 30.0), textColor: Color.white.UIColor)
+        moveQrCodeScannerLabel = QrCodeScannerLabel(text: "QRコード読み取り", size: 11, weight: .regular, color: Color.white.UIColor)
+        moveQrCodeScannerLabel.textAlignment = .center
+        let moveQrCodeScannerVertical = UIStackView(arrangedSubviews: [moveQrCodeScannerViewButton, moveQrCodeScannerLabel])
+        moveQrCodeScannerVertical.axis = .vertical
+        
+        // 遷移ボタンを分ける中央線
+        moveHorizontalCenterLine = QrCodeScannerUIImageView(name: "CenterLine")
+        moveHorizontalCenterLine.backgroundColor = Color.navyBlue.UIColor
+        
+        let moveButtonHorizontalView = UIStackView(arrangedSubviews: [moveIdAndPasswordVertical, moveQrCodeScannerVertical])
+        moveButtonHorizontalView.axis = .horizontal
+        moveButtonHorizontalView.distribution = .fillProportionally
+        moveButtonHorizontalView.backgroundColor = Color.navyBlue.UIColor
         
         // 最背面に配置する
         view.layer.addSublayer(maskCaLayer)
@@ -74,20 +108,28 @@ class QrCodeScannerViewController: UIViewController {
             make.height.equalTo(300)
          }
         
+        view.addSubview(flashButton)
+        flashButton.snp.makeConstraints { (make) -> Void in
+            make.centerX.equalTo(view.bounds.width * 0.5)
+            make.top.equalTo(qrWindowUIImageView.snp.bottom).offset(20)
+            make.width.equalTo(100)   // 画像が描画される時にできる余白 100
+            make.height.equalTo(50)
+         }
+        
         view.addSubview(qrTextLabel)
         qrTextLabel.snp.makeConstraints { make -> Void in
-            make.centerX.equalTo(view.bounds.width / 2)
-            make.centerY.equalTo((view.bounds.height / 2) + 100)
+            make.centerX.equalTo(view.bounds.width * 0.4)
+            make.centerY.equalTo(view.bounds.height * 0.2)
             make.width.equalTo(200)
             make.height.equalTo(100)
         }
         
         view.addSubview(reloadButton)
         reloadButton.snp.makeConstraints { make -> Void in
-            make.centerX.equalTo(view.bounds.width / 2)
+            make.centerX.equalTo(view.bounds.width * 0.8)
             make.centerY.equalTo(view.bounds.height * 0.8)
-            make.width.equalTo(200)
-            make.height.equalTo(100)
+            make.width.equalTo(130)
+            make.height.equalTo(65)
         }
         
         view.addSubview(createRoomButton)
@@ -96,6 +138,36 @@ class QrCodeScannerViewController: UIViewController {
             make.centerY.equalTo(view.bounds.height * 0.2)
             make.width.equalTo(60)
             make.height.equalTo(60)
+        }
+        
+        moveIdAndPasswordLabel.snp.makeConstraints { make -> Void in
+            make.height.equalTo(30)
+        }
+        moveIdAndPasswordVertical.snp.makeConstraints { make -> Void in
+            make.width.equalTo(view.bounds.width * 0.5)
+            make.height.equalTo(90)
+        }
+        moveQrCodeScannerLabel.snp.makeConstraints { make -> Void in
+            make.height.equalTo(30)
+        }
+        moveQrCodeScannerVertical.snp.makeConstraints { make -> Void in
+            make.width.equalTo(view.bounds.width * 0.5)
+            make.height.equalTo(90)
+        }
+        
+        view.addSubview(moveButtonHorizontalView)
+        moveButtonHorizontalView.snp.makeConstraints { make -> Void in
+            make.centerX.equalTo(view.bounds.width * 0.5)
+            make.centerY.equalTo(view.bounds.height - 70)
+            make.width.equalTo(view.bounds.width)
+            make.height.equalTo(90)
+        }
+        
+        view.addSubview(moveHorizontalCenterLine)
+        moveHorizontalCenterLine.snp.makeConstraints { make -> Void in
+            make.centerX.equalTo(view.bounds.width * 0.5)
+            make.centerY.equalTo(view.bounds.height - 70)
+            make.height.equalTo(50)
         }
         
     }

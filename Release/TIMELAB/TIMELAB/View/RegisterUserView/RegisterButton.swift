@@ -6,15 +6,22 @@
 //
 
 import UIKit
+import SnapKit
 
 class RegisterButton: UIButton {
-    init() {
+    init(text: String, textSize: CGFloat) {
         super.init(frame: .zero)
+        
         self.backgroundColor = Color.navyBlue.UIColor
         self.layer.cornerRadius = 30
-        self.setTitle("アカウントを作成する", for: .normal)
-        self.titleLabel?.font = .systemFont(ofSize: 15, weight: .bold)
+        self.setTitle(text, for: .normal)
+        self.titleLabel?.font = .systemFont(ofSize: textSize, weight: .bold)
         self.titleLabel?.textColor = Color.white.UIColor
+        
+        self.snp.makeConstraints { make -> Void in
+            make.width.equalTo(210)
+            make.height.equalTo(60)
+        }
     }
     
     required init?(coder: NSCoder) {

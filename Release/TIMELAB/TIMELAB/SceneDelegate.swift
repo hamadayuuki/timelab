@@ -10,7 +10,7 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-
+    var navigationController: UINavigationController?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         
@@ -18,9 +18,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         // アプリ起動時に表示する画面の描画
         guard let windowScene = (scene as? UIWindowScene) else { return }
+        
+        // push遷移
+        let registerUserViewController = RegisterUserViewController()   // アプリ起動時に描画する画面
+        navigationController = UINavigationController(rootViewController: registerUserViewController)
         let window = UIWindow(windowScene: windowScene)
         self.window = window
-        window.rootViewController = RegisterUserViewController()
+        window.rootViewController = navigationController
         window.makeKeyAndVisible()
     }
 

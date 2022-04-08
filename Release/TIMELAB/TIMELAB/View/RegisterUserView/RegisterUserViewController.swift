@@ -13,7 +13,7 @@ import PKHUD
 
 class RegisterUserViewController: UIViewController {
     
-    // UI Parts
+    // MARK: - UI Parts
     var introductionLabel: RegisterLabel!
     var nameLabel: RegisterLabel!
     var nameTextField: RegisterTextField!
@@ -38,6 +38,7 @@ class RegisterUserViewController: UIViewController {
     
     var isProgressView  = false
     
+    // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -45,6 +46,7 @@ class RegisterUserViewController: UIViewController {
         setupBinding()
     }
     
+    // MARK: - Function
     private func setupLayout() {
         self.view.backgroundColor = .white
         
@@ -70,8 +72,38 @@ class RegisterUserViewController: UIViewController {
         passwordConfirmSceretButton = RegisterSecretButton(imageSize: CGSize(width: 18, height: 18))
         validatePasswordConfirmLabel = RegisterLabel(text: "", size: 10)
         
-        registerButton = RegisterButton()
+        registerButton = RegisterButton(text: "アカウントを作成する", textSize: 15)
         
+        let registerVerticalView = setupRegisterVerticalView()
+        
+        // MARK: - addSubview/layer
+        view.addSubview(registerVerticalView)
+        registerVerticalView.snp.makeConstraints { make -> Void in
+            make.centerX.equalTo(view.bounds.width / 2)
+            make.top.equalTo(view.bounds.height * 0.15)
+        }
+        
+        view.addSubview(registerButton)
+        registerButton.snp.makeConstraints { make -> Void in
+            make.centerX.equalTo(view.bounds.width * 0.5)
+            make.top.equalTo(registerVerticalView.snp.bottom).offset(55)
+        }
+        
+        view.addSubview(passwordSceretButton)
+        passwordSceretButton.snp.makeConstraints { make -> Void in
+            make.centerY.equalTo(passwordTextField.snp.centerY)
+            make.right.equalTo(registerVerticalView.snp.right).offset(-10)
+        }
+        
+        view.addSubview(passwordConfirmSceretButton)
+        passwordConfirmSceretButton.snp.makeConstraints { make -> Void in
+            make.centerY.equalTo(passwordConfirmTextField.snp.centerY)
+            make.right.equalTo(registerVerticalView.snp.right).offset(-10)
+        }
+        
+    }
+    
+    func setupRegisterVerticalView() -> UIStackView {
         let nameVerticalView = UIStackView(arrangedSubviews: [nameLabel, nameTextField, validateNameLabel])
         nameVerticalView.axis = .vertical
         nameVerticalView.spacing = 5
@@ -93,32 +125,7 @@ class RegisterUserViewController: UIViewController {
         registerVerticalView.distribution = .fillEqually   // 要素の大きさを均等にする
         registerVerticalView.spacing = 20
         
-        view.addSubview(registerVerticalView)
-        registerVerticalView.snp.makeConstraints { make -> Void in
-            make.centerX.equalTo(view.bounds.width / 2)
-            make.top.equalTo(view.bounds.height * 0.15)
-        }
-        
-        view.addSubview(registerButton)
-        registerButton.snp.makeConstraints { make -> Void in
-            make.centerX.equalTo(view.bounds.width / 2)
-            make.top.equalTo(registerVerticalView.snp.bottom).offset(50)
-            make.width.equalTo(210)
-            make.height.equalTo(60)
-        }
-        
-        view.addSubview(passwordSceretButton)
-        passwordSceretButton.snp.makeConstraints { make -> Void in
-            make.centerY.equalTo(passwordTextField.snp.centerY)
-            make.right.equalTo(registerVerticalView.snp.right).offset(-10)
-        }
-        
-        view.addSubview(passwordConfirmSceretButton)
-        passwordConfirmSceretButton.snp.makeConstraints { make -> Void in
-            make.centerY.equalTo(passwordConfirmTextField.snp.centerY)
-            make.right.equalTo(registerVerticalView.snp.right).offset(-10)
-        }
-        
+        return registerVerticalView
     }
     
     private func setupBinding() {
@@ -203,11 +210,19 @@ class RegisterUserViewController: UIViewController {
         
         registerButton.rx.tap
             .subscribe { _ in
-                HUD.show(.progress)
-                self.isProgressView = true
+                HUD.show(.progress)   // ローディング表示
+//                self.isProgressView = true
+                // TODO: ボタン 選択/非選択プログラム を簡略化, 簡略化可能かどうかから考える
+                self.registerButton.isSelected = !self.registerButton.isSelected
+                self.registerButton.backgroundColor = self.registerButton.isSelected ? Color.lightGray.UIColor : Color.navyBlue.UIColor
                 // 3秒後にローディングを消す
                 DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
                     HUD.hide()
+                    self.registerButton.isSelected = !self.registerButton.isSelected
+                    self.registerButton.backgroundColor = self.registerButton.isSelected ? Color.lightGray.UIColor : Color.navyBlue.UIColor
+                    // push画面遷移
+                    let welcomeViewController = WelcomeViewController()
+                    self.navigationController?.pushViewController(welcomeViewController, animated: true)
                 }
             }
             .disposed(by: disposeBag)
@@ -227,11 +242,5 @@ class RegisterUserViewController: UIViewController {
             }
             .disposed(by: disposeBag)
         
-        registerButton.rx.tap
-            .subscribe { _ in
-                self.registerButton.isSelected = !self.registerButton.isSelected
-                self.registerButton.backgroundColor = self.registerButton.isSelected ? Color.lightGray.UIColor : Color.navyBlue.UIColor
-            }
-            .disposed(by: disposeBag)
     }
 }

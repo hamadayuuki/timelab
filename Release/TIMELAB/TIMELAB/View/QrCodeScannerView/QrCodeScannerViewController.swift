@@ -39,7 +39,7 @@ class QrCodeScannerViewController: UIViewController {
         setupBinding()
     }
     
-    // MARK: - Layout Functions
+    // MARK: - Functions
     private func setupQrScanner() {
         // QRScanner - メルカリ
         qrCodeScannerView = QRScannerView(frame: view.bounds)

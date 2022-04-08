@@ -13,7 +13,7 @@ class RegisterLabel: UILabel {
         
         self.text = text
         self.font = .systemFont(ofSize: size, weight: .heavy)
-        self.textColor = .black
+        self.textColor = Color.navyBlue.UIColor
     }
     
     required init?(coder: NSCoder) {

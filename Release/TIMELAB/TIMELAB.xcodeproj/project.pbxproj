@@ -42,6 +42,7 @@
 		D427F6A127FFFCE500E7F4E9 /* RegisterUserIconViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D427F6A027FFFCE500E7F4E9 /* RegisterUserIconViewController.swift */; };
 		D427F6A327FFFD1400E7F4E9 /* RegisterUserIconButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D427F6A227FFFD1400E7F4E9 /* RegisterUserIconButton.swift */; };
 		D427F6A52800236C00E7F4E9 /* ConfirmUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D427F6A42800236C00E7F4E9 /* ConfirmUserViewController.swift */; };
+		D427F6CE2801351700E7F4E9 /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = D427F6CD2801351700E7F4E9 /* IQKeyboardManagerSwift */; };
 		D476DFBA27FD398500A1EDE3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D476DFB927FD398500A1EDE3 /* AppDelegate.swift */; };
 		D476DFBC27FD398500A1EDE3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D476DFBB27FD398500A1EDE3 /* SceneDelegate.swift */; };
 		D476DFBE27FD398500A1EDE3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D476DFBD27FD398500A1EDE3 /* ViewController.swift */; };
@@ -87,6 +88,7 @@
 				D427F66C27FD453D00E7F4E9 /* SwiftyJSON in Frameworks */,
 				D427F66227FD43DC00E7F4E9 /* FirebaseFunctions in Frameworks */,
 				D427F66027FD43DC00E7F4E9 /* FirebaseFirestore in Frameworks */,
+				D427F6CE2801351700E7F4E9 /* IQKeyboardManagerSwift in Frameworks */,
 				D427F65527FD42CB00E7F4E9 /* PKHUD in Frameworks */,
 				D427F66627FD43DC00E7F4E9 /* FirebaseStorage in Frameworks */,
 				D427F64427FD41D000E7F4E9 /* QRScanner in Frameworks */,
@@ -234,6 +236,7 @@
 				D427F66E27FD46AF00E7F4E9 /* RxCocoa */,
 				D427F67027FD46AF00E7F4E9 /* RxRelay */,
 				D427F67227FD46AF00E7F4E9 /* RxSwift */,
+				D427F6CD2801351700E7F4E9 /* IQKeyboardManagerSwift */,
 			);
 			productName = TIMELAB;
 			productReference = D476DFB627FD398500A1EDE3 /* TIMELAB.app */;
@@ -271,6 +274,7 @@
 				D427F66727FD44CC00E7F4E9 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				D427F66A27FD453D00E7F4E9 /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
 				D427F66D27FD46AF00E7F4E9 /* XCRemoteSwiftPackageReference "RxSwift" */,
+				D427F6CC2801351600E7F4E9 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
 			);
 			productRefGroup = D476DFB727FD398500A1EDE3 /* Products */;
 			projectDirPath = "";
@@ -585,6 +589,14 @@
 				minimumVersion = 6.0.0;
 			};
 		};
+		D427F6CC2801351600E7F4E9 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/hackiftekhar/IQKeyboardManager";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -667,6 +679,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D427F66D27FD46AF00E7F4E9 /* XCRemoteSwiftPackageReference "RxSwift" */;
 			productName = RxSwift;
+		};
+		D427F6CD2801351700E7F4E9 /* IQKeyboardManagerSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D427F6CC2801351600E7F4E9 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */;
+			productName = IQKeyboardManagerSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

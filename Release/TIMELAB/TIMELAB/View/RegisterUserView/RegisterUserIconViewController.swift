@@ -111,6 +111,15 @@ class RegisterUserIconViewController: UIViewController {
     }
     
     func setupBinding() {
+        // 背景をタップしたらキーボードを隠す
+        let tapBackground = UITapGestureRecognizer()
+        tapBackground.rx.event
+            .subscribe(onNext: { [weak self] _ in
+                self?.view.endEditing(true)
+            })
+            .disposed(by: disposeBag)
+        view.addGestureRecognizer(tapBackground)
+        
         icon1.rx.tap
             .subscribe { _ in self.changeIconBackgroundColor(icon: self.icon1) }
             .disposed(by: disposeBag)

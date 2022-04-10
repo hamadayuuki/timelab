@@ -65,6 +65,15 @@ class WelcomeViewController: UIViewController {
     }
     
     func setupBinding() {
+        // 背景をタップしたらキーボードを隠す
+        let tapBackground = UITapGestureRecognizer()
+        tapBackground.rx.event
+            .subscribe(onNext: { [weak self] _ in
+                self?.view.endEditing(true)
+            })
+            .disposed(by: disposeBag)
+        view.addGestureRecognizer(tapBackground)
+        
         moveRegisterNickNameView.rx.tap
             .subscribe { _ in
                 HUD.show(.progress)   // ローディング表示

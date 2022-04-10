@@ -35,8 +35,8 @@ class ConfirmUserViewController: UIViewController {
         view.backgroundColor = Color.white.UIColor
         
         descriptionLabel = RegisterLabel(text: "入力は終了です！", size: 20)
-        userIconButton = RegisterUserIconButton(imageName: userIconName, imageSize: CGSize(width: 125, height: 125))
-        userNameLabel = RegisterLabel(text: userName, size: 30)
+        userIconButton = RegisterUserIconButton(imageName: userIconName, imageSize: CGSize(width: 65, height: 65))
+        userNameLabel = RegisterLabel(text: userName, size: 20)
         registerButton = RegisterButton(text: "OK", textSize: 15)
         
         let confirmUserVertical = UIStackView(arrangedSubviews: [descriptionLabel, userIconButton, userNameLabel])

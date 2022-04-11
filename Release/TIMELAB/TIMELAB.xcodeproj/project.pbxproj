@@ -50,6 +50,9 @@
 		D427F6D928031F5100E7F4E9 /* LogInSecretButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D427F6D828031F5100E7F4E9 /* LogInSecretButton.swift */; };
 		D427F6DB280320D700E7F4E9 /* LogInUIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D427F6DA280320D700E7F4E9 /* LogInUIImageView.swift */; };
 		D427F6DD28032C9200E7F4E9 /* UILabelExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D427F6DC28032C9200E7F4E9 /* UILabelExtension.swift */; };
+		D427F6E028040D4000E7F4E9 /* chooseRegisterOrLogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D427F6DF28040D4000E7F4E9 /* chooseRegisterOrLogInViewController.swift */; };
+		D427F6E228040DB500E7F4E9 /* chooseRegisterOrLogInButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D427F6E128040DB500E7F4E9 /* chooseRegisterOrLogInButton.swift */; };
+		D427F6E428040DD600E7F4E9 /* chooseRegisterOrLogInUIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D427F6E328040DD600E7F4E9 /* chooseRegisterOrLogInUIImageView.swift */; };
 		D476DFBA27FD398500A1EDE3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D476DFB927FD398500A1EDE3 /* AppDelegate.swift */; };
 		D476DFBC27FD398500A1EDE3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D476DFBB27FD398500A1EDE3 /* SceneDelegate.swift */; };
 		D476DFBE27FD398500A1EDE3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D476DFBD27FD398500A1EDE3 /* ViewController.swift */; };
@@ -84,6 +87,9 @@
 		D427F6D828031F5100E7F4E9 /* LogInSecretButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInSecretButton.swift; sourceTree = "<group>"; };
 		D427F6DA280320D700E7F4E9 /* LogInUIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInUIImageView.swift; sourceTree = "<group>"; };
 		D427F6DC28032C9200E7F4E9 /* UILabelExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabelExtension.swift; sourceTree = "<group>"; };
+		D427F6DF28040D4000E7F4E9 /* chooseRegisterOrLogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chooseRegisterOrLogInViewController.swift; sourceTree = "<group>"; };
+		D427F6E128040DB500E7F4E9 /* chooseRegisterOrLogInButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chooseRegisterOrLogInButton.swift; sourceTree = "<group>"; };
+		D427F6E328040DD600E7F4E9 /* chooseRegisterOrLogInUIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chooseRegisterOrLogInUIImageView.swift; sourceTree = "<group>"; };
 		D476DFB627FD398500A1EDE3 /* TIMELAB.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TIMELAB.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D476DFB927FD398500A1EDE3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D476DFBB27FD398500A1EDE3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -149,6 +155,7 @@
 				D427F67427FD78A300E7F4E9 /* QrCodeScannerView */,
 				D427F68D27FF175E00E7F4E9 /* RegisterUserView */,
 				D427F6CF28031E4E00E7F4E9 /* LogInView */,
+				D427F6DE28040D0300E7F4E9 /* ChooseRegisterOrLogInView */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -198,6 +205,16 @@
 				D427F6DA280320D700E7F4E9 /* LogInUIImageView.swift */,
 			);
 			path = LogInView;
+			sourceTree = "<group>";
+		};
+		D427F6DE28040D0300E7F4E9 /* ChooseRegisterOrLogInView */ = {
+			isa = PBXGroup;
+			children = (
+				D427F6DF28040D4000E7F4E9 /* chooseRegisterOrLogInViewController.swift */,
+				D427F6E328040DD600E7F4E9 /* chooseRegisterOrLogInUIImageView.swift */,
+				D427F6E128040DB500E7F4E9 /* chooseRegisterOrLogInButton.swift */,
+			);
+			path = ChooseRegisterOrLogInView;
 			sourceTree = "<group>";
 		};
 		D476DFAD27FD398500A1EDE3 = {
@@ -340,6 +357,7 @@
 				D427F68427FD956000E7F4E9 /* QrCodeScannerLabel.swift in Sources */,
 				D427F68F27FF178300E7F4E9 /* RegisterUserViewController.swift in Sources */,
 				D427F68A27FDB50B00E7F4E9 /* UIImageExtension.swift in Sources */,
+				D427F6E028040D4000E7F4E9 /* chooseRegisterOrLogInViewController.swift in Sources */,
 				D476DFBA27FD398500A1EDE3 /* AppDelegate.swift in Sources */,
 				D427F69127FF17FD00E7F4E9 /* RegisterLabel.swift in Sources */,
 				D427F6A327FFFD1400E7F4E9 /* RegisterUserIconButton.swift in Sources */,
@@ -348,6 +366,7 @@
 				D427F6D928031F5100E7F4E9 /* LogInSecretButton.swift in Sources */,
 				D427F67C27FD899200E7F4E9 /* UIColorExtension.swift in Sources */,
 				D427F6DD28032C9200E7F4E9 /* UILabelExtension.swift in Sources */,
+				D427F6E228040DB500E7F4E9 /* chooseRegisterOrLogInButton.swift in Sources */,
 				D427F69327FF181900E7F4E9 /* RegisterButton.swift in Sources */,
 				D427F69927FF243200E7F4E9 /* RegisterSecretButton.swift in Sources */,
 				D476DFBC27FD398500A1EDE3 /* SceneDelegate.swift in Sources */,
@@ -358,6 +377,7 @@
 				D427F6D128031E6E00E7F4E9 /* LogInViewController.swift in Sources */,
 				D427F67827FD7FD600E7F4E9 /* MaskCaLayer.swift in Sources */,
 				D427F68827FD994700E7F4E9 /* QrCodeScannerUiImageView.swift in Sources */,
+				D427F6E428040DD600E7F4E9 /* chooseRegisterOrLogInUIImageView.swift in Sources */,
 				D427F69B27FFE54700E7F4E9 /* WelcomeViewController.swift in Sources */,
 				D427F69D27FFE60700E7F4E9 /* RegisterUIImageView.swift in Sources */,
 			);

@@ -5,6 +5,8 @@
 //  Created by 濵田　悠樹 on 2022/04/07.
 //
 
+// TODO: ボタン や 画像 等の大きさをどこで指定するか, iPadに対応させるために ViewController で指定するのが良い？
+
 import UIKit
 import SnapKit
 import RxSwift

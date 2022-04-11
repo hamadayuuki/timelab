@@ -16,7 +16,7 @@ class LogInButton: UIButton {
         self.layer.cornerRadius = 30
         self.setTitle(text, for: .normal)
         self.titleLabel?.font = .systemFont(ofSize: textSize, weight: .bold)
-        self.titleLabel?.textColor = Color.white.UIColor
+        self.setTitleColor(Color.white.UIColor, for: .normal)
         
         self.snp.makeConstraints { make -> Void in
             make.width.equalTo(210)

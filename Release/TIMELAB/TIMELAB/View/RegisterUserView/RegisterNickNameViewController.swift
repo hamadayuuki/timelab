@@ -84,7 +84,7 @@ class RegisterNickNameViewController: UIViewController {
                     self.registerNickNameButton.isSelected = !self.registerNickNameButton.isSelected
                     self.registerNickNameButton.backgroundColor = self.registerNickNameButton.isSelected ? Color.lightGray.UIColor : Color.navyBlue.UIColor
                     // Push画面遷移
-                    let registerUserIconViewController = RegisterUserIconViewController()
+                    let registerUserIconViewController = RegisterUserIconViewController(userName: self.nickNameTextField.text ?? "")
                     self.navigationController?.pushViewController(registerUserIconViewController, animated: true)
                 }
             }

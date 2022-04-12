@@ -13,6 +13,16 @@ import RxSwift
 class ConfirmUserViewController: UIViewController {
     
     let disposeBag = DisposeBag()
+    var userName = ""
+    var iconName = ""
+    
+    init(userName: String, iconName: String) {
+        super.init(nibName: nil, bundle: nil)   // ViewController の super.init()
+        
+        self.userName = userName
+        self.iconName = iconName
+    }
+    required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
     
     // MARK: - UI Parts
     var descriptionLabel: RegisterLabel!
@@ -24,19 +34,17 @@ class ConfirmUserViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let userIconName = "UserIcon_1"
-        let userName = "たろう"
-        setupLayout(userIconName: userIconName, userName: userName)
+        setupLayout(userName: userName)
         setupBinding()
     }
     
     // MARK: - Function
-    func setupLayout(userIconName: String, userName: String) {
+    func setupLayout(userName: String) {
         view.backgroundColor = Color.white.UIColor
         
         descriptionLabel = RegisterLabel(text: "入力は終了です！", size: 20)
-        userIconButton = RegisterUserIconButton(imageName: userIconName, imageSize: CGSize(width: 65, height: 65))
-        userNameLabel = RegisterLabel(text: userName, size: 20)
+        userIconButton = RegisterUserIconButton(imageName: self.iconName, imageSize: CGSize(width: 65, height: 65))
+        userNameLabel = RegisterLabel(text: self.userName, size: 20)
         registerButton = RegisterButton(text: "OK", textSize: 15)
         
         let confirmUserVertical = UIStackView(arrangedSubviews: [descriptionLabel, userIconButton, userNameLabel])

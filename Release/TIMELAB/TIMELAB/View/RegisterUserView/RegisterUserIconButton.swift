@@ -14,6 +14,7 @@ class RegisterUserIconButton: UIButton {
         
         var image = UIImage(named: imageName) ?? UIImage()
         image = image.reSizeImage(reSize: imageSize)
+        self.accessibilityIdentifier = imageName   // 選択したアイコンの画像名を取得するため
         self.setImage(image, for: .normal)
         self.backgroundColor = Color.white.UIColor
         self.layer.cornerRadius = (imageSize.width * 1.6) / 2

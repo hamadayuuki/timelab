@@ -14,6 +14,15 @@ import RxSwift
 class RegisterUserIconViewController: UIViewController {
     
     let disposeBag = DisposeBag()
+    var userName = ""
+    var iconName = ""
+    
+    init(userName: String) {
+        super.init(nibName: nil, bundle: nil)
+        
+        self.userName = userName
+    }
+    required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
     
     // MARK: - UI Parts
     var descriptionLabel: RegisterLabel!
@@ -53,6 +62,8 @@ class RegisterUserIconViewController: UIViewController {
         descriptionAndUserIconVertical.spacing = 20
         descriptionAndUserIconVertical.alignment = .center
         registerUserIconButton = RegisterButton(text: "OK", textSize: 15)
+        registerUserIconButton.isEnabled = false   // アイコンを選択時 true になる
+        registerUserIconButton.backgroundColor = Color.lightGray.UIColor   // アイコン選択時 変更になる
         
         // MARK: - addSubview/layer
         view.addSubview(descriptionAndUserIconVertical)
@@ -191,7 +202,7 @@ class RegisterUserIconViewController: UIViewController {
                     self.registerUserIconButton.isSelected = !self.registerUserIconButton.isSelected
                     self.registerUserIconButton.backgroundColor = self.registerUserIconButton.isSelected ? Color.lightGray.UIColor : Color.navyBlue.UIColor
                     // Push画面遷移
-                    let confirmUserViewController = ConfirmUserViewController()
+                    let confirmUserViewController = ConfirmUserViewController(userName: self.userName, iconName: self.iconName)
                     self.navigationController?.pushViewController(confirmUserViewController, animated: true)
                 }
             }
@@ -200,6 +211,12 @@ class RegisterUserIconViewController: UIViewController {
     }
     
     func changeIconBackgroundColor(icon: RegisterUserIconButton) {
+        registerUserIconButton.isEnabled = true
+        registerUserIconButton.isSelected = false
+        registerUserIconButton.backgroundColor = Color.navyBlue.UIColor   // アイコン選択時 変更になる
+        
+        self.iconName = icon.accessibilityIdentifier ?? ""   // 選択したアイコンの画像名, 次に描画する確認画面で使用する
+        
         self.icon1.isSelected = false
         self.icon2.isSelected = false
         self.icon3.isSelected = false

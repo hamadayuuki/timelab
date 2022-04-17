@@ -58,6 +58,9 @@
 		D476DFBE27FD398500A1EDE3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D476DFBD27FD398500A1EDE3 /* ViewController.swift */; };
 		D476DFC327FD398700A1EDE3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D476DFC227FD398700A1EDE3 /* Assets.xcassets */; };
 		D476DFC627FD398700A1EDE3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D476DFC427FD398700A1EDE3 /* LaunchScreen.storyboard */; };
+		D477CB0B280C529E00B7A07B /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D477CB0A280C529E00B7A07B /* CalendarViewController.swift */; };
+		D477CB0D280C52B100B7A07B /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D477CB0C280C52B100B7A07B /* CalendarView.swift */; };
+		D477CB10280C536C00B7A07B /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = D477CB0F280C536C00B7A07B /* FSCalendar */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -97,6 +100,8 @@
 		D476DFC227FD398700A1EDE3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D476DFC527FD398700A1EDE3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D476DFC727FD398700A1EDE3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D477CB0A280C529E00B7A07B /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
+		D477CB0C280C52B100B7A07B /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +122,7 @@
 				D427F66927FD44CC00E7F4E9 /* Alamofire in Frameworks */,
 				D427F64727FD41FB00E7F4E9 /* SnapKit in Frameworks */,
 				D427F66F27FD46AF00E7F4E9 /* RxCocoa in Frameworks */,
+				D477CB10280C536C00B7A07B /* FSCalendar in Frameworks */,
 				D427F66427FD43DC00E7F4E9 /* FirebaseMessaging in Frameworks */,
 				D427F65A27FD43DC00E7F4E9 /* FirebaseAppCheck in Frameworks */,
 				D427F67327FD46AF00E7F4E9 /* RxSwift in Frameworks */,
@@ -156,6 +162,7 @@
 				D427F68D27FF175E00E7F4E9 /* RegisterUserView */,
 				D427F6CF28031E4E00E7F4E9 /* LogInView */,
 				D427F6DE28040D0300E7F4E9 /* ChooseRegisterOrLogInView */,
+				D477CB09280C527100B7A07B /* CalendarView */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -249,6 +256,15 @@
 			path = TIMELAB;
 			sourceTree = "<group>";
 		};
+		D477CB09280C527100B7A07B /* CalendarView */ = {
+			isa = PBXGroup;
+			children = (
+				D477CB0A280C529E00B7A07B /* CalendarViewController.swift */,
+				D477CB0C280C52B100B7A07B /* CalendarView.swift */,
+			);
+			path = CalendarView;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -283,6 +299,7 @@
 				D427F67027FD46AF00E7F4E9 /* RxRelay */,
 				D427F67227FD46AF00E7F4E9 /* RxSwift */,
 				D427F6CD2801351700E7F4E9 /* IQKeyboardManagerSwift */,
+				D477CB0F280C536C00B7A07B /* FSCalendar */,
 			);
 			productName = TIMELAB;
 			productReference = D476DFB627FD398500A1EDE3 /* TIMELAB.app */;
@@ -321,6 +338,7 @@
 				D427F66A27FD453D00E7F4E9 /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
 				D427F66D27FD46AF00E7F4E9 /* XCRemoteSwiftPackageReference "RxSwift" */,
 				D427F6CC2801351600E7F4E9 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
+				D477CB0E280C536C00B7A07B /* XCRemoteSwiftPackageReference "FSCalendar" */,
 			);
 			productRefGroup = D476DFB727FD398500A1EDE3 /* Products */;
 			projectDirPath = "";
@@ -351,6 +369,7 @@
 				D427F6A52800236C00E7F4E9 /* ConfirmUserViewController.swift in Sources */,
 				D476DFBE27FD398500A1EDE3 /* ViewController.swift in Sources */,
 				D427F6DB280320D700E7F4E9 /* LogInUIImageView.swift in Sources */,
+				D477CB0B280C529E00B7A07B /* CalendarViewController.swift in Sources */,
 				D427F67627FD78CA00E7F4E9 /* QrCodeScannerViewController.swift in Sources */,
 				D427F69527FF183100E7F4E9 /* RegisterTextField.swift in Sources */,
 				D427F68227FD8A6600E7F4E9 /* Color.swift in Sources */,
@@ -367,6 +386,7 @@
 				D427F67C27FD899200E7F4E9 /* UIColorExtension.swift in Sources */,
 				D427F6DD28032C9200E7F4E9 /* UILabelExtension.swift in Sources */,
 				D427F6E228040DB500E7F4E9 /* ChooseRegisterOrLogInButton.swift in Sources */,
+				D477CB0D280C52B100B7A07B /* CalendarView.swift in Sources */,
 				D427F69327FF181900E7F4E9 /* RegisterButton.swift in Sources */,
 				D427F69927FF243200E7F4E9 /* RegisterSecretButton.swift in Sources */,
 				D476DFBC27FD398500A1EDE3 /* SceneDelegate.swift in Sources */,
@@ -653,6 +673,14 @@
 				kind = branch;
 			};
 		};
+		D477CB0E280C536C00B7A07B /* XCRemoteSwiftPackageReference "FSCalendar" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/WenchaoD/FSCalendar";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -740,6 +768,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D427F6CC2801351600E7F4E9 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */;
 			productName = IQKeyboardManagerSwift;
+		};
+		D477CB0F280C536C00B7A07B /* FSCalendar */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D477CB0E280C536C00B7A07B /* XCRemoteSwiftPackageReference "FSCalendar" */;
+			productName = FSCalendar;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

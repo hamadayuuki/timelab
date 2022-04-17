@@ -1,5 +1,5 @@
 //
-//  chooseRegisterOrLogInViewController.swift
+//  ChooseRegisterOrLogInViewController.swift
 //  TIMELAB
 //
 //  Created by 濵田　悠樹 on 2022/04/11.
@@ -11,13 +11,13 @@ import RxSwift
 import RxCocoa
 import PKHUD
 
-class chooseRegisterOrLogInViewController: UIViewController {
+class ChooseRegisterOrLogInViewController: UIViewController {
     
     // MARK: - UI Parts
-    var titleLabelUIImageView: chooseRegisterOrLogInUIImageView!
-    var iconUIImageView: chooseRegisterOrLogInUIImageView!
-    var logInButton: chooseRegisterOrLogInButton!
-    var registerButton: chooseRegisterOrLogInButton!
+    var titleLabelUIImageView: ChooseRegisterOrLogInUIImageView!
+    var iconUIImageView: ChooseRegisterOrLogInUIImageView!
+    var logInButton: ChooseRegisterOrLogInButton!
+    var registerButton: ChooseRegisterOrLogInButton!
     
     let disposeBag = DisposeBag()
     
@@ -40,10 +40,10 @@ class chooseRegisterOrLogInViewController: UIViewController {
         let width = view.bounds.width
         let height = view.bounds.height
         
-        titleLabelUIImageView = chooseRegisterOrLogInUIImageView(name: "TimeLabTitleLabel")
-        iconUIImageView = chooseRegisterOrLogInUIImageView(name: "TimeLabIcon")
-        logInButton = chooseRegisterOrLogInButton(text: "ログイン", textSize: 15, isRegister: false)
-        registerButton = chooseRegisterOrLogInButton(text: "はじめて使う", textSize: 15, isRegister: true)
+        titleLabelUIImageView = ChooseRegisterOrLogInUIImageView(name: "TimeLabTitleLabel")
+        iconUIImageView = ChooseRegisterOrLogInUIImageView(name: "TimeLabIcon")
+        logInButton = ChooseRegisterOrLogInButton(text: "ログイン", textSize: 15, isRegister: false)
+        registerButton = ChooseRegisterOrLogInButton(text: "はじめて使う", textSize: 15, isRegister: true)
         
         let iconAndTitleLabelVertical = UIStackView(arrangedSubviews: [titleLabelUIImageView, iconUIImageView])
         iconAndTitleLabelVertical.axis = .vertical

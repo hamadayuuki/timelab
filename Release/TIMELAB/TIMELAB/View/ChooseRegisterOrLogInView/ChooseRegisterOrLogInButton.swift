@@ -1,5 +1,5 @@
 //
-//  chooseRegisterOrLogInButton.swift
+//  ChooseRegisterOrLogInButton.swift
 //  TIMELAB
 //
 //  Created by 濵田　悠樹 on 2022/04/11.
@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class chooseRegisterOrLogInButton: UIButton {
+class ChooseRegisterOrLogInButton: UIButton {
     init(text: String, textSize: CGFloat, isRegister: Bool) {
         super.init(frame: .zero)
         

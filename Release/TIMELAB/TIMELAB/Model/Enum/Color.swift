@@ -13,6 +13,10 @@ enum Color: String {
     case lightGray = "CECECE"
     case navyBlue  = "111B3A"
     
+    // カレンダーの日付背景色
+    case paleOrange  = "FCDDBE"
+    case lightBrown  = "F5BA7F"
+    case lightOrange = "FFA858"
     
     var UIColor: UIKit.UIColor {
         return UIKit.UIColor(hex: self.rawValue)!

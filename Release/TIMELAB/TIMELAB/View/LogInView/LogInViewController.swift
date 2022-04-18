@@ -13,6 +13,10 @@ import PKHUD
 
 class LogInViewController: UIViewController {
     
+    let disposeBag = DisposeBag()
+//    var registerUserViewModel: RegisterUserViewModel!
+    var isProgressView  = false
+    
     // MARK: - UI Parts
     var introductionLabel: LogInLabel!
     var introductionUIImageView: LogInUIImageView!
@@ -26,12 +30,6 @@ class LogInViewController: UIViewController {
     var validatePasswordLabel: LogInLabel!
     var forgetPasswordLabel: LogInLabel!
     var logInButton: LogInButton!
-    
-    let disposeBag = DisposeBag()
-    
-//    var registerUserViewModel: RegisterUserViewModel!
-    
-    var isProgressView  = false
     
     // MARK: - Life Cycle
     override func viewDidLoad() {

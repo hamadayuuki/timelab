@@ -13,17 +13,15 @@ import PKHUD
 
 class ChooseRegisterOrLogInViewController: UIViewController {
     
+    let disposeBag = DisposeBag()
+//    var registerUserViewModel: RegisterUserViewModel!
+    var isProgressView  = false
+    
     // MARK: - UI Parts
     var titleLabelUIImageView: ChooseRegisterOrLogInUIImageView!
     var iconUIImageView: ChooseRegisterOrLogInUIImageView!
     var logInButton: ChooseRegisterOrLogInButton!
     var registerButton: ChooseRegisterOrLogInButton!
-    
-    let disposeBag = DisposeBag()
-    
-//    var registerUserViewModel: RegisterUserViewModel!
-    
-    var isProgressView  = false
     
     // MARK: - Life Cycle
     override func viewDidLoad() {
@@ -125,7 +123,6 @@ class ChooseRegisterOrLogInViewController: UIViewController {
                 }
             }
             .disposed(by: disposeBag)
-        
         
     }
 }

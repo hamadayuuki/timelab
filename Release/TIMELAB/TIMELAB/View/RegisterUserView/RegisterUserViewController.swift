@@ -15,6 +15,10 @@ import PKHUD
 
 class RegisterUserViewController: UIViewController {
     
+    let disposeBag = DisposeBag()
+//    var registerUserViewModel: RegisterUserViewModel!
+    var isProgressView  = false
+    
     // MARK: - UI Parts
     var introductionLabel: RegisterLabel!
     var nameLabel: RegisterLabel!
@@ -33,12 +37,6 @@ class RegisterUserViewController: UIViewController {
     var passwordConfirmSceretButton: RegisterSecretButton!
     var validatePasswordConfirmLabel: RegisterLabel!
     var registerButton: RegisterButton!
-    
-    let disposeBag = DisposeBag()
-    
-//    var registerUserViewModel: RegisterUserViewModel!
-    
-    var isProgressView  = false
     
     // MARK: - Life Cycle
     override func viewDidLoad() {

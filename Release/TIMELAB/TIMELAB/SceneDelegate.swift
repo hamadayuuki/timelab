@@ -25,6 +25,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.window = window
         window.rootViewController = navigationController
         window.makeKeyAndVisible()
+        
+        // Present遷移
+//       let window = UIWindow(windowScene: windowScene)
+//       self.window = window
+//       window.rootViewController = CalendarDetailViewController()
+//       window.makeKeyAndVisible()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

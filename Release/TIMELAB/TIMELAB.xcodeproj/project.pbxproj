@@ -61,6 +61,7 @@
 		D477CB0B280C529E00B7A07B /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D477CB0A280C529E00B7A07B /* CalendarViewController.swift */; };
 		D477CB0D280C52B100B7A07B /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D477CB0C280C52B100B7A07B /* CalendarView.swift */; };
 		D477CB10280C536C00B7A07B /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = D477CB0F280C536C00B7A07B /* FSCalendar */; };
+		D477CB12280D43FD00B7A07B /* CalendarDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D477CB11280D43FD00B7A07B /* CalendarDetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -102,6 +103,7 @@
 		D476DFC727FD398700A1EDE3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D477CB0A280C529E00B7A07B /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		D477CB0C280C52B100B7A07B /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
+		D477CB11280D43FD00B7A07B /* CalendarDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -261,6 +263,7 @@
 			children = (
 				D477CB0A280C529E00B7A07B /* CalendarViewController.swift */,
 				D477CB0C280C52B100B7A07B /* CalendarView.swift */,
+				D477CB11280D43FD00B7A07B /* CalendarDetailViewController.swift */,
 			);
 			path = CalendarView;
 			sourceTree = "<group>";
@@ -376,6 +379,7 @@
 				D427F68427FD956000E7F4E9 /* QrCodeScannerLabel.swift in Sources */,
 				D427F68F27FF178300E7F4E9 /* RegisterUserViewController.swift in Sources */,
 				D427F68A27FDB50B00E7F4E9 /* UIImageExtension.swift in Sources */,
+				D477CB12280D43FD00B7A07B /* CalendarDetailViewController.swift in Sources */,
 				D427F6E028040D4000E7F4E9 /* ChooseRegisterOrLogInViewController.swift in Sources */,
 				D476DFBA27FD398500A1EDE3 /* AppDelegate.swift in Sources */,
 				D427F69127FF17FD00E7F4E9 /* RegisterLabel.swift in Sources */,

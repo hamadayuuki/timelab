@@ -11,6 +11,7 @@ import FSCalendar
 class CalendarView: FSCalendar {
     
     var dateDictionary: [String]!
+    var calendarViewDelegate: CalendarViewDelegate?   // CalendarViewController で画面遷移を行うため
     
     init(deteDictionary: [String]) {
         super.init(frame: .zero)
@@ -28,15 +29,15 @@ class CalendarView: FSCalendar {
         self.scope = .month //表示の単位（週単位: .week or 月単位: .month）
         self.locale = Locale(identifier: "ja") //表示の言語の設置（日本語表示の場合は"ja"）
         // ヘッダー
-        self.appearance.headerTitleFont = UIFont.systemFont(ofSize: 20) //ヘッダーテキストサイズ
+        self.appearance.headerTitleFont = UIFont.systemFont(ofSize: 17, weight: .bold) //ヘッダーテキストサイズ
         self.appearance.headerDateFormat = "yyyy/MM" //ヘッダー表示のフォーマット
         self.appearance.headerTitleColor = UIColor.label //ヘッダーテキストカラー
         // 曜日表示
-        self.appearance.weekdayFont = UIFont.systemFont(ofSize: 20) //曜日表示のテキストサイズ
+        self.appearance.weekdayFont = UIFont.systemFont(ofSize: 15, weight: .bold) //曜日表示のテキストサイズ
         self.appearance.weekdayTextColor = .darkGray //曜日表示のテキストカラー
         self.appearance.titleWeekendColor = .red //週末（土、日曜の日付表示カラー）
         // カレンダー日付表示
-        self.appearance.titleFont = UIFont.systemFont(ofSize: 15, weight: UIFont.Weight.bold) //日付のテキスト、ウェイトサイズ
+        self.appearance.titleFont = UIFont.systemFont(ofSize: 15, weight: .bold) //日付のテキスト、ウェイトサイズ
         self.appearance.titleOffset = CGPoint(x: 0, y: -10)   // 日付の位置をずらす
         self.appearance.todayColor = .clear //本日の選択カラー
         self.appearance.titleTodayColor = .orange //本日のテキストカラー
@@ -86,7 +87,8 @@ extension CalendarView: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDele
         let month = tmpDate.component(.month, from: date)
         let day = tmpDate.component(.day, from: date)
         let dateString = "\(year)/\(month)/\(day)"
-        print("dateString: ", dateString)
+        
+        calendarViewDelegate?.presentTransition()
     }
     
     // カレンダーの日付に画像を描画する

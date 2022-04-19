@@ -34,17 +34,17 @@ class CalendarView: FSCalendar {
         self.appearance.headerTitleColor = UIColor.label //ヘッダーテキストカラー
         // 曜日表示
         self.appearance.weekdayFont = UIFont.systemFont(ofSize: 15, weight: .bold) //曜日表示のテキストサイズ
-        self.appearance.weekdayTextColor = .darkGray //曜日表示のテキストカラー
+        self.appearance.weekdayTextColor = Color.navyBlue.UIColor //曜日表示のテキストカラー
         self.appearance.titleWeekendColor = .red //週末（土、日曜の日付表示カラー）
         // カレンダー日付表示
         self.appearance.titleFont = UIFont.systemFont(ofSize: 15, weight: .bold) //日付のテキスト、ウェイトサイズ
         self.appearance.titleOffset = CGPoint(x: 0, y: -10)   // 日付の位置をずらす
         self.appearance.todayColor = .clear //本日の選択カラー
-        self.appearance.titleTodayColor = .orange //本日のテキストカラー
+        self.appearance.titleTodayColor = Color.gray.UIColor //本日のテキストカラー
         
-        self.appearance.selectionColor = .blue //選択した日付のカラー
-        self.appearance.borderSelectionColor = .blue //選択した日付のボーダーカラー
-        self.appearance.titleSelectionColor = .black //選択した日付のテキストカラー
+        self.appearance.selectionColor = .clear //選択した日付のカラー
+        self.appearance.borderSelectionColor = .clear //選択した日付のボーダーカラー
+        self.appearance.titleSelectionColor = Color.navyBlue.UIColor //選択した日付のテキストカラー
                 
         self.appearance.borderRadius = 0 //本日・選択日の塗りつぶし角丸量
         

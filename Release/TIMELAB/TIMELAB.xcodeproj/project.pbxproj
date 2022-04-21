@@ -62,6 +62,7 @@
 		D477CB0D280C52B100B7A07B /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D477CB0C280C52B100B7A07B /* CalendarView.swift */; };
 		D477CB10280C536C00B7A07B /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = D477CB0F280C536C00B7A07B /* FSCalendar */; };
 		D477CB12280D43FD00B7A07B /* CalendarDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D477CB11280D43FD00B7A07B /* CalendarDetailViewController.swift */; };
+		D477CB1C2811A34900B7A07B /* FloatingPanel in Frameworks */ = {isa = PBXBuildFile; productRef = D477CB1B2811A34900B7A07B /* FloatingPanel */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -117,6 +118,7 @@
 				D427F66027FD43DC00E7F4E9 /* FirebaseFirestore in Frameworks */,
 				D427F6CE2801351700E7F4E9 /* IQKeyboardManagerSwift in Frameworks */,
 				D427F65527FD42CB00E7F4E9 /* PKHUD in Frameworks */,
+				D477CB1C2811A34900B7A07B /* FloatingPanel in Frameworks */,
 				D427F66627FD43DC00E7F4E9 /* FirebaseStorage in Frameworks */,
 				D427F64427FD41D000E7F4E9 /* QRScanner in Frameworks */,
 				D427F65E27FD43DC00E7F4E9 /* FirebaseDatabase in Frameworks */,
@@ -303,6 +305,7 @@
 				D427F67227FD46AF00E7F4E9 /* RxSwift */,
 				D427F6CD2801351700E7F4E9 /* IQKeyboardManagerSwift */,
 				D477CB0F280C536C00B7A07B /* FSCalendar */,
+				D477CB1B2811A34900B7A07B /* FloatingPanel */,
 			);
 			productName = TIMELAB;
 			productReference = D476DFB627FD398500A1EDE3 /* TIMELAB.app */;
@@ -342,6 +345,7 @@
 				D427F66D27FD46AF00E7F4E9 /* XCRemoteSwiftPackageReference "RxSwift" */,
 				D427F6CC2801351600E7F4E9 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
 				D477CB0E280C536C00B7A07B /* XCRemoteSwiftPackageReference "FSCalendar" */,
+				D477CB1A2811A34900B7A07B /* XCRemoteSwiftPackageReference "FloatingPanel" */,
 			);
 			productRefGroup = D476DFB727FD398500A1EDE3 /* Products */;
 			projectDirPath = "";
@@ -685,6 +689,14 @@
 				minimumVersion = 2.0.0;
 			};
 		};
+		D477CB1A2811A34900B7A07B /* XCRemoteSwiftPackageReference "FloatingPanel" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SCENEE/FloatingPanel";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -777,6 +789,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D477CB0E280C536C00B7A07B /* XCRemoteSwiftPackageReference "FSCalendar" */;
 			productName = FSCalendar;
+		};
+		D477CB1B2811A34900B7A07B /* FloatingPanel */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D477CB1A2811A34900B7A07B /* XCRemoteSwiftPackageReference "FloatingPanel" */;
+			productName = FloatingPanel;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

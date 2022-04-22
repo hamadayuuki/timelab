@@ -97,12 +97,12 @@ extension CalendarView: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDele
     // タップされた日付を取得する
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         let tmpDate = Calendar(identifier: .gregorian)
-        let year = tmpDate.component(.year, from: date)
+//        let year = tmpDate.component(.year, from: date)
         let month = tmpDate.component(.month, from: date)
         let day = tmpDate.component(.day, from: date)
         let weekDay = tmpDate.component(.weekday, from: date)
         let dayOfWeek = convertJapaneseDayOfWeek(weekDay: weekDay)
-        let dateString = "\(year)/\(month)/\(day)/(\(dayOfWeek))"
+        let dateString = "\(month)月\(day)日 (\(dayOfWeek))"
         
         calendarViewDelegate?.presentTransition(date: dateString)
     }

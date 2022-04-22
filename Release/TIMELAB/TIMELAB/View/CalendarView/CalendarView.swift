@@ -51,6 +51,20 @@ class CalendarView: FSCalendar {
         self.appearance.imageOffset = CGPoint(x: 0, y: -5)   // 画像の位置をずらす
     }
     
+    // 曜日を数字から文字へ変換 (1→日, 3→火)
+    func convertJapaneseDayOfWeek(weekDay: Int) -> String {
+        switch weekDay {
+        case 1: return "日"
+        case 2: return "月"
+        case 3: return "火"
+        case 4: return "水"
+        case 5: return "木"
+        case 6: return "金"
+        case 7: return "土"
+        default: return ""
+        }
+    }
+    
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 }
 
@@ -86,9 +100,11 @@ extension CalendarView: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDele
         let year = tmpDate.component(.year, from: date)
         let month = tmpDate.component(.month, from: date)
         let day = tmpDate.component(.day, from: date)
-        let dateString = "\(year)/\(month)/\(day)"
+        let weekDay = tmpDate.component(.weekday, from: date)
+        let dayOfWeek = convertJapaneseDayOfWeek(weekDay: weekDay)
+        let dateString = "\(year)/\(month)/\(day)/(\(dayOfWeek))"
         
-        calendarViewDelegate?.presentTransition()
+        calendarViewDelegate?.presentTransition(date: dateString)
     }
     
     // カレンダーの日付に画像を描画する

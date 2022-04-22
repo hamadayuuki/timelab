@@ -12,11 +12,30 @@ import FSCalendar
 class CalendarDetailViewController: UIViewController {
     
     var uiView = UIView()
+    var date: String!
+    
+    init(date: String) {
+        super.init(nibName: nil, bundle: nil)
+        
+        self.date = date
+    }
+    required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let dateLabel: UILabel = {
+            let label = UILabel()
+            label.text = self.date
+            return label
+        }()
+        
         view.addSubview(uiView)
+        view.addSubview(dateLabel)
+        dateLabel.snp.makeConstraints { make -> Void in
+            make.centerX.equalTo(view.bounds.width * 0.5)
+            make.centerY.equalTo(view.bounds.height * 0.5)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {

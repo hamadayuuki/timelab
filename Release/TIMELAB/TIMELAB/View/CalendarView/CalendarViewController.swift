@@ -11,7 +11,7 @@ import FSCalendar
 
 // 画面遷移用
 protocol CalendarViewDelegate {
-    func presentTransition()
+    func presentTransition(date: String)
 }
 
 class CalendarViewController: UIViewController, CalendarViewDelegate {
@@ -47,8 +47,8 @@ class CalendarViewController: UIViewController, CalendarViewDelegate {
     }
     
     // MARK: - CalendarViewDelegate
-    func presentTransition() {
-        self.present(CalendarDetailViewController(), animated: true, completion: nil)
+    func presentTransition(date: String) {
+        self.present(CalendarDetailViewController(date: date), animated: true, completion: nil)
     }
     
 }

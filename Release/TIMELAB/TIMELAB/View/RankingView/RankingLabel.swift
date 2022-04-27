@@ -8,7 +8,7 @@
 import UIKit
 
 class RankingLabel: UILabel {
-    init(text: String, size: CGFloat, textColor: UIColor = .black) {
+    init(text: String, size: CGFloat, textColor: UIColor = Color.navyBlue.UIColor) {
         super.init(frame: .zero)
         
         self.text = text

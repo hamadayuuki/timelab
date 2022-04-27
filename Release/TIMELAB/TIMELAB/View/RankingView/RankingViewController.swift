@@ -49,7 +49,7 @@ class RankingViewController: UIViewController {
     // MARK: - Function
     func setupLayout() {
         self.roomCard = RankingRoomCardUIImageView()
-        self.roomCardLabel = RankingLabel(text: "太田研究室", size: 15, textColor: .white)
+        self.roomCardLabel = RankingLabel(text: "太田研究室", size: 15, textColor: Color.white.UIColor)
         
         self.firstUserCrownUIImageView = RankingCrownUIImageView(name: "GoldCrown")
         self.secondUserCrownUIImageView = RankingCrownUIImageView(name: "SilverCrown")
@@ -119,8 +119,8 @@ class RankingViewController: UIViewController {
             guard let userNameLabel = userNameLabel else { return }   // nilチェック
             view.addSubview(userNameLabel)
             userNameLabel.snp.makeConstraints { make -> Void in
-                make.top.equalTo(userIconUIButtons[index]!.snp.bottom).offset(5)
                 make.centerX.equalTo(userIconUIButtons[index]!.snp.centerX)
+                make.top.equalTo(userIconUIButtons[index]!.snp.bottom).offset(5)
             }
         }
         

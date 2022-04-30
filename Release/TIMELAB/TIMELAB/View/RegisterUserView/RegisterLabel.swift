@@ -16,8 +16,6 @@ class RegisterLabel: UILabel {
         self.textColor = Color.navyBlue.UIColor
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 }
 

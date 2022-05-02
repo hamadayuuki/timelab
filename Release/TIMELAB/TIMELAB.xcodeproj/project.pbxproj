@@ -73,6 +73,9 @@
 		D477CB46281927BD00B7A07B /* RankingUserIconButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D477CB45281927BD00B7A07B /* RankingUserIconButton.swift */; };
 		D477CB48281927D400B7A07B /* RankingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D477CB47281927D400B7A07B /* RankingLabel.swift */; };
 		D477CB4A281927F200B7A07B /* RankingRoomCardUIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D477CB49281927F200B7A07B /* RankingRoomCardUIImageView.swift */; };
+		D477CB52281FAE5400B7A07B /* ConfirmOtherMemberStayStatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D477CB51281FAE5400B7A07B /* ConfirmOtherMemberStayStatusViewController.swift */; };
+		D477CB54281FB30F00B7A07B /* ConfirmOtherMemberUserIconButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D477CB53281FB30F00B7A07B /* ConfirmOtherMemberUserIconButton.swift */; };
+		D477CB56281FB3EC00B7A07B /* ConfirmOtherMemberLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D477CB55281FB3EC00B7A07B /* ConfirmOtherMemberLabel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -125,6 +128,9 @@
 		D477CB45281927BD00B7A07B /* RankingUserIconButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingUserIconButton.swift; sourceTree = "<group>"; };
 		D477CB47281927D400B7A07B /* RankingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingLabel.swift; sourceTree = "<group>"; };
 		D477CB49281927F200B7A07B /* RankingRoomCardUIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingRoomCardUIImageView.swift; sourceTree = "<group>"; };
+		D477CB51281FAE5400B7A07B /* ConfirmOtherMemberStayStatusViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmOtherMemberStayStatusViewController.swift; sourceTree = "<group>"; };
+		D477CB53281FB30F00B7A07B /* ConfirmOtherMemberUserIconButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmOtherMemberUserIconButton.swift; sourceTree = "<group>"; };
+		D477CB55281FB3EC00B7A07B /* ConfirmOtherMemberLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmOtherMemberLabel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -188,6 +194,7 @@
 				D427F6DE28040D0300E7F4E9 /* ChooseRegisterOrLogInView */,
 				D477CB09280C527100B7A07B /* CalendarView */,
 				D477CB402819274A00B7A07B /* RankingView */,
+				D477CB50281FADF300B7A07B /* ConfirmOtherMemberStayStatusView */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -308,6 +315,16 @@
 			path = RankingView;
 			sourceTree = "<group>";
 		};
+		D477CB50281FADF300B7A07B /* ConfirmOtherMemberStayStatusView */ = {
+			isa = PBXGroup;
+			children = (
+				D477CB51281FAE5400B7A07B /* ConfirmOtherMemberStayStatusViewController.swift */,
+				D477CB53281FB30F00B7A07B /* ConfirmOtherMemberUserIconButton.swift */,
+				D477CB55281FB3EC00B7A07B /* ConfirmOtherMemberLabel.swift */,
+			);
+			path = ConfirmOtherMemberStayStatusView;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -411,6 +428,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D477CB56281FB3EC00B7A07B /* ConfirmOtherMemberLabel.swift in Sources */,
 				D477CB4A281927F200B7A07B /* RankingRoomCardUIImageView.swift in Sources */,
 				D427F6A52800236C00E7F4E9 /* ConfirmUserViewController.swift in Sources */,
 				D476DFBE27FD398500A1EDE3 /* ViewController.swift in Sources */,
@@ -456,6 +474,8 @@
 				D427F69D27FFE60700E7F4E9 /* RegisterUIImageView.swift in Sources */,
 				D477CB2F281309CA00B7A07B /* CalendarDateFooterLabel.swift in Sources */,
 				D477CB48281927D400B7A07B /* RankingLabel.swift in Sources */,
+				D477CB52281FAE5400B7A07B /* ConfirmOtherMemberStayStatusViewController.swift in Sources */,
+				D477CB54281FB30F00B7A07B /* ConfirmOtherMemberUserIconButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

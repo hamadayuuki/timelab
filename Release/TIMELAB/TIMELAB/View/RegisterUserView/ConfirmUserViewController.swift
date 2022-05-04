@@ -9,6 +9,7 @@ import UIKit
 import SnapKit
 import RxCocoa
 import RxSwift
+import PKHUD
 
 class ConfirmUserViewController: UIViewController {
     
@@ -72,6 +73,16 @@ class ConfirmUserViewController: UIViewController {
             .subscribe { _ in
                 self.registerButton.isSelected = !self.registerButton.isSelected
                 self.registerButton.backgroundColor = self.registerButton.isSelected ? Color.lightGray.UIColor : Color.navyBlue.UIColor
+                HUD.show(.progress)
+                // 3秒後にローディングを消す
+                DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+                    HUD.hide()
+                    self.registerButton.isSelected = !self.registerButton.isSelected
+                    self.registerButton.backgroundColor = self.registerButton.isSelected ? Color.lightGray.UIColor : Color.navyBlue.UIColor
+                    // Push画面遷移
+                    let tabBarViewController = TabBarViewController()
+                    self.navigationController?.pushViewController(tabBarViewController, animated: true)
+                }
             }
             .disposed(by: disposeBag)
     }

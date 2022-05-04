@@ -76,6 +76,7 @@
 		D477CB52281FAE5400B7A07B /* ConfirmOtherMemberStayStatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D477CB51281FAE5400B7A07B /* ConfirmOtherMemberStayStatusViewController.swift */; };
 		D477CB54281FB30F00B7A07B /* ConfirmOtherMemberUserIconButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D477CB53281FB30F00B7A07B /* ConfirmOtherMemberUserIconButton.swift */; };
 		D477CB56281FB3EC00B7A07B /* ConfirmOtherMemberLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D477CB55281FB3EC00B7A07B /* ConfirmOtherMemberLabel.swift */; };
+		D477CB5928200D9100B7A07B /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D477CB5828200D9100B7A07B /* TabBarViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -131,6 +132,7 @@
 		D477CB51281FAE5400B7A07B /* ConfirmOtherMemberStayStatusViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmOtherMemberStayStatusViewController.swift; sourceTree = "<group>"; };
 		D477CB53281FB30F00B7A07B /* ConfirmOtherMemberUserIconButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmOtherMemberUserIconButton.swift; sourceTree = "<group>"; };
 		D477CB55281FB3EC00B7A07B /* ConfirmOtherMemberLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmOtherMemberLabel.swift; sourceTree = "<group>"; };
+		D477CB5828200D9100B7A07B /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -195,6 +197,7 @@
 				D477CB09280C527100B7A07B /* CalendarView */,
 				D477CB402819274A00B7A07B /* RankingView */,
 				D477CB50281FADF300B7A07B /* ConfirmOtherMemberStayStatusView */,
+				D477CB5728200D1A00B7A07B /* TabBarView */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -323,6 +326,14 @@
 				D477CB55281FB3EC00B7A07B /* ConfirmOtherMemberLabel.swift */,
 			);
 			path = ConfirmOtherMemberStayStatusView;
+			sourceTree = "<group>";
+		};
+		D477CB5728200D1A00B7A07B /* TabBarView */ = {
+			isa = PBXGroup;
+			children = (
+				D477CB5828200D9100B7A07B /* TabBarViewController.swift */,
+			);
+			path = TabBarView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -474,6 +485,7 @@
 				D427F69D27FFE60700E7F4E9 /* RegisterUIImageView.swift in Sources */,
 				D477CB2F281309CA00B7A07B /* CalendarDateFooterLabel.swift in Sources */,
 				D477CB48281927D400B7A07B /* RankingLabel.swift in Sources */,
+				D477CB5928200D9100B7A07B /* TabBarViewController.swift in Sources */,
 				D477CB52281FAE5400B7A07B /* ConfirmOtherMemberStayStatusViewController.swift in Sources */,
 				D477CB54281FB30F00B7A07B /* ConfirmOtherMemberUserIconButton.swift in Sources */,
 			);

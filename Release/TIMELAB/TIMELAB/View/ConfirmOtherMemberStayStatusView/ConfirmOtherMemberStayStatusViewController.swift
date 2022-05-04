@@ -13,12 +13,12 @@ class ConfirmOtherMemberStayStatusViewController: UIViewController {
     
     // TODO: FireStoreからデータを取得する
     let otherMemberDates = [
-        ["name": "たろう", "iconName": "UserIcon_1", "userId": "xxx", "stayStatus": "stay"],
-        ["name": "濵田", "iconName": "UserIcon_2", "userId": "yyy", "stayStatus": "home"],
-        ["name": "ながの", "iconName": "UserIcon_3", "userId": "zzz", "stayStatus": "stay"],
-        ["name": "しば", "iconName": "UserIcon_4", "userId": "000", "stayStatus": "home"],
-        ["name": "れいかぴ", "iconName": "UserIcon_5", "userId": "111", "stayStatus": "stay"],
-        ["name": "有村", "iconName": "UserIcon_6", "userId": "222", "stayStatus": "home"]
+        ["name": "たろう", "iconName": "UserIcon1", "userId": "xxx", "stayStatus": "stay"],
+        ["name": "濵田", "iconName": "UserIcon2", "userId": "yyy", "stayStatus": "home"],
+        ["name": "ながの", "iconName": "UserIcon3", "userId": "zzz", "stayStatus": "stay"],
+        ["name": "しば", "iconName": "UserIcon4", "userId": "000", "stayStatus": "home"],
+        ["name": "れいかぴ", "iconName": "UserIcon5", "userId": "111", "stayStatus": "stay"],
+        ["name": "有村", "iconName": "UserIcon6", "userId": "222", "stayStatus": "home"]
     ]
     var userIconUIImages: [ConfirmOtherMemberUserIconButton]!
     var userNameLabels: [ConfirmOtherMemberLabel]!
@@ -43,7 +43,7 @@ class ConfirmOtherMemberStayStatusViewController: UIViewController {
         self.userIconUIImages = []
         self.userNameLabels = []
         for otherMemberDate in otherMemberDates {
-            let userIconImage = ConfirmOtherMemberUserIconButton(imageName: otherMemberDate["iconName"] ?? "UserIcon_1")
+            let userIconImage = ConfirmOtherMemberUserIconButton(imageName: otherMemberDate["iconName"] ?? "UserIcon1")
             if otherMemberDate["stayStatus"] == "stay" { userIconImage.backgroundColor = .orange }
             self.userIconUIImages.append(userIconImage)
             
@@ -71,7 +71,7 @@ class ConfirmOtherMemberStayStatusViewController: UIViewController {
             view.addSubview(userIconUIImage)
             userIconUIImage.snp.makeConstraints { make -> Void in
                 make.centerX.equalTo(0).offset(view.bounds.width * (0.25 * (CGFloat(index % 3) + 1.0)))
-                make.centerY.equalTo(0).offset(245.0 + (120.0 * floor(CGFloat(index / 3))))   // equalTo() の中に数値を入れても意味ない, floor(): 切り捨て
+                make.centerY.equalTo(0).offset(245.0 + (135.0 * floor(CGFloat(index / 3))))   // equalTo() の中に数値を入れても意味ない, floor(): 切り捨て
             }
         }
         

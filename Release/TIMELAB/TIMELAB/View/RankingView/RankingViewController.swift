@@ -58,11 +58,11 @@ class RankingViewController: UIViewController {
         self.fifthUserCrownUIImageView = RankingCrownUIImageView(name: "NavyBlueCrown2")
         let userCrownUIImages = [firstUserCrownUIImageView, secondUserCrownUIImageView, thirdUserCrownUIImageView, fourthUserCrownUIImageView, fifthUserCrownUIImageView]
         
-        self.firstUserIconUIButton = RankingUserIconButton(imageName: "UserIcon_1")
-        self.secondUserIconUIButton = RankingUserIconButton(imageName: "UserIcon_2")
-        self.thirdUserIconUIButton = RankingUserIconButton(imageName: "UserIcon_3")
-        self.forthUserIconUIButton = RankingUserIconButton(imageName: "UserIcon_4")
-        self.fifthUserIconUIButton = RankingUserIconButton(imageName: "UserIcon_5")
+        self.firstUserIconUIButton = RankingUserIconButton(imageName: "UserIcon1")
+        self.secondUserIconUIButton = RankingUserIconButton(imageName: "UserIcon2")
+        self.thirdUserIconUIButton = RankingUserIconButton(imageName: "UserIcon3")
+        self.forthUserIconUIButton = RankingUserIconButton(imageName: "UserIcon4")
+        self.fifthUserIconUIButton = RankingUserIconButton(imageName: "UserIcon5")
         let userIconUIButtons = [firstUserIconUIButton, secondUserIconUIButton, thirdUserIconUIButton, forthUserIconUIButton, fifthUserIconUIButton]
         
         self.firstUserTimeLabel = RankingLabel(text: "25時間45分", size: 15)

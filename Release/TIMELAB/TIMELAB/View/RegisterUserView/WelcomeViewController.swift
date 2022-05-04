@@ -45,7 +45,7 @@ class WelcomeViewController: UIViewController {
         welcomeVertical.spacing = 20
         
         welcomeUIImageView.snp.makeConstraints { make -> Void in
-            make.width.equalTo(520)
+            make.width.equalTo(390)
             make.height.equalTo(390)
         }
         

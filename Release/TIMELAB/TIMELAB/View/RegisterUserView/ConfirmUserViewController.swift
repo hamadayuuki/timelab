@@ -44,7 +44,7 @@ class ConfirmUserViewController: UIViewController {
         view.backgroundColor = Color.white.UIColor
         
         descriptionLabel = RegisterLabel(text: "入力は終了です！", size: 20)
-        userIconButton = RegisterUserIconButton(imageName: self.iconName, imageSize: CGSize(width: 65, height: 65))
+        userIconButton = RegisterUserIconButton(imageName: self.iconName, imageSize: CGSize(width: 125, height: 125))
         userNameLabel = RegisterLabel(text: self.userName, size: 20)
         registerButton = RegisterButton(text: "OK", textSize: 15)
         

@@ -44,8 +44,8 @@ class RegisterNickNameViewController: UIViewController {
         registerNickNameVertical.spacing = 20
         
         nickNameUIImageView.snp.makeConstraints { make -> Void in
-            make.width.equalTo(280)
-            make.height.equalTo(210)
+            make.width.equalTo(195)
+            make.height.equalTo(195)
         }
         
         // MARK: - addSubview/layer

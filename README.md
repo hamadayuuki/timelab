@@ -40,7 +40,7 @@ TIMELAB は「カレンダー機能」等でその問題を解決します！
     - Firebase : バックエンド
     - FloatingPanel, FSCalendar, IQKeyboardManagerSwift, PKHUD : UI
     - (クックパッド : ディープリンク → 未実装)
-- API作成 → リポジトリを紹介する
+- [API作成](https://github.com/hamadayuuki/timelab-api)
     - 研究室IDからQRコードを作成
 - AdobeXD
     - デザイナーが作成したデザインを見ながらコーディングを行った

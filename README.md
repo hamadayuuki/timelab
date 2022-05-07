@@ -58,39 +58,44 @@ TIMELAB は「カレンダー機能」等でその問題を解決します！
 
 <img width = 60% src = "https://raw.githubusercontent.com/hamadayuuki/timelab/main/README/TIMELAB_Notion一覧.png">
 
-<br>
-① : アイデアだし
+<br><br>
+
+**① : アイデアだし**<br>
     ・どのような問題があり、どのように解決したいのか
 
 <img width = 60% src = "https://raw.githubusercontent.com/hamadayuuki/timelab/main/README/TIMELAB_Github_%E5%88%9D%E6%9C%9F%E3%82%A2%E3%82%A4%E3%83%87%E3%82%A2.jpg">
+<br><br>
 
-② : 問題/解決策 に関する調査
-    ・本当に問題が起こっているのか、考えている解決策で解決できるのか
+**② : 問題/解決策 に関する調査**<br>
+    ・本当に問題が起こっているのか、考えている解決策で解決できるのか<br><br>
 
-③ : アイデアのブラッシュアップ
-    ・目的は何なのか
-    ・どのような人をターゲットにするのか
-    ・ゴールはどこか
-    ・どのような機能をつけたいのか
+**③ : アイデアのブラッシュアップ**<br>
+    ・目的は何なのか<br>
+    ・どのような人をターゲットにするのか<br>
+    ・ゴールはどこか<br>
+    ・どのような機能をつけたいのか<br><br>
 
-④ : 競合アプリの調査
-    ・周りに似たようなアプリはないのか、30個程度アプリ(カレンダー, タイムカード, 出退勤管理, 学習アプリ 等)をインストールし調査
-        ・研究室×時間管理×共有 を強みにしているアプリはなかった
-        ・Studyplus, Github, mikan 辺りが機能の参考になりそう
+**④ : 競合アプリの調査**<br>
+    ・周りに似たようなアプリはないのか、30個程度アプリ(カレンダー, タイムカード, 出退勤管理, 学習アプリ 等)をインストールし調査<br>
+        ・研究室×時間管理×共有 を強みにしているアプリはなかった<br>
+        ・Studyplus, Github, mikan 辺りが機能の参考になりそう<br><br>
 
-⑤ : デザイナーへの呼びかけ
-    ・同大学 文系学部 の女の子が協力してくれることに！
+**⑤ : デザイナーへの呼びかけ**<br>
+    ・同大学 文系学部 の女の子が協力してくれることに！<br><br>
 
-⑥ : デザイナー含めアイデア/UIのブラッシュアップ
+**⑥ : デザイナー含めアイデア/UIのブラッシュアップ**<br>
 
 <img width = 60% src = "https://raw.githubusercontent.com/hamadayuuki/timelab/main/README/TIMELAB_Github_画面遷移図.png">
 
+<br><br>
 
-⑦ : 工数決定
+**⑦ : 工数決定**<br>
 
 <img width = 60% src = "https://raw.githubusercontent.com/hamadayuuki/timelab/main/README/TIMELAB_工数表.png">
 
-⑧ : 作業 → 現在進行中！
-    ・デザインは一通り完成！
-        ・現在、毎週zoomで確認/修正中
+<br><br>
+
+**⑧ : 作業 → 現在進行中！**<br>
+    ・デザインは一通り完成！<br>
+        ・現在、毎週zoomで確認/修正中<br>
     ・Firebase との接続を確認するため、[プロトタイプを作成済み](https://github.com/hamadayuuki/timelab/tree/prototype/main)

@@ -30,10 +30,10 @@ TIMELAB は「カレンダー機能」等でその問題を解決します！
     - Swift (Storyboardなし)
         - SwiftUIに向けて, 複数人で開発するときにコードをドキュメントとして使えるように
 - アーキテクチャ
-    - MVVM → アーキテクチャを学習したリポジトリを紹介する
+    - [MVVM](https://github.com/hamadayuuki/practice-iOS-architectures/tree/main/MVVM)
         - データバインディングに魅力を感じたから
 - ライブラリ
-    - RxSwift : データバインディング
+    - [RxSwift](https://github.com/hamadayuuki/swift-storyboard-tutorial/tree/main/RxSwift_1) : データバインディング
     - SnapKit : コードでの画面描画
     - QRScanner : QRコード読み取り用
     - Alamofire + SwiftyJSON : API連携
@@ -44,12 +44,12 @@ TIMELAB は「カレンダー機能」等でその問題を解決します！
     - 研究室IDからQRコードを作成
 - AdobeXD
     - デザイナーが作成したデザインを見ながらコーディングを行った
-- miro → URLを貼り付ける
+- miro
     - 画面遷移をデザイナーに伝えるために使用
     - DB設計で考えをまとめるために使用
     - APIの流れを整理するために使用
 - (Unitテスト → 検討,学習中)
-- (FirebaseCloudMessaging を使用して通知機能実装 → 今後実装)
+- ([FirebaseCloudMessaging](https://github.com/hamadayuuki/swift-storyboard-tutorial/tree/main/FirebaseCloudMessaging) を使用して通知機能実装 → 今後実装)
 
 
 ## 制作過程 (絶賛現在開発中!!!)
@@ -91,3 +91,6 @@ TIMELAB は「カレンダー機能」等でその問題を解決します！
 <img width = 60% src = "https://raw.githubusercontent.com/hamadayuuki/timelab/main/README/TIMELAB_工数表.png">
 
 ⑧ : 作業 → 現在進行中！
+    ・デザインは一通り完成！
+        ・現在、毎週zoomで確認/修正中
+    ・Firebase との接続を確認するため、[プロトタイプを作成済み](https://github.com/hamadayuuki/timelab/tree/prototype/main)

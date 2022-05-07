@@ -13,8 +13,7 @@ TIMELAB は「カレンダー機能」等でその問題を解決します！
 
 
 ## 画面 (絶賛現在開発中!)
-<img width = 80% src = "TIMELAB_Github_UI一覧.jpg">
-
+<img width = 80% src = "https://raw.githubusercontent.com/hamadayuuki/timelab/main/README/TIMELAB_Github_UI一覧.jpg">
 
 ## 開発人数
 2名
@@ -57,13 +56,13 @@ TIMELAB は「カレンダー機能」等でその問題を解決します！
 
 👇 Notionの一覧
 
-<img width = 60% src = "TIMELAB_Notion一覧.png">
+<img width = 60% src = "https://raw.githubusercontent.com/hamadayuuki/timelab/main/README/TIMELAB_Notion一覧.png">
 
 <br>
 ① : アイデアだし
     ・どのような問題があり、どのように解決したいのか
 
-<img width = 60% src = "TIMELAB_Github_初期アイデア.jpg">
+<img width = 60% src = "https://raw.githubusercontent.com/hamadayuuki/timelab/main/README/TIMELAB_Github_初期アイデア.jpg">
 
 ② : 問題/解決策 に関する調査
     ・本当に問題が起こっているのか、考えている解決策で解決できるのか
@@ -84,11 +83,11 @@ TIMELAB は「カレンダー機能」等でその問題を解決します！
 
 ⑥ : デザイナー含めアイデア/UIのブラッシュアップ
 
-<img width = 60% src = "TIMELAB_Github_画面遷移図.png">
+<img width = 60% src = "https://raw.githubusercontent.com/hamadayuuki/timelab/main/README/TIMELAB_Github_画面遷移図.png">
 
 
 ⑦ : 工数決定
 
-<img width = 60% src = "TIMELAB_工数表.png">
+<img width = 60% src = "https://raw.githubusercontent.com/hamadayuuki/timelab/main/README/TIMELAB_工数表.png">
 
 ⑧ : 作業 → 現在進行中！

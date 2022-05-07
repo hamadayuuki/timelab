@@ -62,7 +62,7 @@ TIMELAB は「カレンダー機能」等でその問題を解決します！
 ① : アイデアだし
     ・どのような問題があり、どのように解決したいのか
 
-<img width = 60% src = "https://raw.githubusercontent.com/hamadayuuki/timelab/main/README/TIMELAB_Github_初期アイデア.jpg">
+<img width = 60% src = "https://raw.githubusercontent.com/hamadayuuki/timelab/main/README/TIMELAB_Github_%E5%88%9D%E6%9C%9F%E3%82%A2%E3%82%A4%E3%83%87%E3%82%A2.jpg">
 
 ② : 問題/解決策 に関する調査
     ・本当に問題が起こっているのか、考えている解決策で解決できるのか

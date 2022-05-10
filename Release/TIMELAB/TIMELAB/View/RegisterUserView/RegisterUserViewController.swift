@@ -157,7 +157,7 @@ class RegisterUserViewController: UIViewController {
             password: passwordTextField.rx.text.orEmpty.asDriver(),
             passwordConfirm: passwordConfirmTextField.rx.text.orEmpty.asDriver(),
             signUpTaps: registerButton.rx.tap.asSignal()   // ボタンのタップには Single を使用する
-        )/*, signUpAPI: RegisterModel()*/)
+        ), signUpAPI: RegisterUserModel())
 
         // MV からデータ受け取る, データの値を変更
         registerUserViewModel.nameValidation
@@ -176,15 +176,23 @@ class RegisterUserViewController: UIViewController {
             .drive(validatePasswordConfirmLabel.rx.validationResult)
             .disposed(by: disposeBag)
 
-//        let canSingUp = registerUserViewModel.canSignUp
-//            .drive(onNext: { [weak self] valid  in
-//                self?.registerButton.isEnabled = valid
-//                self?.registerButton.alpha = valid ? 1.0 : 0.5
-//                print("valid: ", valid)
-//            })
-//            .disposed(by: disposeBag)
+        // FireAuth への登録
+        let canSingUp = registerUserViewModel.canSignUp
+            .drive(onNext: { [weak self] valid  in
+                self?.registerButton.isEnabled = valid
+                self?.registerButton.alpha = valid ? 1.0 : 0.5
+                print("valid: ", valid)
+            })
+            .disposed(by: disposeBag)
+        
+        // これがないと アカウント登録メソッド(M) が呼ばれない
+        registerUserViewModel.isSignUp
+            .drive { result in
+                print("V, FireAuth へユーザー登録 result: ", result)
+            }
+            .disposed(by: disposeBag)
 //
-////        let fireAuthAndStore = Driver.combineLatest(canSingUp) { (auth: $0) }
+//        let fireAuthAndStore = Driver.combineLatest(canSingUp) { (auth: $0) }
 //        // これがないと アカウント登録メソッド(M) が呼ばれない
 //        registerUserViewModel.isSignUp
 //            .drive { result in

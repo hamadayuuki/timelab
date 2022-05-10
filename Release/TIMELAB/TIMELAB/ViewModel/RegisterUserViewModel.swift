@@ -15,6 +15,10 @@ class RegisterUserViewModel {
     let passwordValidation: Driver<ValidationResult>
     let passwordConfirmValidation: Driver<ValidationResult>
     
+    let signUpResult: Driver<User>
+    let isSignUp: Driver<Bool>
+    let canSignUp: Driver<Bool>
+    
     let disposeBag = DisposeBag()   // ここで初期化しないと 処理が走らない場合あり
     
     // input: V から通知を受け取れるよう、初期化
@@ -24,7 +28,7 @@ class RegisterUserViewModel {
         password: Driver<String>,
         passwordConfirm: Driver<String>,
         signUpTaps: Signal<Void>   // tap を受け取るときは Signal
-    )) {
+    ), signUpAPI: RegisterUserModel) {
         // M とのつながり
         let validationModel = ValidationModel()
         
@@ -46,6 +50,30 @@ class RegisterUserViewModel {
                 validationModel.ValidatePasswordConfirm(password: password, passwordConfirm: passwordConfirm)
             }
         
+        // アカウント作成可能か
+        // ! ここに isSignUp をいれないと、アカウント登録が呼ばれない → 実装を変更する必要あり
+        canSignUp = Driver.combineLatest(nameValidation, emailValidation, passwordValidation, passwordConfirmValidation){ (name, email, password, passwordConfirm) in
+            validationModel.ValidateCanRegister(nameIsValid: name.isValid, emailIsValid: email.isValid, passwordIsValid: password.isValid, passwordConfirmIsValid: passwordConfirm.isValid)
+        }
+        .distinctUntilChanged()
+        
+        // アカウント作成
+        let nameAndEmailAndPassword = Driver.combineLatest(input.name, input.email, input.password) { (name: $0, email: $1, password: $2) }
+        signUpResult = input.signUpTaps
+            .asObservable()
+            .withLatestFrom(nameAndEmailAndPassword)
+            .flatMapLatest { tuple in
+                signUpAPI.registerUserToFireAuth(name: tuple.name, email: tuple.email, password: tuple.password)   // User型 で返ってくる
+            }
+            .asDriver(onErrorJustReturn: User(name: "", email: "", uid: "", isValid: false))
+        
+        // M でのアカウント登録結果を受け取り、V に渡している, M→VM, VM→M
+        //         ↓ Observable<User>
+        isSignUp = signUpResult
+            .asObservable()
+            .filter { $0.isValid }
+            .map { user in return user.isValid }
+            .asDriver(onErrorJustReturn: false )
     }
     
 }

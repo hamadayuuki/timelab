@@ -6,10 +6,13 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
+import FirebaseAuth
 
 class RegisterUserModel {
     init() { }
-    /*
+    
     // アカウント登録の状態を通知するために create を使い、アカウント登録を Observable化
     //                                                                         ↓ VM で FireStroeへユーザー情報を登録できるよう User型 で通知
     func registerUserToFireAuth(name: String, email: String, password: String) -> Observable<User> {
@@ -34,6 +37,5 @@ class RegisterUserModel {
             
         }// return
     }
-    */
     
 }

@@ -13,6 +13,15 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = .yellow
+        
+        // 実行環境分け の確認
+        #if Develop
+            print("🐵")
+        #elseif Debug
+            print("🐥")
+        #else
+            print("🐻")
+        #endif
     }
 
 

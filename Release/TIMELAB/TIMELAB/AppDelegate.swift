@@ -17,6 +17,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         IQKeyboardManager.shared.enable = true   // TextField の高さを自動変更可能にする
         
+        // 実行環境によって Firebase の切り替えを行う
+        var resource = "GoogleService-Info-Develop"
+        #if Develop
+            resource = "GoogleService-Info-Develop"
+        #elseif Debug
+            resource = "GoogleService-Info-Debug"
+        #else
+            resource = "GoogleService-Info-Release"
+        #endif
+        
+        if let filePath = Bundle.main.path(forResource: resource, ofType: "plist") {
+            guard let options = FirebaseOptions(contentsOfFile: filePath) else {
+                assert(false, "Could not load config file.")
+            }
+            FirebaseApp.configure(options: options)
+        } else {
+            FirebaseApp.configure()
+        }
+        
         return true
     }
 

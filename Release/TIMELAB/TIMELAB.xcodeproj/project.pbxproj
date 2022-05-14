@@ -311,8 +311,8 @@
 		D465BF3A282A92F000C2FE2A /* GoogleService-Info */ = {
 			isa = PBXGroup;
 			children = (
-				D465BF3D282A931000C2FE2A /* GoogleService-Info-Debug.plist */,
 				D465BF3B282A931000C2FE2A /* GoogleService-Info-Develop.plist */,
+				D465BF3D282A931000C2FE2A /* GoogleService-Info-Debug.plist */,
 				D465BF3C282A931000C2FE2A /* GoogleService-Info-Release.plist */,
 			);
 			path = "GoogleService-Info";
@@ -774,6 +774,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = Release;
@@ -786,6 +787,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_SWIFT_FLAGS = "-D Release";
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;

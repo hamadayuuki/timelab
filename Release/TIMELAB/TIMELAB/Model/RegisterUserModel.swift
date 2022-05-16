@@ -8,6 +8,7 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import Firebase
 import FirebaseAuth
 
 class RegisterUserModel {
@@ -36,6 +37,36 @@ class RegisterUserModel {
             }
             
         }// return
+    }
+    
+    func registerUserToFireStore(email: String, uid: String, name: String) -> Observable<Bool> {
+        
+        return Observable<Bool>.create { observer in
+            
+            let document = [
+                "name": name,
+                "email": email,
+                "type": "client",   // TODO: 可変に
+                "rooms": [],
+                "createAt": Timestamp(),
+                "updateAt": Timestamp()
+            ] as [String : Any]
+            
+            let userRef = Firestore.firestore().collection("Users")
+            userRef.document(uid).setData(document) { err in
+                if let err = err {
+                    print("FireStoreへの登録に失敗: ", err)
+                    observer.onNext(false)
+                }
+                print("FireStoreへの登録に成功")
+                observer.onNext(true)
+            }
+            return Disposables.create {
+                print("Observable: Dispose")
+            }
+            
+        }
+        
     }
     
 }

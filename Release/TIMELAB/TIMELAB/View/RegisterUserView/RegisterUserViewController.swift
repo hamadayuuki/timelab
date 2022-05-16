@@ -191,41 +191,40 @@ class RegisterUserViewController: UIViewController {
                 print("V, FireAuth へユーザー登録 result: ", result)
             }
             .disposed(by: disposeBag)
-//
-//        let fireAuthAndStore = Driver.combineLatest(canSingUp) { (auth: $0) }
-//        // これがないと アカウント登録メソッド(M) が呼ばれない
-//        registerUserViewModel.isSignUp
-//            .drive { result in
-//                print("V, FireAuth へユーザー登録 result: ", result)
-//            }
-//            .disposed(by: disposeBag)
-//
-//        registerUserViewModel.isUserToFireStore
-//            .drive { result in   // この後の .disposed(by: disposedBag) がないと Bool型 として受け取られない
-//                print("V, FireStore へユーザー登録: ", result)
-//                if self.isProgressView && result {
-//                    HUD.hide()
-//                    // 画面遷移
+
+        // これがないと アカウント登録メソッド(M) が呼ばれない
+        registerUserViewModel.isSignUp
+            .drive { result in
+                print("V, FireAuth へユーザー登録 result: ", result)
+            }
+            .disposed(by: disposeBag)
+
+        registerUserViewModel.isUserToFireStore
+            .drive { result in   // この後の .disposed(by: disposedBag) がないと Bool型 として受け取られない
+                print("V, FireStore へユーザー登録: ", result)
+                if self.isProgressView && result {
+                    HUD.hide()
+                    // 画面遷移
 //                    let qrScanViewController = QrScanViewController()
 //                    self.present(qrScanViewController, animated: true, completion: nil)
-//                }
-//            }
-//            .disposed(by: disposeBag)
-//
-//        registerUserViewModel.signUpResult
-//            .drive { user in
-//                if !user.isValid {   // false の場合、ユーザー情報をFireStoreへ登録する処理 は実行されない
-//                    // ×画面 を描画
-//                    HUD.flash(.error, delay: 1) { _ in
-//                        self.nameTextField.text = ""
-//                        self.emailTextField.text = ""
-//                        self.passwordTextField.text = ""
-//                        self.passwordConfirmTextField.text = ""
-//                        self.setupBinding()   // validate の文字を初期化するため、通知を送る
-//                    }
-//                }
-//            }
-//            .disposed(by: disposeBag)
+                }
+            }
+            .disposed(by: disposeBag)
+
+        registerUserViewModel.signUpResult
+            .drive { user in
+                if !user.isValid {   // false の場合、ユーザー情報をFireStoreへ登録する処理 は実行されない
+                    // ×画面 を描画
+                    HUD.flash(.error, delay: 1) { _ in
+                        self.nameTextField.text = ""
+                        self.emailTextField.text = ""
+                        self.passwordTextField.text = ""
+                        self.passwordConfirmTextField.text = ""
+                        self.setupBinding()   // validate の文字を初期化するため、通知を送る
+                    }
+                }
+            }
+            .disposed(by: disposeBag)
         
         // 背景をタップしたらキーボードを隠す
         let tapBackground = UITapGestureRecognizer()

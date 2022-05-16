@@ -17,7 +17,8 @@ class RegisterUserViewModel {
     
     let signUpResult: Driver<User>
     let isSignUp: Driver<Bool>
-    let canSignUp: Driver<Bool>
+    var canSignUp: Driver<Bool>
+    let isUserToFireStore: Driver<Bool>
     
     let disposeBag = DisposeBag()   // ここで初期化しないと 処理が走らない場合あり
     
@@ -74,6 +75,31 @@ class RegisterUserViewModel {
             .filter { $0.isValid }
             .map { user in return user.isValid }
             .asDriver(onErrorJustReturn: false )
+        
+        // ユーザー情報を FireStore へ登録
+        //  ↓ Observable<Observable<Bool>>
+        let userToFireStoreResult = signUpResult
+            .asObservable()
+            .filter { $0.isValid }
+            .map { user in
+                signUpAPI.registerUserToFireStore(email: user.email, uid: user.uid, name: user.name)
+            }
+            .share(replay: 1)
+        
+        // ユーザー情報を FireStore へ登録できたかどうか を V へ通知
+        isUserToFireStore = userToFireStoreResult
+            .filter { $0 != nil }
+            .flatMapLatest { bool in   // 値を通知する時には flatMapLatest を使う,
+                return bool
+            }
+            .asDriver(onErrorJustReturn: false)
+            
+        // アカウント作成可能か
+        // ! ここに isSignUp をいれないと、アカウント登録が呼ばれない → 実装を変更する必要あり
+        canSignUp = Driver.combineLatest(nameValidation, emailValidation, passwordValidation, passwordConfirmValidation){ (name, email, password, passwordConfirm) in
+            validationModel.ValidateCanRegister(nameIsValid: name.isValid, emailIsValid: email.isValid, passwordIsValid: password.isValid, passwordConfirmIsValid: passwordConfirm.isValid)
+        }
+        .distinctUntilChanged()
     }
     
 }

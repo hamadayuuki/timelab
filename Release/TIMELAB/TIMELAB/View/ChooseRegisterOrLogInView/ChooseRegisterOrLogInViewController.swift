@@ -94,7 +94,7 @@ class ChooseRegisterOrLogInViewController: UIViewController {
                 self.logInButton.isSelected = !self.logInButton.isSelected
                 self.logInButton.backgroundColor = self.logInButton.isSelected ? Color.lightGray.UIColor : Color.navyBlue.UIColor
                 // 3秒後にローディングを消す
-                DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                     HUD.hide()
                     self.logInButton.isSelected = !self.logInButton.isSelected
                     self.logInButton.backgroundColor = self.logInButton.isSelected ? Color.lightGray.UIColor : Color.navyBlue.UIColor
@@ -113,7 +113,7 @@ class ChooseRegisterOrLogInViewController: UIViewController {
                 self.registerButton.isSelected = !self.registerButton.isSelected
                 self.registerButton.backgroundColor = self.registerButton.isSelected ? Color.lightGray.UIColor : Color.navyBlue.UIColor
                 // 3秒後にローディングを消す
-                DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                     HUD.hide()
                     self.registerButton.isSelected = !self.registerButton.isSelected
                     self.registerButton.backgroundColor = self.registerButton.isSelected ? Color.lightGray.UIColor : Color.white.UIColor

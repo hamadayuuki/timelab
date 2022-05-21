@@ -192,13 +192,6 @@ class RegisterUserViewController: UIViewController {
             }
             .disposed(by: disposeBag)
 
-        // これがないと アカウント登録メソッド(M) が呼ばれない
-        registerUserViewModel.isSignUp
-            .drive { result in
-                print("V, FireAuth へユーザー登録 result: ", result)
-            }
-            .disposed(by: disposeBag)
-
         registerUserViewModel.isUserToFireStore
             .drive { result in   // この後の .disposed(by: disposedBag) がないと Bool型 として受け取られない
                 print("V, FireStore へユーザー登録: ", result)

@@ -10,7 +10,7 @@ import RxCocoa
 
 class LogInViewModel {
     
-    let logInResult: Driver<Bool>
+    let logInResult: Driver<LogInResult>
     let logInEmailValidation: Driver<Bool>
     let logInPasswordValidation: Driver<Bool>
     let canLogIn: Driver<Bool>
@@ -44,7 +44,7 @@ class LogInViewModel {
             .flatMapLatest { tuple in
                 logInAPI.logIn(email: tuple.email, password: tuple.password)
             }
-            .asDriver(onErrorJustReturn: false)
+            .asDriver(onErrorJustReturn: LogInResult(errorMessage: "", isLogIn: false))
         
     }
     

@@ -29,6 +29,7 @@ class LogInViewController: UIViewController {
     var passwordSceretButton: LogInSecretButton!
     var validatePasswordLabel: LogInLabel!
     var forgetPasswordLabel: LogInLabel!
+    var errorMessageLabel: LogInLabel!
     var logInButton: LogInButton!
     
     // MARK: - Life Cycle
@@ -60,6 +61,7 @@ class LogInViewController: UIViewController {
         forgetPasswordLabel = LogInLabel(text: "パスワードを忘れた？", size: 13, textColor: Color.gray.UIColor)
 //        forgetPasswordLabel.underLine(color: Color.gray.UIColor, thickness: 1)   // SnapKit でレイアウトしているため使用できない
         
+        errorMessageLabel = LogInLabel(text: "", size: 15, textColor: .red)
         logInButton = LogInButton(text: "ログイン", textSize: 15)
         logInButton.backgroundColor = Color.lightGray.UIColor
         
@@ -72,7 +74,7 @@ class LogInViewController: UIViewController {
         view.addSubview(logInTextFieldVerticalView)
         logInTextFieldVerticalView.snp.makeConstraints { make -> Void in
             make.centerX.equalTo(view.bounds.width * 0.5)
-            make.centerY.equalTo(view.bounds.height * 0.55)
+            make.centerY.equalTo(view.bounds.height * 0.5)
         }
         view.addSubview(forgetPasswordLabel)
         forgetPasswordLabel.snp.makeConstraints { make -> Void in
@@ -91,10 +93,16 @@ class LogInViewController: UIViewController {
             make.height.equalTo(142)
         }
         
+        view.addSubview(errorMessageLabel)
+        errorMessageLabel.snp.makeConstraints { make -> Void in
+            make.centerX.equalTo(view.bounds.width * 0.5)
+            make.top.equalTo(forgetPasswordLabel.snp.bottom).offset(20)
+        }
+        
         view.addSubview(logInButton)
         logInButton.snp.makeConstraints { make -> Void in
             make.centerX.equalTo(view.bounds.width * 0.5)
-            make.top.equalTo(logInTextFieldVerticalView.snp.bottom).offset(55)
+            make.top.equalTo(errorMessageLabel.snp.bottom).offset(30)
         }
         
         view.addSubview(passwordSceretButton)
@@ -144,9 +152,12 @@ class LogInViewController: UIViewController {
         
         // ログインの結果によって画面のローディング変化, 画面遷移
         logInViewModel.logInResult
-            .drive { result in
-                print("ログインの実行結果: ", result)
-                if result && self.isProgressView {
+            .drive { logInResult in
+                let errorMessage = logInResult.errorMessage
+                let isLogIn = logInResult.isLogIn
+                print("ログインの実行結果: ", isLogIn)
+                
+                if isLogIn && self.isProgressView {
                     HUD.hide()
                     self.isProgressView = false
                     // push画面遷移
@@ -154,6 +165,7 @@ class LogInViewController: UIViewController {
                     self.navigationController?.pushViewController(tabBarViewController, animated: true)
                 } else {
                     HUD.flash(.error, delay: 1) { _ in
+                        self.errorMessageLabel.text = "※ " + errorMessage
                         self.emailTextField.text = ""
                         self.passwordTextField.text = ""
                         self.logInButton.isSelected = false

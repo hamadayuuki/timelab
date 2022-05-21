@@ -11,7 +11,7 @@ import RxCocoa
 // データの状態を確認して、返す
 class ValidationModel {
     
-    // MARK: - LogIn
+    // MARK: - RegisterUser
     //                                 ↓ データの状態(enum)
     func ValidateName(name: String) -> ValidationResult {
         if (name.count == 0) { return .empty(message: " ※") }
@@ -40,6 +40,22 @@ class ValidationModel {
         if (nameIsValid && emailIsValid && passwordIsValid && passwordConfirmIsValid) {
             return true
         }
+        return false
+    }
+    
+    // MARK: - LogIn
+    func validateLogInEmail(email: String) -> Bool {
+        if (email.contains("@")) { return true }
+        return false
+    }
+    
+    func validateLogInPassword(password: String) -> Bool {
+        if (password.count >= 8) { return true }
+        return false
+    }
+    
+    func validateCanLogIn(email: Bool, password: Bool) -> Bool {
+        if (email && password) { return true }
         return false
     }
 }

@@ -222,6 +222,7 @@ class RegisterUserViewController: UIViewController {
                         self.validatePasswordConfirmLabel.text = "※ "
                         self.validatePasswordConfirmLabel.textColor = Color.navyBlue.UIColor
                         self.registerButton.isSelected = false
+                        self.registerButton.isEnabled = false
                     }
                 }
             }
@@ -240,7 +241,6 @@ class RegisterUserViewController: UIViewController {
             .subscribe { _ in
                 HUD.show(.progress)   // ローディング表示
                 self.isProgressView = true
-                self.registerButton.isEnabled = false
                 self.registerButton.isSelected = !self.registerButton.isSelected
                 self.registerButton.backgroundColor = self.registerButton.isSelected ? Color.lightGray.UIColor : Color.navyBlue.UIColor
             }

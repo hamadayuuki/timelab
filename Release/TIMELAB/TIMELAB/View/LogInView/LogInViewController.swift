@@ -61,6 +61,7 @@ class LogInViewController: UIViewController {
 //        forgetPasswordLabel.underLine(color: Color.gray.UIColor, thickness: 1)   // SnapKit でレイアウトしているため使用できない
         
         logInButton = LogInButton(text: "ログイン", textSize: 15)
+        logInButton.backgroundColor = Color.lightGray.UIColor
         
         let logInTextFieldVerticalView = setupLogInTextFieldVerticalView()
         let introductionHorizontal = UIStackView(arrangedSubviews: [introductionLabel, introductionUIImageView])
@@ -132,6 +133,16 @@ class LogInViewController: UIViewController {
                     logInButtonTaps: logInButton.rx.tap.asSignal()),
             logInAPI: LogInModel())
         
+        // ログインボタンの背景色変化
+        let canLogIn = logInViewModel.canLogIn
+            .drive(onNext: { [weak self] canLogIn  in
+                self?.logInButton.isEnabled = canLogIn
+                self?.logInButton.backgroundColor = canLogIn ? Color.navyBlue.UIColor : Color.lightGray.UIColor
+                print("canLogIn: ", canLogIn)
+            })
+            .disposed(by: disposeBag)
+        
+        // ログインの結果によって画面のローディング変化, 画面遷移
         logInViewModel.logInResult
             .drive { result in
                 print("ログインの実行結果: ", result)
@@ -142,7 +153,12 @@ class LogInViewController: UIViewController {
 //                    let tabBarViewController = TabBarViewController()
 //                    self.navigationController?.pushViewController(tabBarViewController, animated: true)
                 } else {
-                    HUD.flash(.error, delay: 1) { _ in }
+                    HUD.flash(.error, delay: 1) { _ in
+                        self.emailTextField.text = ""
+                        self.passwordTextField.text = ""
+                        self.logInButton.isSelected = false
+                        self.logInButton.isEnabled = false
+                    }
                 }
             }
             .disposed(by: disposeBag)

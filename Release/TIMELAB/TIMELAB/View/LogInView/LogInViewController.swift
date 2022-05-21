@@ -14,7 +14,7 @@ import PKHUD
 class LogInViewController: UIViewController {
     
     let disposeBag = DisposeBag()
-//    var registerUserViewModel: RegisterUserViewModel!
+    var logInViewModel: LogInViewModel!
     var isProgressView  = false
     
     // MARK: - UI Parts
@@ -118,12 +118,34 @@ class LogInViewController: UIViewController {
         let logInTextFieldVerticalView = UIStackView(arrangedSubviews: [emailVerticalView, passwordVerticalView])
         logInTextFieldVerticalView.axis = .vertical
 //        logInVerticalView.distribution = .fillEqually   // 要素の大きさを均等にする
-        logInTextFieldVerticalView.spacing = 60
+        logInTextFieldVerticalView.spacing = 40
         
         return logInTextFieldVerticalView
     }
     
     private func setupBinding() {
+        
+        // VM との繋がり, ログイン実装
+        logInViewModel = LogInViewModel(
+            input: (email: emailTextField.rx.text.orEmpty.asDriver(),
+                    password: passwordTextField.rx.text.orEmpty.asDriver(),
+                    logInButtonTaps: logInButton.rx.tap.asSignal()),
+            logInAPI: LogInModel())
+        
+        logInViewModel.logInResult
+            .drive { result in
+                print("ログインの実行結果: ", result)
+                if result && self.isProgressView {
+                    HUD.hide()
+                    self.isProgressView = false
+                    // push画面遷移
+//                    let tabBarViewController = TabBarViewController()
+//                    self.navigationController?.pushViewController(tabBarViewController, animated: true)
+                } else {
+                    HUD.flash(.error, delay: 1) { _ in }
+                }
+            }
+            .disposed(by: disposeBag)
         
         // 背景をタップしたらキーボードを隠す
         let tapBackground = UITapGestureRecognizer()
@@ -137,19 +159,10 @@ class LogInViewController: UIViewController {
         logInButton.rx.tap
             .subscribe { _ in
                 HUD.show(.progress)   // ローディング表示
-//                self.isProgressView = true
+                self.isProgressView = true
                 // TODO: ボタン 選択/非選択プログラム を簡略化, 簡略化可能かどうかから考える
                 self.logInButton.isSelected = !self.logInButton.isSelected
                 self.logInButton.backgroundColor = self.logInButton.isSelected ? Color.lightGray.UIColor : Color.navyBlue.UIColor
-                // 3秒後にローディングを消す
-                DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
-                    HUD.hide()
-                    self.logInButton.isSelected = !self.logInButton.isSelected
-                    self.logInButton.backgroundColor = self.logInButton.isSelected ? Color.lightGray.UIColor : Color.navyBlue.UIColor
-                    // push画面遷移
-//                    let welcomeViewController = WelcomeViewController()
-//                    self.navigationController?.pushViewController(welcomeViewController, animated: true)
-                }
             }
             .disposed(by: disposeBag)
         

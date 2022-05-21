@@ -71,6 +71,8 @@
 		D465BF40282A931000C2FE2A /* GoogleService-Info-Debug.plist in Resources */ = {isa = PBXBuildFile; fileRef = D465BF3D282A931000C2FE2A /* GoogleService-Info-Debug.plist */; };
 		D465BF45282A96DC00C2FE2A /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D465BF44282A96DB00C2FE2A /* User.swift */; };
 		D465BF472832571B00C2FE2A /* GoogleService-Info-Develop.plist in Resources */ = {isa = PBXBuildFile; fileRef = D465BF462832571B00C2FE2A /* GoogleService-Info-Develop.plist */; };
+		D465BF4928391A1700C2FE2A /* LogInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D465BF4828391A1600C2FE2A /* LogInViewModel.swift */; };
+		D465BF4B28391A8200C2FE2A /* LogInModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D465BF4A28391A8200C2FE2A /* LogInModel.swift */; };
 		D476DFBA27FD398500A1EDE3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D476DFB927FD398500A1EDE3 /* AppDelegate.swift */; };
 		D476DFBC27FD398500A1EDE3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D476DFBB27FD398500A1EDE3 /* SceneDelegate.swift */; };
 		D476DFBE27FD398500A1EDE3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D476DFBD27FD398500A1EDE3 /* ViewController.swift */; };
@@ -136,6 +138,8 @@
 		D465BF3D282A931000C2FE2A /* GoogleService-Info-Debug.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-Debug.plist"; sourceTree = "<group>"; };
 		D465BF44282A96DB00C2FE2A /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		D465BF462832571B00C2FE2A /* GoogleService-Info-Develop.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-Develop.plist"; sourceTree = "<group>"; };
+		D465BF4828391A1600C2FE2A /* LogInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewModel.swift; sourceTree = "<group>"; };
+		D465BF4A28391A8200C2FE2A /* LogInModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInModel.swift; sourceTree = "<group>"; };
 		D476DFB627FD398500A1EDE3 /* TIMELAB.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TIMELAB.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D476DFB927FD398500A1EDE3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D476DFBB27FD398500A1EDE3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -255,6 +259,7 @@
 				D465BF43282A96AA00C2FE2A /* Struct */,
 				D465BD55282A380500C2FE2A /* ValidationModel.swift */,
 				D465BD5E282A4A2700C2FE2A /* RegisterUserModel.swift */,
+				D465BF4A28391A8200C2FE2A /* LogInModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -304,6 +309,7 @@
 			isa = PBXGroup;
 			children = (
 				D465BD5A282A3AD700C2FE2A /* RegisterUserViewModel.swift */,
+				D465BF4828391A1600C2FE2A /* LogInViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -524,6 +530,7 @@
 				D477CB56281FB3EC00B7A07B /* ConfirmOtherMemberLabel.swift in Sources */,
 				D465BD5F282A4A2700C2FE2A /* RegisterUserModel.swift in Sources */,
 				D465BD5D282A417400C2FE2A /* ReactiveExtension.swift in Sources */,
+				D465BF4B28391A8200C2FE2A /* LogInModel.swift in Sources */,
 				D477CB4A281927F200B7A07B /* RankingRoomCardUIImageView.swift in Sources */,
 				D427F6A52800236C00E7F4E9 /* ConfirmUserViewController.swift in Sources */,
 				D476DFBE27FD398500A1EDE3 /* ViewController.swift in Sources */,
@@ -549,6 +556,7 @@
 				D427F6A327FFFD1400E7F4E9 /* RegisterUserIconButton.swift in Sources */,
 				D465BD58282A385D00C2FE2A /* ValidationResult.swift in Sources */,
 				D427F68627FD96DA00E7F4E9 /* QrCodeScannerButton.swift in Sources */,
+				D465BF4928391A1700C2FE2A /* LogInViewModel.swift in Sources */,
 				D427F6D528031EB300E7F4E9 /* LogInTextField.swift in Sources */,
 				D427F6D928031F5100E7F4E9 /* LogInSecretButton.swift in Sources */,
 				D427F67C27FD899200E7F4E9 /* UIColorExtension.swift in Sources */,

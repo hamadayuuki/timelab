@@ -178,10 +178,10 @@ class RegisterUserViewController: UIViewController {
 
         // FireAuth への登録
         let canSingUp = registerUserViewModel.canSignUp
-            .drive(onNext: { [weak self] valid  in
-                self?.registerButton.isEnabled = valid
-                self?.registerButton.alpha = valid ? 1.0 : 0.5
-                print("valid: ", valid)
+            .drive(onNext: { [weak self] canSingUp  in
+                self?.registerButton.isEnabled = canSingUp
+                self?.registerButton.backgroundColor = canSingUp ? Color.navyBlue.UIColor : Color.lightGray.UIColor
+                print("canSingUp: ", canSingUp)
             })
             .disposed(by: disposeBag)
         
@@ -204,9 +204,9 @@ class RegisterUserViewController: UIViewController {
                 print("V, FireStore へユーザー登録: ", result)
                 if self.isProgressView && result {
                     HUD.hide()
-                    // 画面遷移
-//                    let qrScanViewController = QrScanViewController()
-//                    self.present(qrScanViewController, animated: true, completion: nil)
+                    // push画面遷移
+                    let welcomeViewController = WelcomeViewController()
+                    self.navigationController?.pushViewController(welcomeViewController, animated: true)
                 }
             }
             .disposed(by: disposeBag)
@@ -217,10 +217,18 @@ class RegisterUserViewController: UIViewController {
                     // ×画面 を描画
                     HUD.flash(.error, delay: 1) { _ in
                         self.nameTextField.text = ""
+                        self.validateNameLabel.text = "※ "
+                        self.validateNameLabel.textColor = Color.navyBlue.UIColor
                         self.emailTextField.text = ""
+                        self.validateEmailLabel.text = "※ "
+                        self.validateEmailLabel.textColor = Color.navyBlue.UIColor
                         self.passwordTextField.text = ""
+                        self.validatePasswordLabel.text = "※ "
+                        self.validatePasswordLabel.textColor = Color.navyBlue.UIColor
                         self.passwordConfirmTextField.text = ""
-                        self.setupBinding()   // validate の文字を初期化するため、通知を送る
+                        self.validatePasswordConfirmLabel.text = "※ "
+                        self.validatePasswordConfirmLabel.textColor = Color.navyBlue.UIColor
+                        self.registerButton.isSelected = false
                     }
                 }
             }
@@ -238,19 +246,10 @@ class RegisterUserViewController: UIViewController {
         registerButton.rx.tap
             .subscribe { _ in
                 HUD.show(.progress)   // ローディング表示
-//                self.isProgressView = true
-                // TODO: ボタン 選択/非選択プログラム を簡略化, 簡略化可能かどうかから考える
+                self.isProgressView = true
+                self.registerButton.isEnabled = false
                 self.registerButton.isSelected = !self.registerButton.isSelected
                 self.registerButton.backgroundColor = self.registerButton.isSelected ? Color.lightGray.UIColor : Color.navyBlue.UIColor
-                // 3秒後にローディングを消す
-                DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
-                    HUD.hide()
-                    self.registerButton.isSelected = !self.registerButton.isSelected
-                    self.registerButton.backgroundColor = self.registerButton.isSelected ? Color.lightGray.UIColor : Color.navyBlue.UIColor
-                    // push画面遷移
-                    let welcomeViewController = WelcomeViewController()
-                    self.navigationController?.pushViewController(welcomeViewController, animated: true)
-                }
             }
             .disposed(by: disposeBag)
         

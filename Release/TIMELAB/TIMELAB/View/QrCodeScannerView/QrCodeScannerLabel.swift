@@ -8,7 +8,7 @@
 import UIKit
 
 class QrCodeScannerLabel: UILabel {
-    init(text: String = "", size: CGFloat, weight: UIFont.Weight, color: UIColor = Color.navyBlue.UIColor, backgroundColor: UIColor = .clear) {
+    init(text: String = "", size: CGFloat, weight: UIFont.Weight = .heavy, color: UIColor = Color.navyBlue.UIColor, backgroundColor: UIColor = .clear) {
         super.init(frame: .zero)
         
         self.text = text

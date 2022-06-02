@@ -18,7 +18,7 @@ class RegisterRoomViewController: UIViewController {
     var isProgressView  = false
     
     // MARK: - UI Parts
-    var introductionUIImageView: RegisterUIImageView!
+    var introductionUIImageView: RegisterRoomUIImageView!
     var introductionLabel: RegisterRoomLabel!
     
     var univercityLabel: RegisterRoomLabel!
@@ -54,8 +54,7 @@ class RegisterRoomViewController: UIViewController {
         let width = view.bounds.width
         let height = view.bounds.height
         
-        introductionUIImageView = RegisterUIImageView(name: "DiscussionWomanAndMan")
-        
+        introductionUIImageView = RegisterRoomUIImageView(name: "DiscussionWomanAndMan")
         introductionLabel = RegisterRoomLabel(text: "ユーザー情報の入力", size: 25)
         
         univercityLabel = RegisterRoomLabel(text: "大学", size: 15)
@@ -82,19 +81,25 @@ class RegisterRoomViewController: UIViewController {
         view.addSubview(registerVerticalView)
         registerVerticalView.snp.makeConstraints { make -> Void in
             make.centerX.equalTo(view.bounds.width / 2)
-            make.top.equalTo(view.bounds.height * 0.15)
+            make.top.equalTo(view.bounds.height * 0.3)
+        }
+        
+        view.addSubview(introductionLabel)
+        introductionLabel.snp.makeConstraints { make -> Void in
+            make.bottom.equalTo(registerVerticalView.snp.top).offset(-20)
+            make.left.equalTo(registerVerticalView.snp.left)
         }
         
         view.addSubview(introductionUIImageView)
         introductionUIImageView.snp.makeConstraints { make -> Void in
-            make.bottom.equalTo(registerVerticalView.snp.top).offset(-30)
-            make.right.equalTo(view.bounds.height * 0.9)
+            make.bottom.equalTo(introductionLabel.snp.top).offset(-10)
+            make.left.equalTo(184)
         }
         
         view.addSubview(registerRoomButton)
         registerRoomButton.snp.makeConstraints { make -> Void in
             make.centerX.equalTo(view.bounds.width * 0.5)
-            make.top.equalTo(registerVerticalView.snp.bottom).offset(55)
+            make.top.equalTo(registerVerticalView.snp.bottom).offset(40)
         }
         
     }
@@ -133,7 +138,7 @@ class RegisterRoomViewController: UIViewController {
         roomHorizontalView.spacing = 5
         
         // 全体
-        let registerVerticalView = UIStackView(arrangedSubviews: [introductionLabel, univercityHorizontalView, departmentHorizontalView, courseHorizontalView, roomHorizontalView])
+        let registerVerticalView = UIStackView(arrangedSubviews: [univercityHorizontalView, departmentHorizontalView, courseHorizontalView, roomHorizontalView])
         registerVerticalView.axis = .vertical
         registerVerticalView.distribution = .fillEqually   // 要素の大きさを均等にする
         registerVerticalView.spacing = 20

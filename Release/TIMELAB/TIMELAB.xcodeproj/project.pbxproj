@@ -101,6 +101,11 @@
 		D477CB54281FB30F00B7A07B /* ConfirmOtherMemberUserIconButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D477CB53281FB30F00B7A07B /* ConfirmOtherMemberUserIconButton.swift */; };
 		D477CB56281FB3EC00B7A07B /* ConfirmOtherMemberLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D477CB55281FB3EC00B7A07B /* ConfirmOtherMemberLabel.swift */; };
 		D477CB5928200D9100B7A07B /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D477CB5828200D9100B7A07B /* TabBarViewController.swift */; };
+		D4BDC2D02848E8610087700D /* RegisterRoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BDC2CF2848E8610087700D /* RegisterRoomViewController.swift */; };
+		D4BDC2D22848E8BC0087700D /* RegisterRoomLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BDC2D12848E8BC0087700D /* RegisterRoomLabel.swift */; };
+		D4BDC2D42848E8DE0087700D /* RegisterRoomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BDC2D32848E8DE0087700D /* RegisterRoomTextField.swift */; };
+		D4BDC2D62848E92A0087700D /* RegisterRoomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BDC2D52848E92A0087700D /* RegisterRoomButton.swift */; };
+		D4BDC2D82848E9710087700D /* RegisterRoomUIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BDC2D72848E9710087700D /* RegisterRoomUIImageView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -172,6 +177,11 @@
 		D477CB53281FB30F00B7A07B /* ConfirmOtherMemberUserIconButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmOtherMemberUserIconButton.swift; sourceTree = "<group>"; };
 		D477CB55281FB3EC00B7A07B /* ConfirmOtherMemberLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmOtherMemberLabel.swift; sourceTree = "<group>"; };
 		D477CB5828200D9100B7A07B /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
+		D4BDC2CF2848E8610087700D /* RegisterRoomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterRoomViewController.swift; sourceTree = "<group>"; };
+		D4BDC2D12848E8BC0087700D /* RegisterRoomLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterRoomLabel.swift; sourceTree = "<group>"; };
+		D4BDC2D32848E8DE0087700D /* RegisterRoomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterRoomTextField.swift; sourceTree = "<group>"; };
+		D4BDC2D52848E92A0087700D /* RegisterRoomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterRoomButton.swift; sourceTree = "<group>"; };
+		D4BDC2D72848E9710087700D /* RegisterRoomUIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterRoomUIImageView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -241,6 +251,7 @@
 		D427F67D27FD89DB00E7F4E9 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				D4BDC2CE2848E83D0087700D /* RegisterRoomView */,
 				D427F67427FD78A300E7F4E9 /* QrCodeScannerView */,
 				D427F68D27FF175E00E7F4E9 /* RegisterUserView */,
 				D427F6CF28031E4E00E7F4E9 /* LogInView */,
@@ -423,6 +434,18 @@
 			path = TabBarView;
 			sourceTree = "<group>";
 		};
+		D4BDC2CE2848E83D0087700D /* RegisterRoomView */ = {
+			isa = PBXGroup;
+			children = (
+				D4BDC2CF2848E8610087700D /* RegisterRoomViewController.swift */,
+				D4BDC2D12848E8BC0087700D /* RegisterRoomLabel.swift */,
+				D4BDC2D32848E8DE0087700D /* RegisterRoomTextField.swift */,
+				D4BDC2D52848E92A0087700D /* RegisterRoomButton.swift */,
+				D4BDC2D72848E9710087700D /* RegisterRoomUIImageView.swift */,
+			);
+			path = RegisterRoomView;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -552,6 +575,7 @@
 				D477CB0B280C529E00B7A07B /* CalendarViewController.swift in Sources */,
 				D477CB46281927BD00B7A07B /* RankingUserIconButton.swift in Sources */,
 				D427F67627FD78CA00E7F4E9 /* QrCodeScannerViewController.swift in Sources */,
+				D4BDC2D22848E8BC0087700D /* RegisterRoomLabel.swift in Sources */,
 				D427F69527FF183100E7F4E9 /* RegisterTextField.swift in Sources */,
 				D427F68227FD8A6600E7F4E9 /* Color.swift in Sources */,
 				D427F68427FD956000E7F4E9 /* QrCodeScannerLabel.swift in Sources */,
@@ -571,6 +595,7 @@
 				D427F68627FD96DA00E7F4E9 /* QrCodeScannerButton.swift in Sources */,
 				D465BF4928391A1700C2FE2A /* LogInViewModel.swift in Sources */,
 				D465BF4F283CC5EE00C2FE2A /* TransitionToQrCodeScannerViewController.swift in Sources */,
+				D4BDC2D42848E8DE0087700D /* RegisterRoomTextField.swift in Sources */,
 				D427F6D528031EB300E7F4E9 /* LogInTextField.swift in Sources */,
 				D427F6D928031F5100E7F4E9 /* LogInSecretButton.swift in Sources */,
 				D427F67C27FD899200E7F4E9 /* UIColorExtension.swift in Sources */,
@@ -590,6 +615,8 @@
 				D427F67827FD7FD600E7F4E9 /* MaskCaLayer.swift in Sources */,
 				D427F68827FD994700E7F4E9 /* QrCodeScannerUiImageView.swift in Sources */,
 				D465BF4D2839380C00C2FE2A /* LogInResult.swift in Sources */,
+				D4BDC2D62848E92A0087700D /* RegisterRoomButton.swift in Sources */,
+				D4BDC2D82848E9710087700D /* RegisterRoomUIImageView.swift in Sources */,
 				D427F6E428040DD600E7F4E9 /* ChooseRegisterOrLogInUIImageView.swift in Sources */,
 				D427F69B27FFE54700E7F4E9 /* WelcomeViewController.swift in Sources */,
 				D477CB2D281309B600B7A07B /* DetailLabel.swift in Sources */,
@@ -599,6 +626,7 @@
 				D465BF53283CE5F300C2FE2A /* TransitionQrScannerType.swift in Sources */,
 				D477CB5928200D9100B7A07B /* TabBarViewController.swift in Sources */,
 				D477CB52281FAE5400B7A07B /* ConfirmOtherMemberStayStatusViewController.swift in Sources */,
+				D4BDC2D02848E8610087700D /* RegisterRoomViewController.swift in Sources */,
 				D477CB54281FB30F00B7A07B /* ConfirmOtherMemberUserIconButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -106,6 +106,7 @@
 		D4BDC2D42848E8DE0087700D /* RegisterRoomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BDC2D32848E8DE0087700D /* RegisterRoomTextField.swift */; };
 		D4BDC2D62848E92A0087700D /* RegisterRoomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BDC2D52848E92A0087700D /* RegisterRoomButton.swift */; };
 		D4BDC2D82848E9710087700D /* RegisterRoomUIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BDC2D72848E9710087700D /* RegisterRoomUIImageView.swift */; };
+		D4BDC2DA284BA9460087700D /* RegisterRoomIdAndPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BDC2D9284BA9460087700D /* RegisterRoomIdAndPasswordViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -182,6 +183,7 @@
 		D4BDC2D32848E8DE0087700D /* RegisterRoomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterRoomTextField.swift; sourceTree = "<group>"; };
 		D4BDC2D52848E92A0087700D /* RegisterRoomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterRoomButton.swift; sourceTree = "<group>"; };
 		D4BDC2D72848E9710087700D /* RegisterRoomUIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterRoomUIImageView.swift; sourceTree = "<group>"; };
+		D4BDC2D9284BA9460087700D /* RegisterRoomIdAndPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterRoomIdAndPasswordViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -438,6 +440,7 @@
 			isa = PBXGroup;
 			children = (
 				D4BDC2CF2848E8610087700D /* RegisterRoomViewController.swift */,
+				D4BDC2D9284BA9460087700D /* RegisterRoomIdAndPasswordViewController.swift */,
 				D4BDC2D12848E8BC0087700D /* RegisterRoomLabel.swift */,
 				D4BDC2D32848E8DE0087700D /* RegisterRoomTextField.swift */,
 				D4BDC2D52848E92A0087700D /* RegisterRoomButton.swift */,
@@ -573,6 +576,7 @@
 				D477CB292813099200B7A07B /* CalendarDetailUIImageView.swift in Sources */,
 				D465BD5B282A3AD700C2FE2A /* RegisterUserViewModel.swift in Sources */,
 				D477CB0B280C529E00B7A07B /* CalendarViewController.swift in Sources */,
+				D4BDC2DA284BA9460087700D /* RegisterRoomIdAndPasswordViewController.swift in Sources */,
 				D477CB46281927BD00B7A07B /* RankingUserIconButton.swift in Sources */,
 				D427F67627FD78CA00E7F4E9 /* QrCodeScannerViewController.swift in Sources */,
 				D4BDC2D22848E8BC0087700D /* RegisterRoomLabel.swift in Sources */,

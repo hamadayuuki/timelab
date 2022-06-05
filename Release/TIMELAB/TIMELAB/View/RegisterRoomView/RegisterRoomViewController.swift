@@ -54,7 +54,7 @@ class RegisterRoomViewController: UIViewController {
         let width = view.bounds.width
         let height = view.bounds.height
         
-        introductionUIImageView = RegisterRoomUIImageView(name: "DiscussionWomanAndMan")
+        introductionUIImageView = RegisterRoomUIImageView(name: "DiscussionWomanAndMan", size: CGSize(width: 174, height: 131))
         introductionLabel = RegisterRoomLabel(text: "ユーザー情報の入力", size: 25)
         
         univercityLabel = RegisterRoomLabel(text: "大学", size: 15)

@@ -44,7 +44,7 @@ class RegisterRoomIdAndPasswordViewController: UIViewController {
         let width = view.bounds.width
         let height = view.bounds.height
         
-        introductionUIImageView = RegisterRoomUIImageView(name: "DiscussionWomanAndMan")
+        introductionUIImageView = RegisterRoomUIImageView(name: "ChatRobot", size: CGSize(width: 263, height: 197))
         introductionLabel = RegisterRoomLabel(text: "ID の登録", size: 25)
         
         roomIdLabel = RegisterRoomLabel(text: "ID", size: 15)
@@ -70,16 +70,16 @@ class RegisterRoomIdAndPasswordViewController: UIViewController {
             make.left.equalTo(registerVerticalView.snp.left)
         }
         
-        view.addSubview(introductionUIImageView)
-        introductionUIImageView.snp.makeConstraints { make -> Void in
-            make.bottom.equalTo(introductionLabel.snp.top).offset(-10)
-            make.left.equalTo(184)
-        }
-        
         view.addSubview(registerRoomButton)
         registerRoomButton.snp.makeConstraints { make -> Void in
             make.centerX.equalTo(view.bounds.width * 0.5)
             make.top.equalTo(registerVerticalView.snp.bottom).offset(40)
+        }
+        
+        view.addSubview(introductionUIImageView)
+        introductionUIImageView.snp.makeConstraints { make -> Void in
+            make.top.equalTo(registerRoomButton.snp.bottom).offset(55)
+            make.left.equalTo(137)
         }
         
     }

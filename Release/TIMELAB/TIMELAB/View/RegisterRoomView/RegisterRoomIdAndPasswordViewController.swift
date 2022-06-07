@@ -29,6 +29,8 @@ class RegisterRoomIdAndPasswordViewController: UIViewController {
     
     var registerRoomButton: RegisterRoomButton!
     
+    var explanationLabel: RegisterRoomLabel!
+    
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,6 +57,8 @@ class RegisterRoomIdAndPasswordViewController: UIViewController {
         
         registerRoomButton = RegisterRoomButton(text: "OK", textSize: 15)
         
+        explanationLabel = RegisterRoomLabel(text: "QRコードじゃなくても\nIDとパスワードで入退室できます！", size: 12)
+        
         let registerVerticalView = setupRegisterVerticalView()
         
         // MARK: - addSubview/layer
@@ -80,6 +84,12 @@ class RegisterRoomIdAndPasswordViewController: UIViewController {
         introductionUIImageView.snp.makeConstraints { make -> Void in
             make.top.equalTo(registerRoomButton.snp.bottom).offset(55)
             make.left.equalTo(137)
+        }
+        
+        view.addSubview(explanationLabel)
+        explanationLabel.snp.makeConstraints { make -> Void in
+            make.top.equalTo(introductionUIImageView.snp.top).offset(120)
+            make.centerX.equalTo(introductionUIImageView.snp.left)
         }
         
     }

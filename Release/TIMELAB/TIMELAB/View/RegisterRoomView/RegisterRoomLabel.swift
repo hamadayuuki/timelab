@@ -12,6 +12,7 @@ class RegisterRoomLabel: UILabel {
         super.init(frame: .zero)
         
         self.text = text
+        self.numberOfLines = 0   // 複数行表示可能に
         self.font = .systemFont(ofSize: size, weight: .heavy)
         self.textColor = Color.navyBlue.UIColor
     }

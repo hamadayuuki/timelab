@@ -8,13 +8,14 @@
 import UIKit
 
 class RegisterRoomLabel: UILabel {
-    init(text: String, size: CGFloat) {
+    init(text: String, size: CGFloat, color: UIColor = Color.navyBlue.UIColor) {
         super.init(frame: .zero)
         
         self.text = text
-        self.numberOfLines = 0   // 複数行表示可能に
         self.font = .systemFont(ofSize: size, weight: .heavy)
-        self.textColor = Color.navyBlue.UIColor
+        self.textColor = color
+        self.textAlignment = .center
+        self.numberOfLines = 0   // 複数行表示可能に
     }
     
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }

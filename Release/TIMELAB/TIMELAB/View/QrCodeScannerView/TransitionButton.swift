@@ -9,21 +9,33 @@ import UIKit
 import SnapKit
 
 class TransitionButton: UIButton {
-    init(text: String, textSize: CGFloat, imageName: String = "TransitionQrCode", backgroundColor: UIColor = Color.navyBlue.UIColor) {
+    init(text: String, textSize: CGFloat, imageName: String = "TransitionQrCode", textPosition: PositionType = .left,  backgroundColor: UIColor = Color.navyBlue.UIColor) {
         super.init(frame: .zero)
         
         self.backgroundColor = backgroundColor
         self.layer.cornerRadius = 30
         
         // 文字
-        self.titleEdgeInsets = UIEdgeInsets(top: 0, left: 30, bottom: 0, right: 0)   // 画像を置くために左側に空白を入れる
+        // 画像を置くために空白を入れる
+        switch textPosition {
+        case .center: self.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        case .left:
+            self.imageEdgeInsets = UIEdgeInsets(top: 0, left: 170, bottom: 0, right: 0)
+            self.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 30)
+        case .right: self.titleEdgeInsets = UIEdgeInsets(top: 0, left: 30, bottom: 0, right: 0)
+        }
+        
         self.setTitle(text, for: .normal)
         self.titleLabel?.font = .systemFont(ofSize: textSize, weight: .bold)
         self.setTitleColor(Color.white.UIColor, for: .normal)
         
         // 画像
         var image = UIImage(named: imageName) ?? UIImage()
-        image = image.reSizeImage(reSize: CGSize(width: 22, height: 22))
+        switch textPosition {
+        case .center: image = image.reSizeImage(reSize: CGSize(width: 0, height: 0))
+        case .left: image = image.reSizeImage(reSize: CGSize(width: 7, height: 12))   // 右矢印アイコン
+        case .right: image = image.reSizeImage(reSize: CGSize(width: 22, height: 22))   // QRコードアイコン
+        }
         self.setImage(image, for: .normal)
         
         self.snp.makeConstraints { make -> Void in

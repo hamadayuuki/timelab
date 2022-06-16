@@ -36,12 +36,12 @@ class TransitionToMemoViewController: UIViewController {
         thanksCommentLabel = QrCodeScannerLabel(text: "お疲れ様でした！", size: 30)
         thanksUIImageView = QrCodeScannerUIImageView(name: "WebDevelopment")
         userStayingTimeLabel = QrCodeScannerLabel(text: "滞在時間 : 2時間43分", size: 15)
-        transitionButton = TransitionButton(text: "今日のメモをする", textSize: 15, imageName: "", backgroundColor: Color.orange.UIColor)
+        transitionButton = TransitionButton(text: "今日のメモをする", textSize: 15, imageName: "RightArrow", textPosition: .left, backgroundColor: Color.orange.UIColor)
         var transitionVerticalView = UIStackView(arrangedSubviews: [thanksCommentLabel, thanksUIImageView, userStayingTimeLabel, transitionButton])
         
         transitionVerticalView.axis = .vertical
         transitionVerticalView.alignment = .center
-        transitionVerticalView.spacing = 20
+        transitionVerticalView.spacing = 30
         
         thanksUIImageView.snp.makeConstraints { make -> Void in
             make.width.equalTo(390)
@@ -52,7 +52,7 @@ class TransitionToMemoViewController: UIViewController {
         view.addSubview(transitionVerticalView)
         transitionVerticalView.snp.makeConstraints { make -> Void in
             make.centerX.equalTo(view.bounds.width * 0.5)
-            make.centerY.equalTo(view.bounds.height * 0.45)
+            make.centerY.equalTo(view.bounds.height * 0.5)
         }
         
     }

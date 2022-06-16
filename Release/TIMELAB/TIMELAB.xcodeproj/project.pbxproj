@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D4214EDA285B7DC200ECEBE8 /* PositionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4214ED9285B7DC200ECEBE8 /* PositionType.swift */; };
 		D427F64427FD41D000E7F4E9 /* QRScanner in Frameworks */ = {isa = PBXBuildFile; productRef = D427F64327FD41D000E7F4E9 /* QRScanner */; };
 		D427F64727FD41FB00E7F4E9 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = D427F64627FD41FB00E7F4E9 /* SnapKit */; };
 		D427F65527FD42CB00E7F4E9 /* PKHUD in Frameworks */ = {isa = PBXBuildFile; productRef = D427F65427FD42CB00E7F4E9 /* PKHUD */; };
@@ -113,6 +114,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D4214ED9285B7DC200ECEBE8 /* PositionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionType.swift; sourceTree = "<group>"; };
 		D427F67527FD78CA00E7F4E9 /* QrCodeScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QrCodeScannerViewController.swift; sourceTree = "<group>"; };
 		D427F67727FD7FD600E7F4E9 /* MaskCaLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaskCaLayer.swift; sourceTree = "<group>"; };
 		D427F67B27FD899200E7F4E9 /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
@@ -279,6 +281,7 @@
 				D427F68127FD8A6600E7F4E9 /* Color.swift */,
 				D465BD57282A385D00C2FE2A /* ValidationResult.swift */,
 				D465BF52283CE5F300C2FE2A /* TransitionQrScannerType.swift */,
+				D4214ED9285B7DC200ECEBE8 /* PositionType.swift */,
 			);
 			path = Enum;
 			sourceTree = "<group>";
@@ -584,6 +587,7 @@
 				D427F6DB280320D700E7F4E9 /* LogInUIImageView.swift in Sources */,
 				D477CB292813099200B7A07B /* CalendarDetailUIImageView.swift in Sources */,
 				D465BD5B282A3AD700C2FE2A /* RegisterUserViewModel.swift in Sources */,
+				D4214EDA285B7DC200ECEBE8 /* PositionType.swift in Sources */,
 				D477CB0B280C529E00B7A07B /* CalendarViewController.swift in Sources */,
 				D4BDC2DA284BA9460087700D /* RegisterRoomIdAndPasswordViewController.swift in Sources */,
 				D477CB46281927BD00B7A07B /* RankingUserIconButton.swift in Sources */,

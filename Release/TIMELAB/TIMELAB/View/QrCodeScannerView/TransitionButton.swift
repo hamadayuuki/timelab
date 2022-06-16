@@ -9,10 +9,10 @@ import UIKit
 import SnapKit
 
 class TransitionButton: UIButton {
-    init(text: String, textSize: CGFloat) {
+    init(text: String, textSize: CGFloat, imageName: String = "TransitionQrCode", backgroundColor: UIColor = Color.navyBlue.UIColor) {
         super.init(frame: .zero)
         
-        self.backgroundColor = Color.navyBlue.UIColor
+        self.backgroundColor = backgroundColor
         self.layer.cornerRadius = 30
         
         // 文字
@@ -22,7 +22,7 @@ class TransitionButton: UIButton {
         self.setTitleColor(Color.white.UIColor, for: .normal)
         
         // 画像
-        var image = UIImage(named: "TransitionQrCode") ?? UIImage()
+        var image = UIImage(named: imageName) ?? UIImage()
         image = image.reSizeImage(reSize: CGSize(width: 22, height: 22))
         self.setImage(image, for: .normal)
         

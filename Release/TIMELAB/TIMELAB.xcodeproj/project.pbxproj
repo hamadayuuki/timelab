@@ -109,6 +109,7 @@
 		D4BDC2DA284BA9460087700D /* RegisterRoomIdAndPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BDC2D9284BA9460087700D /* RegisterRoomIdAndPasswordViewController.swift */; };
 		D4BDC2DC284F9C440087700D /* SaveRoomQrCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BDC2DB284F9C440087700D /* SaveRoomQrCodeViewController.swift */; };
 		D4BDC2DE284F9FD40087700D /* SaveRoomQrCodeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BDC2DD284F9FD40087700D /* SaveRoomQrCodeButton.swift */; };
+		D4BDC2E0284FA8EA0087700D /* TransitionToMemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BDC2DF284FA8EA0087700D /* TransitionToMemoViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -188,6 +189,7 @@
 		D4BDC2D9284BA9460087700D /* RegisterRoomIdAndPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterRoomIdAndPasswordViewController.swift; sourceTree = "<group>"; };
 		D4BDC2DB284F9C440087700D /* SaveRoomQrCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveRoomQrCodeViewController.swift; sourceTree = "<group>"; };
 		D4BDC2DD284F9FD40087700D /* SaveRoomQrCodeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveRoomQrCodeButton.swift; sourceTree = "<group>"; };
+		D4BDC2DF284FA8EA0087700D /* TransitionToMemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionToMemoViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -234,6 +236,7 @@
 			children = (
 				D465BF4E283CC5ED00C2FE2A /* TransitionToQrCodeScannerViewController.swift */,
 				D427F67527FD78CA00E7F4E9 /* QrCodeScannerViewController.swift */,
+				D4BDC2DF284FA8EA0087700D /* TransitionToMemoViewController.swift */,
 				D427F67727FD7FD600E7F4E9 /* MaskCaLayer.swift */,
 				D427F68327FD956000E7F4E9 /* QrCodeScannerLabel.swift */,
 				D427F68527FD96DA00E7F4E9 /* QrCodeScannerButton.swift */,
@@ -625,6 +628,7 @@
 				D465BF45282A96DC00C2FE2A /* User.swift in Sources */,
 				D427F67827FD7FD600E7F4E9 /* MaskCaLayer.swift in Sources */,
 				D427F68827FD994700E7F4E9 /* QrCodeScannerUiImageView.swift in Sources */,
+				D4BDC2E0284FA8EA0087700D /* TransitionToMemoViewController.swift in Sources */,
 				D465BF4D2839380C00C2FE2A /* LogInResult.swift in Sources */,
 				D4BDC2D62848E92A0087700D /* RegisterRoomButton.swift in Sources */,
 				D4BDC2D82848E9710087700D /* RegisterRoomUIImageView.swift in Sources */,

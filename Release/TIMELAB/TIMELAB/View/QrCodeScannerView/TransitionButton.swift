@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 
 class TransitionButton: UIButton {
-    init(text: String, textSize: CGFloat, imageName: String = "TransitionQrCode", textPosition: PositionType = .left,  backgroundColor: UIColor = Color.navyBlue.UIColor) {
+    init(text: String, textSize: CGFloat, imageName: String = "TransitionQrCode", textPosition: PositionType = .right,  backgroundColor: UIColor = Color.navyBlue.UIColor) {
         super.init(frame: .zero)
         
         self.backgroundColor = backgroundColor

@@ -14,7 +14,8 @@ import RxSwift
 class TransitionToQrCodeScannerViewController: UIViewController {
     
     let disposeBag = DisposeBag()
-    var viewType: TransitionQrScannerType!
+    
+    var viewType: TransitionQrScannerType!   // TODO: FireStoreから取得したデータを使用する
     var statusText = ""
     var statusImageName = ""
     var transitionButtonText = ""
@@ -116,8 +117,9 @@ class TransitionToQrCodeScannerViewController: UIViewController {
                     self.transitionButton.isSelected = !self.transitionButton.isSelected
                     self.transitionButton.backgroundColor = self.transitionButton.isSelected ? Color.lightGray.UIColor : Color.navyBlue.UIColor
                     // push画面遷移
-                    let registerNickNameViewController = RegisterNickNameViewController()
-                    self.navigationController?.pushViewController(registerNickNameViewController, animated: true)
+                    let qrCodeScannerViewController = QrCodeScannerViewController()
+                    qrCodeScannerViewController.hidesBottomBarWhenPushed = true   // 遷移後画面でタブバーを隠す
+                    self.navigationController?.pushViewController(qrCodeScannerViewController, animated: true)
                 }
             }
             .disposed(by: disposeBag)

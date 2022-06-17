@@ -20,7 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
         // push遷移
-        navigationController = UINavigationController(rootViewController: TransitionToMemoViewController())   // 起動時に描画する画面
+        navigationController = UINavigationController(rootViewController: TabBarViewController())   // 起動時に描画する画面
         let window = UIWindow(windowScene: windowScene)
         self.window = window
         window.rootViewController = navigationController

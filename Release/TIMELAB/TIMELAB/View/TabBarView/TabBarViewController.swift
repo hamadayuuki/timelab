@@ -31,7 +31,8 @@ class TabBarViewController: UITabBarController {
         let calendarNavigationView = UINavigationController(rootViewController: calendarView)
         
         // QR読み取り画面
-        let qrScanView = QrCodeScannerViewController()
+        //let qrScanView = QrCodeScannerViewController()
+        let qrScanView = TransitionToQrCodeScannerViewController(viewType: .home)
         let qrScanViewIcon = UIImage(named: "QrScanViewIcon")?.reSizeImage(reSize: CGSize(width: 23,height: 23))
         qrScanView.tabBarItem = UITabBarItem(title: "入退室する", image: qrScanViewIcon, selectedImage: qrScanViewIcon)
         let qrScanNavigationView = UINavigationController(rootViewController: qrScanView)

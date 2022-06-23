@@ -55,23 +55,23 @@ class RegisterRoomViewController: UIViewController {
         let height = view.bounds.height
         
         introductionUIImageView = RegisterRoomUIImageView(name: "DiscussionWomanAndMan", size: CGSize(width: 174, height: 131))
-        introductionLabel = RegisterRoomLabel(text: "ユーザー情報の入力", size: 25)
+        introductionLabel = RegisterRoomLabel(text: "ユーザー情報の入力",textAlignment: .left, size: 25)
         
-        univercityLabel = RegisterRoomLabel(text: "大学", size: 15)
+        univercityLabel = RegisterRoomLabel(text: "大学", textAlignment: .left, size: 15)
         univercityTextField = RegisterRoomTextField(placeholder: "", isSecretButton: false)
         validateUnivercityLabel = RegisterRoomLabel(text: "", size: 13)
         
-        departmentLabel = RegisterRoomLabel(text: "学部", size: 15)
+        departmentLabel = RegisterRoomLabel(text: "学部", textAlignment: .left, size: 15)
         departmentTextField = RegisterRoomTextField(placeholder: "", isSecretButton: false)
         validateDepartmentLabel = RegisterRoomLabel(text: "", size: 13)
         
-        courseLabel = RegisterRoomLabel(text: "学科", size: 15)
+        courseLabel = RegisterRoomLabel(text: "学科", textAlignment: .left, size: 15)
         courseTextField = RegisterRoomTextField(placeholder: "", isSecretButton: true)
         validateCourseLabel = RegisterRoomLabel(text: "", size: 13)
         
-        roomLabel = RegisterRoomLabel(text: "使う部屋の名前", size: 15)
+        roomLabel = RegisterRoomLabel(text: "使う部屋の名前", textAlignment: .left, size: 15)
         roomTextField = RegisterRoomTextField(placeholder: "〇〇研究室", isSecretButton: true)
-        validateRoomLabel = RegisterRoomLabel(text: "", size: 13)
+        validateRoomLabel = RegisterRoomLabel(text: "", textAlignment: .left, size: 13)
         
         registerRoomButton = RegisterRoomButton(text: "OK", textSize: 15)
         

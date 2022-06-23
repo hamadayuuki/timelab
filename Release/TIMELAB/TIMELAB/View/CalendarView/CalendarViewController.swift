@@ -17,7 +17,7 @@ protocol CalendarViewDelegate {
 
 class CalendarViewController: UIViewController {
     
-    var dateDictionary = ["2022/04/16", "2022/04/20", "2022/04/21"]   // 背景色変更 や 画像追加 を行う日付, TODO: FireStore から取得する
+    var dateDictionary = ["2022/04/16", "2022/04/20", "2022/04/21", "2022/06/20", "2022/06/21", "2022/06/22",  "2022/06/30"]   // 背景色変更 や 画像追加 を行う日付, TODO: FireStore から取得する
     var fpc: FloatingPanelController!
     
     init() {

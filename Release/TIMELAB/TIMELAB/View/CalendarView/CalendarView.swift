@@ -25,7 +25,7 @@ class CalendarView: FSCalendar {
         self.delegate = self
         
         // 表示
-        self.scrollDirection = .vertical //スクロールの方向
+        self.scrollDirection = .horizontal //スクロールの方向
         self.scope = .month //表示の単位（週単位: .week or 月単位: .month）
         self.locale = Locale(identifier: "ja") //表示の言語の設置（日本語表示の場合は"ja"）
         // ヘッダー
@@ -38,7 +38,8 @@ class CalendarView: FSCalendar {
         self.appearance.titleWeekendColor = .red //週末（土、日曜の日付表示カラー）
         // カレンダー日付表示
         self.appearance.titleFont = UIFont.systemFont(ofSize: 15, weight: .bold) //日付のテキスト、ウェイトサイズ
-        self.appearance.titleOffset = CGPoint(x: 0, y: -10)   // 日付の位置をずらす
+        //self.appearance.titleOffset = CGPoint(x: 0, y: -10)   // 日付の位置をずらす, 画像を使うとき
+        self.appearance.titleOffset = CGPoint(x: 0, y: 3)   // 日付の位置をずらす, 通常時, 中央に置くための調整
         self.appearance.todayColor = .clear //本日の選択カラー
         self.appearance.titleTodayColor = Color.gray.UIColor //本日のテキストカラー
         
@@ -48,7 +49,7 @@ class CalendarView: FSCalendar {
                 
         self.appearance.borderRadius = 0 //本日・選択日の塗りつぶし角丸量
         
-        self.appearance.imageOffset = CGPoint(x: 0, y: -5)   // 画像の位置をずらす
+        //self.appearance.imageOffset = CGPoint(x: 0, y: -5)   // 画像の位置をずらす
     }
     
     // 曜日を数字から文字へ変換 (1→日, 3→火)
@@ -84,14 +85,14 @@ extension CalendarView: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDele
         // 背景を描画, ユーザーの行動によって背景色が変化, TODO: 描画する背景色を可変に
         let cellWidth = cell.bounds.width
         let cellHeight = cell.bounds.height
-        cell.bounds = CGRect(x: 0, y: 0, width: cellWidth - 3, height: cellHeight - 3)
+        cell.bounds = CGRect(x: 0, y: 0, width: cellWidth - 5, height: cellHeight - 5)
         // 予定がある時
         if self.dateDictionary.contains(calendarDay) {
             cell.backgroundColor = .orange
         } else {
             cell.backgroundColor = .clear
         }
-        cell.layer.cornerRadius = 5
+        cell.layer.cornerRadius = 15
     }
     
     // タップされた日付を取得する
@@ -108,6 +109,7 @@ extension CalendarView: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDele
     }
     
     // カレンダーの日付に画像を描画する
+    /*
     func calendar(_ calendar: FSCalendar, imageFor date: Date) -> UIImage? {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy/MM/dd"
@@ -127,5 +129,6 @@ extension CalendarView: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDele
             return UIImage()
         }
     }
+     */
     
 }

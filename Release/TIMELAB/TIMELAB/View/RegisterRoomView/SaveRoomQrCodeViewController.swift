@@ -23,7 +23,7 @@ class SaveRoomQrCodeViewController: UIViewController {
     
     var roomQrCodeUIImageView: RegisterRoomUIImageView!
     
-    var registerRoomButton: SaveRoomQrCodeButton!
+    var saveRoomQrCodeButton: SaveRoomQrCodeButton!
     
     var introductionUIImageView: RegisterRoomUIImageView!
     var explanationLabel: RegisterRoomLabel!
@@ -49,7 +49,7 @@ class SaveRoomQrCodeViewController: UIViewController {
         
         roomQrCodeUIImageView = RegisterRoomUIImageView(name: "RoomQrCode", size: CGSize(width: 200, height: 200), isBorderLine: true)
         
-        registerRoomButton = SaveRoomQrCodeButton(text: "保存", textSize: 15)
+        saveRoomQrCodeButton = SaveRoomQrCodeButton(text: "保存", textSize: 15)
         
         explanationLabel = RegisterRoomLabel(text: "QRコードを保存・印刷して\n使う部屋のドアに貼って\nみんなで使いましょう！", size: 12)
         
@@ -70,15 +70,15 @@ class SaveRoomQrCodeViewController: UIViewController {
             make.centerX.equalTo(self.view.bounds.width * 0.5)
         }
         
-        view.addSubview(registerRoomButton)
-        registerRoomButton.snp.makeConstraints { make -> Void in
+        view.addSubview(saveRoomQrCodeButton)
+        saveRoomQrCodeButton.snp.makeConstraints { make -> Void in
             make.centerX.equalTo(view.bounds.width * 0.5)
             make.top.equalTo(roomQrCodeUIImageView.snp.bottom).offset(40)
         }
         
         view.addSubview(introductionUIImageView)
         introductionUIImageView.snp.makeConstraints { make -> Void in
-            make.top.equalTo(registerRoomButton.snp.bottom).offset(10)
+            make.top.equalTo(saveRoomQrCodeButton.snp.bottom).offset(10)
             make.left.equalTo(137)
         }
         
@@ -180,12 +180,21 @@ class SaveRoomQrCodeViewController: UIViewController {
             .disposed(by: disposeBag)
         view.addGestureRecognizer(tapBackground)
         
-        registerRoomButton.rx.tap
+        saveRoomQrCodeButton.rx.tap
             .subscribe { _ in
                 HUD.show(.progress)   // ローディング表示
-                self.isProgressView = true
-                self.registerRoomButton.isSelected = !self.registerRoomButton.isSelected
-                self.registerRoomButton.backgroundColor = self.registerRoomButton.isSelected ? Color.lightGray.UIColor : Color.navyBlue.UIColor
+                self.saveRoomQrCodeButton.isSelected = !self.saveRoomQrCodeButton.isSelected
+                self.saveRoomQrCodeButton.backgroundColor = self.saveRoomQrCodeButton.isSelected ? Color.lightGray.UIColor : Color.navyBlue.UIColor
+                // 0.5秒後にローディングを消す
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    HUD.hide()
+                    self.saveRoomQrCodeButton.isSelected = !self.saveRoomQrCodeButton.isSelected
+                    self.saveRoomQrCodeButton.backgroundColor = self.saveRoomQrCodeButton.isSelected ? Color.lightGray.UIColor : Color.navyBlue.UIColor
+                    // push画面遷移
+                    let tabBarViewController = TabBarViewController()
+                    tabBarViewController.hidesBottomBarWhenPushed = true   // 遷移後画面でタブバーを隠す
+                    self.navigationController?.pushViewController(tabBarViewController, animated: true)
+                }
             }
             .disposed(by: disposeBag)
         

@@ -239,9 +239,18 @@ class RegisterRoomViewController: UIViewController {
         registerRoomButton.rx.tap
             .subscribe { _ in
                 HUD.show(.progress)   // ローディング表示
-                self.isProgressView = true
                 self.registerRoomButton.isSelected = !self.registerRoomButton.isSelected
                 self.registerRoomButton.backgroundColor = self.registerRoomButton.isSelected ? Color.lightGray.UIColor : Color.navyBlue.UIColor
+                // 0.5秒後にローディングを消す
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    HUD.hide()
+                    self.registerRoomButton.isSelected = !self.registerRoomButton.isSelected
+                    self.registerRoomButton.backgroundColor = self.registerRoomButton.isSelected ? Color.lightGray.UIColor : Color.navyBlue.UIColor
+                    // push画面遷移
+                    let saveRoomQrCodeViewController = SaveRoomQrCodeViewController()
+                    saveRoomQrCodeViewController.hidesBottomBarWhenPushed = true   // 遷移後画面でタブバーを隠す
+                    self.navigationController?.pushViewController(saveRoomQrCodeViewController, animated: true)
+                }
             }
             .disposed(by: disposeBag)
         

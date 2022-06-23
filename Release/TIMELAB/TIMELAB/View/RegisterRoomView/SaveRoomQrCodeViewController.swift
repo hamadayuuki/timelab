@@ -45,7 +45,8 @@ class SaveRoomQrCodeViewController: UIViewController {
         
         introductionUIImageView = RegisterRoomUIImageView(name: "ChatRobot", size: CGSize(width: 263, height: 197))
         introductionLabel = RegisterRoomLabel(text: "太田研究室\nQRコード作成完了！", size: 25, color: Color.orange.UIColor)
-        explanationNextStepLabel = RegisterRoomLabel(text: "続きてID登録に入ります", size: 12)
+        //explanationNextStepLabel = RegisterRoomLabel(text: "続きてID登録に入ります", size: 12)
+        explanationNextStepLabel = RegisterRoomLabel(text: "", size: 12)
         
         roomQrCodeUIImageView = RegisterRoomUIImageView(name: "RoomQrCode", size: CGSize(width: 200, height: 200), isBorderLine: true)
         

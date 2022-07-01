@@ -30,6 +30,8 @@ class CalendarViewController: UIViewController {
         (value: 20.0, label: "D", icon: UIImage(named: "PencilAndNote")),
         (value: 20.0, label: "E", icon: UIImage(named: "Television"))
     ]
+    var contentsView = UIView()
+    let scrollView = CalendarScrollView()
     
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -72,15 +74,16 @@ class CalendarViewController: UIViewController {
         doneContentUIImageView = DoneContentUIImageView(uiImage: UIImage())
         
         // MARK: - addSubview/layer
-        view.addSubview(calendarView)
+        contentsView.addSubview(calendarView)
         calendarView.snp.makeConstraints { make -> Void in
             make.centerX.equalTo(view.bounds.width * 0.5)
-            make.centerY.equalTo(view.bounds.height * 0.5)
+            make.top.equalTo(view.bounds.height * 0.1)
             make.width.equalTo(view.bounds.width * 0.9)
             make.height.equalTo(view.bounds.height * 0.5)
         }
         
-        view.addSubview(doneContentChartView)
+        /*
+        contentsView.addSubview(doneContentChartView)
         doneContentChartView.snp.makeConstraints { make -> Void in
             make.centerX.equalTo(view.bounds.width * 0.5)
             make.centerY.equalTo(view.bounds.height * 0.8)
@@ -88,13 +91,26 @@ class CalendarViewController: UIViewController {
             make.height.equalTo(300)
         }
         
-        view.addSubview(doneContentUIImageView)
+        contentsView.addSubview(doneContentUIImageView)
         doneContentUIImageView.backgroundColor = .white
         doneContentUIImageView.snp.makeConstraints { make -> Void in
             make.centerX.equalTo(view.bounds.width * 0.5)
             make.centerY.equalTo(view.bounds.height * 0.8)
             make.width.equalTo(80)
             make.height.equalTo(80)
+        }
+        */
+        
+        scrollView.addSubview(contentsView)
+        contentsView.snp.makeConstraints { make -> Void in
+            make.width.equalTo(scrollView.frameLayoutGuide)
+            make.height.equalTo(scrollView.frameLayoutGuide)
+            make.edges.equalTo(scrollView.contentLayoutGuide)
+        }
+        
+        view.addSubview(scrollView)
+        scrollView.snp.makeConstraints { make -> Void in
+            make.edges.equalTo(view.safeAreaLayoutGuide)
         }
     }
     
@@ -117,7 +133,7 @@ extension CalendarViewController: FloatingPanelControllerDelegate {
         
         // モーダルを角丸にする
         let appearance = SurfaceAppearance()
-        appearance.cornerRadius = 36.0
+        appearance.cornerRadius = 10.0
         self.fpc.surfaceView.appearance = appearance
         self.fpc.isRemovalInteractionEnabled = true   // 下へのスクロールで非表示
         self.fpc.backdropView.dismissalTapGestureRecognizer.isEnabled = true   // 背景タップで非表示

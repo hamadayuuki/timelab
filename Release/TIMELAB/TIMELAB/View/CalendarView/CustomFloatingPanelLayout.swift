@@ -15,7 +15,7 @@ class CustomFloatingPanelLayout: FloatingPanelLayout {
     var anchors: [FloatingPanelState: FloatingPanelLayoutAnchoring] {
         return [
             // 全モーダル時のレイアウト
-            .full: FloatingPanelLayoutAnchor(absoluteInset: 50.0, edge: .top, referenceGuide: .safeArea),
+            .full: FloatingPanelLayoutAnchor(absoluteInset: 10.0, edge: .top, referenceGuide: .safeArea),
             // 半モーダル時のレイアウト, スライドした時に非表示にする
             .tip: FloatingPanelLayoutAnchor(absoluteInset: -50.0, edge: .bottom, referenceGuide: .safeArea),
         ]

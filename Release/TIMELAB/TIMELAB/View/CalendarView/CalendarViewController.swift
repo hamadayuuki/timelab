@@ -9,6 +9,7 @@ import UIKit
 import SnapKit
 import FSCalendar
 import FloatingPanel
+import Charts
 
 // 画面遷移用
 protocol CalendarViewDelegate {
@@ -19,6 +20,16 @@ class CalendarViewController: UIViewController {
     
     var dateDictionary = ["2022/04/16", "2022/04/20", "2022/04/21", "2022/06/20", "2022/06/21", "2022/06/22",  "2022/06/30"]   // 背景色変更 や 画像追加 を行う日付, TODO: FireStore から取得する
     var fpc: FloatingPanelController!
+    var doneContentChartView: DoneContentsChartView!
+    var doneContentUIImageView: DoneContentUIImageView!
+    // TODO: dataList を DoneContentsChartView か CalendarViewController どちらで扱うか決める。両方はなし。
+    let dataList = [
+        (value: 10.0, label: "A", icon: UIImage(named: "Flask")),
+        (value: 20.0, label: "B", icon: UIImage(named: "Lupe")),
+        (value: 30.0, label: "C", icon: UIImage(named: "PencilAndEraser")),
+        (value: 20.0, label: "D", icon: UIImage(named: "PencilAndNote")),
+        (value: 20.0, label: "E", icon: UIImage(named: "Television"))
+    ]
     
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -53,6 +64,13 @@ class CalendarViewController: UIViewController {
         calendarView = CalendarView(deteDictionary: dateDictionary)
         calendarView.calendarViewDelegate = self   // 画面遷移のために指定
         
+        // 円グラフ
+        doneContentChartView = DoneContentsChartView()
+        doneContentChartView.delegate = self
+        
+        // 円グラフのアイコン
+        doneContentUIImageView = DoneContentUIImageView(uiImage: UIImage())
+        
         // MARK: - addSubview/layer
         view.addSubview(calendarView)
         calendarView.snp.makeConstraints { make -> Void in
@@ -60,6 +78,23 @@ class CalendarViewController: UIViewController {
             make.centerY.equalTo(view.bounds.height * 0.5)
             make.width.equalTo(view.bounds.width * 0.9)
             make.height.equalTo(view.bounds.height * 0.5)
+        }
+        
+        view.addSubview(doneContentChartView)
+        doneContentChartView.snp.makeConstraints { make -> Void in
+            make.centerX.equalTo(view.bounds.width * 0.5)
+            make.centerY.equalTo(view.bounds.height * 0.8)
+            make.width.equalTo(300)
+            make.height.equalTo(300)
+        }
+        
+        view.addSubview(doneContentUIImageView)
+        doneContentUIImageView.backgroundColor = .white
+        doneContentUIImageView.snp.makeConstraints { make -> Void in
+            make.centerX.equalTo(view.bounds.width * 0.5)
+            make.centerY.equalTo(view.bounds.height * 0.8)
+            make.width.equalTo(80)
+            make.height.equalTo(80)
         }
     }
     
@@ -100,3 +135,21 @@ extension CalendarViewController: FloatingPanelControllerDelegate {
         return CustomFloatingPanelLayout()
     }
 }
+
+// MARK: - ChartViewDelegate
+extension CalendarViewController: ChartViewDelegate {
+    func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
+        print(#function)
+        if let dataSet = doneContentChartView.data?.dataSets[highlight.dataSetIndex] {
+            let sliceIndex: Int = dataSet.entryIndex(entry: entry)
+            print(sliceIndex)
+            print(dataList[sliceIndex])   // .value, .label
+            doneContentChartView.centerText = dataList[sliceIndex].label
+            
+            print(dataList[sliceIndex].icon!)
+            self.doneContentUIImageView.image = dataList[sliceIndex].icon!
+            
+        }
+    }
+}
+

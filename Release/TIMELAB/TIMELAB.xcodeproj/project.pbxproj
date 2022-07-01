@@ -84,6 +84,10 @@
 		D469A9CD286F148A0049F1B8 /* CalendarScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D469A9CC286F14880049F1B8 /* CalendarScrollView.swift */; };
 		D469A9CF286F1EA90049F1B8 /* RegisterRoomModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D469A9CE286F1EA90049F1B8 /* RegisterRoomModel.swift */; };
 		D469A9D1286F1F2D0049F1B8 /* QrCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D469A9D0286F1F2D0049F1B8 /* QrCode.swift */; };
+		D469A9D5286F23D80049F1B8 /* RegisterRoomViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D469A9D4286F23D80049F1B8 /* RegisterRoomViewModel.swift */; };
+		D469A9D7286F4B920049F1B8 /* RoomQrCodeUIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D469A9D6286F4B920049F1B8 /* RoomQrCodeUIImageView.swift */; };
+		D469A9D9286F57830049F1B8 /* SaveRoomQrCodeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D469A9D8286F57830049F1B8 /* SaveRoomQrCodeViewModel.swift */; };
+		D469A9DB286F58B10049F1B8 /* SaveRoomQrCodeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D469A9DA286F58B00049F1B8 /* SaveRoomQrCodeModel.swift */; };
 		D476DFBA27FD398500A1EDE3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D476DFB927FD398500A1EDE3 /* AppDelegate.swift */; };
 		D476DFBC27FD398500A1EDE3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D476DFBB27FD398500A1EDE3 /* SceneDelegate.swift */; };
 		D476DFBE27FD398500A1EDE3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D476DFBD27FD398500A1EDE3 /* ViewController.swift */; };
@@ -170,6 +174,10 @@
 		D469A9CC286F14880049F1B8 /* CalendarScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarScrollView.swift; sourceTree = "<group>"; };
 		D469A9CE286F1EA90049F1B8 /* RegisterRoomModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterRoomModel.swift; sourceTree = "<group>"; };
 		D469A9D0286F1F2D0049F1B8 /* QrCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QrCode.swift; sourceTree = "<group>"; };
+		D469A9D4286F23D80049F1B8 /* RegisterRoomViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterRoomViewModel.swift; sourceTree = "<group>"; };
+		D469A9D6286F4B920049F1B8 /* RoomQrCodeUIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomQrCodeUIImageView.swift; sourceTree = "<group>"; };
+		D469A9D8286F57830049F1B8 /* SaveRoomQrCodeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveRoomQrCodeViewModel.swift; sourceTree = "<group>"; };
+		D469A9DA286F58B00049F1B8 /* SaveRoomQrCodeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveRoomQrCodeModel.swift; sourceTree = "<group>"; };
 		D476DFB627FD398500A1EDE3 /* TIMELAB.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TIMELAB.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D476DFB927FD398500A1EDE3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D476DFBB27FD398500A1EDE3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -307,6 +315,7 @@
 				D465BD5E282A4A2700C2FE2A /* RegisterUserModel.swift */,
 				D465BF4A28391A8200C2FE2A /* LogInModel.swift */,
 				D469A9CE286F1EA90049F1B8 /* RegisterRoomModel.swift */,
+				D469A9DA286F58B00049F1B8 /* SaveRoomQrCodeModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -357,6 +366,8 @@
 			children = (
 				D465BD5A282A3AD700C2FE2A /* RegisterUserViewModel.swift */,
 				D465BF4828391A1600C2FE2A /* LogInViewModel.swift */,
+				D469A9D4286F23D80049F1B8 /* RegisterRoomViewModel.swift */,
+				D469A9D8286F57830049F1B8 /* SaveRoomQrCodeViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -474,6 +485,7 @@
 				D4BDC2D52848E92A0087700D /* RegisterRoomButton.swift */,
 				D4BDC2DD284F9FD40087700D /* SaveRoomQrCodeButton.swift */,
 				D4BDC2D72848E9710087700D /* RegisterRoomUIImageView.swift */,
+				D469A9D6286F4B920049F1B8 /* RoomQrCodeUIImageView.swift */,
 			);
 			path = RegisterRoomView;
 			sourceTree = "<group>";
@@ -607,6 +619,7 @@
 				D477CB292813099200B7A07B /* CalendarDetailUIImageView.swift in Sources */,
 				D465BD5B282A3AD700C2FE2A /* RegisterUserViewModel.swift in Sources */,
 				D4214EDA285B7DC200ECEBE8 /* PositionType.swift in Sources */,
+				D469A9D9286F57830049F1B8 /* SaveRoomQrCodeViewModel.swift in Sources */,
 				D477CB0B280C529E00B7A07B /* CalendarViewController.swift in Sources */,
 				D4BDC2DA284BA9460087700D /* RegisterRoomIdAndPasswordViewController.swift in Sources */,
 				D477CB46281927BD00B7A07B /* RankingUserIconButton.swift in Sources */,
@@ -621,6 +634,7 @@
 				D427F68A27FDB50B00E7F4E9 /* UIImageExtension.swift in Sources */,
 				D477CB12280D43FD00B7A07B /* CalendarDetailViewController.swift in Sources */,
 				D477CB422819276700B7A07B /* RankingViewController.swift in Sources */,
+				D469A9D7286F4B920049F1B8 /* RoomQrCodeUIImageView.swift in Sources */,
 				D477CB272813095900B7A07B /* CustomFloatingPanelLayout.swift in Sources */,
 				D427F6E028040D4000E7F4E9 /* ChooseRegisterOrLogInViewController.swift in Sources */,
 				D465BD56282A380500C2FE2A /* ValidationModel.swift in Sources */,
@@ -634,6 +648,7 @@
 				D427F68627FD96DA00E7F4E9 /* QrCodeScannerButton.swift in Sources */,
 				D465BF4928391A1700C2FE2A /* LogInViewModel.swift in Sources */,
 				D465BF4F283CC5EE00C2FE2A /* TransitionToQrCodeScannerViewController.swift in Sources */,
+				D469A9D5286F23D80049F1B8 /* RegisterRoomViewModel.swift in Sources */,
 				D469A9C9286EE1A90049F1B8 /* DoneContentUIImageView.swift in Sources */,
 				D4BDC2D42848E8DE0087700D /* RegisterRoomTextField.swift in Sources */,
 				D427F6D528031EB300E7F4E9 /* LogInTextField.swift in Sources */,
@@ -656,6 +671,7 @@
 				D427F67827FD7FD600E7F4E9 /* MaskCaLayer.swift in Sources */,
 				D427F68827FD994700E7F4E9 /* QrCodeScannerUiImageView.swift in Sources */,
 				D4BDC2E0284FA8EA0087700D /* TransitionToMemoViewController.swift in Sources */,
+				D469A9DB286F58B10049F1B8 /* SaveRoomQrCodeModel.swift in Sources */,
 				D465BF4D2839380C00C2FE2A /* LogInResult.swift in Sources */,
 				D4BDC2D62848E92A0087700D /* RegisterRoomButton.swift in Sources */,
 				D4BDC2D82848E9710087700D /* RegisterRoomUIImageView.swift in Sources */,

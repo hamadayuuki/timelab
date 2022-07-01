@@ -58,5 +58,33 @@ class ValidationModel {
         if (email && password) { return true }
         return false
     }
+    
+    // MARK: - RegisterRoom
+    func ValidateUniversity(university: String) -> ValidationResult {
+        if (university.count == 0) { return .empty(message: "") }
+        return .ok(message: "OK")
+    }
+    
+    func ValidateDepartment(department: String) -> ValidationResult {
+        if (department.count == 0) { return .empty(message: "") }
+        return .ok(message: "OK")
+    }
+    
+    func ValidateCourse(course: String) -> ValidationResult {
+        if (course.count == 0) { return .empty(message: "") }
+        return .ok(message: "OK")
+    }
+    
+    func ValidateLab(lab: String) -> ValidationResult {
+        if (lab.count == 0) { return .empty(message: "") }
+        return .ok(message: "OK")
+    }
+    
+    func ValidateCanRegister(universityIsValid: Bool, departmentIsValid: Bool, courseIsValid: Bool, roomIsValid: Bool) -> Bool {
+        if (universityIsValid && departmentIsValid && courseIsValid && roomIsValid) {
+            return true
+        }
+        return false
+    }
 }
 

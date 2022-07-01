@@ -147,85 +147,63 @@ class RegisterRoomViewController: UIViewController {
     }
     
     private func setupBinding() {
-        /*
-        // VM とのつながり, input にイベントを送る(テキストの変更やボタンのタップ等), 送るだけ, 登録のようなイメージ
-        registerUserViewModel = RegisterUserViewModel(input: (
-            name: nameTextField.rx.text.orEmpty.asDriver(),
-            email: emailTextField.rx.text.orEmpty.asDriver(),
-            password: passwordTextField.rx.text.orEmpty.asDriver(),
-            passwordConfirm: passwordConfirmTextField.rx.text.orEmpty.asDriver(),
-            signUpTaps: RegisterRoomButton.rx.tap.asSignal()   // ボタンのタップには Single を使用する
-        ), signUpAPI: RegisterUserModel())
-
+        let registerRoomViewModel: RegisterRoomViewModel!
+        
+        registerRoomViewModel = RegisterRoomViewModel(input: (
+            university: univercityTextField.rx.text.orEmpty.asDriver(),
+            department: departmentTextField.rx.text.orEmpty.asDriver(),
+            course: courseTextField.rx.text.orEmpty.asDriver(),
+            room: roomTextField.rx.text.orEmpty.asDriver(),
+            registerButton: registerRoomButton.rx.tap.asSignal()
+        ))
+        
         // MV からデータ受け取る, データの値を変更
-        registerUserViewModel.nameValidation
-            .drive(validateNameLabel.rx.validationResult)   // VM で 戻り値を ValidationResult にしているため,受け取りもvalidationResultにする, Rective の extension を実装する必要あり
+        registerRoomViewModel.universityValidation
+            .drive(validateUnivercityLabel.rx.validationResult)
             .disposed(by: disposeBag)
-
-        registerUserViewModel.emailValidation
-            .drive(validateEmailLabel.rx.validationResult)
+        
+        registerRoomViewModel.departmentValidation
+            .drive(validateDepartmentLabel.rx.validationResult)
             .disposed(by: disposeBag)
-
-        registerUserViewModel.passwordValidation
-            .drive(validatePasswordLabel.rx.validationResult)
+        
+        registerRoomViewModel.courseValidation
+            .drive(validateCourseLabel.rx.validationResult)
             .disposed(by: disposeBag)
-
-        registerUserViewModel.passwordConfirmValidation
-            .drive(validatePasswordConfirmLabel.rx.validationResult)
+        
+        registerRoomViewModel.roomValidation
+            .drive(validateRoomLabel.rx.validationResult)
             .disposed(by: disposeBag)
-
-        // FireAuth への登録
-        let canSingUp = registerUserViewModel.canSignUp
-            .drive(onNext: { [weak self] canSingUp  in
-                self?.RegisterRoomButton.isEnabled = canSingUp
-                self?.RegisterRoomButton.backgroundColor = canSingUp ? Color.navyBlue.UIColor : Color.lightGray.UIColor
-                print("canSingUp: ", canSingUp)
-            })
+        
+        // ! ローディング画面を閉じるプログラムより 先(上) に書く必要がある, 後(下) に書くと実行が後回しになる
+        registerRoomButton.rx.tap
+            .subscribe { _ in
+                print("登録ボタンをタップしました")
+                print("rx.tap selfisProgressView: ", self.isProgressView)
+                HUD.show(.progress)
+                self.isProgressView = true
+            }
             .disposed(by: disposeBag)
         
         // これがないと アカウント登録メソッド(M) が呼ばれない
-        registerUserViewModel.isSignUp
+        registerRoomViewModel.isSignUp
             .drive { result in
-                print("V, FireAuth へユーザー登録 result: ", result)
+                print("result: ", result)
+                print("self.isProgressView: ", self.isProgressView)
             }
             .disposed(by: disposeBag)
-
-        registerUserViewModel.isUserToFireStore
-            .drive { result in   // この後の .disposed(by: disposedBag) がないと Bool型 として受け取られない
-                print("V, FireStore へユーザー登録: ", result)
-                if self.isProgressView && result {
+        
+        registerRoomViewModel.qrCodeData
+            .drive { qrCodeData in
+                if qrCodeData != Data() {
                     HUD.hide()
+                    
                     // push画面遷移
-                    let welcomeViewController = WelcomeViewController()
-                    self.navigationController?.pushViewController(welcomeViewController, animated: true)
+                    let saveRoomQrCodeViewController = SaveRoomQrCodeViewController(qrCodeData: qrCodeData)
+                    saveRoomQrCodeViewController.hidesBottomBarWhenPushed = true   // 遷移後画面でタブバーを隠す
+                    self.navigationController?.pushViewController(saveRoomQrCodeViewController, animated: true)
                 }
             }
             .disposed(by: disposeBag)
-
-        registerUserViewModel.signUpResult
-            .drive { user in
-                if !user.isValid {   // false の場合、ユーザー情報をFireStoreへ登録する処理 は実行されない
-                    // ×画面 を描画
-                    HUD.flash(.error, delay: 1) { _ in
-                        self.nameTextField.text = ""
-                        self.validateNameLabel.text = "※ "
-                        self.validateNameLabel.textColor = Color.navyBlue.UIColor
-                        self.emailTextField.text = ""
-                        self.validateEmailLabel.text = "※ "
-                        self.validateEmailLabel.textColor = Color.navyBlue.UIColor
-                        self.passwordTextField.text = ""
-                        self.validatePasswordLabel.text = "※ "
-                        self.validatePasswordLabel.textColor = Color.navyBlue.UIColor
-                        self.passwordConfirmTextField.text = ""
-                        self.validatePasswordConfirmLabel.text = "※ "
-                        self.validatePasswordConfirmLabel.textColor = Color.navyBlue.UIColor
-                        self.RegisterRoomButton.isSelected = false
-                        self.RegisterRoomButton.isEnabled = false
-                    }
-                }
-            }
-            .disposed(by: disposeBag)
-        */
         
         // 背景をタップしたらキーボードを隠す
         let tapBackground = UITapGestureRecognizer()
@@ -235,24 +213,6 @@ class RegisterRoomViewController: UIViewController {
             })
             .disposed(by: disposeBag)
         view.addGestureRecognizer(tapBackground)
-        
-        registerRoomButton.rx.tap
-            .subscribe { _ in
-                HUD.show(.progress)   // ローディング表示
-                self.registerRoomButton.isSelected = !self.registerRoomButton.isSelected
-                self.registerRoomButton.backgroundColor = self.registerRoomButton.isSelected ? Color.lightGray.UIColor : Color.navyBlue.UIColor
-                // 0.5秒後にローディングを消す
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                    HUD.hide()
-                    self.registerRoomButton.isSelected = !self.registerRoomButton.isSelected
-                    self.registerRoomButton.backgroundColor = self.registerRoomButton.isSelected ? Color.lightGray.UIColor : Color.navyBlue.UIColor
-                    // push画面遷移
-                    let saveRoomQrCodeViewController = SaveRoomQrCodeViewController()
-                    saveRoomQrCodeViewController.hidesBottomBarWhenPushed = true   // 遷移後画面でタブバーを隠す
-                    self.navigationController?.pushViewController(saveRoomQrCodeViewController, animated: true)
-                }
-            }
-            .disposed(by: disposeBag)
         
     }
 }

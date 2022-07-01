@@ -21,12 +21,19 @@ class SaveRoomQrCodeViewController: UIViewController {
     var introductionLabel: RegisterRoomLabel!
     var explanationNextStepLabel: RegisterRoomLabel!
     
-    var roomQrCodeUIImageView: RegisterRoomUIImageView!
+    var roomQrCodeUIImageView: RoomQrCodeUIImageView!
+    var qrCodeData: Data!
     
     var saveRoomQrCodeButton: SaveRoomQrCodeButton!
     
     var introductionUIImageView: RegisterRoomUIImageView!
     var explanationLabel: RegisterRoomLabel!
+    
+    init(qrCodeData: Data) {
+        super.init(nibName: nil, bundle: nil)
+        
+        self.qrCodeData = qrCodeData
+    }
     
     // MARK: - Life Cycle
     override func viewDidLoad() {
@@ -48,7 +55,7 @@ class SaveRoomQrCodeViewController: UIViewController {
         //explanationNextStepLabel = RegisterRoomLabel(text: "続きてID登録に入ります", size: 12)
         explanationNextStepLabel = RegisterRoomLabel(text: "", size: 12)
         
-        roomQrCodeUIImageView = RegisterRoomUIImageView(name: "RoomQrCode", size: CGSize(width: 200, height: 200), isBorderLine: true)
+        roomQrCodeUIImageView = RoomQrCodeUIImageView(qrCodeData: qrCodeData)
         
         saveRoomQrCodeButton = SaveRoomQrCodeButton(text: "保存", textSize: 15)
         
@@ -92,85 +99,9 @@ class SaveRoomQrCodeViewController: UIViewController {
     }
     
     private func setupBinding() {
-        /*
-        // VM とのつながり, input にイベントを送る(テキストの変更やボタンのタップ等), 送るだけ, 登録のようなイメージ
-        registerUserViewModel = RegisterUserViewModel(input: (
-            name: nameTextField.rx.text.orEmpty.asDriver(),
-            email: emailTextField.rx.text.orEmpty.asDriver(),
-            password: passwordTextField.rx.text.orEmpty.asDriver(),
-            passwordConfirm: passwordConfirmTextField.rx.text.orEmpty.asDriver(),
-            signUpTaps: RegisterRoomButton.rx.tap.asSignal()   // ボタンのタップには Single を使用する
-        ), signUpAPI: RegisterUserModel())
-
-        // MV からデータ受け取る, データの値を変更
-        registerUserViewModel.nameValidation
-            .drive(validateNameLabel.rx.validationResult)   // VM で 戻り値を ValidationResult にしているため,受け取りもvalidationResultにする, Rective の extension を実装する必要あり
-            .disposed(by: disposeBag)
-
-        registerUserViewModel.emailValidation
-            .drive(validateEmailLabel.rx.validationResult)
-            .disposed(by: disposeBag)
-
-        registerUserViewModel.passwordValidation
-            .drive(validatePasswordLabel.rx.validationResult)
-            .disposed(by: disposeBag)
-
-        registerUserViewModel.passwordConfirmValidation
-            .drive(validatePasswordConfirmLabel.rx.validationResult)
-            .disposed(by: disposeBag)
-
-        // FireAuth への登録
-        let canSingUp = registerUserViewModel.canSignUp
-            .drive(onNext: { [weak self] canSingUp  in
-                self?.RegisterRoomButton.isEnabled = canSingUp
-                self?.RegisterRoomButton.backgroundColor = canSingUp ? Color.navyBlue.UIColor : Color.lightGray.UIColor
-                print("canSingUp: ", canSingUp)
-            })
-            .disposed(by: disposeBag)
+         let saveRoomQrCodeViewModel: SaveRoomQrCodeViewModel!
         
-        // これがないと アカウント登録メソッド(M) が呼ばれない
-        registerUserViewModel.isSignUp
-            .drive { result in
-                print("V, FireAuth へユーザー登録 result: ", result)
-            }
-            .disposed(by: disposeBag)
-
-        registerUserViewModel.isUserToFireStore
-            .drive { result in   // この後の .disposed(by: disposedBag) がないと Bool型 として受け取られない
-                print("V, FireStore へユーザー登録: ", result)
-                if self.isProgressView && result {
-                    HUD.hide()
-                    // push画面遷移
-                    let welcomeViewController = WelcomeViewController()
-                    self.navigationController?.pushViewController(welcomeViewController, animated: true)
-                }
-            }
-            .disposed(by: disposeBag)
-
-        registerUserViewModel.signUpResult
-            .drive { user in
-                if !user.isValid {   // false の場合、ユーザー情報をFireStoreへ登録する処理 は実行されない
-                    // ×画面 を描画
-                    HUD.flash(.error, delay: 1) { _ in
-                        self.nameTextField.text = ""
-                        self.validateNameLabel.text = "※ "
-                        self.validateNameLabel.textColor = Color.navyBlue.UIColor
-                        self.emailTextField.text = ""
-                        self.validateEmailLabel.text = "※ "
-                        self.validateEmailLabel.textColor = Color.navyBlue.UIColor
-                        self.passwordTextField.text = ""
-                        self.validatePasswordLabel.text = "※ "
-                        self.validatePasswordLabel.textColor = Color.navyBlue.UIColor
-                        self.passwordConfirmTextField.text = ""
-                        self.validatePasswordConfirmLabel.text = "※ "
-                        self.validatePasswordConfirmLabel.textColor = Color.navyBlue.UIColor
-                        self.RegisterRoomButton.isSelected = false
-                        self.RegisterRoomButton.isEnabled = false
-                    }
-                }
-            }
-            .disposed(by: disposeBag)
-        */
+        saveRoomQrCodeViewModel = SaveRoomQrCodeViewModel(saveButton: saveRoomQrCodeButton.rx.tap.asSignal(), qrCodeData: qrCodeData)
         
         // 背景をタップしたらキーボードを隠す
         let tapBackground = UITapGestureRecognizer()
@@ -199,5 +130,12 @@ class SaveRoomQrCodeViewController: UIViewController {
             }
             .disposed(by: disposeBag)
         
+        saveRoomQrCodeViewModel.isSaveRoomQrCode
+            .drive { isSaveQrCode in
+                print("QRコードの保存: ", isSaveQrCode)
+            }
+            .disposed(by: disposeBag)
+        
     }
+    required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 }

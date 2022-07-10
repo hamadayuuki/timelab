@@ -16,6 +16,8 @@ class QrCodeScannerViewModel {
     var userId: Observable<String>   // uid を渡すために
     var isRegisterUserStateToRooms: Driver<Bool>
     var userStateFromRooms: Observable<String>
+    var nextUserState: Observable<String>
+    var userName: Observable<String>
     
     init(roomId: String) {
         let registerUserModel = RegisterUserModel()
@@ -32,40 +34,38 @@ class QrCodeScannerViewModel {
             .flatMap { uid in
                 fetchRoomModel.fetchUsersStateFromRooms(roomId: roomId, uid: uid)
             }
-        
-        // 登録
-        // Model の呼び出し, View から参照される
-        isRegisterUserState = Observable.zip(userId, userStateFromRooms)
-            .map { (userId, userStateFromRooms) -> (String, String) in
+        nextUserState = userStateFromRooms   // 滞在状態変更後
+            .map { userStateFromRooms -> String in
                 var userState = ""
                 print(userStateFromRooms)
                 switch userStateFromRooms {
                     case "stay": userState = "home"
-                    case "home": userState = "returnedHome"
-                    case "returnedHome": userState = "stay"
+                    case "home": userState = "stay"
                     default: userState = "stay"
                 }
-                return (userId, userState)
+                return userState
             }
+        
+        userName = userId
+            .filter { $0 != "" }
+            .flatMap { uid in
+                fetchUserModel.fetchUser(uid: uid)
+            }
+            .map { user in
+                return user["name"] as? String ?? ""
+            }
+        
+        // 登録
+        // Model の呼び出し, View から参照される
+        isRegisterUserState = Observable.zip(userId, nextUserState)
             .flatMap { (uid, userState) in
                 registerUserModel.registerUserState(roomId: roomId, uid: uid, state: userState)
             }
             .asDriver(onErrorJustReturn: false)
         
-        isRegisterUserStateToRooms = Observable.zip(userId, userStateFromRooms)
-            .map { (userId, userStateFromRooms) -> (String, String) in
-                var userState = ""
-                print(userStateFromRooms)
-                switch userStateFromRooms {
-                    case "stay": userState = "home"
-                    case "home": userState = "returnedHome"
-                    case "returnedHome": userState = "stay"
-                    default: userState = "stay"
-                }
-                return (userId, userState)
-            }
-            .flatMap { uid, userState in
-                registerRoomModel.registerUserStateToRooms(roomId: roomId, uid: uid, state: userState)
+        isRegisterUserStateToRooms = Observable.zip(userId, nextUserState, userName)
+            .flatMap { (uid, userState, name) in
+                registerRoomModel.registerUserStateToRooms(roomId: roomId, uid: uid, state: userState, name: name)
             }
             .asDriver(onErrorJustReturn: false)
         

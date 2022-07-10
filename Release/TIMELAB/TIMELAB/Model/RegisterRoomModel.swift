@@ -82,14 +82,14 @@ class RegisterRoomModel {
         
     }
     
-    func registerUserStateToRooms(roomId: String, uid: String, state: String) -> Observable<Bool> {
+    func registerUserStateToRooms(roomId: String, uid: String, state: String, name: String) -> Observable<Bool> {
         print("M, registerUserStateToRooms()")
 
         return Observable<Bool>.create { observer in
 
             let roomsRef = Firestore.firestore().collection("Rooms").document(roomId)
             
-            roomsRef.collection("UsersStates").document(uid).setData(["state": state]) { err in
+            roomsRef.collection("UsersStates").document(uid).setData(["state": state, "name": name]) { err in
                 if let err = err {
                     observer.onNext(false)
                 }

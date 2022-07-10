@@ -89,7 +89,7 @@ class RegisterRoomModel {
 
             let roomsRef = Firestore.firestore().collection("Rooms").document(roomId)
             
-            roomsRef.collection("UsersState").document(uid).setData(["state": state]) { err in
+            roomsRef.collection("UsersStates").document(uid).setData(["state": state]) { err in
                 if let err = err {
                     observer.onNext(false)
                 }

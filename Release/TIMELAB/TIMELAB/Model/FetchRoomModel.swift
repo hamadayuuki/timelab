@@ -1,0 +1,38 @@
+//
+//  FetchRoomModel.swift
+//  TIMELAB
+//
+//  Created by 濵田　悠樹 on 2022/07/10.
+//
+
+import Firebase
+import FirebaseFirestore
+import FirebaseAuth
+import RxSwift
+import RxCocoa
+import UIKit
+
+class FetchRoomModel {
+    
+    func fetchUsersStateFromRooms(roomId: String, uid: String) -> Observable<String> {
+        return Observable<String>.create { observer in
+            
+            let roomsRef = Firestore.firestore().collection("Rooms").document(roomId)
+            let userStateRef = roomsRef.collection("UsersStates").document(uid)
+            
+            userStateRef.getDocument { (document, err) in
+               if let document = document {
+                   let data = document.data()
+                   let state = data?["state"] as? String ?? ""
+                   observer.onNext(state)
+                } else {
+                    print("Document does not exist")
+                    observer.onNext("")
+                }
+            }
+            return Disposables.create { print("Observable: Dispose") }
+        }
+    }
+    
+}
+

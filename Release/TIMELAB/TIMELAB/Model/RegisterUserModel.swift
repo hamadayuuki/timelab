@@ -69,12 +69,11 @@ class RegisterUserModel {
         
     }
     
-    // Rooms にユーザーを登録する
+    // ユーザーの状態を登録する
     func registerUserState(roomId: String, uid: String, state: String) -> Observable<Bool> {
 
         return Observable<Bool>.create { observer in
             if uid == "" { observer.onNext(false) }   // 例外処理
-            print("例外処理後, uid: ", uid)
             
             let usersRef = Firestore.firestore().collection("Users")
             let setData = [

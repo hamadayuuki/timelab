@@ -91,6 +91,7 @@
 		D469AA3C2879ED8C0049F1B8 /* RegisterTimeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D469AA3B2879ED8B0049F1B8 /* RegisterTimeModel.swift */; };
 		D469AA3E2879F6DA0049F1B8 /* QrCodeScannerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D469AA3D2879F6DA0049F1B8 /* QrCodeScannerViewModel.swift */; };
 		D469AA402879FF3C0049F1B8 /* FetchUserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D469AA3F2879FF3C0049F1B8 /* FetchUserModel.swift */; };
+		D469AA42287ADC7D0049F1B8 /* FetchRoomModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D469AA41287ADC7C0049F1B8 /* FetchRoomModel.swift */; };
 		D476DFBA27FD398500A1EDE3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D476DFB927FD398500A1EDE3 /* AppDelegate.swift */; };
 		D476DFBC27FD398500A1EDE3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D476DFBB27FD398500A1EDE3 /* SceneDelegate.swift */; };
 		D476DFBE27FD398500A1EDE3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D476DFBD27FD398500A1EDE3 /* ViewController.swift */; };
@@ -184,6 +185,7 @@
 		D469AA3B2879ED8B0049F1B8 /* RegisterTimeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterTimeModel.swift; sourceTree = "<group>"; };
 		D469AA3D2879F6DA0049F1B8 /* QrCodeScannerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QrCodeScannerViewModel.swift; sourceTree = "<group>"; };
 		D469AA3F2879FF3C0049F1B8 /* FetchUserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchUserModel.swift; sourceTree = "<group>"; };
+		D469AA41287ADC7C0049F1B8 /* FetchRoomModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchRoomModel.swift; sourceTree = "<group>"; };
 		D476DFB627FD398500A1EDE3 /* TIMELAB.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TIMELAB.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D476DFB927FD398500A1EDE3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D476DFBB27FD398500A1EDE3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -318,12 +320,13 @@
 				D427F67F27FD8A4000E7F4E9 /* Enum */,
 				D465BF43282A96AA00C2FE2A /* Struct */,
 				D465BD55282A380500C2FE2A /* ValidationModel.swift */,
-				D465BD5E282A4A2700C2FE2A /* RegisterUserModel.swift */,
 				D465BF4A28391A8200C2FE2A /* LogInModel.swift */,
-				D469A9CE286F1EA90049F1B8 /* RegisterRoomModel.swift */,
 				D469A9DA286F58B00049F1B8 /* SaveRoomQrCodeModel.swift */,
-				D469AA3B2879ED8B0049F1B8 /* RegisterTimeModel.swift */,
+				D465BD5E282A4A2700C2FE2A /* RegisterUserModel.swift */,
 				D469AA3F2879FF3C0049F1B8 /* FetchUserModel.swift */,
+				D469A9CE286F1EA90049F1B8 /* RegisterRoomModel.swift */,
+				D469AA41287ADC7C0049F1B8 /* FetchRoomModel.swift */,
+				D469AA3B2879ED8B0049F1B8 /* RegisterTimeModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -664,6 +667,7 @@
 				D4BDC2D42848E8DE0087700D /* RegisterRoomTextField.swift in Sources */,
 				D427F6D528031EB300E7F4E9 /* LogInTextField.swift in Sources */,
 				D427F6D928031F5100E7F4E9 /* LogInSecretButton.swift in Sources */,
+				D469AA42287ADC7D0049F1B8 /* FetchRoomModel.swift in Sources */,
 				D427F67C27FD899200E7F4E9 /* UIColorExtension.swift in Sources */,
 				D427F6DD28032C9200E7F4E9 /* UILabelExtension.swift in Sources */,
 				D469AA402879FF3C0049F1B8 /* FetchUserModel.swift in Sources */,

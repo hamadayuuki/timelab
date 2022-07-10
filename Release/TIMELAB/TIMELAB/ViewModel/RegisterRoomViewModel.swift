@@ -20,6 +20,7 @@ class RegisterRoomViewModel {
     let isSignUp: Driver<Bool>
     let canSignUp: Driver<Bool>
     let qrCodeData: Driver<Data>
+    let userId: Driver<String>
     
     init(input: (
             university: Driver<String>,
@@ -32,6 +33,7 @@ class RegisterRoomViewModel {
         // M とのつながり
         let validationModel = ValidationModel()
         let registerRoomModel = RegisterRoomModel()
+        let fetchUserModel = FetchUserModel()
         
         // V からの通知(データも?)を受け取り M に処理を任せる, V から呼ばれることでデータ送信(VM→V)を行える
         universityValidation = input.university
@@ -51,15 +53,20 @@ class RegisterRoomViewModel {
                 validationModel.ValidateLab(lab: lab)
             }
         
-        // アカウント作成
-        let signUpDatas = Driver.combineLatest(input.university, input.department, input.course, input.room) { (university: $0, department: $1, course: $2, room: $3) }
+        userId = fetchUserModel.fetchUserId()
+            .filter { $0 != "" }
+            .share(replay: 1)
+            .asDriver(onErrorJustReturn: "")
+        
+        // 部屋作成
+        let createRoomDatas = Driver.combineLatest(input.university, input.department, input.course, input.room, userId) { (university: $0, department: $1, course: $2, room: $3, uid: $4) }
         //  ↓ Observable<String>, documentId が通知される
         let roomsDocumentId = input.registerButton
             .asObservable()
-            .withLatestFrom(signUpDatas)
+            .withLatestFrom(createRoomDatas)
             .flatMapLatest { tuple in
 //                signUpAPI.createUserToFireAuth(email: tuple.university, password: tuple.department)
-                registerRoomModel.createRoomToFireStore(university: tuple.university, department: tuple.department, course: tuple.course, room: tuple.room)
+                registerRoomModel.createRoomToFireStore(university: tuple.university, department: tuple.department, course: tuple.course, room: tuple.room, hostUserId: tuple.uid)
             }
             .share(replay: 1)
         

@@ -17,14 +17,14 @@ import UIKit
 class RegisterRoomModel {
     init(){ }
     
-    func createRoomToFireStore(university: String, department: String, course: String, room: String) -> Observable<String> {
+    func createRoomToFireStore(university: String, department: String, course: String, room: String, hostUserId: String) -> Observable<String> {
         print("研究室登録 の処理")
         
         return Observable<String>.create { observer in
             
             let document = [
-                "allUsers": [],
-                "hosts": [],
+                "allUsers": [hostUserId],
+                "hosts": [hostUserId],
                 "clients": [],
                 "university": university,
                 "department": department,
@@ -83,6 +83,24 @@ class RegisterRoomModel {
     }
     
     func registerUserStateToRooms(roomId: String, uid: String, state: String, name: String) -> Observable<Bool> {
+        print("M, registerUserStateToRooms()")
+
+        return Observable<Bool>.create { observer in
+
+            let roomsRef = Firestore.firestore().collection("Rooms").document(roomId)
+            
+            roomsRef.collection("UsersStates").document(uid).setData(["state": state, "name": name]) { err in
+                if let err = err {
+                    observer.onNext(false)
+                }
+                observer.onNext(true)
+            }
+            return Disposables.create { print("Observable: Dispose") }
+        }
+        
+    }
+    
+    func registerUserToRooms(roomId: String, uid: String, state: String, name: String) -> Observable<Bool> {
         print("M, registerUserStateToRooms()")
 
         return Observable<Bool>.create { observer in

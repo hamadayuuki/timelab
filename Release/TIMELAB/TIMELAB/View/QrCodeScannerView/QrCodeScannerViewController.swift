@@ -198,6 +198,13 @@ extension QrCodeScannerViewController: QRScannerViewDelegate {
         qrTextLabel.text = code
         
 //        qrScanViewModel = QrScanViewModel(roomId: code)
+        let qrCodeScannerViewModel = QrCodeScannerViewModel(roomId: code)
+        
+        qrCodeScannerViewModel.isRegisterUserState
+            .drive { isSuccess in
+                print("ユーザーの滞在状況登録: ", isSuccess)
+            }
+            .disposed(by: disposeBag)
         
 //        // ! ここで定義しないと VM, M のプログラムは動かない
 //        qrScanViewModel.isCheckAndRegistRoom

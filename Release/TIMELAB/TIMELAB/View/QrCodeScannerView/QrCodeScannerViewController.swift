@@ -206,6 +206,12 @@ extension QrCodeScannerViewController: QRScannerViewDelegate {
             }
             .disposed(by: disposeBag)
         
+        qrCodeScannerViewModel.isRegisterUserStateToRooms
+            .drive { isSuccess in
+                print("滞在状況をRoomへ登録: ", isSuccess)
+            }
+            .disposed(by: disposeBag)
+        
 //        // ! ここで定義しないと VM, M のプログラムは動かない
 //        qrScanViewModel.isCheckAndRegistRoom
 //            .drive { isCheckAndRegist in

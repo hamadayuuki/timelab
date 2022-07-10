@@ -46,6 +46,7 @@ class RegisterUserModel {
             let document = [
                 "name": name,
                 "email": email,
+                "uid": uid,
                 "type": "client",   // TODO: 可変に
                 "rooms": [],
                 "createAt": Timestamp(),

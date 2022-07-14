@@ -32,9 +32,7 @@ class RegisterUserModel {
                 let user = User(name: name, email: email, uid: uid, isValid: true)
                 observer.onNext(user)
             }
-            return Disposables.create {
-                print("Observable: Dispose")
-            }
+            return Disposables.create { print("Observable: Dispose") }
             
         }// return
     }
@@ -62,9 +60,7 @@ class RegisterUserModel {
                 print("FireStoreへの登録に成功")
                 observer.onNext(true)
             }
-            return Disposables.create {
-                print("Observable: Dispose")
-            }
+            return Disposables.create { print("Observable: Dispose") }
             
         }
         
@@ -87,9 +83,7 @@ class RegisterUserModel {
                 }
                 observer.onNext(true)
             }
-            return Disposables.create {
-                print("Observable: Dispose")
-            }
+            return Disposables.create { print("Observable: Dispose") }
         }
         
     }

@@ -30,7 +30,7 @@ class RegisterRoomModel {
                 "department": department,
                 "course": course,
                 "name": room,
-                "type": "Lab",   // "Lab" か "Room", TODO: 可変に
+//                "type": "Lab",   // "Lab" か "Room", TODO: 可変に
                 "createAt": Timestamp(),
                 "updateAt": Timestamp()
             ] as [String : Any]
@@ -75,9 +75,7 @@ class RegisterRoomModel {
                     observer.onNext(Data())
                 }
             }
-            return Disposables.create {
-                print("Observable: Dispose")
-            }
+            return Disposables.create { print("Observable: Dispose") }
         }
         
     }

@@ -100,14 +100,15 @@ class RegisterRoomModel {
         
     }
     
-    func registerUserToRooms(roomId: String, uid: String, state: String, name: String) -> Observable<Bool> {
+    func registerUserToRooms(roomId: String, uid: String, name: String) -> Observable<Bool> {
         print("M, registerUserStateToRooms()")
 
         return Observable<Bool>.create { observer in
 
             let roomsRef = Firestore.firestore().collection("Rooms").document(roomId)
             
-            roomsRef.collection("UsersStates").document(uid).setData(["state": state, "name": name]) { err in
+            // 配列へのデータ追加のため、set(, merge: true) + FieldValue.arrayUnion() を使用
+            roomsRef.setData(["allUsers": FieldValue.arrayUnion([uid]), "clients": FieldValue.arrayUnion([uid])], merge: true) { err in
                 if let err = err {
                     observer.onNext(false)
                 }

@@ -18,6 +18,7 @@ class QrCodeScannerViewModel {
     var userStateFromRooms: Observable<String>
     var nextUserState: Observable<String>
     var userName: Observable<String>
+    var isRegisterUserToRooms: Driver<Bool>
     
     init(roomId: String) {
         let registerUserModel = RegisterUserModel()
@@ -66,6 +67,12 @@ class QrCodeScannerViewModel {
         isRegisterUserStateToRooms = Observable.zip(userId, nextUserState, userName)
             .flatMap { (uid, userState, name) in
                 registerRoomModel.registerUserStateToRooms(roomId: roomId, uid: uid, state: userState, name: name)
+            }
+            .asDriver(onErrorJustReturn: false)
+        
+        isRegisterUserToRooms = Observable.zip(userId, userName)
+            .flatMap{ (uid, name) in
+                registerRoomModel.registerUserToRooms(roomId: roomId, uid: uid, name: name)
             }
             .asDriver(onErrorJustReturn: false)
         

@@ -19,6 +19,7 @@ class QrCodeScannerViewModel {
     var nextUserState: Observable<String>
     var userName: Observable<String>
     var isRegisterUserToRooms: Driver<Bool>
+    var isRegisterRoomToUsers: Driver<Bool>
     
     init(roomId: String) {
         let registerUserModel = RegisterUserModel()
@@ -28,6 +29,7 @@ class QrCodeScannerViewModel {
         
         // 登録に使用する
         userId = fetchUserModel.fetchUserId()
+            .filter { $0 != "" }
             .map { uid in return uid }
         
         userStateFromRooms = userId
@@ -76,5 +78,10 @@ class QrCodeScannerViewModel {
             }
             .asDriver(onErrorJustReturn: false)
         
+        isRegisterRoomToUsers = userId
+            .flatMap{ (uid) in
+                registerUserModel.registerRoomToUsers(roomId: roomId, uid: uid)
+            }
+            .asDriver(onErrorJustReturn: false)
     }
 }

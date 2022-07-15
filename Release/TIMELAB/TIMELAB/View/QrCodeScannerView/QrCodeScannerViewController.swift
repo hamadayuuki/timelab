@@ -184,6 +184,13 @@ class QrCodeScannerViewController: UIViewController {
                 self.qrCodeScannerView.setTorchActive(isOn: !self.flashButton.isSelected)
             }
             .disposed(by: disposeBag)
+        
+        reloadButton.rx.tap
+            .subscribe { _ in
+                self.loadView()
+                self.viewDidLoad()
+            }
+            .disposed(by: disposeBag)
     }
     
 }
@@ -221,6 +228,12 @@ extension QrCodeScannerViewController: QRScannerViewDelegate {
         qrCodeScannerViewModel.isRegisterRoomToUsers
             .drive { isSuccess in
                 print("ユーザーへ部屋の登録: ", isSuccess)
+            }
+            .disposed(by: disposeBag)
+        
+        qrCodeScannerViewModel.isRegisterTimeWhenEntry
+            .drive { isSuccess in
+                print("入室時刻情報の登録: ", isSuccess)
             }
             .disposed(by: disposeBag)
         

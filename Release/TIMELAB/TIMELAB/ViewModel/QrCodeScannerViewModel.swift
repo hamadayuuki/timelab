@@ -7,6 +7,7 @@
 
 import RxSwift
 import RxCocoa
+import UIKit   // Date()
 
 class QrCodeScannerViewModel {
     let disposeBag = DisposeBag()
@@ -20,12 +21,15 @@ class QrCodeScannerViewModel {
     var isRegisterUserState: Driver<Bool>
     var isRegisterUserToRooms: Driver<Bool>
     var isRegisterRoomToUsers: Driver<Bool>
+    var isRegisterTimeWhenEntry: Driver<Bool>
     
     init(roomId: String) {
         let registerUserModel = RegisterUserModel()
         let fetchUserModel = FetchUserModel()
         let registerRoomModel = RegisterRoomModel()
         let fetchRoomModel = FetchRoomModel()
+        let registerTimeModel = RegisterTimeModel()
+        let fetchTimeModel = FetchTimeModel()
         
         // 登録に使用する
         userId = fetchUserModel.fetchUserId()
@@ -83,5 +87,12 @@ class QrCodeScannerViewModel {
                 registerUserModel.registerRoomToUsers(roomId: roomId, uid: uid)
             }
             .asDriver(onErrorJustReturn: false)
+        
+        isRegisterTimeWhenEntry = userId
+            .flatMap{ (uid) in
+                registerTimeModel.registerTimeWhenEnter(uid: uid, roomId: roomId)
+            }
+            .asDriver(onErrorJustReturn: false)
+        
     }
 }

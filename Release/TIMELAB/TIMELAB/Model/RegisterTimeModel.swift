@@ -13,6 +13,52 @@ import UIKit
 
 class RegisterTimeModel {
     
+    func registerTimeWhenEnter(uid: String, roomId: String) -> Observable<Bool> {
+        
+        return Observable<Bool>.create { observer in
+            let enterTime = Timestamp()
+            var enterTimeDate = enterTime.dateValue()
+            let setData: [String: Any] = [
+                "enterAt": enterTime,
+                "leaveAt": enterTime,
+                "year": Calendar.current.component(.year, from: enterTimeDate),
+                "month": Calendar.current.component(.month, from: enterTimeDate),
+                "day": Calendar.current.component(.day, from: enterTimeDate),
+                "uid": uid,
+                "roomId": roomId,
+                "stayingTimeAtSecond": 0
+            ]
+            
+            let timesRef = Firestore.firestore().collection("Times").document()
+            timesRef.setData(setData) { err in
+                if let err = err { observer.onNext(false) }
+                observer.onNext(true)
+            }
+            return Disposables.create { print("Observable: Dispose") }
+        }
+    }
+    
+    /*
+    func registerTimeWhenLeave(uid: String, roomId: String, enterTimeDate: Date) -> Observable<Bool> {
+        
+        return Observable<Bool>.create { observer in
+            let leaveTime = Timestamp()
+            let leaveTimeDate = leaveTime.dateValue()
+            let setData: [String: Any] = [
+                "leaveAt": leaveTime,
+                "stayingTimeAtSecond": Int(leaveTimeDate.timeIntervalSince(enterTimeDate))
+            ]
+            
+            let timesRef = Firestore.firestore().collection("Times").document()
+            timesRef.setData(setData) { err in
+                if let err = err { observer.onNext(false) }
+                observer.onNext(true)
+            }
+            return Disposables.create { print("Observable: Dispose") }
+        }
+    }
+     */
+    
     /*
     func registerEnterTime(name: String, uid: String, roomId: String) -> Observable<Bool> {
         

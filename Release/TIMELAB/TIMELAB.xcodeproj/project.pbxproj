@@ -54,6 +54,8 @@
 		D427F6E028040D4000E7F4E9 /* ChooseRegisterOrLogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D427F6DF28040D4000E7F4E9 /* ChooseRegisterOrLogInViewController.swift */; };
 		D427F6E228040DB500E7F4E9 /* ChooseRegisterOrLogInButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D427F6E128040DB500E7F4E9 /* ChooseRegisterOrLogInButton.swift */; };
 		D427F6E428040DD600E7F4E9 /* ChooseRegisterOrLogInUIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D427F6E328040DD600E7F4E9 /* ChooseRegisterOrLogInUIImageView.swift */; };
+		D46479842881700700F72EEE /* FetchTimeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46479832881700700F72EEE /* FetchTimeModel.swift */; };
+		D46479862881DCC600F72EEE /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46479852881DCC600F72EEE /* DateExtension.swift */; };
 		D465BD56282A380500C2FE2A /* ValidationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D465BD55282A380500C2FE2A /* ValidationModel.swift */; };
 		D465BD58282A385D00C2FE2A /* ValidationResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = D465BD57282A385D00C2FE2A /* ValidationResult.swift */; };
 		D465BD5B282A3AD700C2FE2A /* RegisterUserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D465BD5A282A3AD700C2FE2A /* RegisterUserViewModel.swift */; };
@@ -158,6 +160,8 @@
 		D427F6DF28040D4000E7F4E9 /* ChooseRegisterOrLogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseRegisterOrLogInViewController.swift; sourceTree = "<group>"; };
 		D427F6E128040DB500E7F4E9 /* ChooseRegisterOrLogInButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseRegisterOrLogInButton.swift; sourceTree = "<group>"; };
 		D427F6E328040DD600E7F4E9 /* ChooseRegisterOrLogInUIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseRegisterOrLogInUIImageView.swift; sourceTree = "<group>"; };
+		D46479832881700700F72EEE /* FetchTimeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchTimeModel.swift; sourceTree = "<group>"; };
+		D46479852881DCC600F72EEE /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
 		D465BD55282A380500C2FE2A /* ValidationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationModel.swift; sourceTree = "<group>"; };
 		D465BD57282A385D00C2FE2A /* ValidationResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationResult.swift; sourceTree = "<group>"; };
 		D465BD5A282A3AD700C2FE2A /* RegisterUserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterUserViewModel.swift; sourceTree = "<group>"; };
@@ -283,6 +287,7 @@
 				D427F68927FDB50B00E7F4E9 /* UIImageExtension.swift */,
 				D427F6DC28032C9200E7F4E9 /* UILabelExtension.swift */,
 				D465BD5C282A417400C2FE2A /* ReactiveExtension.swift */,
+				D46479852881DCC600F72EEE /* DateExtension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -327,6 +332,7 @@
 				D469A9CE286F1EA90049F1B8 /* RegisterRoomModel.swift */,
 				D469AA41287ADC7C0049F1B8 /* FetchRoomModel.swift */,
 				D469AA3B2879ED8B0049F1B8 /* RegisterTimeModel.swift */,
+				D46479832881700700F72EEE /* FetchTimeModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -668,6 +674,7 @@
 				D427F6D528031EB300E7F4E9 /* LogInTextField.swift in Sources */,
 				D427F6D928031F5100E7F4E9 /* LogInSecretButton.swift in Sources */,
 				D469AA42287ADC7D0049F1B8 /* FetchRoomModel.swift in Sources */,
+				D46479842881700700F72EEE /* FetchTimeModel.swift in Sources */,
 				D427F67C27FD899200E7F4E9 /* UIColorExtension.swift in Sources */,
 				D427F6DD28032C9200E7F4E9 /* UILabelExtension.swift in Sources */,
 				D469AA402879FF3C0049F1B8 /* FetchUserModel.swift in Sources */,
@@ -700,6 +707,7 @@
 				D477CB48281927D400B7A07B /* RankingLabel.swift in Sources */,
 				D465BF53283CE5F300C2FE2A /* TransitionQrScannerType.swift in Sources */,
 				D477CB5928200D9100B7A07B /* TabBarViewController.swift in Sources */,
+				D46479862881DCC600F72EEE /* DateExtension.swift in Sources */,
 				D477CB52281FAE5400B7A07B /* ConfirmOtherMemberStayStatusViewController.swift in Sources */,
 				D469A9CF286F1EA90049F1B8 /* RegisterRoomModel.swift in Sources */,
 				D4BDC2D02848E8610087700D /* RegisterRoomViewController.swift in Sources */,

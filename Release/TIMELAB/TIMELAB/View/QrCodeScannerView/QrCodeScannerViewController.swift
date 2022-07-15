@@ -237,6 +237,12 @@ extension QrCodeScannerViewController: QRScannerViewDelegate {
             }
             .disposed(by: disposeBag)
         
+        qrCodeScannerViewModel.enterTimeDate
+            .drive { date in
+                print("入室時刻の取得: ", date)
+            }
+            .disposed(by: disposeBag)
+        
 //        // ! ここで定義しないと VM, M のプログラムは動かない
 //        qrScanViewModel.isCheckAndRegistRoom
 //            .drive { isCheckAndRegist in

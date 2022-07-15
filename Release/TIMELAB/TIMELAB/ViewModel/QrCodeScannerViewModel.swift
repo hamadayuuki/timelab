@@ -12,12 +12,12 @@ class QrCodeScannerViewModel {
     let disposeBag = DisposeBag()
     
     // Model からの通知を受け取る, V で呼び出しとして使用
-    var isRegisterUserState: Driver<Bool>
     var userId: Observable<String>   // uid を渡すために
-    var isRegisterUserStateToRooms: Driver<Bool>
     var userStateFromRooms: Observable<String>
     var nextUserState: Observable<String>
     var userName: Observable<String>
+    var isRegisterUserStateToRooms: Driver<Bool>
+    var isRegisterUserState: Driver<Bool>
     var isRegisterUserToRooms: Driver<Bool>
     var isRegisterRoomToUsers: Driver<Bool>
     

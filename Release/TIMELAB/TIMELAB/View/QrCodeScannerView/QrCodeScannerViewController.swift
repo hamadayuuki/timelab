@@ -231,7 +231,7 @@ extension QrCodeScannerViewController: QRScannerViewDelegate {
             }
             .disposed(by: disposeBag)
         
-        qrCodeScannerViewModel.isRegisterTimeWhenEntry
+        qrCodeScannerViewModel.isRegisterTimeWhenEnter
             .drive { isSuccess in
                 print("入室時刻情報の登録: ", isSuccess)
             }

@@ -21,7 +21,7 @@ class QrCodeScannerViewModel {
     var isRegisterUserState: Driver<Bool>
     var isRegisterUserToRooms: Driver<Bool>
     var isRegisterRoomToUsers: Driver<Bool>
-    var isRegisterTimeWhenEntry: Driver<Bool>
+    var isRegisterTimeWhenEnter: Driver<Bool>
     var enterTimeDate: Driver<Date>
     
     init(roomId: String) {
@@ -89,7 +89,7 @@ class QrCodeScannerViewModel {
             }
             .asDriver(onErrorJustReturn: false)
         
-        isRegisterTimeWhenEntry = userId
+        isRegisterTimeWhenEnter = userId
             .flatMap{ (uid) in
                 registerTimeModel.registerTimeWhenEnter(uid: uid, roomId: roomId)
             }

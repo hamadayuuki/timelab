@@ -37,12 +37,14 @@ class QrCodeScannerViewModel {
         userId = fetchUserModel.fetchUserId()
             .filter { $0 != "" }
             .map { uid in return uid }
+            .share(replay: 1)   // 複数回呼び出されるのを防ぐ
         
         userStateFromRooms = userId
             .filter { $0 != "" }
             .flatMap { uid in
                 fetchRoomModel.fetchUsersStateFromRooms(roomId: roomId, uid: uid)
             }
+            .share(replay: 1)
         nextUserState = userStateFromRooms   // 滞在状態変更後
             .map { userStateFromRooms -> String in
                 var userState = ""
@@ -63,6 +65,7 @@ class QrCodeScannerViewModel {
             .map { user in
                 return user["name"] as? String ?? ""
             }
+            .share(replay: 1)
         
         enterTimeDic = userId
             .filter { $0 != "" }

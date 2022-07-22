@@ -97,14 +97,16 @@ class QrCodeScannerViewModel {
             }
             .asDriver(onErrorJustReturn: false)
         
-        isRegisterTimeWhenEnter = userId
-            .flatMap{ (uid) in
+        isRegisterTimeWhenEnter = Observable.zip(userId, userStateFromRooms)
+            .filter { $1 == "stay" }
+            .flatMap{ (uid, userState) in
                 registerTimeModel.registerTimeWhenEnter(uid: uid, roomId: roomId)
             }
             .asDriver(onErrorJustReturn: false)
         
-        isRegisterTimeWhenLeave = Observable.zip(userId, enterTimeDic)
-            .flatMap { (uid, enterTimeDic) in
+        isRegisterTimeWhenLeave = Observable.zip(userId, enterTimeDic, userStateFromRooms)
+            .filter { $2 == "home" }
+            .flatMap { (uid, enterTimeDic, userState) in
                 registerTimeModel.registerTimeWhenLeave(uid: uid, roomId: roomId, timeId: enterTimeDic["timeId"] as! String, enterTimeDate: enterTimeDic["enterTimeDate"] as! Date)
             }
             .asDriver(onErrorJustReturn: false)

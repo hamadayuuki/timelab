@@ -14,6 +14,7 @@ import UIKit
 
 class FetchRoomModel {
     
+    // 基本ユーザーの状態はここから取得する
     func fetchUsersStateFromRooms(roomId: String, uid: String) -> Observable<String> {
         return Observable<String>.create { observer in
             

@@ -27,7 +27,8 @@ class RegisterTimeModel {
                 "day": Calendar.current.component(.day, from: enterTimeDate),
                 "uid": uid,
                 "roomId": roomId,
-                "stayingTimeAtSecond": 0
+                "stayingTimeAtSecond": 0,
+                "createdAt": Timestamp()
             ]
             
             let timesRef = Firestore.firestore().collection("Times").document()

@@ -14,9 +14,9 @@ import UIKit
 
 class FetchTimeModel {
     
-    func fetchEnterTime(uid: String, roomId: String) -> Observable<Date> {
+    func fetchEnterTime(uid: String, roomId: String) -> Observable<[String: Any]> {
         
-        return Observable<Date>.create { observer in
+        return Observable<[String: Any]>.create { observer in
             
             let timeRef = Firestore.firestore().collection("Times")
             
@@ -27,17 +27,19 @@ class FetchTimeModel {
                 .limit(to: 1)
                 .getDocuments() { (querySnapShot, err) in
                     if let documents = querySnapShot?.documents {
-                        var data = documents[0].data()
-                        var enterTime: Timestamp = data["enterAt"] as! Timestamp
+                        let data = documents[0].data()
+                        let enterTime: Timestamp = data["enterAt"] as! Timestamp
                         var enterTimeDate = enterTime.dateValue()
-                        enterTimeDate = enterTimeDate.UTCtoJST(date: enterTimeDate)   // FireStoreから取得した時刻はUTC表示
-                        print("documents.count: ", documents.count)
-                        print("enterTime: ", enterTime)
-                        print("enterTimeDate: ", enterTimeDate)
-                        observer.onNext(enterTimeDate)
+//                        enterTimeDate = enterTimeDate.UTCtoJST(date: enterTimeDate)   // FireStoreから取得した時刻はUTC表示
+                        let timeId = documents[0].documentID
+                        let returnData: [String: Any] = ["enterTimeDate": enterTimeDate, "timeId": timeId]
+//                        print("documents.count: ", documents.count)
+//                        print("enterTime: ", enterTime)
+//                        print("enterTimeDate: ", enterTimeDate)
+                        observer.onNext(returnData)
                     } else {
                         print("Document does not exist")
-                        observer.onNext(Date())
+                        observer.onNext(["enterTimeDate": Data(), "timeId": ""])
                     }
                 }
             

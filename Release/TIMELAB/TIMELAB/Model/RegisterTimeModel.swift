@@ -14,6 +14,7 @@ import UIKit
 class RegisterTimeModel {
     
     func registerTimeWhenEnter(uid: String, roomId: String) -> Observable<Bool> {
+        print(#function)
         
         return Observable<Bool>.create { observer in
             let enterTime = Timestamp()
@@ -38,26 +39,25 @@ class RegisterTimeModel {
         }
     }
     
-    /*
-    func registerTimeWhenLeave(uid: String, roomId: String, enterTimeDate: Date) -> Observable<Bool> {
+    func registerTimeWhenLeave(uid: String, roomId: String, timeId: String, enterTimeDate: Date) -> Observable<Bool> {
         
         return Observable<Bool>.create { observer in
             let leaveTime = Timestamp()
             let leaveTimeDate = leaveTime.dateValue()
-            let setData: [String: Any] = [
+            let diffEnterToLeaveSecond = Int(leaveTimeDate.timeIntervalSince(enterTimeDate))
+            let updateData: [String: Any] = [
                 "leaveAt": leaveTime,
-                "stayingTimeAtSecond": Int(leaveTimeDate.timeIntervalSince(enterTimeDate))
+                "stayingTimeAtSecond": diffEnterToLeaveSecond
             ]
             
-            let timesRef = Firestore.firestore().collection("Times").document()
-            timesRef.setData(setData) { err in
+            let timesRef = Firestore.firestore().collection("Times").document(timeId)
+            timesRef.updateData(updateData) { err in
                 if let err = err { observer.onNext(false) }
                 observer.onNext(true)
             }
             return Disposables.create { print("Observable: Dispose") }
         }
     }
-     */
     
     /*
     func registerEnterTime(name: String, uid: String, roomId: String) -> Observable<Bool> {

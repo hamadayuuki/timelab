@@ -17,12 +17,13 @@ class QrCodeScannerViewModel {
     var userStateFromRooms: Observable<String>
     var nextUserState: Observable<String>
     var userName: Observable<String>
+    var enterTimeDic: Observable<[String: Any]>
     var isRegisterUserStateToRooms: Driver<Bool>
     var isRegisterUserState: Driver<Bool>
     var isRegisterUserToRooms: Driver<Bool>
     var isRegisterRoomToUsers: Driver<Bool>
     var isRegisterTimeWhenEnter: Driver<Bool>
-    var enterTimeDate: Driver<Date>
+    var isRegisterTimeWhenLeave: Driver<Bool>
     
     init(roomId: String) {
         let registerUserModel = RegisterUserModel()
@@ -63,6 +64,13 @@ class QrCodeScannerViewModel {
                 return user["name"] as? String ?? ""
             }
         
+        enterTimeDic = userId
+            .filter { $0 != "" }
+            .flatMap { (uid) in
+                fetchTimeModel.fetchEnterTime(uid: uid, roomId: roomId)
+            }
+            .filter { $0["timeId"] as! String != "" }
+        
         // 登録
         // Model の呼び出し, View から参照される
         isRegisterUserState = Observable.zip(userId, nextUserState)
@@ -95,10 +103,10 @@ class QrCodeScannerViewModel {
             }
             .asDriver(onErrorJustReturn: false)
         
-        enterTimeDate = userId
-            .flatMap { (uid) in
-                fetchTimeModel.fetchEnterTime(uid: uid, roomId: roomId)
+        isRegisterTimeWhenLeave = Observable.zip(userId, enterTimeDic)
+            .flatMap { (uid, enterTimeDic) in
+                registerTimeModel.registerTimeWhenLeave(uid: uid, roomId: roomId, timeId: enterTimeDic["timeId"] as! String, enterTimeDate: enterTimeDic["enterTimeDate"] as! Date)
             }
-            .asDriver(onErrorJustReturn: Date())
+            .asDriver(onErrorJustReturn: false)
     }
 }

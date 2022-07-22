@@ -237,9 +237,16 @@ extension QrCodeScannerViewController: QRScannerViewDelegate {
             }
             .disposed(by: disposeBag)
         
-        qrCodeScannerViewModel.enterTimeDate
-            .drive { date in
-                print("入室時刻の取得: ", date)
+        // TODO: 時間表示を変更
+        qrCodeScannerViewModel.enterTimeDic
+            .subscribe { dic in
+                print("入室時刻の取得: ", dic["enterTimeDate"])
+            }
+            .disposed(by: disposeBag)
+        
+        qrCodeScannerViewModel.isRegisterTimeWhenLeave
+            .drive { isSuccess in
+                print("退室時刻, 滞在時間の登録: ", isSuccess)
             }
             .disposed(by: disposeBag)
         

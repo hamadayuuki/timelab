@@ -36,6 +36,7 @@ class TransitionToQrCodeScannerViewController: UIViewController {
         case .transitioned:
             self.statusText = "頑張りましょう！"
             self.statusImageName = "BusinessMeeting"
+            self.transitionButtonText = "OK"
         }
         
     }
@@ -86,12 +87,10 @@ class TransitionToQrCodeScannerViewController: UIViewController {
             make.centerY.equalTo(view.bounds.height * 0.45)
         }
         
-        if (viewType == .home || viewType == .stay) {
-            view.addSubview(transitionButton)
-            transitionButton.snp.makeConstraints { make -> Void in
-                make.centerX.equalTo(view.bounds.width * 0.5)
-                make.top.equalTo(transitionVerticalView.snp.bottom).offset(35)
-            }
+        view.addSubview(transitionButton)
+        transitionButton.snp.makeConstraints { make -> Void in
+            make.centerX.equalTo(view.bounds.width * 0.5)
+            make.top.equalTo(transitionVerticalView.snp.bottom).offset(35)
         }
         
     }

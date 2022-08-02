@@ -67,15 +67,9 @@ class QrCodeScannerViewModel {
             }
             .share(replay: 1)
         
-        enterTimeDic = userId
-            .filter { $0 != "" }
-            .flatMap { (uid) in
-                fetchTimeModel.fetchEnterTime(uid: uid, roomId: roomId)
-            }
-            .filter { $0["timeId"] as! String != "" }
-        
         // 登録
         // Model の呼び出し, View から参照される
+        // 滞在状況
         isRegisterUserState = Observable.zip(userId, nextUserState)
             .flatMap { (uid, userState) in
                 registerUserModel.registerUserState(roomId: roomId, uid: uid, state: userState)
@@ -88,6 +82,8 @@ class QrCodeScannerViewModel {
             }
             .asDriver(onErrorJustReturn: false)
         
+        // ユーザー自体
+        // TODO: 毎回する必要ある？
         isRegisterUserToRooms = Observable.zip(userId, userName)
             .flatMap{ (uid, name) in
                 registerRoomModel.registerUserToRooms(roomId: roomId, uid: uid, name: name)
@@ -100,15 +96,25 @@ class QrCodeScannerViewModel {
             }
             .asDriver(onErrorJustReturn: false)
         
+        // 時刻
         isRegisterTimeWhenEnter = Observable.zip(userId, userStateFromRooms)
-            .filter { $1 == "stay" }
+            .filter { $1 == "home" || $1 == "" }
             .flatMap{ (uid, userState) in
-                registerTimeModel.registerTimeWhenEnter(uid: uid, roomId: roomId)
+                Observable.zip(registerTimeModel.registerTimeWhenEnter(uid: uid, roomId: roomId), registerUserModel.registerCurrentStayingRoom(roomId: roomId, uid: uid))
+                    .map { return $0 && $1 }
             }
             .asDriver(onErrorJustReturn: false)
         
+        enterTimeDic = Observable.zip(userId, userStateFromRooms)
+            .filter { $0 != "" && $1 == "stay" }
+            .flatMap { (uid, _) in
+                fetchTimeModel.fetchEnterTime(uid: uid, roomId: roomId)
+            }
+            .filter { ($0["timeId"] as? String ?? "") != "" }
+            .share(replay: 1)
+        
         isRegisterTimeWhenLeave = Observable.zip(userId, enterTimeDic, userStateFromRooms)
-            .filter { $2 == "home" }
+            .filter { $2 == "stay" }
             .flatMap { (uid, enterTimeDic, userState) in
                 registerTimeModel.registerTimeWhenLeave(uid: uid, roomId: roomId, timeId: enterTimeDic["timeId"] as! String, enterTimeDate: enterTimeDic["enterTimeDate"] as! Date)
             }

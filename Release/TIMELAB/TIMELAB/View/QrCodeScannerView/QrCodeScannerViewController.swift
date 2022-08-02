@@ -234,6 +234,9 @@ extension QrCodeScannerViewController: QRScannerViewDelegate {
         qrCodeScannerViewModel.isRegisterTimeWhenEnter
             .drive { isSuccess in
                 print("入室時刻情報の登録: ", isSuccess)
+                let transitionToQrCodeScannerViewController = TransitionToQrCodeScannerViewController(viewType: .transitioned)
+                transitionToQrCodeScannerViewController.hidesBottomBarWhenPushed = true   // 遷移後画面でタブバーを隠す
+                self.navigationController?.pushViewController(transitionToQrCodeScannerViewController, animated: true)
             }
             .disposed(by: disposeBag)
         
@@ -247,6 +250,10 @@ extension QrCodeScannerViewController: QRScannerViewDelegate {
         qrCodeScannerViewModel.isRegisterTimeWhenLeave
             .drive { isSuccess in
                 print("退室時刻, 滞在時間の登録: ", isSuccess)
+                let transitionToMemoViewController = TransitionToMemoViewController()
+                transitionToMemoViewController.hidesBottomBarWhenPushed = true   // 遷移後画面でタブバーを隠す
+                self.navigationController?.pushViewController(transitionToMemoViewController, animated: true)
+            
             }
             .disposed(by: disposeBag)
         

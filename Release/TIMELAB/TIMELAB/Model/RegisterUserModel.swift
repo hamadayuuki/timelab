@@ -104,4 +104,20 @@ class RegisterUserModel {
         
     }
     
+    func registerCurrentStayingRoom(roomId: String, uid: String) -> Observable<Bool> {
+        print("M: ", #function)
+        print("roomId: ", roomId, "   , uid: ", uid)
+        
+        return Observable<Bool>.create { observer in
+            let userRef = Firestore.firestore().collection("Users").document(uid)
+            
+            userRef.setData(["currentStayingRoom": roomId], merge: true) { err in
+                if let err = err { observer.onNext(false) }
+                observer.onNext(true)
+            }
+            return Disposables.create { print("Observable: Dispose") }
+        }
+        
+    }
+    
 }

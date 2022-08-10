@@ -39,6 +39,28 @@ class QrCodeScannerViewController: UIViewController {
         setupBinding()
     }
     
+    // dismiss() した時、画面遷移元のviewWillAppearを呼び出すため
+    override func viewWillAppear(_ animated: Bool) {
+        if #available(iOS 13.0, *) {
+            presentingViewController?.beginAppearanceTransition(false, animated: animated)
+        }
+        super.viewWillAppear(animated)
+
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if #available(iOS 13.0, *) {
+            presentingViewController?.beginAppearanceTransition(true, animated: animated)
+            presentingViewController?.endAppearanceTransition()
+        }
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if #available(iOS 13.0, *) {
+            presentingViewController?.endAppearanceTransition()
+        }
+    }
+    
     // MARK: - Functions
     private func setupQrScanner() {
         // QRScanner - メルカリ
@@ -232,11 +254,10 @@ extension QrCodeScannerViewController: QRScannerViewDelegate {
             .disposed(by: disposeBag)
         
         qrCodeScannerViewModel.isRegisterTimeWhenEnter
+            .filter { $0 == true }
             .drive { isSuccess in
                 print("入室時刻情報の登録: ", isSuccess)
-                let transitionToQrCodeScannerViewController = TransitionToQrCodeScannerViewController(viewType: .transitioned)
-                transitionToQrCodeScannerViewController.hidesBottomBarWhenPushed = true   // 遷移後画面でタブバーを隠す
-                self.navigationController?.pushViewController(transitionToQrCodeScannerViewController, animated: true)
+                self.dismiss(animated: true)
             }
             .disposed(by: disposeBag)
         
@@ -248,49 +269,13 @@ extension QrCodeScannerViewController: QRScannerViewDelegate {
             .disposed(by: disposeBag)
         
         qrCodeScannerViewModel.isRegisterTimeWhenLeave
+            .filter { $0 == true }
             .drive { isSuccess in
                 print("退室時刻, 滞在時間の登録: ", isSuccess)
-                let transitionToMemoViewController = TransitionToMemoViewController()
-                transitionToMemoViewController.hidesBottomBarWhenPushed = true   // 遷移後画面でタブバーを隠す
-                self.navigationController?.pushViewController(transitionToMemoViewController, animated: true)
-            
+                self.dismiss(animated: true)
             }
             .disposed(by: disposeBag)
         
-//        // ! ここで定義しないと VM, M のプログラムは動かない
-//        qrScanViewModel.isCheckAndRegistRoom
-//            .drive { isCheckAndRegist in
-//                print("V, ユーザーが対象の研究室を登録しているか: ", isCheckAndRegist)
-//            }
-//            .disposed(by: disposeBag)
-//
-//        qrScanViewModel.isRegisterEnterTime   // ?filter で除外された時は 何も返ってこないため、ここは実行されない
-//            .drive { isEnter in
-//                print("V, ユーザーの入室登録: ", isEnter)
-//                if isEnter {
-//                    // TODO: 入室後の画面を作成し遷移する
-//                    let calendarViewController = CalendarViewController()
-//                    self.present(calendarViewController, animated: true, completion: nil)
-//                }
-//            }
-//            .disposed(by: disposeBag)
-//
-//        qrScanViewModel.isRegistUserStateToRooms
-//            .drive { isRegistUserState in
-//                print("研究室ごとのユーザー滞在状態の更新: ", isRegistUserState)
-//            }
-//            .disposed(by: disposeBag)
-//
-//        qrScanViewModel.isRegisterLeaveTime
-//            .drive { isLeave in
-//                print("V, ユーザーの退室登録: ", isLeave)
-//                if isLeave {
-//                    // TODO: 退室後の画面を作成し遷移する
-//                    let rankingView = RankingViewController()
-//                    self.present(rankingView, animated: true, completion: nil)
-//                }
-//            }
-//            .disposed(by: disposeBag)
     }
     
     // ライトのオンオフ

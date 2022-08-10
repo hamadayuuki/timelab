@@ -7,7 +7,7 @@
 
 import UIKit
 
-enum TransitionQrScannerType {
+enum TransitionQrScannerType: Equatable {
     case home
     case stay
     case transitioned

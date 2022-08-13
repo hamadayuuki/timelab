@@ -15,7 +15,7 @@ class TransitionToQrCodeScannerViewController: UIViewController {
     
     let disposeBag = DisposeBag()
     
-    var viewType: TransitionQrScannerType = .home   // TODO: FireStoreから取得したデータを使用する
+    var viewType: TransitionQrScannerType!   // TODO: FireStoreから取得したデータを使用する
     var statusText = ""
     var statusImageName = ""
     var transitionButtonText = ""
@@ -30,11 +30,12 @@ class TransitionToQrCodeScannerViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         if #available(iOS 13.0, *) { presentingViewController?.beginAppearanceTransition(false, animated: animated) }
         super.viewWillAppear(animated)
-        print("viewWillAppear")
+        
         HUD.show(.progress)
         self.loadView()
+        view.backgroundColor = .white
         setupViewType()
-        setupLayout()
+        // setupLayout()   // setupViewType() 内で呼び出されます
     }
     
     // MARK: - Function
@@ -70,6 +71,10 @@ class TransitionToQrCodeScannerViewController: UIViewController {
             self.statusText = "頑張りましょう！"
             self.statusImageName = "BusinessMeeting"
             self.transitionButtonText = "OK"
+        case .none:
+            self.statusText = ""
+            self.statusImageName = ""
+            self.transitionButtonText = ""
         }
         print("switch 完了")
         
@@ -79,7 +84,7 @@ class TransitionToQrCodeScannerViewController: UIViewController {
         userStayingStatusUIImageView = QrCodeScannerUIImageView(name: self.statusImageName)
         transitionButton = TransitionButton(text: self.transitionButtonText, textSize: 15)
         transitionButton.isSelected = false
-        userStayingTimeLabel = QrCodeScannerLabel(text: "あいうえお", size: 15)
+        userStayingTimeLabel = QrCodeScannerLabel(text: "", size: 15)
         
         var transitionVerticalView = UIStackView(arrangedSubviews: [userStayingStatusLabel, userStayingTimeLabel,userStayingStatusUIImageView])
         var verticalSpacing = 35.0

@@ -18,13 +18,11 @@ class TransitionToQrCodeScannerViewModel {
     var userId: Observable<String>   // uid を渡すために
     var roomId: Observable<String>
     var userStateFromRooms: Driver<String>
+    var enterTimeDic: Driver<[String: Any]>
     
     init() {
-        let registerUserModel = RegisterUserModel()
         let fetchUserModel = FetchUserModel()
-        let registerRoomModel = RegisterRoomModel()
         let fetchRoomModel = FetchRoomModel()
-        let registerTimeModel = RegisterTimeModel()
         let fetchTimeModel = FetchTimeModel()
         
         // 登録に使用する
@@ -46,6 +44,14 @@ class TransitionToQrCodeScannerViewModel {
                 fetchRoomModel.fetchUsersStateFromRooms(roomId: roomId, uid: uid)
             }
             .asDriver(onErrorJustReturn: "")
+        
+        enterTimeDic = Observable.zip(userId, roomId, userStateFromRooms.asObservable().share(replay: 1))
+            .filter { $0 != "" && $2 == "stay" }
+            .flatMap { (uid, roomId, _) in
+                fetchTimeModel.fetchEnterTime(uid: uid, roomId: roomId)
+            }
+            .filter { ($0["timeId"] as? String ?? "") != "" }
+            .asDriver(onErrorJustReturn: ["enterTimeDate": Date(), "timeId": ""])
         
     }
 }

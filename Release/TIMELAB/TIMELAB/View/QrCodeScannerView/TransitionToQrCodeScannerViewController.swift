@@ -15,7 +15,10 @@ class TransitionToQrCodeScannerViewController: UIViewController {
     
     let disposeBag = DisposeBag()
     
-    var viewType: TransitionQrScannerType!   // TODO: FireStoreから取得したデータを使用する
+    var timer: Timer!
+    var enterTimeDate: Date!
+    
+    var viewType: TransitionQrScannerType!
     var statusText = ""
     var statusImageName = ""
     var transitionButtonText = ""
@@ -89,8 +92,7 @@ class TransitionToQrCodeScannerViewController: UIViewController {
         var transitionVerticalView = UIStackView(arrangedSubviews: [userStayingStatusLabel, userStayingTimeLabel,userStayingStatusUIImageView])
         var verticalSpacing = 35.0
         if (viewType == .stay) {
-            // TODO: - ①入室時刻をFireStoreから取得して, ②滞在時間を計算する
-            userStayingTimeLabel.text = "滞在時間 : 2時間43分"
+            userStayingTimeLabel.text = "滞在時間 : --時間--分"
             verticalSpacing = 20.0
         }
         transitionVerticalView.axis = .vertical
@@ -124,6 +126,17 @@ class TransitionToQrCodeScannerViewController: UIViewController {
     }
     
     func setupBinding() {
+        let transitionToQrCodeScannerViewModel = TransitionToQrCodeScannerViewModel()
+        
+        // 入室状態でのみ呼ばれる
+        transitionToQrCodeScannerViewModel.enterTimeDic
+            .drive { enterTimeDic in
+                print(enterTimeDic)
+                self.enterTimeDate = enterTimeDic["enterTimeDate"] as! Date
+                self.timerStart()
+            }
+            .disposed(by: disposeBag)
+        
         // 背景をタップしたらキーボードを隠す
         let tapBackground = UITapGestureRecognizer()
         tapBackground.rx.event
@@ -141,5 +154,19 @@ class TransitionToQrCodeScannerViewController: UIViewController {
                 self.present(qrCodeScannerViewController, animated: true)
             }
             .disposed(by: disposeBag)
+    }
+    
+    func timerStart() {
+        timer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(self.timeCount), userInfo: nil, repeats: true)
+    }
+    
+    @objc func timeCount() {
+        let progressTime = Int(Date().timeIntervalSince(enterTimeDate))   // スタート時刻からの経過時間を計測, 秒
+        
+        let hour = Int((progressTime / 3600) % 24)
+        let minute = Int((progressTime/60) % 60)
+        let second = Int(progressTime % 60)
+        
+        self.userStayingTimeLabel.text = "滞在時間 : \(hour)時間 \(minute)分 \(second)秒"
     }
 }

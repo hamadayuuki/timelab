@@ -15,15 +15,52 @@ class TransitionToQrCodeScannerViewController: UIViewController {
     
     let disposeBag = DisposeBag()
     
-    var viewType: TransitionQrScannerType!   // TODO: FireStoreから取得したデータを使用する
+    var timer: Timer!
+    var enterTimeDate: Date!
+    
+    var viewType: TransitionQrScannerType!
     var statusText = ""
     var statusImageName = ""
     var transitionButtonText = ""
     
-    init(viewType: TransitionQrScannerType) {
-        super.init(nibName: nil, bundle: nil)
+    // MARK: - UI Parts
+    var userStayingStatusLabel: QrCodeScannerLabel!
+    var userStayingTimeLabel = QrCodeScannerLabel(text: "", size: 15)   // 滞在中のみ表示する
+    var userStayingStatusUIImageView: QrCodeScannerUIImageView!
+    var transitionButton: TransitionButton!
+    
+    // MARK: - Life Cycle
+    override func viewWillAppear(_ animated: Bool) {
+        if #available(iOS 13.0, *) { presentingViewController?.beginAppearanceTransition(false, animated: animated) }
+        super.viewWillAppear(animated)
         
-        self.viewType = viewType
+        HUD.show(.progress)
+        self.loadView()
+        view.backgroundColor = .white
+        setupViewType()
+        // setupLayout()   // setupViewType() 内で呼び出されます
+    }
+    
+    // MARK: - Function
+    func setupViewType() {
+        let transitionToQrCodeScannerViewModel = TransitionToQrCodeScannerViewModel()
+        transitionToQrCodeScannerViewModel.userStateFromRooms
+            .drive { userState in
+                switch userState {
+                case "stay": self.viewType = .stay
+                case "home": self.viewType = .home
+                default: self.viewType = .home
+                }
+                HUD.hide()
+                self.loadView()
+                self.setupLayout()
+                self.setupBinding()
+                print("UserState: \(userState)")
+            }
+            .disposed(by: disposeBag)
+    }
+    
+    func setupLayout() {
         switch viewType {
         case .home:
             self.statusText = "お休み中･･･"
@@ -36,44 +73,38 @@ class TransitionToQrCodeScannerViewController: UIViewController {
         case .transitioned:
             self.statusText = "頑張りましょう！"
             self.statusImageName = "BusinessMeeting"
+            self.transitionButtonText = "OK"
+        case .none:
+            self.statusText = ""
+            self.statusImageName = ""
+            self.transitionButtonText = ""
         }
+        print("switch 完了")
         
-    }
-    
-    // MARK: - UI Parts
-    var userStayingStatusLabel: QrCodeScannerLabel!
-    var userStayingTimeLabel = QrCodeScannerLabel(text: "", size: 15)   // 滞在中のみ表示する
-    var userStayingStatusUIImageView: QrCodeScannerUIImageView!
-    var transitionButton: TransitionButton!
-    
-    // MARK: - Life Cycle
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        setupLayout()
-        setupBinding()
-    }
-    
-    // MARK: - Function
-    func setupLayout() {
         view.backgroundColor = Color.white.UIColor
         
         userStayingStatusLabel = QrCodeScannerLabel(text: self.statusText, size: 30)
         userStayingStatusUIImageView = QrCodeScannerUIImageView(name: self.statusImageName)
         transitionButton = TransitionButton(text: self.transitionButtonText, textSize: 15)
+        transitionButton.isSelected = false
+        userStayingTimeLabel = QrCodeScannerLabel(text: "", size: 15)
         
-        var transitionVerticalView = UIStackView(arrangedSubviews: [userStayingStatusLabel, userStayingStatusUIImageView])
-        var verticalSpacing = 80.0
+        var transitionVerticalView = UIStackView(arrangedSubviews: [userStayingStatusLabel, userStayingTimeLabel,userStayingStatusUIImageView])
+        var verticalSpacing = 35.0
         if (viewType == .stay) {
-            // TODO: - ①入室時刻をFireStoreから取得して, ②滞在時間を計算する
-            userStayingTimeLabel = QrCodeScannerLabel(text: "滞在時間 : 2時間43分", size: 15)
-            transitionVerticalView = UIStackView(arrangedSubviews: [userStayingStatusLabel, userStayingTimeLabel,  userStayingStatusUIImageView])
+            userStayingTimeLabel.text = "滞在時間 : --時間--分"
             verticalSpacing = 20.0
         }
         transitionVerticalView.axis = .vertical
         transitionVerticalView.alignment = .center
         transitionVerticalView.spacing = verticalSpacing
         
+        if viewType == .home {
+            userStayingTimeLabel.snp.makeConstraints { make -> Void in
+                make.width.equalTo(0)
+                make.height.equalTo(0)
+            }
+        }
         userStayingStatusUIImageView.snp.makeConstraints { make -> Void in
             make.width.equalTo(390)
             make.height.equalTo(295)
@@ -86,17 +117,26 @@ class TransitionToQrCodeScannerViewController: UIViewController {
             make.centerY.equalTo(view.bounds.height * 0.45)
         }
         
-        if (viewType == .home || viewType == .stay) {
-            view.addSubview(transitionButton)
-            transitionButton.snp.makeConstraints { make -> Void in
-                make.centerX.equalTo(view.bounds.width * 0.5)
-                make.top.equalTo(transitionVerticalView.snp.bottom).offset(35)
-            }
+        view.addSubview(transitionButton)
+        transitionButton.snp.makeConstraints { make -> Void in
+            make.centerX.equalTo(view.bounds.width * 0.5)
+            make.top.equalTo(transitionVerticalView.snp.bottom).offset(35)
         }
         
     }
     
     func setupBinding() {
+        let transitionToQrCodeScannerViewModel = TransitionToQrCodeScannerViewModel()
+        
+        // 入室状態でのみ呼ばれる
+        transitionToQrCodeScannerViewModel.enterTimeDic
+            .drive { enterTimeDic in
+                print(enterTimeDic)
+                self.enterTimeDate = enterTimeDic["enterTimeDate"] as! Date
+                self.timerStart()
+            }
+            .disposed(by: disposeBag)
+        
         // 背景をタップしたらキーボードを隠す
         let tapBackground = UITapGestureRecognizer()
         tapBackground.rx.event
@@ -106,24 +146,27 @@ class TransitionToQrCodeScannerViewController: UIViewController {
             .disposed(by: disposeBag)
         view.addGestureRecognizer(tapBackground)
         
-        transitionButton.rx.tap
-            .subscribe { _ in
-                HUD.show(.progress)   // ローディング表示
-                self.transitionButton.isSelected = !self.transitionButton.isSelected
-                self.transitionButton.backgroundColor = self.transitionButton.isSelected ? Color.lightGray.UIColor : Color.navyBlue.UIColor
-                // 3秒後にローディングを消す
-                DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
-                    HUD.hide()
-                    self.transitionButton.isSelected = !self.transitionButton.isSelected
-                    self.transitionButton.backgroundColor = self.transitionButton.isSelected ? Color.lightGray.UIColor : Color.navyBlue.UIColor
-                    // push画面遷移
-                    let qrCodeScannerViewController = QrCodeScannerViewController()
-                    qrCodeScannerViewController.hidesBottomBarWhenPushed = true   // 遷移後画面でタブバーを隠す
-                    self.navigationController?.pushViewController(qrCodeScannerViewController, animated: true)
-                }
+        transitionButton.rx.tap.asDriver()
+            .drive { _ in
+                print("ボタンが押されました")
+                // モーダル画面遷移
+                let qrCodeScannerViewController = QrCodeScannerViewController()
+                self.present(qrCodeScannerViewController, animated: true)
             }
             .disposed(by: disposeBag)
     }
     
-    required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
+    func timerStart() {
+        timer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(self.timeCount), userInfo: nil, repeats: true)
+    }
+    
+    @objc func timeCount() {
+        let progressTime = Int(Date().timeIntervalSince(enterTimeDate))   // スタート時刻からの経過時間を計測, 秒
+        
+        let hour = Int((progressTime / 3600) % 24)
+        let minute = Int((progressTime/60) % 60)
+        let second = Int(progressTime % 60)
+        
+        self.userStayingTimeLabel.text = "滞在時間 : \(hour)時間 \(minute)分 \(second)秒"
+    }
 }

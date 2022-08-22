@@ -56,6 +56,7 @@
 		D427F6E428040DD600E7F4E9 /* ChooseRegisterOrLogInUIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D427F6E328040DD600E7F4E9 /* ChooseRegisterOrLogInUIImageView.swift */; };
 		D46479842881700700F72EEE /* FetchTimeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46479832881700700F72EEE /* FetchTimeModel.swift */; };
 		D46479862881DCC600F72EEE /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46479852881DCC600F72EEE /* DateExtension.swift */; };
+		D4647988288B0AF100F72EEE /* TransitionToQrCodeScannerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4647987288B0AF100F72EEE /* TransitionToQrCodeScannerViewModel.swift */; };
 		D465BD56282A380500C2FE2A /* ValidationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D465BD55282A380500C2FE2A /* ValidationModel.swift */; };
 		D465BD58282A385D00C2FE2A /* ValidationResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = D465BD57282A385D00C2FE2A /* ValidationResult.swift */; };
 		D465BD5B282A3AD700C2FE2A /* RegisterUserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D465BD5A282A3AD700C2FE2A /* RegisterUserViewModel.swift */; };
@@ -162,6 +163,7 @@
 		D427F6E328040DD600E7F4E9 /* ChooseRegisterOrLogInUIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseRegisterOrLogInUIImageView.swift; sourceTree = "<group>"; };
 		D46479832881700700F72EEE /* FetchTimeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchTimeModel.swift; sourceTree = "<group>"; };
 		D46479852881DCC600F72EEE /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
+		D4647987288B0AF100F72EEE /* TransitionToQrCodeScannerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionToQrCodeScannerViewModel.swift; sourceTree = "<group>"; };
 		D465BD55282A380500C2FE2A /* ValidationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationModel.swift; sourceTree = "<group>"; };
 		D465BD57282A385D00C2FE2A /* ValidationResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationResult.swift; sourceTree = "<group>"; };
 		D465BD5A282A3AD700C2FE2A /* RegisterUserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterUserViewModel.swift; sourceTree = "<group>"; };
@@ -386,6 +388,7 @@
 				D469A9D4286F23D80049F1B8 /* RegisterRoomViewModel.swift */,
 				D469A9D8286F57830049F1B8 /* SaveRoomQrCodeViewModel.swift */,
 				D469AA3D2879F6DA0049F1B8 /* QrCodeScannerViewModel.swift */,
+				D4647987288B0AF100F72EEE /* TransitionToQrCodeScannerViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -661,6 +664,7 @@
 				D465BF51283CD60500C2FE2A /* TransitionButton.swift in Sources */,
 				D477CB2B281309A400B7A07B /* TitleLabel.swift in Sources */,
 				D427F69127FF17FD00E7F4E9 /* RegisterLabel.swift in Sources */,
+				D4647988288B0AF100F72EEE /* TransitionToQrCodeScannerViewModel.swift in Sources */,
 				D469A9C7286EDDD90049F1B8 /* DoneContentsChartView.swift in Sources */,
 				D427F6A327FFFD1400E7F4E9 /* RegisterUserIconButton.swift in Sources */,
 				D465BD58282A385D00C2FE2A /* ValidationResult.swift in Sources */,

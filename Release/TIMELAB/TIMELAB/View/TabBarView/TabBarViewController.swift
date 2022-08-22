@@ -32,7 +32,7 @@ class TabBarViewController: UITabBarController {
         
         // QR読み取り画面
         //let qrScanView = QrCodeScannerViewController()
-        let qrScanView = TransitionToQrCodeScannerViewController(viewType: .home)
+        let qrScanView = TransitionToQrCodeScannerViewController()
         let qrScanViewIcon = UIImage(named: "QrScanViewIcon")?.reSizeImage(reSize: CGSize(width: 23,height: 23))
         qrScanView.tabBarItem = UITabBarItem(title: "入退室する", image: qrScanViewIcon, selectedImage: qrScanViewIcon)
         let qrScanNavigationView = UINavigationController(rootViewController: qrScanView)

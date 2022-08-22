@@ -99,7 +99,6 @@ class RegisterRoomModel {
     }
     
     func registerUserToRooms(roomId: String, uid: String, name: String) -> Observable<Bool> {
-        print("M, registerUserStateToRooms()")
 
         return Observable<Bool>.create { observer in
 

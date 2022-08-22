@@ -10,6 +10,9 @@ import SnapKit
 import FSCalendar
 import FloatingPanel
 import Charts
+import RxSwift
+import RxCocoa
+import PKHUD
 
 // 画面遷移用
 protocol CalendarViewDelegate {
@@ -17,8 +20,8 @@ protocol CalendarViewDelegate {
 }
 
 class CalendarViewController: UIViewController {
-    
-    var dateDictionary = ["2022/04/16", "2022/04/20", "2022/04/21", "2022/06/20", "2022/06/21", "2022/06/22",  "2022/06/30"]   // 背景色変更 や 画像追加 を行う日付, TODO: FireStore から取得する
+    let disposeBag = DisposeBag()
+    var dateDictionary: [String] = [] /*= ["2022/04/16", "2022/04/20", "2022/04/21", "2022/06/20", "2022/06/21", "2022/06/22",  "2022/06/30"]*/   // 背景色変更 や 画像追加 を行う日付, TODO: FireStore から取得する
     var fpc: FloatingPanelController!
     var doneContentChartView: DoneContentsChartView!
     var doneContentUIImageView: DoneContentUIImageView!
@@ -47,8 +50,11 @@ class CalendarViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupLayout()
-        setupFloatingPanel()
+        view.backgroundColor = .white
+        HUD.show(.progress)
+        setupMonthCalendarTime()
+//        setupLayout()   // setupMonthCalendarTime() 内で呼ばれる
+//        setupFloatingPanel()   // setupMonthCalendarTime() 内で呼ばれる
     }
     
     //画面を去るときにセミモーダルビューを非表示にする
@@ -59,6 +65,25 @@ class CalendarViewController: UIViewController {
     }
     
     // MARK: - Function
+    func setupMonthCalendarTime() {
+        let calendarViewModel = CalendarViewModel()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy/MM/dd"
+        
+        calendarViewModel.monthCalendarTime
+            .drive { monthCalendarTimes in
+                print(monthCalendarTimes)
+                for monthCalendarTime in monthCalendarTimes {
+                    self.dateDictionary.append(dateFormatter.string(from: monthCalendarTime["enterTimeDate"] as! Date))
+                }
+                print(self.dateDictionary)
+                self.setupLayout()
+                self.setupFloatingPanel()
+                HUD.hide()
+            }
+            .disposed(by: disposeBag)
+    }
+    
     private func setupLayout() {
         view.backgroundColor = .white
         

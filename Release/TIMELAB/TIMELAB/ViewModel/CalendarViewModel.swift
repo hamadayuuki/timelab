@@ -22,8 +22,7 @@ class CalendarViewModel {
         
         // 登録に使用する
         monthCalendarTime = fetchTimeModel.fetchMonthCalendarTime()
-            .asDriver(onErrorJustReturn: [["enterTimeDate": Date(), "stayingTimeAtSecond": 0]])
-        
+            .asDriver(onErrorJustReturn: [["enterAtDate": Date(), "leaveAtDate": Date(), "stayingTimeAtSecond": 0]])
     }
 }
 

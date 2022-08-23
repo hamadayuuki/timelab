@@ -71,11 +71,13 @@ class FetchTimeModel {
                         var resultList: [[String: Any]] = []
                         for document in documents {
                             let data = document.data()
-                            let enterTime: Timestamp = data["enterAt"] as! Timestamp
-                            let enterTimeDate = enterTime.dateValue()
+                            let enterAt: Timestamp = data["enterAt"] as! Timestamp
+                            let enterAtDate = enterAt.dateValue()
+                            let leaveAt: Timestamp = data["leaveAt"] as! Timestamp
+                            let leaveAtDate = leaveAt.dateValue()
     //                        enterTimeDate = enterTimeDate.UTCtoJST(date: enterTimeDate)   // FireStoreから取得した時刻はUTC表示
                             let stayingTimeAtSecond = data["stayingTimeAtSecond"] as! Int
-                            let appendDic: [String: Any] = ["enterTimeDate": enterTimeDate, "stayingTimeAtSecond": stayingTimeAtSecond]
+                            let appendDic: [String: Any] = ["enterAtDate": enterAtDate,"leaveAtDate": leaveAtDate, "stayingTimeAtSecond": stayingTimeAtSecond]
                             resultList.append(appendDic)
                         }
                         observer.onNext(resultList)

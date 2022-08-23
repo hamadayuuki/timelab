@@ -10,13 +10,13 @@ import FSCalendar
 
 class CalendarView: FSCalendar {
     
-    var dateDictionary: [String]!
+    var enterScheduleAndStayingTimeDic: [String: Int]!
     var calendarViewDelegate: CalendarViewDelegate?   // CalendarViewController で画面遷移を行うため
     
-    init(deteDictionary: [String]) {
+    init(dateAndStayingTimeDic: [String: Int]) {
         super.init(frame: .zero)
         
-        self.dateDictionary = deteDictionary
+        self.enterScheduleAndStayingTimeDic = dateAndStayingTimeDic
         setupFSCalendar()
     }
     
@@ -87,8 +87,18 @@ extension CalendarView: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDele
         let cellHeight = cell.bounds.height
         cell.bounds = CGRect(x: 0, y: 0, width: cellWidth - 5, height: cellHeight - 5)
         // 予定がある時
-        if self.dateDictionary.contains(calendarDay) {
-            cell.backgroundColor = .orange
+        if enterScheduleAndStayingTimeDic.keys.contains(calendarDay) {
+            if (enterScheduleAndStayingTimeDic[calendarDay]! > 5 * 60 * 60) {
+                cell.backgroundColor = Color.orange.UIColor
+            } else if (enterScheduleAndStayingTimeDic[calendarDay]! > 3 * 60 * 60) {
+                cell.backgroundColor = Color.lightOrange.UIColor
+            } else if (enterScheduleAndStayingTimeDic[calendarDay]! > 1 * 60 * 60) {
+                cell.backgroundColor = Color.superLightOrange.UIColor
+            } else if (enterScheduleAndStayingTimeDic[calendarDay]! > Int(0.5 * 60 * 60)) {
+                cell.backgroundColor = Color.paleOrange.UIColor
+            } else if (enterScheduleAndStayingTimeDic[calendarDay]! > 0) {
+                cell.backgroundColor = Color.superLightGray.UIColor
+            }
         } else {
             cell.backgroundColor = .clear
         }

@@ -48,22 +48,14 @@ class FetchTimeModel {
        
     }
     
-    func fetchMonthCalendarTime(/*uid: String, roomId: String, year: Int, month: Int*/) -> Observable<[[String: Any]]> {
+    func fetchMonthCalendarTime(uid: String, roomId: String) -> Observable<[[String: Any]]> {
         
         return Observable<[[String: Any]]>.create { observer in
-            
-            let uid = "Z1jmr9PECugcUek8bV1hvgW8kbF2"
-            let roomId = "v43x0A079YBnPFj8jkyo"
-            let year = 2022
-            let month = 8
-            
             let timeRef = Firestore.firestore().collection("Times")
             
             timeRef
                 .whereField("uid", isEqualTo: uid)
                 .whereField("roomId", isEqualTo: roomId)
-                .whereField("year", isEqualTo: year)
-                .whereField("month", isEqualTo: month)
                 .order(by: "enterAt", descending: false)   // 昇順, 1 2 3 4 5
                 .getDocuments() { (querySnapShot, err) in
                     // TODO: resultList を簡潔に

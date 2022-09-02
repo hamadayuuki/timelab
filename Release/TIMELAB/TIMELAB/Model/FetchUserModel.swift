@@ -50,4 +50,27 @@ class FetchUserModel {
         }
     }
     
+    func fetchUserState(uid: String, roomId: String) -> Observable<String> {
+        print(#function)
+        
+        return Observable<String>.create { observer in
+            // FireStore からデータの取得
+            let db = Firestore.firestore()
+            let usersRef = db.collection("Users").document(uid)
+            let statesRef = usersRef.collection("States")
+            statesRef.document(roomId).getDocument { (document, err) in
+               if let document = document {
+                   var data = document.data()!
+                   let state = data["state"] as! String
+                   observer.onNext(state)
+                } else {
+                    print("Document does not exist")
+                    observer.onNext("")
+                }
+            }
+            
+            return Disposables.create { print("Observable: Dispose") }
+        }
+    }
+    
 }

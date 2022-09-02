@@ -48,5 +48,41 @@ class FetchTimeModel {
        
     }
     
+    func fetchMonthCalendarTime(uid: String, roomId: String) -> Observable<[[String: Any]]> {
+        
+        return Observable<[[String: Any]]>.create { observer in
+            let timeRef = Firestore.firestore().collection("Times")
+            
+            timeRef
+                .whereField("uid", isEqualTo: uid)
+                .whereField("roomId", isEqualTo: roomId)
+                .order(by: "enterAt", descending: false)   // 昇順, 1 2 3 4 5
+                .getDocuments() { (querySnapShot, err) in
+                    // TODO: resultList を簡潔に
+                    if let documents = querySnapShot?.documents {
+                        var resultList: [[String: Any]] = []
+                        for document in documents {
+                            let data = document.data()
+                            let enterAt: Timestamp = data["enterAt"] as! Timestamp
+                            let enterAtDate = enterAt.dateValue()
+                            let leaveAt: Timestamp = data["leaveAt"] as! Timestamp
+                            let leaveAtDate = leaveAt.dateValue()
+    //                        enterTimeDate = enterTimeDate.UTCtoJST(date: enterTimeDate)   // FireStoreから取得した時刻はUTC表示
+                            let stayingTimeAtSecond = data["stayingTimeAtSecond"] as! Int
+                            let appendDic: [String: Any] = ["enterAtDate": enterAtDate,"leaveAtDate": leaveAtDate, "stayingTimeAtSecond": stayingTimeAtSecond]
+                            resultList.append(appendDic)
+                        }
+                        observer.onNext(resultList)
+                    } else {
+                        print("Document does not exist")
+                        observer.onNext([["enterTimeDate": Data(), "timeId": ""]])
+                    }
+                }
+            
+            return Disposables.create { print("Observable: Dispose") }
+        }
+       
+    }
+    
 }
 

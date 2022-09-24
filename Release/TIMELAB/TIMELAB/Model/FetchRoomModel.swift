@@ -35,5 +35,25 @@ class FetchRoomModel {
         }
     }
     
+    // 部屋に所属している全ユーザーのUIDを取得
+    func fetchAllUserID(roomId: String) -> Observable<[String]> {
+        return Observable<[String]>.create { observer in
+            
+            let roomsRef = Firestore.firestore().collection("Rooms").document(roomId)
+            
+            roomsRef.getDocument { (document, err) in
+               if let document = document {
+                   let data = document.data()
+                   let allUsersId = data?["allUsers"] as? [String] ?? [""]
+                   observer.onNext(allUsersId)
+                } else {
+                    print("Document does not exist")
+                    observer.onNext([""])
+                }
+            }
+            return Disposables.create { print("Observable: Dispose") }
+        }
+    }
+    
 }
 

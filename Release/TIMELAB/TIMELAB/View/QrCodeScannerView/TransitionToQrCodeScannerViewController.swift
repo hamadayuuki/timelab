@@ -44,6 +44,20 @@ class TransitionToQrCodeScannerViewController: UIViewController {
     // MARK: - Function
     func setupViewType() {
         let transitionToQrCodeScannerViewModel = TransitionToQrCodeScannerViewModel()
+        
+        transitionToQrCodeScannerViewModel.isUserRegisterRoom
+            .subscribe { isRegisterRoom in
+                HUD.hide()
+                // 新規アカウント登録したユーザー
+                if !isRegisterRoom {
+                    self.viewType = .home
+                    self.loadView()
+                    self.setupLayout()
+                    self.setupBinding()
+                }
+            }
+            .disposed(by: disposeBag)
+        
         transitionToQrCodeScannerViewModel.userStateFromRooms
             .drive { userState in
                 switch userState {
@@ -51,7 +65,6 @@ class TransitionToQrCodeScannerViewController: UIViewController {
                 case "home": self.viewType = .home
                 default: self.viewType = .home
                 }
-                HUD.hide()
                 self.loadView()
                 self.setupLayout()
                 self.setupBinding()

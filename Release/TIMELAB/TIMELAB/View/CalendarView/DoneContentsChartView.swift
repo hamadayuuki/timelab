@@ -33,7 +33,7 @@ class DoneContentsChartView: PieChartView {
         self.centerText = "グラフ"
 //        self.delegate = self   // ViewController に移行
         
-        let dataSet = PieChartDataSet(entries: dataEntries, label: nil)
+        let dataSet = PieChartDataSet(entries: dataEntries, label: "")
         dataSet.colors = ChartColorTemplates.liberty()
         dataSet.entryLabelFont = NSUIFont(name: NSUIFont.TextStyle.title1.rawValue, size: 100)
         dataSet.drawValuesEnabled = false

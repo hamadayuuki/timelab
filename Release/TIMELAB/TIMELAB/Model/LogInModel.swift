@@ -23,7 +23,7 @@ class LogInModel {
                 if let error = error {
                     // エラー文の作成
                     var errorMessage = ""
-                    switch AuthErrorCode(rawValue: (error as NSError).code) {
+                    switch AuthErrorCode.Code(rawValue: (error as NSError).code) ?? .noSuchProvider {
                         case .networkError: errorMessage = "ネットワークに接続できません"
                         case .userNotFound: errorMessage = "メールアドレス と パスワード に誤りがあります"
                         case .invalidEmail: errorMessage = "メールアドレスに誤りがあります"

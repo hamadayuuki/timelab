@@ -55,5 +55,30 @@ class FetchRoomModel {
         }
     }
     
+    func fetchAllUserStayStatus(roomId: String) -> Observable<[[String: Any]]> {
+        return Observable<[[String: Any]]>.create { observer in
+            
+            let roomsRef = Firestore.firestore().collection("Rooms").document(roomId)
+            let usersStatesRef = roomsRef.collection("UsersStates")
+            
+            usersStatesRef.addSnapshotListener { (snapshot, err) in
+                if let err = err {
+                    print("fetchAllUserStayStatus エラー")
+                    observer.onNext([["": ""]])
+                } else {
+                    var otherMemberStayStatesArray = []   // 戻り値
+                    for document in snapshot!.documents {
+                        print("document: \(document)")
+                        print("document.data(): \(document.data())")
+                        let userStates = document.data()
+                        otherMemberStayStatesArray.append(["name": userStates["name"] as? String ?? "", "state": userStates["state"] as? String ?? ""])
+                    }
+                    print(otherMemberStayStatesArray)
+                    observer.onNext(otherMemberStayStatesArray as? [[String: Any]] ?? [["": ""]])
+                }
+            }
+            return Disposables.create { print("Observable: Dispose") }
+        }
+    }
 }
 

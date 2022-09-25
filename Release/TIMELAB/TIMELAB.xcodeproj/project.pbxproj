@@ -119,6 +119,7 @@
 		D4D9FA8E28DF67F5003C2C94 /* FirebaseFunctions in Frameworks */ = {isa = PBXBuildFile; productRef = D4D9FA8D28DF67F5003C2C94 /* FirebaseFunctions */; };
 		D4D9FA9028DF67F5003C2C94 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = D4D9FA8F28DF67F5003C2C94 /* FirebaseMessaging */; };
 		D4D9FA9228DF67F5003C2C94 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = D4D9FA9128DF67F5003C2C94 /* FirebaseStorage */; };
+		D4D9FA9428DFF41C003C2C94 /* ConfirmOtherMemberStayStatusViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D9FA9328DFF41C003C2C94 /* ConfirmOtherMemberStayStatusViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -217,6 +218,7 @@
 		D4BDC2DB284F9C440087700D /* SaveRoomQrCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveRoomQrCodeViewController.swift; sourceTree = "<group>"; };
 		D4BDC2DD284F9FD40087700D /* SaveRoomQrCodeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveRoomQrCodeButton.swift; sourceTree = "<group>"; };
 		D4BDC2DF284FA8EA0087700D /* TransitionToMemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionToMemoViewController.swift; sourceTree = "<group>"; };
+		D4D9FA9328DFF41C003C2C94 /* ConfirmOtherMemberStayStatusViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmOtherMemberStayStatusViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -372,6 +374,7 @@
 				D469AA3D2879F6DA0049F1B8 /* QrCodeScannerViewModel.swift */,
 				D4647987288B0AF100F72EEE /* TransitionToQrCodeScannerViewModel.swift */,
 				D4B1787828B3D316005F6EC4 /* CalendarViewModel.swift */,
+				D4D9FA9328DFF41C003C2C94 /* ConfirmOtherMemberStayStatusViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -645,6 +648,7 @@
 				D465BF4928391A1700C2FE2A /* LogInViewModel.swift in Sources */,
 				D465BF4F283CC5EE00C2FE2A /* TransitionToQrCodeScannerViewController.swift in Sources */,
 				D469A9D5286F23D80049F1B8 /* RegisterRoomViewModel.swift in Sources */,
+				D4D9FA9428DFF41C003C2C94 /* ConfirmOtherMemberStayStatusViewModel.swift in Sources */,
 				D469A9C9286EE1A90049F1B8 /* DoneContentUIImageView.swift in Sources */,
 				D4BDC2D42848E8DE0087700D /* RegisterRoomTextField.swift in Sources */,
 				D427F6D528031EB300E7F4E9 /* LogInTextField.swift in Sources */,

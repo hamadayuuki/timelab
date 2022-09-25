@@ -8,17 +8,21 @@
 import UIKit
 import SnapKit
 import FSCalendar
+import RxSwift
+import RxCocoa
+import PKHUD
 
 class ConfirmOtherMemberStayStatusViewController: UIViewController {
     
+    let disposeBag = DisposeBag()
+    
     // TODO: FireStoreからデータを取得する
-    let otherMemberDates = [
-        ["name": "たろう", "iconName": "UserIcon1", "userId": "xxx", "stayStatus": "stay"],
-        ["name": "濵田", "iconName": "UserIcon2", "userId": "yyy", "stayStatus": "home"],
-        ["name": "ながの", "iconName": "UserIcon3", "userId": "zzz", "stayStatus": "stay"],
-        ["name": "しば", "iconName": "UserIcon4", "userId": "000", "stayStatus": "home"],
-        ["name": "れいかぴ", "iconName": "UserIcon5", "userId": "111", "stayStatus": "stay"],
-        ["name": "有村", "iconName": "UserIcon6", "userId": "222", "stayStatus": "home"]
+    var otherMembers: [[String: Any]] = [
+        ["state": "stay", "name": "a", "iconName": "UserIcon1"],
+        ["state": "stay", "name": "b", "iconName": "UserIcon2"],
+        ["state": "home", "name": "c", "iconName": "UserIcon3"],
+        ["state": "home", "name": "d", "iconName": "UserIcon4"],
+        ["state": "stay", "name": "e", "iconName": "UserIcon5"]
     ]
     var userIconUIImages: [ConfirmOtherMemberUserIconButton]!
     var userNameLabels: [ConfirmOtherMemberLabel]!
@@ -31,7 +35,9 @@ class ConfirmOtherMemberStayStatusViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupLayout()
+//        setupLayout()
+        HUD.show(.progress)   // setupBinding() 内で .hide()
+        setupBinding()
     }
     
     // MARK: - Function
@@ -42,12 +48,13 @@ class ConfirmOtherMemberStayStatusViewController: UIViewController {
         // メンバーのデータから UIButton(ボタンとしての機能なし, 画像として使用) と UILabel を作成, リストとして保持
         self.userIconUIImages = []
         self.userNameLabels = []
-        for otherMemberDate in otherMemberDates {
-            let userIconImage = ConfirmOtherMemberUserIconButton(imageName: otherMemberDate["iconName"] ?? "UserIcon1")
-            if otherMemberDate["stayStatus"] == "stay" { userIconImage.backgroundColor = .orange }
+        for otherMember in otherMembers {
+            // TODO: Any型の型宣言を簡略化する
+            let userIconImage = ConfirmOtherMemberUserIconButton(imageName: otherMember["iconName"] as? String ?? "UserIcon1")
+            if otherMember["state"] as? String ?? "home" == "stay" { userIconImage.backgroundColor = .orange }
             self.userIconUIImages.append(userIconImage)
             
-            let userNameLabel = ConfirmOtherMemberLabel(text: otherMemberDate["name"] ?? "", size: 15)
+            let userNameLabel = ConfirmOtherMemberLabel(text: otherMember["name"]  as? String ?? "", size: 15)
             self.userNameLabels.append(userNameLabel)
         }
         
@@ -83,6 +90,19 @@ class ConfirmOtherMemberStayStatusViewController: UIViewController {
                 make.top.equalTo(self.userIconUIImages[index].snp.bottom).offset(5)
             }
         }
+    }
+    
+    func setupBinding() {
+        let confirmOtherMemberStayStatusViewModel = ConfirmOtherMemberStayStatusViewModel()
+        
+        confirmOtherMemberStayStatusViewModel.otherMemberStayStatus
+            .drive { stayStatusArray in
+                print("stayStatusArray: \(stayStatusArray)")
+                self.otherMembers = stayStatusArray
+                self.setupLayout()
+                HUD.hide()
+            }
+            .disposed(by: disposeBag)
     }
     
 }

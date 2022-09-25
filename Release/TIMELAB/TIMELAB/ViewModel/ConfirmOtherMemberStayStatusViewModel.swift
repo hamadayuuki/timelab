@@ -1,0 +1,43 @@
+//
+//  ConfirmOtherMemberStayStatusViewModel.swift
+//  TIMELAB
+//
+//  Created by 濵田　悠樹 on 2022/09/25.
+//
+
+import Firebase
+import RxSwift
+import RxCocoa
+
+class ConfirmOtherMemberStayStatusViewModel {
+    let disposeBag = DisposeBag()
+    
+    let userId: Observable<String>
+    let roomId: Observable<String>
+    let otherMemberStayStatus: Driver<[[String: Any]]>
+    
+    init() {
+        let fetchUserModel = FetchUserModel()
+        let fetchRoomModel = FetchRoomModel()
+        
+        // 登録に使用する
+        userId = fetchUserModel.fetchUserId()
+            .filter { $0 != "" }
+            .map { uid in return uid }
+            .share(replay: 1)   // 複数回呼び出されるのを防ぐ
+        
+        roomId = userId
+            .flatMap { uid in
+                fetchUserModel.fetchUser(uid: uid)
+            }
+            .map { $0["currentStayingRoom"] as? String ?? "" }
+            .share(replay: 1)
+        
+        otherMemberStayStatus = roomId
+            .flatMap { roomId in
+                fetchRoomModel.fetchAllUserStayStatus(roomId: roomId)
+            }
+            .asDriver(onErrorJustReturn: [["": ""]])
+    }
+    
+}

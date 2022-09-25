@@ -19,14 +19,14 @@ class TransitionToQrCodeScannerViewController: UIViewController {
     var enterTimeDate: Date!
     
     var viewType: TransitionQrScannerType!
-    var statusText = ""
-    var statusImageName = ""
+    var stateText = ""
+    var stateImageName = ""
     var transitionButtonText = ""
     
     // MARK: - UI Parts
-    var userStayingStatusLabel: QrCodeScannerLabel!
+    var userStayingStateLabel: QrCodeScannerLabel!
     var userStayingTimeLabel = QrCodeScannerLabel(text: "", size: 15)   // 滞在中のみ表示する
-    var userStayingStatusUIImageView: QrCodeScannerUIImageView!
+    var userStayingStateUIImageView: QrCodeScannerUIImageView!
     var transitionButton: TransitionButton!
     
     // MARK: - Life Cycle
@@ -76,33 +76,33 @@ class TransitionToQrCodeScannerViewController: UIViewController {
     func setupLayout() {
         switch viewType {
         case .home:
-            self.statusText = "お休み中･･･"
-            self.statusImageName = "WomanReading"
+            self.stateText = "お休み中･･･"
+            self.stateImageName = "WomanReading"
             self.transitionButtonText = "入室する"
         case .stay:
-            self.statusText = "滞在中"
-            self.statusImageName = "WorkingInALaboratory"
+            self.stateText = "滞在中"
+            self.stateImageName = "WorkingInALaboratory"
             self.transitionButtonText = "退室する"
         case .transitioned:
-            self.statusText = "頑張りましょう！"
-            self.statusImageName = "BusinessMeeting"
+            self.stateText = "頑張りましょう！"
+            self.stateImageName = "BusinessMeeting"
             self.transitionButtonText = "OK"
         case .none:
-            self.statusText = ""
-            self.statusImageName = ""
+            self.stateText = ""
+            self.stateImageName = ""
             self.transitionButtonText = ""
         }
         print("switch 完了")
         
         view.backgroundColor = Color.white.UIColor
         
-        userStayingStatusLabel = QrCodeScannerLabel(text: self.statusText, size: 30)
-        userStayingStatusUIImageView = QrCodeScannerUIImageView(name: self.statusImageName)
+        userStayingStateLabel = QrCodeScannerLabel(text: self.stateText, size: 30)
+        userStayingStateUIImageView = QrCodeScannerUIImageView(name: self.stateImageName)
         transitionButton = TransitionButton(text: self.transitionButtonText, textSize: 15)
         transitionButton.isSelected = false
         userStayingTimeLabel = QrCodeScannerLabel(text: "", size: 15)
         
-        var transitionVerticalView = UIStackView(arrangedSubviews: [userStayingStatusLabel, userStayingTimeLabel,userStayingStatusUIImageView])
+        var transitionVerticalView = UIStackView(arrangedSubviews: [userStayingStateLabel, userStayingTimeLabel,userStayingStateUIImageView])
         var verticalSpacing = 35.0
         if (viewType == .stay) {
             userStayingTimeLabel.text = "滞在時間 : --時間--分"
@@ -118,7 +118,7 @@ class TransitionToQrCodeScannerViewController: UIViewController {
                 make.height.equalTo(0)
             }
         }
-        userStayingStatusUIImageView.snp.makeConstraints { make -> Void in
+        userStayingStateUIImageView.snp.makeConstraints { make -> Void in
             make.width.equalTo(390)
             make.height.equalTo(295)
         }

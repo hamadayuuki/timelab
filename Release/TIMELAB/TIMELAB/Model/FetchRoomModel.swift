@@ -55,5 +55,48 @@ class FetchRoomModel {
         }
     }
     
+    func fetchAllUserStayState(roomId: String) -> Observable<[[String: Any]]> {
+        return Observable<[[String: Any]]>.create { observer in
+            
+            let roomsRef = Firestore.firestore().collection("Rooms").document(roomId)
+            let usersStatesRef = roomsRef.collection("UsersStates")
+            
+            usersStatesRef.addSnapshotListener { (snapshot, err) in
+                if let err = err {
+                    print("fetchAllUserStayState エラー")
+                    observer.onNext([["": ""]])
+                } else {
+                    var otherMemberStayStatesArray = []   // 戻り値
+                    for document in snapshot!.documents {
+                        print("document: \(document)")
+                        print("document.data(): \(document.data())")
+                        let userStates = document.data()
+                        otherMemberStayStatesArray.append(["name": userStates["name"] as? String ?? "", "state": userStates["state"] as? String ?? ""])
+                    }
+                    print(otherMemberStayStatesArray)
+                    observer.onNext(otherMemberStayStatesArray as? [[String: Any]] ?? [["": ""]])
+                }
+            }
+            return Disposables.create { print("Observable: Dispose") }
+        }
+    }
+    
+    func fetchRoom(roomId: String) -> Observable<[String: Any]> {
+        Observable<[String: Any]>.create { observer in
+            let roomsRef = Firestore.firestore().collection("Rooms").document(roomId)
+            
+            roomsRef.getDocument { (document, err) in
+               if let document = document {
+                   observer.onNext(document.data() as? [String: Any] ?? ["": ""])
+                } else {
+                    print("Document does not exist")
+                    observer.onNext(["": ""])
+                }
+            }
+            return Disposables.create { print("Observable: Dispose") }
+        }
+        
+        
+    }
 }
 

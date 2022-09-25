@@ -37,6 +37,7 @@ class ConfirmOtherMemberStayStatusViewController: UIViewController {
         super.viewDidLoad()
         
 //        setupLayout()
+        self.view.backgroundColor = .white
         HUD.show(.progress)   // setupBinding() 内で .hide()
         setupBinding()
     }

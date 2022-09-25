@@ -35,6 +35,7 @@ class ConfirmOtherMemberStayStateViewModel {
             .share(replay: 1)
         
         roomName = roomId
+            .filter { $0 != "" }
             .flatMap { roomId in
                 fetchRoomModel.fetchRoom(roomId: roomId)
             }

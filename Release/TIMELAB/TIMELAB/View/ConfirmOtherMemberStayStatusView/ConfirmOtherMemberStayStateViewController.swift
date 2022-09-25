@@ -96,6 +96,20 @@ class ConfirmOtherMemberStayStateViewController: UIViewController {
     
     func setupBinding() {
         let confirmOtherMemberStayStateViewModel = ConfirmOtherMemberStayStateViewModel()
+        // 部屋を登録していないユーザーのため
+        confirmOtherMemberStayStateViewModel.roomId
+            .subscribe { roomId in
+                if roomId == "" {
+                    HUD.flash(.labeledError(title: "部屋が未登録です", subtitle: ""), delay: 2.0)
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                        // 入室画面へ移動, タブバーを用いた移動
+                        let transitionToQrCodeScannerViewController = self.tabBarController?.viewControllers?[1]   // 入退室画面
+                        self.tabBarController?.selectedViewController = transitionToQrCodeScannerViewController
+                    }
+                }
+            }
+            .disposed(by: disposeBag)
+        
         confirmOtherMemberStayStateViewModel.roomName
             .subscribe { roomName in
                 self.roomName = roomName

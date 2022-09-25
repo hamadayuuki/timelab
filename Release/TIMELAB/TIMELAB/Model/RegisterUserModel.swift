@@ -37,7 +37,7 @@ class RegisterUserModel {
         }// return
     }
     
-    func registerUserToFireStore(email: String, uid: String, name: String) -> Observable<Bool> {
+    func registerUserToFireStore(email: String, uid: String, name: String, iconName: String) -> Observable<Bool> {
         
         return Observable<Bool>.create { observer in
             
@@ -45,6 +45,7 @@ class RegisterUserModel {
                 "name": name,
                 "email": email,
                 "uid": uid,
+                "iconName": iconName,
                 "type": "client",   // TODO: 可変に
                 "rooms": [],
                 "createAt": Timestamp(),
@@ -64,6 +65,23 @@ class RegisterUserModel {
             
         }
         
+    }
+    
+    func updateIconNameToFireStore(uid: String, iconName: String) -> Observable<Bool> {
+        Observable<Bool>.create { observer in
+            let updateData = ["iconName": iconName]
+            
+            let usersRef = Firestore.firestore().collection("Users")
+            usersRef.document(uid).updateData(updateData) { err in
+                if let err = err {
+                    print("Error updating document: \(err)")
+                    observer.onNext(false)
+                } else {
+                    observer.onNext(true)
+                }
+            }
+            return Disposables.create { print("Observable: Dispose") }
+        }
     }
     
     // ユーザーの状態を登録する

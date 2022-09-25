@@ -80,5 +80,23 @@ class FetchRoomModel {
             return Disposables.create { print("Observable: Dispose") }
         }
     }
+    
+    func fetchRoom(roomId: String) -> Observable<[String: Any]> {
+        Observable<[String: Any]>.create { observer in
+            let roomsRef = Firestore.firestore().collection("Rooms").document(roomId)
+            
+            roomsRef.getDocument { (document, err) in
+               if let document = document {
+                   observer.onNext(document.data() as? [String: Any] ?? ["": ""])
+                } else {
+                    print("Document does not exist")
+                    observer.onNext(["": ""])
+                }
+            }
+            return Disposables.create { print("Observable: Dispose") }
+        }
+        
+        
+    }
 }
 

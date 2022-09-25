@@ -14,6 +14,7 @@ class ConfirmOtherMemberStayStatusViewModel {
     
     let userId: Observable<String>
     let roomId: Observable<String>
+    let roomName: Observable<String>
     let otherMemberStayStatus: Driver<[[String: Any]]>
     
     init() {
@@ -33,8 +34,16 @@ class ConfirmOtherMemberStayStatusViewModel {
             .map { $0["currentStayingRoom"] as? String ?? "" }
             .share(replay: 1)
         
-        otherMemberStayStatus = roomId
+        roomName = roomId
             .flatMap { roomId in
+                fetchRoomModel.fetchRoom(roomId: roomId)
+            }
+            .map { $0["name"] as? String ?? "" }
+            .filter { $0 != "" }
+            .share(replay: 1)
+        
+        otherMemberStayStatus = Observable.zip(roomId, roomName)
+            .flatMap { (roomId, _) in
                 fetchRoomModel.fetchAllUserStayStatus(roomId: roomId)
             }
             .asDriver(onErrorJustReturn: [["": ""]])

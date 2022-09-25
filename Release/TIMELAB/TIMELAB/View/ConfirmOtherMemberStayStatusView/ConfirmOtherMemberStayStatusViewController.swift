@@ -26,6 +26,7 @@ class ConfirmOtherMemberStayStatusViewController: UIViewController {
     ]
     var userIconUIImages: [ConfirmOtherMemberUserIconButton]!
     var userNameLabels: [ConfirmOtherMemberLabel]!
+    var roomName = ""
     
     // MARK: - UI Parts
     var roomCard: RankingRoomCardUIImageView!
@@ -43,7 +44,7 @@ class ConfirmOtherMemberStayStatusViewController: UIViewController {
     // MARK: - Function
     func setupLayout() {
         self.roomCard = RankingRoomCardUIImageView()
-        self.roomCardLabel = RankingLabel(text: "太田研究室", size: 15, textColor: Color.white.UIColor)
+        self.roomCardLabel = RankingLabel(text: roomName, size: 15, textColor: Color.white.UIColor)
         
         // メンバーのデータから UIButton(ボタンとしての機能なし, 画像として使用) と UILabel を作成, リストとして保持
         self.userIconUIImages = []
@@ -94,7 +95,13 @@ class ConfirmOtherMemberStayStatusViewController: UIViewController {
     
     func setupBinding() {
         let confirmOtherMemberStayStatusViewModel = ConfirmOtherMemberStayStatusViewModel()
+        confirmOtherMemberStayStatusViewModel.roomName
+            .subscribe { roomName in
+                self.roomName = roomName
+            }
+            .disposed(by: disposeBag)
         
+        // roomName 取得後実行される
         confirmOtherMemberStayStatusViewModel.otherMemberStayStatus
             .drive { stayStatusArray in
                 print("stayStatusArray: \(stayStatusArray)")

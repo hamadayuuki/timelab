@@ -1,5 +1,5 @@
 //
-//  ConfirmOtherMemberStayStatusViewController.swift
+//  ConfirmOtherMemberStayStateViewController.swift
 //  TIMELAB
 //
 //  Created by 濵田　悠樹 on 2022/05/02.
@@ -12,7 +12,7 @@ import RxSwift
 import RxCocoa
 import PKHUD
 
-class ConfirmOtherMemberStayStatusViewController: UIViewController {
+class ConfirmOtherMemberStayStateViewController: UIViewController {
     
     let disposeBag = DisposeBag()
     
@@ -95,18 +95,18 @@ class ConfirmOtherMemberStayStatusViewController: UIViewController {
     }
     
     func setupBinding() {
-        let confirmOtherMemberStayStatusViewModel = ConfirmOtherMemberStayStatusViewModel()
-        confirmOtherMemberStayStatusViewModel.roomName
+        let confirmOtherMemberStayStateViewModel = ConfirmOtherMemberStayStateViewModel()
+        confirmOtherMemberStayStateViewModel.roomName
             .subscribe { roomName in
                 self.roomName = roomName
             }
             .disposed(by: disposeBag)
         
         // roomName 取得後実行される
-        confirmOtherMemberStayStatusViewModel.otherMemberStayStatus
-            .drive { stayStatusArray in
-                print("stayStatusArray: \(stayStatusArray)")
-                self.otherMembers = stayStatusArray
+        confirmOtherMemberStayStateViewModel.otherMemberStayState
+            .drive { stayStateArray in
+                print("stayStateArray: \(stayStateArray)")
+                self.otherMembers = stayStateArray
                 self.setupLayout()
                 HUD.hide()
             }

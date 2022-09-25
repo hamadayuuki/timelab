@@ -1,5 +1,5 @@
 //
-//  ConfirmOtherMemberStayStatusViewModel.swift
+//  ConfirmOtherMemberStayStateViewModel.swift
 //  TIMELAB
 //
 //  Created by 濵田　悠樹 on 2022/09/25.
@@ -9,13 +9,13 @@ import Firebase
 import RxSwift
 import RxCocoa
 
-class ConfirmOtherMemberStayStatusViewModel {
+class ConfirmOtherMemberStayStateViewModel {
     let disposeBag = DisposeBag()
     
     let userId: Observable<String>
     let roomId: Observable<String>
     let roomName: Observable<String>
-    let otherMemberStayStatus: Driver<[[String: Any]]>
+    let otherMemberStayState: Driver<[[String: Any]]>
     
     init() {
         let fetchUserModel = FetchUserModel()
@@ -42,9 +42,9 @@ class ConfirmOtherMemberStayStatusViewModel {
             .filter { $0 != "" }
             .share(replay: 1)
         
-        otherMemberStayStatus = Observable.zip(roomId, roomName)
+        otherMemberStayState = Observable.zip(roomId, roomName)
             .flatMap { (roomId, _) in
-                fetchRoomModel.fetchAllUserStayStatus(roomId: roomId)
+                fetchRoomModel.fetchAllUserStayState(roomId: roomId)
             }
             .asDriver(onErrorJustReturn: [["": ""]])
     }

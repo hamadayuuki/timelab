@@ -55,7 +55,7 @@ class FetchRoomModel {
         }
     }
     
-    func fetchAllUserStayStatus(roomId: String) -> Observable<[[String: Any]]> {
+    func fetchAllUserStayState(roomId: String) -> Observable<[[String: Any]]> {
         return Observable<[[String: Any]]>.create { observer in
             
             let roomsRef = Firestore.firestore().collection("Rooms").document(roomId)
@@ -63,7 +63,7 @@ class FetchRoomModel {
             
             usersStatesRef.addSnapshotListener { (snapshot, err) in
                 if let err = err {
-                    print("fetchAllUserStayStatus エラー")
+                    print("fetchAllUserStayState エラー")
                     observer.onNext([["": ""]])
                 } else {
                     var otherMemberStayStatesArray = []   // 戻り値

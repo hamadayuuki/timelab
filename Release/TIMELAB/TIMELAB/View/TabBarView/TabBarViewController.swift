@@ -44,12 +44,12 @@ class TabBarViewController: UITabBarController {
         let rankingNavigationView = UINavigationController(rootViewController: rankingView)
         
         // メンバーの滞在状態確認画面
-        let confirmOtherMemberStayStatusView = ConfirmOtherMemberStayStatusViewController()
-        let confirmOtherMemberStayStatusViewIcon = UIImage(named: "CheckMemberViewIcon")?.reSizeImage(reSize: CGSize(width: 23,height: 23))
-        confirmOtherMemberStayStatusView.tabBarItem = UITabBarItem(title: "他メンバー", image: confirmOtherMemberStayStatusViewIcon, selectedImage: confirmOtherMemberStayStatusViewIcon)
-        let confirmOtherMemberStayStatusNavigationView = UINavigationController(rootViewController: confirmOtherMemberStayStatusView)
+        let confirmOtherMemberStayStateView = ConfirmOtherMemberStayStateViewController()
+        let confirmOtherMemberStayStateViewIcon = UIImage(named: "CheckMemberViewIcon")?.reSizeImage(reSize: CGSize(width: 23,height: 23))
+        confirmOtherMemberStayStateView.tabBarItem = UITabBarItem(title: "他メンバー", image: confirmOtherMemberStayStateViewIcon, selectedImage: confirmOtherMemberStayStateViewIcon)
+        let confirmOtherMemberStayStateNavigationView = UINavigationController(rootViewController: confirmOtherMemberStayStateView)
         
-        setViewControllers([calendarNavigationView, qrScanNavigationView, rankingNavigationView, confirmOtherMemberStayStatusNavigationView], animated: true)
+        setViewControllers([calendarNavigationView, qrScanNavigationView, rankingNavigationView, confirmOtherMemberStayStateNavigationView], animated: true)
     }
     
     func setupLayoutNavigationAndTab() {

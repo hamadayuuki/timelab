@@ -71,7 +71,7 @@ class FetchRoomModel {
                         print("document: \(document)")
                         print("document.data(): \(document.data())")
                         let userStates = document.data()
-                        otherMemberStayStatesArray.append(["name": userStates["name"] as? String ?? "", "state": userStates["state"] as? String ?? ""])
+                        otherMemberStayStatesArray.append(["name": userStates["name"] as? String ?? "", "state": userStates["state"] as? String ?? "", "iconName": userStates["iconName"] as? String ?? "UserIcon1"])
                     }
                     print(otherMemberStayStatesArray)
                     observer.onNext(otherMemberStayStatesArray as? [[String: Any]] ?? [["": ""]])

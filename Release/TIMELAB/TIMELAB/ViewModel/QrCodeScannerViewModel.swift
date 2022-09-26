@@ -16,7 +16,7 @@ class QrCodeScannerViewModel {
     var userId: Observable<String>   // uid を渡すために
     var userStateFromRooms: Observable<String>
     var nextUserState: Observable<String>
-    var userName: Observable<String>
+    var userNameAndIconName: Observable<[String]>
     var enterTimeDic: Observable<[String: Any]>
     var isRegisterUserStateToRooms: Driver<Bool>
     var isRegisterUserState: Driver<Bool>
@@ -57,13 +57,13 @@ class QrCodeScannerViewModel {
                 return userState
             }
         
-        userName = userId
+        userNameAndIconName = userId
             .filter { $0 != "" }
             .flatMap { uid in
                 fetchUserModel.fetchUser(uid: uid)
             }
             .map { user in
-                return user["name"] as? String ?? ""
+                return [user["name"] as? String ?? "", user["iconName"] as? String ?? "UserIcon1"]
             }
             .share(replay: 1)
         
@@ -76,17 +76,17 @@ class QrCodeScannerViewModel {
             }
             .asDriver(onErrorJustReturn: false)
         
-        isRegisterUserStateToRooms = Observable.zip(userId, nextUserState, userName)
-            .flatMap { (uid, userState, name) in
-                registerRoomModel.registerUserStateToRooms(roomId: roomId, uid: uid, state: userState, name: name)
+        isRegisterUserStateToRooms = Observable.zip(userId, nextUserState, userNameAndIconName)
+            .flatMap { (uid, userState, userNameAndIconName) in
+                registerRoomModel.registerUserStateToRooms(roomId: roomId, uid: uid, state: userState, name: userNameAndIconName[0], iconName: userNameAndIconName[1])
             }
             .asDriver(onErrorJustReturn: false)
         
         // ユーザー自体
         // TODO: 毎回する必要ある？
-        isRegisterUserToRooms = Observable.zip(userId, userName)
-            .flatMap{ (uid, name) in
-                registerRoomModel.registerUserToRooms(roomId: roomId, uid: uid, name: name)
+        isRegisterUserToRooms = Observable.zip(userId, userNameAndIconName)
+            .flatMap{ (uid, userNameAndIconName) in
+                registerRoomModel.registerUserToRooms(roomId: roomId, uid: uid, name: userNameAndIconName[0])
             }
             .asDriver(onErrorJustReturn: false)
         

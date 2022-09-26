@@ -82,7 +82,7 @@ class RegisterUserViewModel {
             .asObservable()
             .filter { $0.isValid }
             .map { user in
-                signUpAPI.registerUserToFireStore(email: user.email, uid: user.uid, name: user.name)
+                signUpAPI.registerUserToFireStore(email: user.email, uid: user.uid, name: user.name, iconName: "UserIcon1")   // iconName は後に更新する
             }
             .share(replay: 1)
         

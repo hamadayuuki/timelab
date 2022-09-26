@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Firebase
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -19,8 +20,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // アプリ起動時に表示する画面の描画
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
+        if let user = Auth.auth().currentUser  {
+            navigationController = UINavigationController(rootViewController: TabBarViewController())   // 起動時に描画する画面
+        } else {
+            navigationController = UINavigationController(rootViewController: ChooseRegisterOrLogInViewController())   // 起動時に描画する画面
+        }
         // push遷移
-        navigationController = UINavigationController(rootViewController: TabBarViewController())   // 起動時に描画する画面
         let window = UIWindow(windowScene: windowScene)
         self.window = window
         window.rootViewController = navigationController

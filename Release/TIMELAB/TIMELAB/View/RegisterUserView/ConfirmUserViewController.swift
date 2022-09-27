@@ -77,16 +77,9 @@ class ConfirmUserViewController: UIViewController {
                 if isUpdate {
                     self.registerButton.isSelected = !self.registerButton.isSelected
                     self.registerButton.backgroundColor = self.registerButton.isSelected ? Color.lightGray.UIColor : Color.navyBlue.UIColor
-                    HUD.show(.progress)
-                    // 3秒後にローディングを消す
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                        HUD.hide()
-                        self.registerButton.isSelected = !self.registerButton.isSelected
-                        self.registerButton.backgroundColor = self.registerButton.isSelected ? Color.lightGray.UIColor : Color.navyBlue.UIColor
-                        // Push画面遷移
-                        let tabBarViewController = TabBarViewController()
-                        self.navigationController?.pushViewController(tabBarViewController, animated: true)
-                    }
+                    // Push画面遷移
+                    let tabBarViewController = TabBarViewController()
+                    self.navigationController?.pushViewController(tabBarViewController, animated: true)
                 } else {
                     HUD.show(.labeledError(title: "登録に失敗", subtitle: ""))
                 }

@@ -285,9 +285,9 @@
 			children = (
 				D4BDC2CE2848E83D0087700D /* RegisterRoomView */,
 				D427F67427FD78A300E7F4E9 /* QrCodeScannerView */,
+				D427F6DE28040D0300E7F4E9 /* ChooseRegisterOrLogInView */,
 				D427F68D27FF175E00E7F4E9 /* RegisterUserView */,
 				D427F6CF28031E4E00E7F4E9 /* LogInView */,
-				D427F6DE28040D0300E7F4E9 /* ChooseRegisterOrLogInView */,
 				D477CB09280C527100B7A07B /* CalendarView */,
 				D477CB402819274A00B7A07B /* RankingView */,
 				D477CB50281FADF300B7A07B /* ConfirmOtherMemberStayStatusView */,

@@ -25,6 +25,7 @@ class WelcomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.navigationItem.hidesBackButton = true
         setupLayout()
         setupBinding()
     }
@@ -76,18 +77,11 @@ class WelcomeViewController: UIViewController {
         
         moveRegisterNickNameView.rx.tap
             .subscribe { _ in
-                HUD.show(.progress)   // ローディング表示
                 self.moveRegisterNickNameView.isSelected = !self.moveRegisterNickNameView.isSelected
                 self.moveRegisterNickNameView.backgroundColor = self.moveRegisterNickNameView.isSelected ? Color.lightGray.UIColor : Color.navyBlue.UIColor
-                // 3秒後にローディングを消す
-                DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
-                    HUD.hide()
-                    self.moveRegisterNickNameView.isSelected = !self.moveRegisterNickNameView.isSelected
-                    self.moveRegisterNickNameView.backgroundColor = self.moveRegisterNickNameView.isSelected ? Color.lightGray.UIColor : Color.navyBlue.UIColor
-                    // push画面遷移
-                    let registerNickNameViewController = RegisterNickNameViewController()
-                    self.navigationController?.pushViewController(registerNickNameViewController, animated: true)
-                }
+                // push画面遷移
+                let registerNickNameViewController = RegisterNickNameViewController()
+                self.navigationController?.pushViewController(registerNickNameViewController, animated: true)
             }
             .disposed(by: disposeBag)
     }

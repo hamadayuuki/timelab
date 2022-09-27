@@ -37,6 +37,8 @@ class RegisterNickNameViewController: UIViewController {
         descriptionLabel = RegisterLabel(text: "表示するニックネームを教えてください", size: 15)
         nickNameTextField = RegisterTextField(placeholder: "", isSecretButton: false)
         registerNickNameButton = RegisterButton(text: "OK", textSize: 15)
+        registerNickNameButton.isEnabled = false
+        registerNickNameButton.backgroundColor = Color.lightGray.UIColor
         
         let registerNickNameVertical = UIStackView(arrangedSubviews: [nickNameUIImageView, descriptionLabel, nickNameTextField])
         registerNickNameVertical.axis = .vertical
@@ -73,20 +75,25 @@ class RegisterNickNameViewController: UIViewController {
             .disposed(by: disposeBag)
         view.addGestureRecognizer(tapBackground)
         
+        nickNameTextField.rx.text
+            .subscribe { text in
+                if text == "" {
+                    self.registerNickNameButton.isEnabled = false
+                    self.registerNickNameButton.backgroundColor = Color.lightGray.UIColor
+                } else {
+                    self.registerNickNameButton.isEnabled = true
+                    self.registerNickNameButton.backgroundColor = Color.navyBlue.UIColor
+                }
+            }
+            .disposed(by: disposeBag)
+        
         registerNickNameButton.rx.tap
             .subscribe { _ in
-                HUD.show(.progress)
                 self.registerNickNameButton.isSelected = !self.registerNickNameButton.isSelected
                 self.registerNickNameButton.backgroundColor = self.registerNickNameButton.isSelected ? Color.lightGray.UIColor : Color.navyBlue.UIColor
-                // 3秒後にローディングを消す
-                DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
-                    HUD.hide()
-                    self.registerNickNameButton.isSelected = !self.registerNickNameButton.isSelected
-                    self.registerNickNameButton.backgroundColor = self.registerNickNameButton.isSelected ? Color.lightGray.UIColor : Color.navyBlue.UIColor
-                    // Push画面遷移
-                    let registerUserIconViewController = RegisterUserIconViewController(userName: self.nickNameTextField.text ?? "")
-                    self.navigationController?.pushViewController(registerUserIconViewController, animated: true)
-                }
+                // Push画面遷移
+                let registerUserIconViewController = RegisterUserIconViewController(userName: self.nickNameTextField.text ?? "")
+                self.navigationController?.pushViewController(registerUserIconViewController, animated: true)
             }
             .disposed(by: disposeBag)
     }

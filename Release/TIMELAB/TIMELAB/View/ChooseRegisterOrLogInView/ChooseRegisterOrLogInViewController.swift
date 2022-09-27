@@ -88,39 +88,25 @@ class ChooseRegisterOrLogInViewController: UIViewController {
         
         logInButton.rx.tap
             .subscribe { _ in
-                HUD.show(.progress)   // ローディング表示
 //                self.isProgressView = true
                 // TODO: ボタン 選択/非選択プログラム を簡略化, 簡略化可能かどうかから考える
                 self.logInButton.isSelected = !self.logInButton.isSelected
                 self.logInButton.backgroundColor = self.logInButton.isSelected ? Color.lightGray.UIColor : Color.navyBlue.UIColor
-                // 3秒後にローディングを消す
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                    HUD.hide()
-                    self.logInButton.isSelected = !self.logInButton.isSelected
-                    self.logInButton.backgroundColor = self.logInButton.isSelected ? Color.lightGray.UIColor : Color.navyBlue.UIColor
-                    // push画面遷移
-                    let logInViewControlelr = LogInViewController()
-                    self.navigationController?.pushViewController(logInViewControlelr, animated: true)
-                }
+                // push画面遷移
+                let logInViewControlelr = LogInViewController()
+                self.navigationController?.pushViewController(logInViewControlelr, animated: true)
             }
             .disposed(by: disposeBag)
         
         registerButton.rx.tap
             .subscribe { _ in
-                HUD.show(.progress)   // ローディング表示
 //                self.isProgressView = true
                 // TODO: ボタン 選択/非選択プログラム を簡略化, 簡略化可能かどうかから考える
                 self.registerButton.isSelected = !self.registerButton.isSelected
                 self.registerButton.backgroundColor = self.registerButton.isSelected ? Color.lightGray.UIColor : Color.navyBlue.UIColor
-                // 3秒後にローディングを消す
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                    HUD.hide()
-                    self.registerButton.isSelected = !self.registerButton.isSelected
-                    self.registerButton.backgroundColor = self.registerButton.isSelected ? Color.lightGray.UIColor : Color.white.UIColor
-                    // push画面遷移
-                    let registerUserViewController = RegisterUserViewController()
-                    self.navigationController?.pushViewController(registerUserViewController, animated: true)
-                }
+                // push画面遷移
+                let registerUserViewController = RegisterUserViewController()
+                self.navigationController?.pushViewController(registerUserViewController, animated: true)
             }
             .disposed(by: disposeBag)
         

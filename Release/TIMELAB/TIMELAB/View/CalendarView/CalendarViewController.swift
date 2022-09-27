@@ -13,15 +13,17 @@ import Charts
 import RxSwift
 import RxCocoa
 import PKHUD
+import Firebase   // Timestamp
 
 // 画面遷移用
 protocol CalendarViewDelegate {
-    func presentTransition(date: String)
+    func presentTransition(year: Int, month: Int, day: Int, dayOfWeek: String)
 }
 
 class CalendarViewController: UIViewController {
     let disposeBag = DisposeBag()
     var enterScheduleAndStayingTimeDic: [String: Int] = [:] // ["2022/04/16": 10, "2022/04/20": 30, "2022/04/21": 10]
+    var times: [[String: Any]]!
     var fpc: FloatingPanelController!
     var doneContentChartView: DoneContentsChartView!
     var doneContentUIImageView: DoneContentUIImageView!
@@ -72,7 +74,7 @@ class CalendarViewController: UIViewController {
         
         calendarViewModel.monthCalendarTime
             .drive { monthCalendarTimes in
-                print(monthCalendarTimes)
+                self.times = monthCalendarTimes
                 for monthCalendarTime in monthCalendarTimes {
                     //self.dateDictionary.append(dateFormatter.string(from: monthCalendarTime["enterTimeDate"] as! Date))
                     let enterTimeDate = monthCalendarTime["enterAtDate"] as! Date
@@ -112,6 +114,57 @@ class CalendarViewController: UIViewController {
                 HUD.hide()
             }
             .disposed(by: disposeBag)
+    }
+    
+    // TODO: 計算量を少なくする
+    func setEnterAndLeaveTimesOfDay(year: Int, month: Int, day: Int, times: [[String: Any]]) -> [[String: Any]] {
+        var enterAndLeaveTimesOfDay: [[String: Any]] = []
+        for time in times {
+            // 入退室した時刻を日付から取得
+            let enterAtDate = time["enterAtDate"] as! Date
+            let enterYearAndMonthAndDay = DateUtils.stringFromDate(date: enterAtDate, format: "yyyy-M-d")
+            if (enterYearAndMonthAndDay == "\(year)-\(month)-\(day)") {
+                // 入室と退室で日付が異なるとき 退室時刻を 23:59 とする
+                let leaveAtDate = time["leaveAtDate"] as! Date
+                let leaveYearAndMonthAndDay = DateUtils.stringFromDate(date: leaveAtDate, format: "yyyy-M-d")
+                if (enterYearAndMonthAndDay != leaveYearAndMonthAndDay) {
+                    var newTime = time
+                    newTime["leaveAtDate"] = Calendar(identifier: .gregorian).date(bySettingHour: 23, minute: 59, second: 59, of: enterAtDate)
+                    enterAndLeaveTimesOfDay.append(newTime)
+                } else {
+                    enterAndLeaveTimesOfDay.append(time)
+                }
+            }
+        }
+        return enterAndLeaveTimesOfDay
+    }
+    
+    // TODO: 計算量を少なくする
+    func setStayingTimeStringOfDay(year: Int, month: Int, day: Int, times: [[String: Any]]) -> String {
+        var stayingTimeSum = 0
+        for time in times {
+            // 入退室した時刻を日付から取得
+            let enterAtDate = time["enterAtDate"] as! Date
+            let enterYearAndMonthAndDay = DateUtils.stringFromDate(date: enterAtDate, format: "yyyy-M-d")
+            if (enterYearAndMonthAndDay == "\(year)-\(month)-\(day)") {
+                // 入室と退室で日付が異なるとき 滞在時間を (23:59 - 入室時刻) とする
+                let leaveAtDate = time["leaveAtDate"] as! Date
+                let leaveYearAndMonthAndDay = DateUtils.stringFromDate(date: leaveAtDate, format: "yyyy-M-d")
+                if (enterYearAndMonthAndDay != leaveYearAndMonthAndDay) {
+                    let midnight = Calendar(identifier: .gregorian).date(bySettingHour: 23, minute: 59, second: 59, of: enterAtDate) as! Date
+                    let untilMidnightSecond = midnight.timeIntervalSince(enterAtDate)   // 滞在時間を (23:59 - 入室時刻) とする
+                    stayingTimeSum += Int(untilMidnightSecond)
+                } else {
+                    stayingTimeSum += time["stayingTimeAtSecond"] as! Int
+                }
+            }
+        }
+        
+        let stayingHour = stayingTimeSum / (60 * 60)
+        let stayingMinute = (stayingTimeSum - (stayingHour * (60 * 60))) / 60
+        let stayingSecond = stayingTimeSum - (stayingHour * (60 * 60)) - (stayingMinute * 60)
+        
+        return "\(stayingHour)時間 \(stayingMinute)分 \(stayingSecond)秒"
     }
     
     private func setupLayout() {
@@ -173,9 +226,12 @@ class CalendarViewController: UIViewController {
 
 // MARK: - CalendarViewDelegate
 extension CalendarViewController: CalendarViewDelegate {
-    func presentTransition(date: String) {
+    func presentTransition(year: Int, month: Int, day: Int, dayOfWeek: String) {
+        let dateString = "\(month)月\(day)日 (\(dayOfWeek))"
+        let enterAndLeaveTimesOfDay = setEnterAndLeaveTimesOfDay(year: year, month: month, day: day, times: self.times)
+        let stayingTimeStringOfDay = setStayingTimeStringOfDay(year: year, month: month, day: day, times: self.times)
         // モーダル表示, setupFloatingPanel() 実行ずみ の状態で呼ばれる
-        let calendarDetailViewCotroller = CalendarDetailViewController(date: date)
+        let calendarDetailViewCotroller = CalendarDetailViewController(date: dateString, enterAndLeaveTimesOfDay: enterAndLeaveTimesOfDay, stayingTimeStringOfDay: stayingTimeStringOfDay)
         self.fpc.set(contentViewController: calendarDetailViewCotroller)
         self.fpc.addPanel(toParent: self, animated: true)
     }

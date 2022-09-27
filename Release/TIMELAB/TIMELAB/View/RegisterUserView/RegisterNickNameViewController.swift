@@ -75,18 +75,11 @@ class RegisterNickNameViewController: UIViewController {
         
         registerNickNameButton.rx.tap
             .subscribe { _ in
-                HUD.show(.progress)
                 self.registerNickNameButton.isSelected = !self.registerNickNameButton.isSelected
                 self.registerNickNameButton.backgroundColor = self.registerNickNameButton.isSelected ? Color.lightGray.UIColor : Color.navyBlue.UIColor
-                // 3秒後にローディングを消す
-                DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
-                    HUD.hide()
-                    self.registerNickNameButton.isSelected = !self.registerNickNameButton.isSelected
-                    self.registerNickNameButton.backgroundColor = self.registerNickNameButton.isSelected ? Color.lightGray.UIColor : Color.navyBlue.UIColor
-                    // Push画面遷移
-                    let registerUserIconViewController = RegisterUserIconViewController(userName: self.nickNameTextField.text ?? "")
-                    self.navigationController?.pushViewController(registerUserIconViewController, animated: true)
-                }
+                // Push画面遷移
+                let registerUserIconViewController = RegisterUserIconViewController(userName: self.nickNameTextField.text ?? "")
+                self.navigationController?.pushViewController(registerUserIconViewController, animated: true)
             }
             .disposed(by: disposeBag)
     }

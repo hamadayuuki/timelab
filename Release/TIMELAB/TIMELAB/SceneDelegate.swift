@@ -20,10 +20,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // アプリ起動時に表示する画面の描画
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
+        // 起動時の画面遷移
         if let user = Auth.auth().currentUser  {
-            navigationController = UINavigationController(rootViewController: TabBarViewController())   // 起動時に描画する画面
+            navigationController = UINavigationController(rootViewController: TabBarViewController())
         } else {
-            navigationController = UINavigationController(rootViewController: ChooseRegisterOrLogInViewController())   // 起動時に描画する画面
+            navigationController = UINavigationController(rootViewController: ChooseRegisterOrLogInViewController())
         }
         // push遷移
         let window = UIWindow(windowScene: windowScene)

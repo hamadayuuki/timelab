@@ -193,18 +193,11 @@ class RegisterUserIconViewController: UIViewController {
         
         registerUserIconButton.rx.tap
             .subscribe { _ in
-                HUD.show(.progress)
                 self.registerUserIconButton.isSelected = !self.registerUserIconButton.isSelected
                 self.registerUserIconButton.backgroundColor = self.registerUserIconButton.isSelected ? Color.lightGray.UIColor : Color.navyBlue.UIColor
-                // 3秒後にローディングを消す
-                DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
-                    HUD.hide()
-                    self.registerUserIconButton.isSelected = !self.registerUserIconButton.isSelected
-                    self.registerUserIconButton.backgroundColor = self.registerUserIconButton.isSelected ? Color.lightGray.UIColor : Color.navyBlue.UIColor
-                    // Push画面遷移
-                    let confirmUserViewController = ConfirmUserViewController(userName: self.userName, iconName: self.iconName)
-                    self.navigationController?.pushViewController(confirmUserViewController, animated: true)
-                }
+                // Push画面遷移
+                let confirmUserViewController = ConfirmUserViewController(userName: self.userName, iconName: self.iconName)
+                self.navigationController?.pushViewController(confirmUserViewController, animated: true)
             }
             .disposed(by: disposeBag)
         

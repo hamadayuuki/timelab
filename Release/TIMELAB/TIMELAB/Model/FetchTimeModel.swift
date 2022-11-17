@@ -57,11 +57,13 @@ class FetchTimeModel {
                 .whereField("uid", isEqualTo: uid)
                 .whereField("roomId", isEqualTo: roomId)
                 .order(by: "enterAt", descending: false)   // 昇順, 1 2 3 4 5
-                .getDocuments() { (querySnapShot, err) in
-                    // TODO: resultList を簡潔に
-                    if let documents = querySnapShot?.documents {
+                .addSnapshotListener { (snapshot, err) in
+                    if let err = err {
+                        print("Document does not exist")
+                        observer.onNext([["enterTimeDate": Data(), "timeId": ""]])
+                    } else {
                         var resultList: [[String: Any]] = []
-                        for document in documents {
+                        for document in snapshot!.documents {
                             let data = document.data()
                             let enterAt: Timestamp = data["enterAt"] as! Timestamp
                             let enterAtDate = enterAt.dateValue()
@@ -73,9 +75,6 @@ class FetchTimeModel {
                             resultList.append(appendDic)
                         }
                         observer.onNext(resultList)
-                    } else {
-                        print("Document does not exist")
-                        observer.onNext([["enterTimeDate": Data(), "timeId": ""]])
                     }
                 }
             

@@ -22,8 +22,8 @@ protocol CalendarViewDelegate {
 
 class CalendarViewController: UIViewController {
     let disposeBag = DisposeBag()
-    var enterScheduleAndStayingTimeDic: [String: Int] = [:] // ["2022/04/16": 10, "2022/04/20": 30, "2022/04/21": 10]
-    var times: [[String: Any]]!
+    var enterScheduleAndStayingTimeDic: [String: Int] = [:] // ["2022/04/16": 10, "2022/04/20": 30, "2022/04/21": 10]   // カレンダーのセル背景色変更のため
+    var times: [[String: Any]]!   // 日毎の詳細画面のため
     var fpc: FloatingPanelController!
     var doneContentChartView: DoneContentsChartView!
     var doneContentUIImageView: DoneContentUIImageView!
@@ -74,7 +74,7 @@ class CalendarViewController: UIViewController {
         
         calendarViewModel.monthCalendarTime
             .drive { monthCalendarTimes in
-                self.times = monthCalendarTimes
+                var newMonthCalndarTimes = monthCalendarTimes   // 日をまたいだ時のため
                 for monthCalendarTime in monthCalendarTimes {
                     //self.dateDictionary.append(dateFormatter.string(from: monthCalendarTime["enterTimeDate"] as! Date))
                     let enterTimeDate = monthCalendarTime["enterAtDate"] as! Date
@@ -97,17 +97,29 @@ class CalendarViewController: UIViewController {
                         let addDaysNum = Int((diffLeaveAndNextDayStart) / (24 * 60 * 60))
                         // 日をまたいだ分追加
                         for i in 1..<(addDaysNum+1) {
-                            let addDayDate = calendar.date(byAdding: .day, value: i, to: enterTimeDate)!
+                            let addDayDate: Date = calendar.date(byAdding: .day, value: i, to: enterTimeDate)!   // "YYYY/MM/DD"
                             self.enterScheduleAndStayingTimeDic[dateFormatter.string(from: addDayDate)] = 24 * 60 * 60
+                            
+                            // newMonthCalndarTimes へ 00:00〜23:59 を追加 → カレンダーセルの背景色は透明
+                            let dayStartDate: Date = calendar.date(from:  DateComponents(year: calendar.component(.year, from: addDayDate) , month: calendar.component(.month, from: addDayDate), day: calendar.component(.day, from: addDayDate)))!   // 次の日の00:00
+                            
+                            let dayEndDate: Date = calendar.date(from:  DateComponents(hour: 23, minute: 59))!   // 次の日の23:59
+                            newMonthCalndarTimes.append(["enterAtDate": dayStartDate, "leaveAtDate": dayEndDate, "stayingTimeAtSecond": 24 * 60 * 60])
+                            
                         }
                         // 退室日の00:00 と 退室時刻 の差, 秒
-                        let leaveDayStartDate = calendar.startOfDay(for: leaveTimeDate)
+                        let leaveDayStartDate: Date = calendar.startOfDay(for: leaveTimeDate)
                         let diffLeaveAndLeaveDayStart = leaveTimeDate.timeIntervalSince(leaveDayStartDate)
                         self.enterScheduleAndStayingTimeDic[dateFormatter.string(from: leaveTimeDate)] = Int(diffLeaveAndLeaveDayStart)
+                        
+                        // newMonthCalndarTimes へ 退出日00:00〜退出時間 を追加
+                        newMonthCalndarTimes.append(["enterAtDate": leaveDayStartDate, "leaveAtDate": leaveTimeDate, "stayingTimeAtSecond": Int(diffLeaveAndLeaveDayStart)])
+                        
                         // 入室日の滞在時間を調整
                         self.enterScheduleAndStayingTimeDic[dateFormatter.string(from: enterTimeDate)]! += Int(diffEnterAndNextDayStart)
                     }
                 }
+                self.times = newMonthCalndarTimes   // 日毎の詳細画面に使用
                 
                 self.setupLayout()
                 self.setupFloatingPanel()
@@ -123,6 +135,7 @@ class CalendarViewController: UIViewController {
             // 入退室した時刻を日付から取得
             let enterAtDate = time["enterAtDate"] as! Date
             let enterYearAndMonthAndDay = DateUtils.stringFromDate(date: enterAtDate, format: "yyyy-M-d")
+            // 選択した日付と一致するデータを取得
             if (enterYearAndMonthAndDay == "\(year)-\(month)-\(day)") {
                 // 入室と退室で日付が異なるとき 退室時刻を 23:59 とする
                 let leaveAtDate = time["leaveAtDate"] as! Date

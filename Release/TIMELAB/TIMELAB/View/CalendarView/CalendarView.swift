@@ -88,7 +88,9 @@ extension CalendarView: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDele
         cell.bounds = CGRect(x: 0, y: 0, width: cellWidth - 5, height: cellHeight - 5)
         // 予定がある時
         if enterScheduleAndStayingTimeDic.keys.contains(calendarDay) {
-            if (enterScheduleAndStayingTimeDic[calendarDay]! > 5 * 60 * 60) {
+            if (enterScheduleAndStayingTimeDic[calendarDay]! == 24 * 60 * 60) {
+                cell.backgroundColor = .clear
+            } else if (enterScheduleAndStayingTimeDic[calendarDay]! > 5 * 60 * 60) {
                 cell.backgroundColor = Color.orange.UIColor
             } else if (enterScheduleAndStayingTimeDic[calendarDay]! > 3 * 60 * 60) {
                 cell.backgroundColor = Color.lightOrange.UIColor

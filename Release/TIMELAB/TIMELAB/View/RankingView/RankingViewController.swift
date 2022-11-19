@@ -43,6 +43,7 @@ class RankingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationItem.title = "ランキング"
         setupLayout()
     }
     

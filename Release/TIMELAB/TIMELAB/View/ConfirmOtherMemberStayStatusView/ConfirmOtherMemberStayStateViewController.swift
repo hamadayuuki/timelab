@@ -36,6 +36,7 @@ class ConfirmOtherMemberStayStateViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationItem.title = "他メンバーの滞在状況"
 //        setupLayout()
         self.view.backgroundColor = .white
         HUD.show(.progress)   // setupBinding() 内で .hide()

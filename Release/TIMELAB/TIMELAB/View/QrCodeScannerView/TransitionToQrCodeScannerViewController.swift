@@ -34,6 +34,7 @@ class TransitionToQrCodeScannerViewController: UIViewController {
         if #available(iOS 13.0, *) { presentingViewController?.beginAppearanceTransition(false, animated: animated) }
         super.viewWillAppear(animated)
         
+        //navigationItem.title = "入退室"
         HUD.show(.progress)
         self.loadView()
         view.backgroundColor = .white

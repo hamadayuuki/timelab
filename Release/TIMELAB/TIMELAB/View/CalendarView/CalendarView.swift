@@ -12,6 +12,7 @@ class CalendarView: FSCalendar {
     
     var enterScheduleAndStayingTimeDic: [String: Int]!
     var calendarViewDelegate: CalendarViewDelegate?   // CalendarViewController で画面遷移を行うため
+    let feedbackGenerator = UISelectionFeedbackGenerator()  // カレンダータップ時の振動
     
     init(dateAndStayingTimeDic: [String: Int]) {
         super.init(frame: .zero)
@@ -88,7 +89,9 @@ extension CalendarView: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDele
         cell.bounds = CGRect(x: 0, y: 0, width: cellWidth - 5, height: cellHeight - 5)
         // 予定がある時
         if enterScheduleAndStayingTimeDic.keys.contains(calendarDay) {
-            if (enterScheduleAndStayingTimeDic[calendarDay]! > 5 * 60 * 60) {
+            if (enterScheduleAndStayingTimeDic[calendarDay]! == 24 * 60 * 60) {
+                cell.backgroundColor = .clear
+            } else if (enterScheduleAndStayingTimeDic[calendarDay]! > 5 * 60 * 60) {
                 cell.backgroundColor = Color.orange.UIColor
             } else if (enterScheduleAndStayingTimeDic[calendarDay]! > 3 * 60 * 60) {
                 cell.backgroundColor = Color.lightOrange.UIColor
@@ -108,14 +111,14 @@ extension CalendarView: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDele
     // タップされた日付を取得する
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         let tmpDate = Calendar(identifier: .gregorian)
-//        let year = tmpDate.component(.year, from: date)
+        let year = tmpDate.component(.year, from: date)
         let month = tmpDate.component(.month, from: date)
         let day = tmpDate.component(.day, from: date)
         let weekDay = tmpDate.component(.weekday, from: date)
         let dayOfWeek = convertJapaneseDayOfWeek(weekDay: weekDay)
-        let dateString = "\(month)月\(day)日 (\(dayOfWeek))"
         
-        calendarViewDelegate?.presentTransition(date: dateString)
+        calendarViewDelegate?.presentTransition(year: year, month: month, day: day, dayOfWeek: dayOfWeek)
+        feedbackGenerator.selectionChanged()   // 振動
     }
     
     // カレンダーの日付に画像を描画する

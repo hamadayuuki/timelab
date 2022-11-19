@@ -46,6 +46,8 @@
 		D427F6E028040D4000E7F4E9 /* ChooseRegisterOrLogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D427F6DF28040D4000E7F4E9 /* ChooseRegisterOrLogInViewController.swift */; };
 		D427F6E228040DB500E7F4E9 /* ChooseRegisterOrLogInButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D427F6E128040DB500E7F4E9 /* ChooseRegisterOrLogInButton.swift */; };
 		D427F6E428040DD600E7F4E9 /* ChooseRegisterOrLogInUIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D427F6E328040DD600E7F4E9 /* ChooseRegisterOrLogInUIImageView.swift */; };
+		D435167C28E300C500DCF919 /* DateUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = D435167B28E300C500DCF919 /* DateUtils.swift */; };
+		D435167E28E3051500DCF919 /* TimeTableLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D435167D28E3051500DCF919 /* TimeTableLabel.swift */; };
 		D46479842881700700F72EEE /* FetchTimeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46479832881700700F72EEE /* FetchTimeModel.swift */; };
 		D46479862881DCC600F72EEE /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46479852881DCC600F72EEE /* DateExtension.swift */; };
 		D4647988288B0AF100F72EEE /* TransitionToQrCodeScannerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4647987288B0AF100F72EEE /* TransitionToQrCodeScannerViewModel.swift */; };
@@ -154,6 +156,8 @@
 		D427F6DF28040D4000E7F4E9 /* ChooseRegisterOrLogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseRegisterOrLogInViewController.swift; sourceTree = "<group>"; };
 		D427F6E128040DB500E7F4E9 /* ChooseRegisterOrLogInButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseRegisterOrLogInButton.swift; sourceTree = "<group>"; };
 		D427F6E328040DD600E7F4E9 /* ChooseRegisterOrLogInUIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseRegisterOrLogInUIImageView.swift; sourceTree = "<group>"; };
+		D435167B28E300C500DCF919 /* DateUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateUtils.swift; sourceTree = "<group>"; };
+		D435167D28E3051500DCF919 /* TimeTableLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeTableLabel.swift; sourceTree = "<group>"; };
 		D46479832881700700F72EEE /* FetchTimeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchTimeModel.swift; sourceTree = "<group>"; };
 		D46479852881DCC600F72EEE /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
 		D4647987288B0AF100F72EEE /* TransitionToQrCodeScannerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionToQrCodeScannerViewModel.swift; sourceTree = "<group>"; };
@@ -366,6 +370,14 @@
 			path = ChooseRegisterOrLogInView;
 			sourceTree = "<group>";
 		};
+		D435167A28E300B700DCF919 /* Other */ = {
+			isa = PBXGroup;
+			children = (
+				D435167B28E300C500DCF919 /* DateUtils.swift */,
+			);
+			path = Other;
+			sourceTree = "<group>";
+		};
 		D465BD59282A39F500C2FE2A /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -423,6 +435,7 @@
 			children = (
 				D476DFB927FD398500A1EDE3 /* AppDelegate.swift */,
 				D476DFBB27FD398500A1EDE3 /* SceneDelegate.swift */,
+				D435167A28E300B700DCF919 /* Other */,
 				D427F67927FD897400E7F4E9 /* Extension */,
 				D427F68027FD8A5000E7F4E9 /* Model */,
 				D427F67D27FD89DB00E7F4E9 /* View */,
@@ -449,6 +462,7 @@
 				D469A9CC286F14880049F1B8 /* CalendarScrollView.swift */,
 				D477CB2A281309A400B7A07B /* TitleLabel.swift */,
 				D477CB2C281309B600B7A07B /* DetailLabel.swift */,
+				D435167D28E3051500DCF919 /* TimeTableLabel.swift */,
 				D477CB2E281309CA00B7A07B /* CalendarDateFooterLabel.swift */,
 			);
 			path = CalendarView;
@@ -688,6 +702,8 @@
 				D4BDC2DC284F9C440087700D /* SaveRoomQrCodeViewController.swift in Sources */,
 				D477CB2D281309B600B7A07B /* DetailLabel.swift in Sources */,
 				D427F69D27FFE60700E7F4E9 /* RegisterUIImageView.swift in Sources */,
+				D435167C28E300C500DCF919 /* DateUtils.swift in Sources */,
+				D435167E28E3051500DCF919 /* TimeTableLabel.swift in Sources */,
 				D477CB2F281309CA00B7A07B /* CalendarDateFooterLabel.swift in Sources */,
 				D477CB48281927D400B7A07B /* RankingLabel.swift in Sources */,
 				D465BF53283CE5F300C2FE2A /* TransitionQrScannerType.swift in Sources */,

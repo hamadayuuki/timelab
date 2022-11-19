@@ -14,9 +14,8 @@ class CalendarDateFooterLabel: UILabel {
         
         self.text = text
         self.font = .systemFont(ofSize: 20, weight: .bold)
-        self.textColor = Color.white.UIColor
+        self.textColor = Color.navyBlue.UIColor
         self.textAlignment = .center
-        self.backgroundColor = Color.navyBlue.UIColor
     }
     
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }

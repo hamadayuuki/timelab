@@ -27,6 +27,9 @@ class CalendarViewController: UIViewController {
     var fpc: FloatingPanelController!
     var doneContentChartView: DoneContentsChartView!
     var doneContentUIImageView: DoneContentUIImageView!
+    var longTimeCellDescriptionText: DetailLabel!
+    var shortTimeCellDescriptionText: DetailLabel!
+    
     // TODO: dataList を DoneContentsChartView か CalendarViewController どちらで扱うか決める。両方はなし。
     let dataList = [
         (value: 10.0, label: "A", icon: UIImage(named: "Flask")),
@@ -187,6 +190,29 @@ class CalendarViewController: UIViewController {
         calendarView = CalendarView(dateAndStayingTimeDic: enterScheduleAndStayingTimeDic)
         calendarView.calendarViewDelegate = self   // 画面遷移のために指定
         
+        // カレンダーセルの説明
+        shortTimeCellDescriptionText = DetailLabel(text: "短", fontSize: 10)
+        let cell1 = UIView()
+        cell1.backgroundColor = Color.superLightGray.UIColor
+        cell1.layer.cornerRadius = 3
+        let cell2 = UIView()
+        cell2.backgroundColor = Color.paleOrange.UIColor
+        cell2.layer.cornerRadius = 3
+        let cell3 = UIView()
+        cell3.backgroundColor = Color.superLightOrange.UIColor
+        cell3.layer.cornerRadius = 3
+        let cell4 = UIView()
+        cell4.backgroundColor = Color.lightOrange.UIColor
+        cell4.layer.cornerRadius = 3
+        let cell5 = UIView()
+        cell5.backgroundColor = Color.orange.UIColor
+        cell5.layer.cornerRadius = 3
+        longTimeCellDescriptionText = DetailLabel(text: "長", fontSize: 10)
+        let cellDescriptionHorizontalView = UIStackView(arrangedSubviews: [shortTimeCellDescriptionText, cell1, cell2, cell3, cell4, cell5,  longTimeCellDescriptionText])
+        cellDescriptionHorizontalView.axis = .horizontal
+        cellDescriptionHorizontalView.distribution = .fillEqually   // 全ての要素の大きさを均等に
+        cellDescriptionHorizontalView.spacing = 4
+        
         // 円グラフ
         doneContentChartView = DoneContentsChartView()
         doneContentChartView.delegate = self
@@ -201,6 +227,17 @@ class CalendarViewController: UIViewController {
             make.top.equalTo(view.bounds.height * 0.1)
             make.width.equalTo(view.bounds.width * 0.9)
             make.height.equalTo(view.bounds.height * 0.5)
+        }
+        
+        cell1.snp.makeConstraints { make -> Void in
+            make.width.equalTo(15)
+            make.height.equalTo(15)
+        }
+        
+        contentsView.addSubview(cellDescriptionHorizontalView)
+        cellDescriptionHorizontalView.snp.makeConstraints { make -> Void in
+            make.right.equalTo(calendarView.snp.right)
+            make.top.equalTo(calendarView.snp.bottom).offset(20)
         }
         
         /*

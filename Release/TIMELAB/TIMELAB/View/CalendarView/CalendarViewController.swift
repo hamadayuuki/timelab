@@ -55,6 +55,7 @@ class CalendarViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationItem.title = "カレンダー"
         view.backgroundColor = .white
         HUD.show(.progress)
         setupMonthCalendarTime()

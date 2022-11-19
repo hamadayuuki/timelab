@@ -12,6 +12,7 @@ class CalendarView: FSCalendar {
     
     var enterScheduleAndStayingTimeDic: [String: Int]!
     var calendarViewDelegate: CalendarViewDelegate?   // CalendarViewController で画面遷移を行うため
+    let feedbackGenerator = UISelectionFeedbackGenerator()  // カレンダータップ時の振動
     
     init(dateAndStayingTimeDic: [String: Int]) {
         super.init(frame: .zero)
@@ -117,6 +118,7 @@ extension CalendarView: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDele
         let dayOfWeek = convertJapaneseDayOfWeek(weekDay: weekDay)
         
         calendarViewDelegate?.presentTransition(year: year, month: month, day: day, dayOfWeek: dayOfWeek)
+        feedbackGenerator.selectionChanged()   // 振動
     }
     
     // カレンダーの日付に画像を描画する

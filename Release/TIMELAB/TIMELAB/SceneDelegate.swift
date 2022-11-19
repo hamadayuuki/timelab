@@ -11,7 +11,6 @@ import Firebase
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-    var navigationController: UINavigationController?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         
@@ -20,17 +19,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // アプリ起動時に表示する画面の描画
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
-        // 起動時の画面遷移
-        if let user = Auth.auth().currentUser  {
-            navigationController = UINavigationController(rootViewController: TabBarViewController())
-        } else {
-            navigationController = UINavigationController(rootViewController: ChooseRegisterOrLogInViewController())
-        }
         // push遷移
         let window = UIWindow(windowScene: windowScene)
         self.window = window
-        window.rootViewController = navigationController
         window.makeKeyAndVisible()
+        
+        if let user = Auth.auth().currentUser  {
+            window.rootViewController = TabBarViewController()   // 起動時の画面遷移
+        } else {
+            window.rootViewController = ChooseRegisterOrLogInViewController()   // 起動時の画面遷移
+        }
         
         // Present遷移
 //       let window = UIWindow(windowScene: windowScene)

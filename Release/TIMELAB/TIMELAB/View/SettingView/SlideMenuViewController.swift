@@ -118,15 +118,15 @@ class SlideMenuViewController: ViewController, UIGestureRecognizerDelegate {
             return
         }
         
-        let translation = panGestureRecognizer.translation(in: view)
+        let translation = panGestureRecognizer.translation(in: view)   // 初期タップ位置からの移動量
         if translation.x > 0 && contentRatio == 1.0 { return }
         
-        let location = panGestureRecognizer.location(in: view)
+        let location = panGestureRecognizer.location(in: view)   // 現在のタップ位置
         switch panGestureRecognizer.state {
         case .began:
             beganState = isShown
             beganLocation = location
-            if translation.x >= 0 { self.delegate?.sideMenuViewControllerDidRequestShowing(self, contentAvailability: false, animated: false) }
+            if translation.x >= 0 && location.x < 100 { self.delegate?.sideMenuViewControllerDidRequestShowing(self, contentAvailability: false, animated: false) }
         case .changed:
             let distance = beganState ? beganLocation.x - location.x : location.x - beganLocation.x
             if distance >= 0 {

@@ -8,6 +8,9 @@
 import UIKit
 
 class TabBarViewController: UITabBarController {
+    let contentViewController = UINavigationController(rootViewController: UIViewController())
+    let slideMenuViewController = SlideMenuViewController()
+    var isShownSlideMenu: Bool { return slideMenuViewController.parent == self }
 
     // MARK: - Life Cycle
     override func viewDidLoad() {
@@ -16,6 +19,9 @@ class TabBarViewController: UITabBarController {
         self.navigationItem.hidesBackButton = true
         setupTabBar()
         setupLayoutNavigationAndTab()
+        
+        slideMenuViewController.delegate = self
+        slideMenuViewController.startPanGestureRecognizing()
     }
     
     // 実行中のアプリがiPhoneのメモリを使いすぎた際に呼び出される
@@ -84,6 +90,49 @@ class TabBarViewController: UITabBarController {
             UITabBar.appearance().unselectedItemTintColor = Color.navyBlue.UIColor
             UITabBar.appearance().isTranslucent = false
         }
+    }
+    
+    func showSlideMenu(contentAvailability: Bool = true, animated: Bool) {
+        if isShownSlideMenu { return }
+        
+        addChild(slideMenuViewController)
+        slideMenuViewController.view.autoresizingMask = .flexibleHeight
+        slideMenuViewController.view.frame = contentViewController.view.bounds
+        view.insertSubview(slideMenuViewController.view, aboveSubview: contentViewController.view)
+        slideMenuViewController.didMove(toParent: self)
+        if contentAvailability { slideMenuViewController.showContentView(animated: true) }
+    }
+    
+    func hideSlideMenu(animated: Bool) {
+        if !isShownSlideMenu { return }
+        
+        slideMenuViewController.hideContentView(animated: animated, completion: { (_) in
+            self.slideMenuViewController.willMove(toParent: nil)
+            self.slideMenuViewController.removeFromParent()
+            self.slideMenuViewController.view.removeFromSuperview()
+        })
+    }
+}
+
+extension TabBarViewController: SideMenuViewControllerDelegate {
+    func parentViewControllerForSideMenuViewController(_ sidemenuViewController: SlideMenuViewController) -> UIViewController {
+        return self
+    }
+    
+    func shouldPresentForSideMenuViewController(_ sidemenuViewController: SlideMenuViewController) -> Bool {
+        return true
+    }
+    
+    func sideMenuViewControllerDidRequestShowing(_ sidemenuViewController: SlideMenuViewController, contentAvailability: Bool, animated: Bool) {
+        showSlideMenu(contentAvailability: contentAvailability, animated: animated)
+    }
+    
+    func sideMenuViewControllerDidRequestHiding(_ sidemenuViewController: SlideMenuViewController, animated: Bool) {
+        hideSlideMenu(animated: animated)
+    }
+    
+    func sideMenuViewController(_ sidemenuViewController: SlideMenuViewController, didSelectItemAt indexPath: IndexPath) {
+        hideSlideMenu(animated: true)
     }
 }
 

@@ -48,6 +48,7 @@
 		D427F6E428040DD600E7F4E9 /* ChooseRegisterOrLogInUIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D427F6E328040DD600E7F4E9 /* ChooseRegisterOrLogInUIImageView.swift */; };
 		D435167C28E300C500DCF919 /* DateUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = D435167B28E300C500DCF919 /* DateUtils.swift */; };
 		D435167E28E3051500DCF919 /* TimeTableLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D435167D28E3051500DCF919 /* TimeTableLabel.swift */; };
+		D44F5D962929472500DE7818 /* SlideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44F5D952929472500DE7818 /* SlideMenuViewController.swift */; };
 		D46479842881700700F72EEE /* FetchTimeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46479832881700700F72EEE /* FetchTimeModel.swift */; };
 		D46479862881DCC600F72EEE /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46479852881DCC600F72EEE /* DateExtension.swift */; };
 		D4647988288B0AF100F72EEE /* TransitionToQrCodeScannerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4647987288B0AF100F72EEE /* TransitionToQrCodeScannerViewModel.swift */; };
@@ -158,6 +159,7 @@
 		D427F6E328040DD600E7F4E9 /* ChooseRegisterOrLogInUIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseRegisterOrLogInUIImageView.swift; sourceTree = "<group>"; };
 		D435167B28E300C500DCF919 /* DateUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateUtils.swift; sourceTree = "<group>"; };
 		D435167D28E3051500DCF919 /* TimeTableLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeTableLabel.swift; sourceTree = "<group>"; };
+		D44F5D952929472500DE7818 /* SlideMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideMenuViewController.swift; sourceTree = "<group>"; };
 		D46479832881700700F72EEE /* FetchTimeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchTimeModel.swift; sourceTree = "<group>"; };
 		D46479852881DCC600F72EEE /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
 		D4647987288B0AF100F72EEE /* TransitionToQrCodeScannerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionToQrCodeScannerViewModel.swift; sourceTree = "<group>"; };
@@ -295,6 +297,7 @@
 				D477CB09280C527100B7A07B /* CalendarView */,
 				D477CB402819274A00B7A07B /* RankingView */,
 				D477CB50281FADF300B7A07B /* ConfirmOtherMemberStayStatusView */,
+				D44F5D942929470100DE7818 /* SettingView */,
 				D477CB5728200D1A00B7A07B /* TabBarView */,
 			);
 			path = View;
@@ -376,6 +379,14 @@
 				D435167B28E300C500DCF919 /* DateUtils.swift */,
 			);
 			path = Other;
+			sourceTree = "<group>";
+		};
+		D44F5D942929470100DE7818 /* SettingView */ = {
+			isa = PBXGroup;
+			children = (
+				D44F5D952929472500DE7818 /* SlideMenuViewController.swift */,
+			);
+			path = SettingView;
 			sourceTree = "<group>";
 		};
 		D465BD59282A39F500C2FE2A /* ViewModel */ = {
@@ -700,6 +711,7 @@
 				D427F6E428040DD600E7F4E9 /* ChooseRegisterOrLogInUIImageView.swift in Sources */,
 				D427F69B27FFE54700E7F4E9 /* WelcomeViewController.swift in Sources */,
 				D4BDC2DC284F9C440087700D /* SaveRoomQrCodeViewController.swift in Sources */,
+				D44F5D962929472500DE7818 /* SlideMenuViewController.swift in Sources */,
 				D477CB2D281309B600B7A07B /* DetailLabel.swift in Sources */,
 				D427F69D27FFE60700E7F4E9 /* RegisterUIImageView.swift in Sources */,
 				D435167C28E300C500DCF919 /* DateUtils.swift in Sources */,

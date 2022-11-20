@@ -23,12 +23,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let window = UIWindow(windowScene: windowScene)
         self.window = window
         window.makeKeyAndVisible()
+        window.rootViewController = TabBarViewController()
         
-        if let user = Auth.auth().currentUser  {
-            window.rootViewController = TabBarViewController()   // 起動時の画面遷移
-        } else {
-            window.rootViewController = ChooseRegisterOrLogInViewController()   // 起動時の画面遷移
-        }
+//        if let user = Auth.auth().currentUser  {
+//            window.rootViewController = TabBarViewController()   // 起動時の画面遷移
+//        } else {
+//            window.rootViewController = ChooseRegisterOrLogInViewController()   // 起動時の画面遷移
+//        }
         
         // Present遷移
 //       let window = UIWindow(windowScene: windowScene)

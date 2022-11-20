@@ -6,19 +6,30 @@
 //
 
 import UIKit
+import PKHUD
+import RxSwift
+import RxCocoa
 
 class TabBarViewController: UITabBarController {
+    let disposeBag = DisposeBag()
+    
     let contentViewController = UINavigationController(rootViewController: UIViewController())
     let slideMenuViewController = SlideMenuViewController()
     var isShownSlideMenu: Bool { return slideMenuViewController.parent == self }
+    
+    var userName = ""
+    var userIconName = "UserIcon1"
 
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.navigationItem.hidesBackButton = true
-        setupTabBar()
-        setupLayoutNavigationAndTab()
+        view.backgroundColor = .white
+        HUD.show(.progress)
+        setupBinding()   // TODO: setupTabBar()/setupLayoutNavigationAndTab() を呼び出さない
+//        setupTabBar()
+//        setupLayoutNavigationAndTab()
         
         slideMenuViewController.delegate = self
         slideMenuViewController.startPanGestureRecognizing()
@@ -112,6 +123,22 @@ class TabBarViewController: UITabBarController {
             self.slideMenuViewController.view.removeFromSuperview()
         })
     }
+    
+    // MARK: - Binding
+    func setupBinding() {
+        let tabBarViewModel = TabBarViewModel()
+        
+        tabBarViewModel.user
+            .drive { user in
+                self.userName = user["name"] as? String ?? ""
+                self.userIconName = user["iconName"] as? String ?? "UserIcon1"
+                self.setupTabBar()
+                self.setupLayoutNavigationAndTab()
+                HUD.hide()
+            }
+            .disposed(by: disposeBag)
+    }
+    
 }
 
 extension TabBarViewController: SideMenuViewControllerDelegate {

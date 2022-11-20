@@ -49,6 +49,7 @@
 		D435167C28E300C500DCF919 /* DateUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = D435167B28E300C500DCF919 /* DateUtils.swift */; };
 		D435167E28E3051500DCF919 /* TimeTableLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D435167D28E3051500DCF919 /* TimeTableLabel.swift */; };
 		D44F5D962929472500DE7818 /* SlideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44F5D952929472500DE7818 /* SlideMenuViewController.swift */; };
+		D44F5D98292A866700DE7818 /* MenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44F5D97292A866700DE7818 /* MenuButton.swift */; };
 		D46479842881700700F72EEE /* FetchTimeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46479832881700700F72EEE /* FetchTimeModel.swift */; };
 		D46479862881DCC600F72EEE /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46479852881DCC600F72EEE /* DateExtension.swift */; };
 		D4647988288B0AF100F72EEE /* TransitionToQrCodeScannerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4647987288B0AF100F72EEE /* TransitionToQrCodeScannerViewModel.swift */; };
@@ -160,6 +161,7 @@
 		D435167B28E300C500DCF919 /* DateUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateUtils.swift; sourceTree = "<group>"; };
 		D435167D28E3051500DCF919 /* TimeTableLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeTableLabel.swift; sourceTree = "<group>"; };
 		D44F5D952929472500DE7818 /* SlideMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideMenuViewController.swift; sourceTree = "<group>"; };
+		D44F5D97292A866700DE7818 /* MenuButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuButton.swift; sourceTree = "<group>"; };
 		D46479832881700700F72EEE /* FetchTimeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchTimeModel.swift; sourceTree = "<group>"; };
 		D46479852881DCC600F72EEE /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
 		D4647987288B0AF100F72EEE /* TransitionToQrCodeScannerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionToQrCodeScannerViewModel.swift; sourceTree = "<group>"; };
@@ -385,6 +387,7 @@
 			isa = PBXGroup;
 			children = (
 				D44F5D952929472500DE7818 /* SlideMenuViewController.swift */,
+				D44F5D97292A866700DE7818 /* MenuButton.swift */,
 			);
 			path = SettingView;
 			sourceTree = "<group>";
@@ -646,6 +649,7 @@
 				D469A9D9286F57830049F1B8 /* SaveRoomQrCodeViewModel.swift in Sources */,
 				D477CB0B280C529E00B7A07B /* CalendarViewController.swift in Sources */,
 				D4BDC2DA284BA9460087700D /* RegisterRoomIdAndPasswordViewController.swift in Sources */,
+				D44F5D98292A866700DE7818 /* MenuButton.swift in Sources */,
 				D477CB46281927BD00B7A07B /* RankingUserIconButton.swift in Sources */,
 				D427F67627FD78CA00E7F4E9 /* QrCodeScannerViewController.swift in Sources */,
 				D469A9CD286F148A0049F1B8 /* CalendarScrollView.swift in Sources */,

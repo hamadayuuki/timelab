@@ -41,6 +41,13 @@ class SlideMenuViewController: ViewController, UIGestureRecognizerDelegate {
     var beganState: Bool = false
     var isShown: Bool { return self.parent != nil }
     
+    var profileButton: MenuButton!
+    var formButton: MenuButton!
+    var termOfUseButton: MenuButton!
+    var privacyPolicyButton: MenuButton!
+    var logoutButton: MenuButton!
+    var unsubscribeButton: MenuButton!
+    
     
     // MARK: - Life Cycle
     override func viewWillAppear(_ animated: Bool) {
@@ -53,6 +60,7 @@ class SlideMenuViewController: ViewController, UIGestureRecognizerDelegate {
         super.viewDidLoad()
         
         setupLayout()
+        setupGesture()
     }
     
     // MARK: - Function
@@ -63,10 +71,30 @@ class SlideMenuViewController: ViewController, UIGestureRecognizerDelegate {
         contentRect.size.width = contentMaxWidth
         contentRect.origin.x = -contentRect.width
         contentView.frame = contentRect
-        contentView.backgroundColor = .green
+        contentView.backgroundColor = .white
         contentView.autoresizingMask = .flexibleHeight
         view.addSubview(contentView)
         
+        profileButton = MenuButton(text: "マイページ", textSize: 15)
+        formButton = MenuButton(text: "お問い合せ", textSize: 15)
+        termOfUseButton = MenuButton(text: "利用規約", textSize: 15)
+        privacyPolicyButton = MenuButton(text: "プライバシーポリシー", textSize: 15)
+        logoutButton = MenuButton(text: "ログアウト", textSize: 15)
+        unsubscribeButton = MenuButton(text: "アカウント削除", textSize: 15, backgroundColor: Color.orange.UIColor)
+        let menuVerticallView = UIStackView(arrangedSubviews: [profileButton, formButton, termOfUseButton, privacyPolicyButton, logoutButton, unsubscribeButton])
+        menuVerticallView.axis = .vertical
+        menuVerticallView.distribution = .fillEqually   // 全ての要素の大きさを均等に
+        menuVerticallView.spacing = 15
+        
+        contentView.addSubview(menuVerticallView)
+        menuVerticallView.snp.makeConstraints { make -> Void in
+            make.centerX.equalTo(contentView.bounds.width * 0.5)
+            make.centerY.equalTo(contentView.bounds.height * 0.5)
+        }
+    }
+    
+    // MARK: - Gesture
+    func setupGesture() {
         // メニュー画面以外の領域タップでメニュー画面を閉じる
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(backgroundTapped(sender:)))
         tapGestureRecognizer.delegate = self

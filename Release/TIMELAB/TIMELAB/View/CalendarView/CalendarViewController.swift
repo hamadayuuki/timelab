@@ -29,6 +29,8 @@ class CalendarViewController: UIViewController {
     var doneContentUIImageView: DoneContentUIImageView!
     var longTimeCellDescriptionText: DetailLabel!
     var shortTimeCellDescriptionText: DetailLabel!
+    var userIconButton: UserIconButton!
+    var tabBarDelegate: TabBarViewController!   // TODO: TabBarViewController に Delegate を定義する
     
     // TODO: dataList を DoneContentsChartView か CalendarViewController どちらで扱うか決める。両方はなし。
     let dataList = [
@@ -41,9 +43,11 @@ class CalendarViewController: UIViewController {
     var contentsView = UIView()
     let scrollView = CalendarScrollView()
     
-    init() {
+    init(userIconButton: UserIconButton, tabBarDelegate: TabBarViewController) {
         super.init(nibName: nil, bundle: nil)
         
+        self.userIconButton = userIconButton
+        self.tabBarDelegate = tabBarDelegate
         self.fpc = FloatingPanelController()
     }
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
@@ -60,6 +64,7 @@ class CalendarViewController: UIViewController {
         HUD.show(.progress)
         setupMonthCalendarTime()
 //        setupLayout()   // setupMonthCalendarTime() 内で呼ばれる
+//        setupBinding()   // setupMonthCalendarTime() 内で呼ばれる
 //        setupFloatingPanel()   // setupMonthCalendarTime() 内で呼ばれる
     }
     
@@ -126,6 +131,7 @@ class CalendarViewController: UIViewController {
                 self.times = newMonthCalndarTimes   // 日毎の詳細画面に使用
                 
                 self.setupLayout()
+                self.setupBinding()
                 self.setupFloatingPanel()
                 HUD.hide()
             }
@@ -185,6 +191,15 @@ class CalendarViewController: UIViewController {
     }
     
     private func setupLayout() {
+//        var iconUIImage = UIImage(named: "UserIcon1")?.reSizeImage(reSize: CGSize(width: 50, height: 50))
+//        iconUIImage = iconUIImage?.withRenderingMode(.alwaysOriginal)
+//        let leftNavigationButton = UIBarButtonItem(image: iconUIImage, style: .plain, target: self, action: #selector(tapLeftNavigationButton(_:)))
+//        self.navigationItem.leftBarButtonItem = leftNavigationButton
+        
+//        let userIconButton = UserIconButton(imageName: "UserIcon1")
+        let userIconBarButton = UIBarButtonItem(customView: self.userIconButton)
+        self.navigationItem.leftBarButtonItem = userIconBarButton
+        
         view.backgroundColor = .white
         
         // カレンダー の描画
@@ -271,6 +286,14 @@ class CalendarViewController: UIViewController {
         scrollView.snp.makeConstraints { make -> Void in
             make.edges.equalTo(view.safeAreaLayoutGuide)
         }
+    }
+    
+    func setupBinding() {
+        self.userIconButton.rx.tap
+            .subscribe { _ in
+                self.tabBarDelegate.showSlideMenu(animated: true)
+            }
+            .disposed(by: disposeBag)
     }
     
 }

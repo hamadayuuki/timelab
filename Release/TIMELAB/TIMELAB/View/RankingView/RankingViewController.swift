@@ -8,8 +8,21 @@
 import UIKit
 import SnapKit
 import FSCalendar
+import RxSwift
+import RxCocoa
 
 class RankingViewController: UIViewController {
+    let disposeBag = DisposeBag()
+    var userIconButton: UserIconButton!
+    var tabBarDelegate: TabBarViewController!
+    
+    init(userIconButton: UserIconButton, tabBarDelegate: TabBarViewController) {
+        super.init(nibName: nil, bundle: nil)
+        
+        self.userIconButton = userIconButton
+        self.tabBarDelegate = tabBarDelegate
+    }
+    required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
     
     // MARK: - UI Parts
     var roomCard: RankingRoomCardUIImageView!
@@ -45,10 +58,15 @@ class RankingViewController: UIViewController {
         
         navigationItem.title = "ランキング"
         setupLayout()
+        setupBinding()
     }
     
     // MARK: - Function
     func setupLayout() {
+        // NavigationBar leftButton
+        let userIconBarButton = UIBarButtonItem(customView: self.userIconButton)
+        self.navigationItem.leftBarButtonItem = userIconBarButton
+        
         self.roomCard = RankingRoomCardUIImageView()
         self.roomCardLabel = RankingLabel(text: "太田研究室", size: 15, textColor: Color.white.UIColor)
         
@@ -134,6 +152,14 @@ class RankingViewController: UIViewController {
                 make.centerY.equalTo(0).offset(230.0 + (100.0 * CGFloat(index)))   // equalTo() の中に数値を入れても意味ない
             }
         }
+    }
+    
+    func setupBinding() {
+        self.userIconButton.rx.tap
+            .subscribe { _ in
+                self.tabBarDelegate.showSlideMenu(animated: true)
+            }
+            .disposed(by: disposeBag)
     }
     
 }

@@ -27,6 +27,16 @@ class ConfirmOtherMemberStayStateViewController: UIViewController {
     var userIconUIImages: [ConfirmOtherMemberUserIconButton]!
     var userNameLabels: [ConfirmOtherMemberLabel]!
     var roomName = ""
+    var userIconButton: UserIconButton!
+    var tabBarDelegate: TabBarViewController!
+    
+    init(userIconButton: UserIconButton, tabBarDelegate: TabBarViewController) {
+        super.init(nibName: nil, bundle: nil)
+        
+        self.userIconButton = userIconButton
+        self.tabBarDelegate = tabBarDelegate
+    }
+    required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
     
     // MARK: - UI Parts
     var roomCard: RankingRoomCardUIImageView!
@@ -45,6 +55,10 @@ class ConfirmOtherMemberStayStateViewController: UIViewController {
     
     // MARK: - Function
     func setupLayout() {
+        // NavigationBar leftButton
+        let userIconBarButton = UIBarButtonItem(customView: self.userIconButton)
+        self.navigationItem.leftBarButtonItem = userIconBarButton
+        
         self.roomCard = RankingRoomCardUIImageView()
         self.roomCardLabel = RankingLabel(text: roomName, size: 15, textColor: Color.white.UIColor)
         
@@ -124,6 +138,12 @@ class ConfirmOtherMemberStayStateViewController: UIViewController {
                 self.otherMembers = stayStateArray
                 self.setupLayout()
                 HUD.hide()
+            }
+            .disposed(by: disposeBag)
+        
+        self.userIconButton.rx.tap
+            .subscribe { _ in
+                self.tabBarDelegate.showSlideMenu(animated: true)
             }
             .disposed(by: disposeBag)
     }

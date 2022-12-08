@@ -51,6 +51,7 @@
 		D44F5D962929472500DE7818 /* SlideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44F5D952929472500DE7818 /* SlideMenuViewController.swift */; };
 		D44F5D98292A866700DE7818 /* MenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44F5D97292A866700DE7818 /* MenuButton.swift */; };
 		D44F5D9A292A8CD200DE7818 /* TabBarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44F5D99292A8CD200DE7818 /* TabBarViewModel.swift */; };
+		D44F5D9C292A98E900DE7818 /* UserIconButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44F5D9B292A98E900DE7818 /* UserIconButton.swift */; };
 		D46479842881700700F72EEE /* FetchTimeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46479832881700700F72EEE /* FetchTimeModel.swift */; };
 		D46479862881DCC600F72EEE /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46479852881DCC600F72EEE /* DateExtension.swift */; };
 		D4647988288B0AF100F72EEE /* TransitionToQrCodeScannerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4647987288B0AF100F72EEE /* TransitionToQrCodeScannerViewModel.swift */; };
@@ -164,6 +165,7 @@
 		D44F5D952929472500DE7818 /* SlideMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideMenuViewController.swift; sourceTree = "<group>"; };
 		D44F5D97292A866700DE7818 /* MenuButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuButton.swift; sourceTree = "<group>"; };
 		D44F5D99292A8CD200DE7818 /* TabBarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewModel.swift; sourceTree = "<group>"; };
+		D44F5D9B292A98E900DE7818 /* UserIconButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserIconButton.swift; sourceTree = "<group>"; };
 		D46479832881700700F72EEE /* FetchTimeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchTimeModel.swift; sourceTree = "<group>"; };
 		D46479852881DCC600F72EEE /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
 		D4647987288B0AF100F72EEE /* TransitionToQrCodeScannerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionToQrCodeScannerViewModel.swift; sourceTree = "<group>"; };
@@ -511,6 +513,7 @@
 			isa = PBXGroup;
 			children = (
 				D477CB5828200D9100B7A07B /* TabBarViewController.swift */,
+				D44F5D9B292A98E900DE7818 /* UserIconButton.swift */,
 			);
 			path = TabBarView;
 			sourceTree = "<group>";
@@ -721,6 +724,7 @@
 				D4BDC2DC284F9C440087700D /* SaveRoomQrCodeViewController.swift in Sources */,
 				D44F5D962929472500DE7818 /* SlideMenuViewController.swift in Sources */,
 				D477CB2D281309B600B7A07B /* DetailLabel.swift in Sources */,
+				D44F5D9C292A98E900DE7818 /* UserIconButton.swift in Sources */,
 				D427F69D27FFE60700E7F4E9 /* RegisterUIImageView.swift in Sources */,
 				D435167C28E300C500DCF919 /* DateUtils.swift in Sources */,
 				D435167E28E3051500DCF919 /* TimeTableLabel.swift in Sources */,

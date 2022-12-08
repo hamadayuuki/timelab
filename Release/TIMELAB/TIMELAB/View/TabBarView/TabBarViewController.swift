@@ -42,8 +42,11 @@ class TabBarViewController: UITabBarController {
     
     // MARK: - Function
     func setupTabBar() {
+        // NavigationBar leftButton に使用
+        let userIconButton = UserIconButton(imageName: self.userIconName)
+        
         // カレンダー画面
-        let calendarView = CalendarViewController()
+        let calendarView = CalendarViewController(userIconButton: userIconButton, tabBarDelegate: self)
         let calendarViewIcon = UIImage(named: "CalendarViewIcon")?.reSizeImage(reSize: CGSize(width: 23,height: 23))
         calendarView.tabBarItem = UITabBarItem(title: "メモを見る", image: calendarViewIcon, selectedImage: calendarViewIcon)
         let calendarNavigationView = UINavigationController(rootViewController: calendarView)
@@ -56,13 +59,13 @@ class TabBarViewController: UITabBarController {
         let qrScanNavigationView = UINavigationController(rootViewController: qrScanView)
         
         // ランキング画面
-        let rankingView = RankingViewController()
+        let rankingView = RankingViewController(userIconButton: userIconButton, tabBarDelegate: self)
         let rankingViewIcon = UIImage(named: "RankingViewIcon")?.reSizeImage(reSize: CGSize(width: 23,height: 23))
         rankingView.tabBarItem = UITabBarItem(title: "ランキング", image: rankingViewIcon, selectedImage: rankingViewIcon)
         let rankingNavigationView = UINavigationController(rootViewController: rankingView)
         
         // メンバーの滞在状態確認画面
-        let confirmOtherMemberStayStateView = ConfirmOtherMemberStayStateViewController()
+        let confirmOtherMemberStayStateView = ConfirmOtherMemberStayStateViewController(userIconButton: userIconButton, tabBarDelegate: self)
         let confirmOtherMemberStayStateViewIcon = UIImage(named: "CheckMemberViewIcon")?.reSizeImage(reSize: CGSize(width: 23,height: 23))
         confirmOtherMemberStayStateView.tabBarItem = UITabBarItem(title: "他メンバー", image: confirmOtherMemberStayStateViewIcon, selectedImage: confirmOtherMemberStayStateViewIcon)
         let confirmOtherMemberStayStateNavigationView = UINavigationController(rootViewController: confirmOtherMemberStayStateView)

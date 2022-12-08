@@ -8,6 +8,8 @@
 import Foundation
 import UIKit
 import SnapKit
+import RxSwift
+import RxCocoa
 
 protocol SideMenuViewControllerDelegate: class{
     func parentViewControllerForSideMenuViewController(_ sidemenuViewController: SlideMenuViewController) -> UIViewController
@@ -18,6 +20,7 @@ protocol SideMenuViewControllerDelegate: class{
 }
 
 class SlideMenuViewController: ViewController, UIGestureRecognizerDelegate {
+    let disposeBag = DisposeBag()
     var delegate: SideMenuViewControllerDelegate?
     let contentView = UIView(frame: .zero)
     var contentMaxWidth: CGFloat { return view.bounds.width * 0.8 }
@@ -60,6 +63,7 @@ class SlideMenuViewController: ViewController, UIGestureRecognizerDelegate {
         super.viewDidLoad()
         
         setupLayout()
+        setupBinding()
         setupGesture()
     }
     
@@ -91,6 +95,38 @@ class SlideMenuViewController: ViewController, UIGestureRecognizerDelegate {
             make.centerX.equalTo(contentView.bounds.width * 0.5)
             make.centerY.equalTo(contentView.bounds.height * 0.5)
         }
+    }
+    
+    func setupBinding() {
+        self.profileButton.rx.tap
+            .subscribe { _ in
+                print("プロフィールボタン")
+            }
+            .disposed(by: disposeBag)
+        
+        self.formButton.rx.tap
+            .subscribe { _ in
+                print("フォームボタン")
+            }
+            .disposed(by: disposeBag)
+        
+        self.privacyPolicyButton.rx.tap
+            .subscribe { _ in
+                print("プライバシーボリシーボタン")
+            }
+            .disposed(by: disposeBag)
+        
+        self.logoutButton.rx.tap
+            .subscribe { _ in
+                print("ログアウトボタン")
+            }
+            .disposed(by: disposeBag)
+        
+        self.unsubscribeButton.rx.tap
+            .subscribe { _ in
+                print("アカウント削除ボタン")
+            }
+            .disposed(by: disposeBag)
     }
     
     // MARK: - Gesture

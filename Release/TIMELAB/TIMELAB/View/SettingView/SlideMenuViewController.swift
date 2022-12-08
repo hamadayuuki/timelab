@@ -101,6 +101,9 @@ class SlideMenuViewController: ViewController, UIGestureRecognizerDelegate {
         self.profileButton.rx.tap
             .subscribe { _ in
                 print("プロフィールボタン")
+                let webUIViewController = WebUIViewContorller(url: "https://google.com")
+                let webNavigationController = UINavigationController(rootViewController: webUIViewController)   // 遷移先画面で NavigationBar を表示させるため
+                self.present(webNavigationController, animated: true)
             }
             .disposed(by: disposeBag)
         

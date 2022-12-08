@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		D4214EDA285B7DC200ECEBE8 /* PositionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4214ED9285B7DC200ECEBE8 /* PositionType.swift */; };
+		D4270D1C294257A30086C219 /* WebUIViewContorller.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4270D1B294257A30086C219 /* WebUIViewContorller.swift */; };
 		D427F64427FD41D000E7F4E9 /* QRScanner in Frameworks */ = {isa = PBXBuildFile; productRef = D427F64327FD41D000E7F4E9 /* QRScanner */; };
 		D427F64727FD41FB00E7F4E9 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = D427F64627FD41FB00E7F4E9 /* SnapKit */; };
 		D427F65527FD42CB00E7F4E9 /* PKHUD in Frameworks */ = {isa = PBXBuildFile; productRef = D427F65427FD42CB00E7F4E9 /* PKHUD */; };
@@ -131,6 +132,7 @@
 
 /* Begin PBXFileReference section */
 		D4214ED9285B7DC200ECEBE8 /* PositionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionType.swift; sourceTree = "<group>"; };
+		D4270D1B294257A30086C219 /* WebUIViewContorller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebUIViewContorller.swift; sourceTree = "<group>"; };
 		D427F67527FD78CA00E7F4E9 /* QrCodeScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QrCodeScannerViewController.swift; sourceTree = "<group>"; };
 		D427F67727FD7FD600E7F4E9 /* MaskCaLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaskCaLayer.swift; sourceTree = "<group>"; };
 		D427F67B27FD899200E7F4E9 /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
@@ -392,6 +394,7 @@
 			children = (
 				D44F5D952929472500DE7818 /* SlideMenuViewController.swift */,
 				D44F5D97292A866700DE7818 /* MenuButton.swift */,
+				D4270D1B294257A30086C219 /* WebUIViewContorller.swift */,
 			);
 			path = SettingView;
 			sourceTree = "<group>";
@@ -663,6 +666,7 @@
 				D4BDC2D22848E8BC0087700D /* RegisterRoomLabel.swift in Sources */,
 				D427F69527FF183100E7F4E9 /* RegisterTextField.swift in Sources */,
 				D427F68227FD8A6600E7F4E9 /* Color.swift in Sources */,
+				D4270D1C294257A30086C219 /* WebUIViewContorller.swift in Sources */,
 				D427F68427FD956000E7F4E9 /* QrCodeScannerLabel.swift in Sources */,
 				D427F68F27FF178300E7F4E9 /* RegisterUserViewController.swift in Sources */,
 				D427F68A27FDB50B00E7F4E9 /* UIImageExtension.swift in Sources */,

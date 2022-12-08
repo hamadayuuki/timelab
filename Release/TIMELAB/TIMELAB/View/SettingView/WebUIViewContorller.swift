@@ -13,12 +13,14 @@ import WebKit
 // FloatingPanel でWebページを表示するために用意
 class WebUIViewContorller: UIViewController {
     var url: String!
+    var barTitle: String!
     var uiScrollView = UIScrollView()
     
-    init(url: String) {
+    init(setting: Setting) {
         super.init(nibName: nil, bundle: nil)
         
-        self.url = url
+        self.url = setting.url
+        self.barTitle = setting.title
     }
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 
@@ -34,7 +36,7 @@ class WebUIViewContorller: UIViewController {
         navigationController?.navigationBar.backgroundColor = UIColor.white
         navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: Color.navyBlue.UIColor]
         navigationController?.navigationBar.tintColor = Color.navyBlue.UIColor
-        navigationItem.title = self.url
+        navigationItem.title = self.barTitle
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(tapDismissButton(_:)))
     }
     

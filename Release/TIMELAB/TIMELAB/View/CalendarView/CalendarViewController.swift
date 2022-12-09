@@ -86,9 +86,9 @@ class CalendarViewController: UIViewController {
                 var newMonthCalndarTimes = monthCalendarTimes   // 日をまたいだ時のため
                 for monthCalendarTime in monthCalendarTimes {
                     //self.dateDictionary.append(dateFormatter.string(from: monthCalendarTime["enterTimeDate"] as! Date))
-                    let enterTimeDate = monthCalendarTime["enterAtDate"] as! Date
-                    let leaveTimeDate = monthCalendarTime["leaveAtDate"] as! Date
-                    let stayingTimeAtSecond = monthCalendarTime["stayingTimeAtSecond"] as! Int
+                    let enterTimeDate = monthCalendarTime["enterAtDate"] as? Date ?? Date()
+                    let leaveTimeDate = monthCalendarTime["leaveAtDate"] as? Date ?? Date()
+                    let stayingTimeAtSecond = monthCalendarTime["stayingTimeAtSecond"] as? Int ?? 0
                     if self.enterScheduleAndStayingTimeDic.keys.contains(dateFormatter.string(from: enterTimeDate)) {
                         self.enterScheduleAndStayingTimeDic[dateFormatter.string(from:enterTimeDate)]! += stayingTimeAtSecond > (24 * 60 * 60) ? 0 : stayingTimeAtSecond   // 日をまたいでいる場合を考慮して
                     } else {
@@ -143,12 +143,12 @@ class CalendarViewController: UIViewController {
         var enterAndLeaveTimesOfDay: [[String: Any]] = []
         for time in times {
             // 入退室した時刻を日付から取得
-            let enterAtDate = time["enterAtDate"] as! Date
+            let enterAtDate = time["enterAtDate"] as? Date ?? Date()
             let enterYearAndMonthAndDay = DateUtils.stringFromDate(date: enterAtDate, format: "yyyy-M-d")
             // 選択した日付と一致するデータを取得
             if (enterYearAndMonthAndDay == "\(year)-\(month)-\(day)") {
                 // 入室と退室で日付が異なるとき 退室時刻を 23:59 とする
-                let leaveAtDate = time["leaveAtDate"] as! Date
+                let leaveAtDate = time["leaveAtDate"] as? Date ?? Date()
                 let leaveYearAndMonthAndDay = DateUtils.stringFromDate(date: leaveAtDate, format: "yyyy-M-d")
                 if (enterYearAndMonthAndDay != leaveYearAndMonthAndDay) {
                     var newTime = time
@@ -167,18 +167,18 @@ class CalendarViewController: UIViewController {
         var stayingTimeSum = 0
         for time in times {
             // 入退室した時刻を日付から取得
-            let enterAtDate = time["enterAtDate"] as! Date
+            let enterAtDate = time["enterAtDate"] as? Date ?? Date()
             let enterYearAndMonthAndDay = DateUtils.stringFromDate(date: enterAtDate, format: "yyyy-M-d")
             if (enterYearAndMonthAndDay == "\(year)-\(month)-\(day)") {
                 // 入室と退室で日付が異なるとき 滞在時間を (23:59 - 入室時刻) とする
-                let leaveAtDate = time["leaveAtDate"] as! Date
+                let leaveAtDate = time["leaveAtDate"] as? Date ?? Date()
                 let leaveYearAndMonthAndDay = DateUtils.stringFromDate(date: leaveAtDate, format: "yyyy-M-d")
                 if (enterYearAndMonthAndDay != leaveYearAndMonthAndDay) {
-                    let midnight = Calendar(identifier: .gregorian).date(bySettingHour: 23, minute: 59, second: 59, of: enterAtDate) as! Date
+                    let midnight = Calendar(identifier: .gregorian).date(bySettingHour: 23, minute: 59, second: 59, of: enterAtDate) as? Date ?? Date()
                     let untilMidnightSecond = midnight.timeIntervalSince(enterAtDate)   // 滞在時間を (23:59 - 入室時刻) とする
                     stayingTimeSum += Int(untilMidnightSecond)
                 } else {
-                    stayingTimeSum += time["stayingTimeAtSecond"] as! Int
+                    stayingTimeSum += time["stayingTimeAtSecond"] as? Int ?? 0
                 }
             }
         }

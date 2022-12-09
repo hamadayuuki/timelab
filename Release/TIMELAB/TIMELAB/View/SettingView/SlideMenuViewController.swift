@@ -10,6 +10,7 @@ import UIKit
 import SnapKit
 import RxSwift
 import RxCocoa
+import PKHUD
 
 protocol SideMenuViewControllerDelegate: class{
     func parentViewControllerForSideMenuViewController(_ sidemenuViewController: SlideMenuViewController) -> UIViewController
@@ -21,7 +22,10 @@ protocol SideMenuViewControllerDelegate: class{
 
 class SlideMenuViewController: ViewController, UIGestureRecognizerDelegate {
     let disposeBag = DisposeBag()
+    var slideMenuViewModel: SlideMenuViewModel!
     var delegate: SideMenuViewControllerDelegate?
+    
+    // MARK: - UI Parts
     let contentView = UIView(frame: .zero)
     var contentMaxWidth: CGFloat { return view.bounds.width * 0.8 }
     var contentRatio: CGFloat {   // 1.0: 表示, 0.0: 非表示
@@ -98,6 +102,8 @@ class SlideMenuViewController: ViewController, UIGestureRecognizerDelegate {
     }
     
     func setupBinding() {
+        self.slideMenuViewModel = SlideMenuViewModel()
+        
         self.profileButton.rx.tap
             .subscribe { _ in
                 print("プロフィールボタン")
@@ -131,6 +137,29 @@ class SlideMenuViewController: ViewController, UIGestureRecognizerDelegate {
         self.logoutButton.rx.tap
             .subscribe { _ in
                 print("ログアウトボタン")
+                let alert = UIAlertController(title: "ログアウトしますか？", message: "再度ログインする必要があります", preferredStyle: .alert)
+                let signOutAction = UIAlertAction(title: "ログアウト", style: .destructive) { (action) in
+                    // TODO: リファクタリング
+                    HUD.show(.progress)
+                    self.slideMenuViewModel.signOutAction()
+                        .drive { isSignOut in
+                            print("isSignOut: \(isSignOut)")
+                            if isSignOut {
+                                HUD.hide()
+                                self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)   // 画面破棄
+                                let chooseRegisterOrLogInViewController = ChooseRegisterOrLogInViewController()
+                                let navigationController = UINavigationController(rootViewController: chooseRegisterOrLogInViewController)
+                                self.view.window?.rootViewController = navigationController
+                            }
+                        }
+                        .disposed(by: self.disposeBag)
+                }
+                let cancellAction = UIAlertAction(title: "キャンセル", style: .default) { (action) in
+                    self.dismiss(animated: true, completion: nil)
+                }
+                alert.addAction(signOutAction)
+                alert.addAction(cancellAction)
+                self.present(alert, animated: true, completion: nil)
             }
             .disposed(by: disposeBag)
         

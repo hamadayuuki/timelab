@@ -50,6 +50,8 @@ class SlideMenuViewController: ViewController, UIGestureRecognizerDelegate {
     var beganState: Bool = false
     var isShown: Bool { return self.parent != nil }
     
+    var userIcon: UserIconButton!
+    var userNameLabel: ProfileLabel!
     var profileButton: MenuButton!
     var formButton: MenuButton!
     var termOfUseButton: MenuButton!
@@ -85,6 +87,13 @@ class SlideMenuViewController: ViewController, UIGestureRecognizerDelegate {
         contentView.autoresizingMask = .flexibleHeight
         view.addSubview(contentView)
         
+        userIcon = UserIconButton(imageName: self.user["iconName"] as? String ?? "UserIcon1", imageSize: CGSize(width: 70, height: 70))
+        userNameLabel = ProfileLabel(text: self.user["name"] as? String ?? "", size: 20)
+        let userHorizontalView = UIStackView(arrangedSubviews: [userIcon, userNameLabel])
+        userHorizontalView.axis = .horizontal
+        userHorizontalView.spacing = 13
+        let underLine = UILabel()   // 線を描画するためだけ
+        underLine.underLine(color: Color.navyBlue.UIColor, thickness: 1, frame: CGSize(width: 250, height: 1))
         profileButton = MenuButton(text: "プロフィール", textSize: 15)
         formButton = MenuButton(text: "お問い合せ", textSize: 15)
         termOfUseButton = MenuButton(text: "利用規約", textSize: 15)
@@ -96,10 +105,22 @@ class SlideMenuViewController: ViewController, UIGestureRecognizerDelegate {
         menuVerticallView.distribution = .fillEqually   // 全ての要素の大きさを均等に
         menuVerticallView.spacing = 15
         
+        contentView.addSubview(userHorizontalView)
+        userHorizontalView.snp.makeConstraints { make -> Void in
+            make.centerX.equalTo(contentView.bounds.width * 0.4)   // アイコンの位置を左にしたい
+            make.top.equalTo(68)
+        }
+        
+        contentView.addSubview(underLine)
+        underLine.snp.makeConstraints { make -> Void in
+            make.left.equalTo(userHorizontalView.snp.left).offset(-20)
+            make.top.equalTo(userHorizontalView.snp.bottom).offset(15)
+        }
+        
         contentView.addSubview(menuVerticallView)
         menuVerticallView.snp.makeConstraints { make -> Void in
             make.centerX.equalTo(contentView.bounds.width * 0.5)
-            make.centerY.equalTo(contentView.bounds.height * 0.5)
+            make.top.equalTo(userHorizontalView.snp.bottom).offset(50)
         }
     }
     

@@ -24,6 +24,8 @@ class SlideMenuViewController: ViewController, UIGestureRecognizerDelegate {
     let disposeBag = DisposeBag()
     var slideMenuViewModel: SlideMenuViewModel!
     var delegate: SideMenuViewControllerDelegate?
+    var user: [String: Any] = ["": ""]
+    var room: [String: Any] = ["": ""]
     
     // MARK: - UI Parts
     let contentView = UIView(frame: .zero)
@@ -107,7 +109,7 @@ class SlideMenuViewController: ViewController, UIGestureRecognizerDelegate {
         self.profileButton.rx.tap
             .subscribe { _ in
                 print("プロフィールボタン")
-                let myProfileViewController = UINavigationController(rootViewController: MyProfileViewController(setting: .myProfile))
+                let myProfileViewController = UINavigationController(rootViewController: MyProfileViewController(setting: .myProfile, user: self.user, room: self.room))
                 self.present(myProfileViewController, animated: true)
             }
             .disposed(by: disposeBag)

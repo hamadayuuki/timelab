@@ -14,9 +14,12 @@ class TabBarViewModel {
     
     let userId: Observable<String>
     let user: Driver<[String: Any]>
+    let currentStayingRoom: Observable<String>
+    let room: Driver<[String: Any]>
     
     init() {
         let fetchUserModel = FetchUserModel()
+        let fetchRoomModel = FetchRoomModel()
         
         userId = fetchUserModel.fetchUserId()
             .filter { $0 != "" }
@@ -26,6 +29,20 @@ class TabBarViewModel {
         user = userId
             .flatMap { uid in
                 fetchUserModel.fetchUser(uid: uid)
+            }
+            .asDriver(onErrorJustReturn: ["": ""])
+        
+        currentStayingRoom = user
+            .asObservable()
+            .filter { $0["currentStayingRoom"] != nil }
+            .map { user in
+                user["currentStayingRoom"] as? String ?? ""   // "" にはならないはず
+            }
+            .share(replay: 1)
+        
+        room = currentStayingRoom
+            .flatMap { roomId in
+                fetchRoomModel.fetchRoom(roomId: roomId)
             }
             .asDriver(onErrorJustReturn: ["": ""])
     }

@@ -17,6 +17,8 @@ class TabBarViewController: UITabBarController {
     let slideMenuViewController = SlideMenuViewController()
     var isShownSlideMenu: Bool { return slideMenuViewController.parent == self }
     
+    var user: [String: Any] = ["": ""]
+    var room: [String: Any] = ["": ""]
     var userName = ""
     var userIconName = "UserIcon1"
 
@@ -133,11 +135,20 @@ class TabBarViewController: UITabBarController {
         
         tabBarViewModel.user
             .drive { user in
+                self.user = user as? [String: Any] ?? ["": ""]
+                self.slideMenuViewController.user = self.user   // 注入
                 self.userName = user["name"] as? String ?? ""
                 self.userIconName = user["iconName"] as? String ?? "UserIcon1"
                 self.setupTabBar()
                 self.setupLayoutNavigationAndTab()
                 HUD.hide()
+            }
+            .disposed(by: disposeBag)
+        
+        tabBarViewModel.room
+            .drive { room in
+                self.room = room
+                self.slideMenuViewController.room = self.room   // 注入
             }
             .disposed(by: disposeBag)
     }

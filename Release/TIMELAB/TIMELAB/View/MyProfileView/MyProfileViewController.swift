@@ -17,11 +17,15 @@ class MyProfileViewController: UIViewController {
     //var registerUserViewModel: RegisterUserViewModel!
     var isProgressView  = false
     var barTitle: String!
+    var user: [String: Any]!
+    var room: [String: Any]!
     
-    init(setting: Setting) {
+    init(setting: Setting, user: [String: Any], room: [String: Any]) {
         super.init(nibName: nil, bundle: nil)
         
         self.barTitle = setting.title
+        self.user = user
+        self.room = room
     }
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 
@@ -29,7 +33,6 @@ class MyProfileViewController: UIViewController {
     // MARK: - UI Parts
     var width: CGFloat!
     var height: CGFloat!
-    let descriptionLabelFrame = CGSize(width: 136, height: 20)
     let labelFrame = CGSize(width: 305, height: 25)
     
     var descriptionNickNameLabel: ProfileLabel!
@@ -64,7 +67,7 @@ class MyProfileViewController: UIViewController {
         
         self.view.backgroundColor = .white
         
-        let userIconButton = UserIconButton(imageName: "UserIcon1", imageSize: CGSize(width: 125, height: 125))
+        let userIconButton = UserIconButton(imageName: user["iconName"] as? String ?? "", imageSize: CGSize(width: 125, height: 125))
         let profileVerticalView = setupProfileVerticalView()
         
         // MARK: - addSubview/layer
@@ -76,8 +79,8 @@ class MyProfileViewController: UIViewController {
         
         view.addSubview(profileVerticalView)
         descriptionNickNameLabel.snp.makeConstraints { make -> Void in
-            make.width.equalTo(descriptionLabelFrame.width)
-            make.height.equalTo(descriptionLabelFrame.height)
+            make.width.equalTo(labelFrame.width)
+            make.height.equalTo(labelFrame.height)
         }
         nickNameLabel.snp.makeConstraints { make -> Void in
             make.height.equalTo(labelFrame.height)
@@ -91,19 +94,19 @@ class MyProfileViewController: UIViewController {
     
     func setupProfileVerticalView() -> UIStackView {
         descriptionNickNameLabel = ProfileLabel(text: "ニックネーム", size: 15, color: Color.lightGray.UIColor)
-        nickNameLabel = ProfileLabel(text: "はまだ", size: 20)
+        nickNameLabel = ProfileLabel(text: self.user["name"] as? String ?? "", size: 20)
         nickNameLabel.underLine(color: Color.lightGray.UIColor, thickness: 1, frame: labelFrame)
         
         descriptionUnivercityLabel = ProfileLabel(text: "大学", size: 15, color: Color.lightGray.UIColor)
-        univercityLabel = ProfileLabel(text: "鹿児島大学", size: 20)
+        univercityLabel = ProfileLabel(text: self.room["university"] as? String ?? "部屋を登録してください", size: 20)
         univercityLabel.underLine(color: Color.lightGray.UIColor, thickness: 1, frame: labelFrame)
         
         descriptionCourseLabel = ProfileLabel(text: "所属ゼミ", size: 15, color: Color.lightGray.UIColor)
-        courseLabel = ProfileLabel(text: "太田ゼミ", size: 20)
+        courseLabel = ProfileLabel(text: self.room["course"] as? String ?? "部屋を登録してください", size: 20)
         courseLabel.underLine(color: Color.lightGray.UIColor, thickness: 1, frame: labelFrame)
         
         descriptionRoomLabel = ProfileLabel(text: "使用している部屋名", size: 15, color: Color.lightGray.UIColor)
-        roomLabel = ProfileLabel(text: "太田研究室", size: 20)
+        roomLabel = ProfileLabel(text: self.room["name"] as? String ?? "部屋を登録してください", size: 20)
         roomLabel.underLine(color: Color.lightGray.UIColor, thickness: 1, frame: labelFrame)
         
          // ニックネーム

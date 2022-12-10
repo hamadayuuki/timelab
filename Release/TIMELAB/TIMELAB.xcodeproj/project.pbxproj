@@ -315,8 +315,8 @@
 				D477CB09280C527100B7A07B /* CalendarView */,
 				D477CB402819274A00B7A07B /* RankingView */,
 				D477CB50281FADF300B7A07B /* ConfirmOtherMemberStayStatusView */,
-				D44F5D942929470100DE7818 /* SettingView */,
 				D4716C6A294480AA007D1936 /* MyProfileView */,
+				D44F5D942929470100DE7818 /* SettingView */,
 				D477CB5728200D1A00B7A07B /* TabBarView */,
 			);
 			path = View;

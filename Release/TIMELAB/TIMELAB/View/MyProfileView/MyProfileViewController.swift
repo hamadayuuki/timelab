@@ -16,6 +16,15 @@ class MyProfileViewController: UIViewController {
     let disposeBag = DisposeBag()
     //var registerUserViewModel: RegisterUserViewModel!
     var isProgressView  = false
+    var barTitle: String!
+    
+    init(setting: Setting) {
+        super.init(nibName: nil, bundle: nil)
+        
+        self.barTitle = setting.title
+    }
+    required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
+
     
     // MARK: - UI Parts
     var width: CGFloat!
@@ -36,11 +45,19 @@ class MyProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupNavigationBar()
         setupLayout()
-        setupBinding()
     }
     
     // MARK: - Function
+    func setupNavigationBar() {
+        navigationController?.navigationBar.backgroundColor = UIColor.white
+        navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: Color.navyBlue.UIColor]
+        navigationController?.navigationBar.tintColor = Color.navyBlue.UIColor
+        navigationItem.title = self.barTitle
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(tapDismissButton(_:)))
+    }
+    
     private func setupLayout() {
         width = view.frame.width
         height = view.frame.height
@@ -118,9 +135,8 @@ class MyProfileViewController: UIViewController {
         return profileVerticalView
     }
     
-    private func setupBinding() {
-        
-        
+    @objc func tapDismissButton(_ sender: UIBarButtonItem) {
+        self.dismiss(animated: true, completion: nil)
     }
 }
 

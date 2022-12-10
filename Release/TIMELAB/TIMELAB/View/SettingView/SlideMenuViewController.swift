@@ -83,7 +83,7 @@ class SlideMenuViewController: ViewController, UIGestureRecognizerDelegate {
         contentView.autoresizingMask = .flexibleHeight
         view.addSubview(contentView)
         
-        profileButton = MenuButton(text: "マイページ", textSize: 15)
+        profileButton = MenuButton(text: "プロフィール", textSize: 15)
         formButton = MenuButton(text: "お問い合せ", textSize: 15)
         termOfUseButton = MenuButton(text: "利用規約", textSize: 15)
         privacyPolicyButton = MenuButton(text: "プライバシーポリシー", textSize: 15)
@@ -107,6 +107,8 @@ class SlideMenuViewController: ViewController, UIGestureRecognizerDelegate {
         self.profileButton.rx.tap
             .subscribe { _ in
                 print("プロフィールボタン")
+                let myProfileViewController = UINavigationController(rootViewController: MyProfileViewController(setting: .myProfile))
+                self.present(myProfileViewController, animated: true)
             }
             .disposed(by: disposeBag)
         

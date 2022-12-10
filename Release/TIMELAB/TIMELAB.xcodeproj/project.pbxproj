@@ -88,6 +88,8 @@
 		D469AA42287ADC7D0049F1B8 /* FetchRoomModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D469AA41287ADC7C0049F1B8 /* FetchRoomModel.swift */; };
 		D4716C6729438223007D1936 /* LogOutModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4716C6629438223007D1936 /* LogOutModel.swift */; };
 		D4716C69294386B2007D1936 /* SlideMenuViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4716C68294386B2007D1936 /* SlideMenuViewModel.swift */; };
+		D4716C6C294480CB007D1936 /* MyProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4716C6B294480CB007D1936 /* MyProfileViewController.swift */; };
+		D4716C6E294482D4007D1936 /* ProfileLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4716C6D294482D4007D1936 /* ProfileLabel.swift */; };
 		D476DFBA27FD398500A1EDE3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D476DFB927FD398500A1EDE3 /* AppDelegate.swift */; };
 		D476DFBC27FD398500A1EDE3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D476DFBB27FD398500A1EDE3 /* SceneDelegate.swift */; };
 		D476DFBE27FD398500A1EDE3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D476DFBD27FD398500A1EDE3 /* ViewController.swift */; };
@@ -205,6 +207,8 @@
 		D469AA41287ADC7C0049F1B8 /* FetchRoomModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchRoomModel.swift; sourceTree = "<group>"; };
 		D4716C6629438223007D1936 /* LogOutModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogOutModel.swift; sourceTree = "<group>"; };
 		D4716C68294386B2007D1936 /* SlideMenuViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideMenuViewModel.swift; sourceTree = "<group>"; };
+		D4716C6B294480CB007D1936 /* MyProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileViewController.swift; sourceTree = "<group>"; };
+		D4716C6D294482D4007D1936 /* ProfileLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileLabel.swift; sourceTree = "<group>"; };
 		D476DFB627FD398500A1EDE3 /* TIMELAB.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TIMELAB.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D476DFB927FD398500A1EDE3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D476DFBB27FD398500A1EDE3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -312,6 +316,7 @@
 				D477CB402819274A00B7A07B /* RankingView */,
 				D477CB50281FADF300B7A07B /* ConfirmOtherMemberStayStatusView */,
 				D44F5D942929470100DE7818 /* SettingView */,
+				D4716C6A294480AA007D1936 /* MyProfileView */,
 				D477CB5728200D1A00B7A07B /* TabBarView */,
 			);
 			path = View;
@@ -443,6 +448,15 @@
 				D469A9D0286F1F2D0049F1B8 /* QrCode.swift */,
 			);
 			path = Struct;
+			sourceTree = "<group>";
+		};
+		D4716C6A294480AA007D1936 /* MyProfileView */ = {
+			isa = PBXGroup;
+			children = (
+				D4716C6B294480CB007D1936 /* MyProfileViewController.swift */,
+				D4716C6D294482D4007D1936 /* ProfileLabel.swift */,
+			);
+			path = MyProfileView;
 			sourceTree = "<group>";
 		};
 		D476DFAD27FD398500A1EDE3 = {
@@ -685,6 +699,7 @@
 				D477CB272813095900B7A07B /* CustomFloatingPanelLayout.swift in Sources */,
 				D427F6E028040D4000E7F4E9 /* ChooseRegisterOrLogInViewController.swift in Sources */,
 				D465BD56282A380500C2FE2A /* ValidationModel.swift in Sources */,
+				D4716C6E294482D4007D1936 /* ProfileLabel.swift in Sources */,
 				D476DFBA27FD398500A1EDE3 /* AppDelegate.swift in Sources */,
 				D469AA3C2879ED8C0049F1B8 /* RegisterTimeModel.swift in Sources */,
 				D465BF51283CD60500C2FE2A /* TransitionButton.swift in Sources */,
@@ -732,6 +747,7 @@
 				D427F68827FD994700E7F4E9 /* QrCodeScannerUiImageView.swift in Sources */,
 				D4BDC2E0284FA8EA0087700D /* TransitionToMemoViewController.swift in Sources */,
 				D469A9DB286F58B10049F1B8 /* SaveRoomQrCodeModel.swift in Sources */,
+				D4716C6C294480CB007D1936 /* MyProfileViewController.swift in Sources */,
 				D465BF4D2839380C00C2FE2A /* LogInResult.swift in Sources */,
 				D4BDC2D62848E92A0087700D /* RegisterRoomButton.swift in Sources */,
 				D4BDC2D82848E9710087700D /* RegisterRoomUIImageView.swift in Sources */,

@@ -9,7 +9,7 @@ import UIKit
 
 // 未使用, SnapKit でレイアウトすると使用しづらい
 extension UILabel {
-    func underLine(color: UIColor, thickness: CGFloat) {
+    func underLine(color: UIColor, thickness: CGFloat, frame: CGSize) {
         print("frame: ", frame)
         // 枠線を非表示にする
         let underline = UIView()

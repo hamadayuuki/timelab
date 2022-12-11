@@ -91,6 +91,7 @@
 		D4716C6C294480CB007D1936 /* MyProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4716C6B294480CB007D1936 /* MyProfileViewController.swift */; };
 		D4716C6E294482D4007D1936 /* ProfileLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4716C6D294482D4007D1936 /* ProfileLabel.swift */; };
 		D4716C70294595F9007D1936 /* DeleteUserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4716C6F294595F9007D1936 /* DeleteUserModel.swift */; };
+		D4716C722945B421007D1936 /* DeleteRoomModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4716C712945B420007D1936 /* DeleteRoomModel.swift */; };
 		D476DFBA27FD398500A1EDE3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D476DFB927FD398500A1EDE3 /* AppDelegate.swift */; };
 		D476DFBC27FD398500A1EDE3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D476DFBB27FD398500A1EDE3 /* SceneDelegate.swift */; };
 		D476DFBE27FD398500A1EDE3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D476DFBD27FD398500A1EDE3 /* ViewController.swift */; };
@@ -211,6 +212,7 @@
 		D4716C6B294480CB007D1936 /* MyProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileViewController.swift; sourceTree = "<group>"; };
 		D4716C6D294482D4007D1936 /* ProfileLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileLabel.swift; sourceTree = "<group>"; };
 		D4716C6F294595F9007D1936 /* DeleteUserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteUserModel.swift; sourceTree = "<group>"; };
+		D4716C712945B420007D1936 /* DeleteRoomModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteRoomModel.swift; sourceTree = "<group>"; };
 		D476DFB627FD398500A1EDE3 /* TIMELAB.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TIMELAB.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D476DFB927FD398500A1EDE3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D476DFBB27FD398500A1EDE3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -350,6 +352,7 @@
 				D469AA3F2879FF3C0049F1B8 /* FetchUserModel.swift */,
 				D469A9CE286F1EA90049F1B8 /* RegisterRoomModel.swift */,
 				D469AA41287ADC7C0049F1B8 /* FetchRoomModel.swift */,
+				D4716C712945B420007D1936 /* DeleteRoomModel.swift */,
 				D469AA3B2879ED8B0049F1B8 /* RegisterTimeModel.swift */,
 				D46479832881700700F72EEE /* FetchTimeModel.swift */,
 			);
@@ -735,6 +738,7 @@
 				D4270D1E29426DBD0086C219 /* Setting.swift in Sources */,
 				D427F69327FF181900E7F4E9 /* RegisterButton.swift in Sources */,
 				D477CB44281927A000B7A07B /* RankingCrownUIImageView.swift in Sources */,
+				D4716C722945B421007D1936 /* DeleteRoomModel.swift in Sources */,
 				D427F69927FF243200E7F4E9 /* RegisterSecretButton.swift in Sources */,
 				D476DFBC27FD398500A1EDE3 /* SceneDelegate.swift in Sources */,
 				D427F69F27FFEE3D00E7F4E9 /* RegisterNickNameViewController.swift in Sources */,

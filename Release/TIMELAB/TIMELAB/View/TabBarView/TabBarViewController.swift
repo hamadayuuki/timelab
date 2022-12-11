@@ -6,16 +6,35 @@
 //
 
 import UIKit
+import PKHUD
+import RxSwift
+import RxCocoa
 
 class TabBarViewController: UITabBarController {
+    let disposeBag = DisposeBag()
+    
+    let contentViewController = UINavigationController(rootViewController: UIViewController())
+    let slideMenuViewController = SlideMenuViewController()
+    var isShownSlideMenu: Bool { return slideMenuViewController.parent == self }
+    
+    var user: [String: Any] = ["": ""]
+    var room: [String: Any] = ["": ""]
+    var userName = ""
+    var userIconName = "UserIcon1"
 
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.navigationItem.hidesBackButton = true
-        setupTabBar()
-        setupLayoutNavigationAndTab()
+        view.backgroundColor = .white
+        HUD.show(.progress)
+        setupBinding()   // TODO: setupTabBar()/setupLayoutNavigationAndTab() を呼び出さない
+//        setupTabBar()
+//        setupLayoutNavigationAndTab()
+        
+        slideMenuViewController.delegate = self
+        slideMenuViewController.startPanGestureRecognizing()
     }
     
     // 実行中のアプリがiPhoneのメモリを使いすぎた際に呼び出される
@@ -25,8 +44,11 @@ class TabBarViewController: UITabBarController {
     
     // MARK: - Function
     func setupTabBar() {
+        // NavigationBar leftButton に使用
+        let userIconButton = UserIconButton(imageName: self.userIconName)
+        
         // カレンダー画面
-        let calendarView = CalendarViewController()
+        let calendarView = CalendarViewController(userIconButton: userIconButton, tabBarDelegate: self)
         let calendarViewIcon = UIImage(named: "CalendarViewIcon")?.reSizeImage(reSize: CGSize(width: 23,height: 23))
         calendarView.tabBarItem = UITabBarItem(title: "メモを見る", image: calendarViewIcon, selectedImage: calendarViewIcon)
         let calendarNavigationView = UINavigationController(rootViewController: calendarView)
@@ -39,13 +61,13 @@ class TabBarViewController: UITabBarController {
         let qrScanNavigationView = UINavigationController(rootViewController: qrScanView)
         
         // ランキング画面
-        let rankingView = RankingViewController()
+        let rankingView = RankingViewController(userIconButton: userIconButton, tabBarDelegate: self)
         let rankingViewIcon = UIImage(named: "RankingViewIcon")?.reSizeImage(reSize: CGSize(width: 23,height: 23))
         rankingView.tabBarItem = UITabBarItem(title: "ランキング", image: rankingViewIcon, selectedImage: rankingViewIcon)
         let rankingNavigationView = UINavigationController(rootViewController: rankingView)
         
         // メンバーの滞在状態確認画面
-        let confirmOtherMemberStayStateView = ConfirmOtherMemberStayStateViewController()
+        let confirmOtherMemberStayStateView = ConfirmOtherMemberStayStateViewController(userIconButton: userIconButton, tabBarDelegate: self)
         let confirmOtherMemberStayStateViewIcon = UIImage(named: "CheckMemberViewIcon")?.reSizeImage(reSize: CGSize(width: 23,height: 23))
         confirmOtherMemberStayStateView.tabBarItem = UITabBarItem(title: "他メンバー", image: confirmOtherMemberStayStateViewIcon, selectedImage: confirmOtherMemberStayStateViewIcon)
         let confirmOtherMemberStayStateNavigationView = UINavigationController(rootViewController: confirmOtherMemberStayStateView)
@@ -84,6 +106,74 @@ class TabBarViewController: UITabBarController {
             UITabBar.appearance().unselectedItemTintColor = Color.navyBlue.UIColor
             UITabBar.appearance().isTranslucent = false
         }
+    }
+    
+    func showSlideMenu(contentAvailability: Bool = true, animated: Bool) {
+        if isShownSlideMenu { return }
+        
+        addChild(slideMenuViewController)
+        slideMenuViewController.view.autoresizingMask = .flexibleHeight
+        slideMenuViewController.view.frame = contentViewController.view.bounds
+        view.insertSubview(slideMenuViewController.view, aboveSubview: contentViewController.view)
+        slideMenuViewController.didMove(toParent: self)
+        if contentAvailability { slideMenuViewController.showContentView(animated: true) }
+    }
+    
+    func hideSlideMenu(animated: Bool) {
+        if !isShownSlideMenu { return }
+        
+        slideMenuViewController.hideContentView(animated: animated, completion: { (_) in
+            self.slideMenuViewController.willMove(toParent: nil)
+            self.slideMenuViewController.removeFromParent()
+            self.slideMenuViewController.view.removeFromSuperview()
+        })
+    }
+    
+    // MARK: - Binding
+    func setupBinding() {
+        let tabBarViewModel = TabBarViewModel()
+        
+        tabBarViewModel.user
+            .drive { user in
+                self.user = user as? [String: Any] ?? ["": ""]
+                self.slideMenuViewController.user = self.user   // 注入
+                self.userName = user["name"] as? String ?? ""
+                self.userIconName = user["iconName"] as? String ?? "UserIcon1"
+                self.setupTabBar()
+                self.setupLayoutNavigationAndTab()
+                HUD.hide()
+            }
+            .disposed(by: disposeBag)
+        
+        tabBarViewModel.room
+            .drive { room in
+                self.room = room
+                self.slideMenuViewController.room = self.room   // 注入
+            }
+            .disposed(by: disposeBag)
+    }
+    
+}
+
+extension TabBarViewController: SideMenuViewControllerDelegate {
+    func parentViewControllerForSideMenuViewController(_ sidemenuViewController: SlideMenuViewController) -> UIViewController {
+        return self
+    }
+    
+    func shouldPresentForSideMenuViewController(_ sidemenuViewController: SlideMenuViewController) -> Bool {
+        return true
+    }
+    
+    func sideMenuViewControllerDidRequestShowing(_ sidemenuViewController: SlideMenuViewController, contentAvailability: Bool, animated: Bool) {
+        showSlideMenu(contentAvailability: contentAvailability, animated: animated)
+    }
+    
+    func sideMenuViewControllerDidRequestHiding(_ sidemenuViewController: SlideMenuViewController, animated: Bool) {
+        hideSlideMenu(animated: animated)
+    }
+    
+    func sideMenuViewController(_ sidemenuViewController: SlideMenuViewController, didSelectItemAt indexPath: IndexPath) {
+        hideSlideMenu(animated: true)
     }
 }
 

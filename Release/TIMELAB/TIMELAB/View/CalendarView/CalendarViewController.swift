@@ -29,6 +29,8 @@ class CalendarViewController: UIViewController {
     var doneContentUIImageView: DoneContentUIImageView!
     var longTimeCellDescriptionText: DetailLabel!
     var shortTimeCellDescriptionText: DetailLabel!
+    var userIconButton: UserIconButton!
+    var tabBarDelegate: TabBarViewController!   // TODO: TabBarViewController に Delegate を定義する
     
     // TODO: dataList を DoneContentsChartView か CalendarViewController どちらで扱うか決める。両方はなし。
     let dataList = [
@@ -41,9 +43,11 @@ class CalendarViewController: UIViewController {
     var contentsView = UIView()
     let scrollView = CalendarScrollView()
     
-    init() {
+    init(userIconButton: UserIconButton, tabBarDelegate: TabBarViewController) {
         super.init(nibName: nil, bundle: nil)
         
+        self.userIconButton = userIconButton
+        self.tabBarDelegate = tabBarDelegate
         self.fpc = FloatingPanelController()
     }
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
@@ -60,6 +64,7 @@ class CalendarViewController: UIViewController {
         HUD.show(.progress)
         setupMonthCalendarTime()
 //        setupLayout()   // setupMonthCalendarTime() 内で呼ばれる
+//        setupBinding()   // setupMonthCalendarTime() 内で呼ばれる
 //        setupFloatingPanel()   // setupMonthCalendarTime() 内で呼ばれる
     }
     
@@ -81,9 +86,9 @@ class CalendarViewController: UIViewController {
                 var newMonthCalndarTimes = monthCalendarTimes   // 日をまたいだ時のため
                 for monthCalendarTime in monthCalendarTimes {
                     //self.dateDictionary.append(dateFormatter.string(from: monthCalendarTime["enterTimeDate"] as! Date))
-                    let enterTimeDate = monthCalendarTime["enterAtDate"] as! Date
-                    let leaveTimeDate = monthCalendarTime["leaveAtDate"] as! Date
-                    let stayingTimeAtSecond = monthCalendarTime["stayingTimeAtSecond"] as! Int
+                    let enterTimeDate = monthCalendarTime["enterAtDate"] as? Date ?? Date()
+                    let leaveTimeDate = monthCalendarTime["leaveAtDate"] as? Date ?? Date()
+                    let stayingTimeAtSecond = monthCalendarTime["stayingTimeAtSecond"] as? Int ?? 0
                     if self.enterScheduleAndStayingTimeDic.keys.contains(dateFormatter.string(from: enterTimeDate)) {
                         self.enterScheduleAndStayingTimeDic[dateFormatter.string(from:enterTimeDate)]! += stayingTimeAtSecond > (24 * 60 * 60) ? 0 : stayingTimeAtSecond   // 日をまたいでいる場合を考慮して
                     } else {
@@ -126,6 +131,7 @@ class CalendarViewController: UIViewController {
                 self.times = newMonthCalndarTimes   // 日毎の詳細画面に使用
                 
                 self.setupLayout()
+                self.setupBinding()
                 self.setupFloatingPanel()
                 HUD.hide()
             }
@@ -137,12 +143,12 @@ class CalendarViewController: UIViewController {
         var enterAndLeaveTimesOfDay: [[String: Any]] = []
         for time in times {
             // 入退室した時刻を日付から取得
-            let enterAtDate = time["enterAtDate"] as! Date
+            let enterAtDate = time["enterAtDate"] as? Date ?? Date()
             let enterYearAndMonthAndDay = DateUtils.stringFromDate(date: enterAtDate, format: "yyyy-M-d")
             // 選択した日付と一致するデータを取得
             if (enterYearAndMonthAndDay == "\(year)-\(month)-\(day)") {
                 // 入室と退室で日付が異なるとき 退室時刻を 23:59 とする
-                let leaveAtDate = time["leaveAtDate"] as! Date
+                let leaveAtDate = time["leaveAtDate"] as? Date ?? Date()
                 let leaveYearAndMonthAndDay = DateUtils.stringFromDate(date: leaveAtDate, format: "yyyy-M-d")
                 if (enterYearAndMonthAndDay != leaveYearAndMonthAndDay) {
                     var newTime = time
@@ -161,18 +167,18 @@ class CalendarViewController: UIViewController {
         var stayingTimeSum = 0
         for time in times {
             // 入退室した時刻を日付から取得
-            let enterAtDate = time["enterAtDate"] as! Date
+            let enterAtDate = time["enterAtDate"] as? Date ?? Date()
             let enterYearAndMonthAndDay = DateUtils.stringFromDate(date: enterAtDate, format: "yyyy-M-d")
             if (enterYearAndMonthAndDay == "\(year)-\(month)-\(day)") {
                 // 入室と退室で日付が異なるとき 滞在時間を (23:59 - 入室時刻) とする
-                let leaveAtDate = time["leaveAtDate"] as! Date
+                let leaveAtDate = time["leaveAtDate"] as? Date ?? Date()
                 let leaveYearAndMonthAndDay = DateUtils.stringFromDate(date: leaveAtDate, format: "yyyy-M-d")
                 if (enterYearAndMonthAndDay != leaveYearAndMonthAndDay) {
-                    let midnight = Calendar(identifier: .gregorian).date(bySettingHour: 23, minute: 59, second: 59, of: enterAtDate) as! Date
+                    let midnight = Calendar(identifier: .gregorian).date(bySettingHour: 23, minute: 59, second: 59, of: enterAtDate) as? Date ?? Date()
                     let untilMidnightSecond = midnight.timeIntervalSince(enterAtDate)   // 滞在時間を (23:59 - 入室時刻) とする
                     stayingTimeSum += Int(untilMidnightSecond)
                 } else {
-                    stayingTimeSum += time["stayingTimeAtSecond"] as! Int
+                    stayingTimeSum += time["stayingTimeAtSecond"] as? Int ?? 0
                 }
             }
         }
@@ -185,6 +191,15 @@ class CalendarViewController: UIViewController {
     }
     
     private func setupLayout() {
+//        var iconUIImage = UIImage(named: "UserIcon1")?.reSizeImage(reSize: CGSize(width: 50, height: 50))
+//        iconUIImage = iconUIImage?.withRenderingMode(.alwaysOriginal)
+//        let leftNavigationButton = UIBarButtonItem(image: iconUIImage, style: .plain, target: self, action: #selector(tapLeftNavigationButton(_:)))
+//        self.navigationItem.leftBarButtonItem = leftNavigationButton
+        
+//        let userIconButton = UserIconButton(imageName: "UserIcon1")
+        let userIconBarButton = UIBarButtonItem(customView: self.userIconButton)
+        self.navigationItem.leftBarButtonItem = userIconBarButton
+        
         view.backgroundColor = .white
         
         // カレンダー の描画
@@ -271,6 +286,14 @@ class CalendarViewController: UIViewController {
         scrollView.snp.makeConstraints { make -> Void in
             make.edges.equalTo(view.safeAreaLayoutGuide)
         }
+    }
+    
+    func setupBinding() {
+        self.userIconButton.rx.tap
+            .subscribe { _ in
+                self.tabBarDelegate.showSlideMenu(animated: true)
+            }
+            .disposed(by: disposeBag)
     }
     
 }

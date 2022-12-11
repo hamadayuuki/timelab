@@ -160,9 +160,10 @@ class LogInViewController: UIViewController {
                 if isLogIn && self.isProgressView {
                     HUD.hide()
                     self.isProgressView = false
-                    // push画面遷移
+                    // Present画面遷移
                     let tabBarViewController = TabBarViewController()
-                    self.navigationController?.pushViewController(tabBarViewController, animated: true)
+                    tabBarViewController.modalPresentationStyle = .fullScreen
+                    self.present(tabBarViewController, animated: true)
                 } else {
                     HUD.flash(.error, delay: 1) { _ in
                         self.errorMessageLabel.text = "※ " + errorMessage

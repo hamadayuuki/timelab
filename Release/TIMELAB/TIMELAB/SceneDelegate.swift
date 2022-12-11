@@ -19,7 +19,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // アプリ起動時に表示する画面の描画
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
-        // push遷移
+        // 画面遷移
         let window = UIWindow(windowScene: windowScene)
         self.window = window
         window.makeKeyAndVisible()
@@ -27,7 +27,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if let user = Auth.auth().currentUser  {
             window.rootViewController = TabBarViewController()   // 起動時の画面遷移
         } else {
-            window.rootViewController = ChooseRegisterOrLogInViewController()   // 起動時の画面遷移
+            // Push通知, 遷移先でPresent遷移を可能にするため
+            let chooseRegisterOrLogInViewController = ChooseRegisterOrLogInViewController()   // 起動時の画面遷移
+            let navigationController = UINavigationController(rootViewController: chooseRegisterOrLogInViewController)
+            window.rootViewController = navigationController
         }
         
         // Present遷移

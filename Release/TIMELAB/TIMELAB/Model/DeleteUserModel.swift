@@ -38,6 +38,7 @@ class DeleteUserModel {
         
         return Observable<Bool>.create { observer in
             let user = Auth.auth().currentUser
+            print("user: \(user)")
 
             user?.delete { error in
               if let error = error {

@@ -31,7 +31,6 @@ class FetchUserModel {
     
     func fetchUser(uid: String) -> Observable<[String: Any]> {
         print(#function)
-        print("uid: \(uid)")
         
         return Observable<[String: Any]>.create { observer in
             // FireStore からデータの取得

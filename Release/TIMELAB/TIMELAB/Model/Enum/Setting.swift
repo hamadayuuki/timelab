@@ -17,7 +17,7 @@ enum Setting {
         let baseURL = "https://"
         switch self{
         case .myProfile: return ""
-        case .form: return baseURL + "apple.com"
+        case .form: return baseURL + "forms.gle/emSdzssyEZeUr1bh7"
         case .termOfUse: return baseURL + "google.com"
         case .privacyPolicy: return baseURL + "fast.com"
         }

@@ -15,6 +15,7 @@ class LogOutModel {
     init() { }
     
     func logOut() -> Observable<Bool> {
+        print(#function)
         
         return Observable<Bool>.create { observer in
             do {

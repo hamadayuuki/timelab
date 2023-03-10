@@ -191,6 +191,75 @@ class SlideMenuViewController: ViewController, UIGestureRecognizerDelegate {
         self.unsubscribeButton.rx.tap
             .subscribe { _ in
                 print("アカウント削除ボタン")
+                let alert = UIAlertController(title: "アカウント削除しますか？", message: "復元できません", preferredStyle: .alert)
+                let deleteUserAction = UIAlertAction(title: "アカウント削除", style: .destructive) { (action) in
+                    // 再度確認
+                    let confirmAlert = UIAlertController(title: "本当に良いですか？", message: "", preferredStyle: .actionSheet)
+                    let confirmDeleteUserAction = UIAlertAction(title: "はい", style: .destructive) { (action) in
+                        HUD.show(.progress)
+                        // TODO: - Drive の入れ子を改善
+                        let uid = self.user["uid"] as! String
+                        let roomIds = self.user["rooms"] as! [String]   // 空ならroomからユーザーを削除する処理を実行しない
+                        if roomIds.isEmpty {
+                            // 2種類: FireStore(Users) + FireAuth から削除
+                            Driver.zip(self.slideMenuViewModel.deleteUserFireStore(uid: uid), self.slideMenuViewModel.deleteUserFireAuth())
+                                .drive { (isStore, isAuth) in
+                                    if(isStore && isAuth) {
+                                        self.slideMenuViewModel.signOutAction()   // アプリ再起動時にログイン状態が残るのを防ぐ
+                                            .drive { isSignOut in
+                                                HUD.hide()
+                                                self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)   // 画面破棄
+                                                let chooseRegisterOrLogInViewController = ChooseRegisterOrLogInViewController()
+                                                let navigationController = UINavigationController(rootViewController: chooseRegisterOrLogInViewController)
+                                                self.view.window?.rootViewController = navigationController
+                                            }
+                                        
+                                    } else {
+                                        HUD.hide()
+                                        print("error deleteUser")
+                                        print("isStore:\(isStore), isAuth:\(isAuth)")
+                                    }
+                                }
+                                .disposed(by: self.disposeBag)
+                        } else {
+                            // 4種類: 所属するRooms + 所属するRooms/UserStates + FireStore(Users) + FireAuth から削除
+                            Driver.zip(self.slideMenuViewModel.deleteUserOnRooms(roomIds: roomIds, uid: uid), self.slideMenuViewModel.deleteUserOnUsersStates(roomIds: roomIds, uid: uid), self.slideMenuViewModel.deleteUserFireStore(uid: uid), self.slideMenuViewModel.deleteUserFireAuth())
+                                .drive { (isRooms, isUsersStates, isStore, isAuth) in
+                                    if(isRooms && isUsersStates && isStore && isAuth) {
+                                        self.slideMenuViewModel.signOutAction()   // アプリ再起動時にログイン状態が残るのを防ぐ
+                                            .drive { isSignOut in
+                                                HUD.hide()
+                                                self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)   // 画面破棄
+                                                let chooseRegisterOrLogInViewController = ChooseRegisterOrLogInViewController()
+                                                let navigationController = UINavigationController(rootViewController: chooseRegisterOrLogInViewController)
+                                                self.view.window?.rootViewController = navigationController
+                                            }
+                                        
+                                    } else {
+                                        HUD.hide()
+                                        print("error deleteUser")
+                                        print("isRooms:\(isRooms), isUsersStates:\(isUsersStates), isStore:\(isStore), isAuth:\(isAuth)")
+                                    }
+                                }
+                                .disposed(by: self.disposeBag)
+                        }
+                        
+                    }
+                    let confirmCancellAction = UIAlertAction(title: "キャンセル", style: .cancel) { (action) in
+                        self.dismiss(animated: true, completion: nil)
+                    }
+                    confirmAlert.addAction(confirmDeleteUserAction)
+                    confirmAlert.addAction(confirmCancellAction)
+                    self.present(confirmAlert, animated: true, completion: nil)
+                    // == 再度確認
+                }
+                let cancellAction = UIAlertAction(title: "キャンセル", style: .cancel) { (action) in
+                    self.dismiss(animated: true, completion: nil)
+                }
+                alert.addAction(deleteUserAction)
+                alert.addAction(cancellAction)
+                self.present(alert, animated: true, completion: nil)
+                
             }
             .disposed(by: disposeBag)
     }

@@ -19,7 +19,7 @@ enum Setting {
         case .myProfile: return ""
         case .form: return baseURL + "forms.gle/emSdzssyEZeUr1bh7"
         case .termOfUse: return baseURL + "google.com"
-        case .privacyPolicy: return baseURL + "fast.com"
+        case .privacyPolicy: return baseURL + "sites.google.com/view/timelabprivacypolicy/%E3%83%9B%E3%83%BC%E3%83%A0"
         }
     }
     

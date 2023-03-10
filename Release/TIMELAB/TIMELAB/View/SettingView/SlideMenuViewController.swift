@@ -54,7 +54,7 @@ class SlideMenuViewController: ViewController, UIGestureRecognizerDelegate {
     var userNameLabel: ProfileLabel!
     var profileButton: MenuButton!
     var formButton: MenuButton!
-    var termOfUseButton: MenuButton!
+//    var termOfUseButton: MenuButton!
     var privacyPolicyButton: MenuButton!
     var logoutButton: MenuButton!
     var unsubscribeButton: MenuButton!
@@ -96,11 +96,11 @@ class SlideMenuViewController: ViewController, UIGestureRecognizerDelegate {
         underLine.underLine(color: Color.navyBlue.UIColor, thickness: 1, frame: CGSize(width: 250, height: 1))
         profileButton = MenuButton(text: "プロフィール", textSize: 15)
         formButton = MenuButton(text: "お問い合せ", textSize: 15)
-        termOfUseButton = MenuButton(text: "利用規約", textSize: 15)
+//        termOfUseButton = MenuButton(text: "利用規約", textSize: 15)
         privacyPolicyButton = MenuButton(text: "プライバシーポリシー", textSize: 15)
         logoutButton = MenuButton(text: "ログアウト", textSize: 15)
         unsubscribeButton = MenuButton(text: "アカウント削除", textSize: 15, backgroundColor: Color.orange.UIColor)
-        let menuVerticallView = UIStackView(arrangedSubviews: [profileButton, formButton, termOfUseButton, privacyPolicyButton, logoutButton, unsubscribeButton])
+        let menuVerticallView = UIStackView(arrangedSubviews: [profileButton, formButton, /*termOfUseButton, */privacyPolicyButton, logoutButton, unsubscribeButton])
         menuVerticallView.axis = .vertical
         menuVerticallView.distribution = .fillEqually   // 全ての要素の大きさを均等に
         menuVerticallView.spacing = 15
@@ -143,13 +143,13 @@ class SlideMenuViewController: ViewController, UIGestureRecognizerDelegate {
             }
             .disposed(by: disposeBag)
         
-        self.termOfUseButton.rx.tap
-            .subscribe { _ in
-                let webUIViewController = WebUIViewContorller(setting: .termOfUse)
-                let webNavigationController = UINavigationController(rootViewController: webUIViewController)
-                self.present(webNavigationController, animated: true)
-            }
-            .disposed(by: disposeBag)
+//        self.termOfUseButton.rx.tap
+//            .subscribe { _ in
+//                let webUIViewController = WebUIViewContorller(setting: .termOfUse)
+//                let webNavigationController = UINavigationController(rootViewController: webUIViewController)
+//                self.present(webNavigationController, animated: true)
+//            }
+//            .disposed(by: disposeBag)
         
         self.privacyPolicyButton.rx.tap
             .subscribe { _ in

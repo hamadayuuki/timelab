@@ -61,6 +61,7 @@ class CalendarViewController: UIViewController {
         
         navigationItem.title = "カレンダー"
         view.backgroundColor = .white
+        self.calendarView = CalendarView(dateAndStayingTimeDic: self.enterScheduleAndStayingTimeDic)
         HUD.show(.progress)
         setupMonthCalendarTime()
 //        setupLayout()   // setupMonthCalendarTime() 内で呼ばれる
@@ -129,7 +130,7 @@ class CalendarViewController: UIViewController {
                     }
                 }
                 self.times = newMonthCalndarTimes   // 日毎の詳細画面に使用
-                
+                self.calendarView.enterScheduleAndStayingTimeDic = self.enterScheduleAndStayingTimeDic
                 self.setupLayout()
                 self.setupBinding()
                 self.setupFloatingPanel()
@@ -202,8 +203,6 @@ class CalendarViewController: UIViewController {
         
         view.backgroundColor = .white
         
-        // カレンダー の描画
-        calendarView = CalendarView(dateAndStayingTimeDic: enterScheduleAndStayingTimeDic)
         calendarView.calendarViewDelegate = self   // 画面遷移のために指定
         
         // カレンダーセルの説明

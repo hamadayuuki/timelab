@@ -80,6 +80,27 @@ class CalendarDetailViewController: UIViewController, ChartViewDelegate {
             make.height.equalTo(300)
         }
         
+        for direction: TimeDirection in [.north, .east, .south, .west]{
+            let timeLabel = DetailLabel(text: direction.timeText, fontSize: 12)
+            view.addSubview(timeLabel)
+            timeLabel.snp.makeConstraints { make -> Void in
+                switch direction {
+                case .north:   // 上
+                    make.centerX.equalTo(doneContentChartView.snp.centerX)
+                    make.top.equalTo(doneContentChartView.snp.top).offset(-10)
+                case .east:    // 右
+                    make.right.equalTo(doneContentChartView.snp.right).offset(10)
+                    make.centerY.equalTo(doneContentChartView.snp.centerY)
+                case .south:   // 下
+                    make.centerX.equalTo(doneContentChartView.snp.centerX)
+                    make.bottom.equalTo(doneContentChartView.snp.bottom).offset(10)
+                case .west:    // 左
+                    make.left.equalTo(doneContentChartView.snp.left).offset(-10)
+                    make.centerY.equalTo(doneContentChartView.snp.centerY)
+                }
+            }
+        }
+        
         // 入退室時刻表のフッター
 //        view.addSubview(footerEnterTimeLabel)
 //        footerEnterTimeLabel.snp.makeConstraints { make -> Void in

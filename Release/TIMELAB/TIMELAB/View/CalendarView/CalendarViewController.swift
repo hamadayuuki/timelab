@@ -233,7 +233,7 @@ class CalendarViewController: UIViewController {
         doneContentChartView.delegate = self
         
         // 円グラフのアイコン
-        doneContentUIImageView = DoneContentUIImageView(uiImage: UIImage())
+//        doneContentUIImageView = DoneContentUIImageView(uiImage: UIImage())
         
         // MARK: - addSubview/layer
         contentsView.addSubview(calendarView)
@@ -255,24 +255,22 @@ class CalendarViewController: UIViewController {
             make.top.equalTo(calendarView.snp.bottom).offset(20)
         }
         
-        /*
-        contentsView.addSubview(doneContentChartView)
-        doneContentChartView.snp.makeConstraints { make -> Void in
-            make.centerX.equalTo(view.bounds.width * 0.5)
-            make.centerY.equalTo(view.bounds.height * 0.8)
-            make.width.equalTo(300)
-            make.height.equalTo(300)
-        }
+//        contentsView.addSubview(doneContentChartView)
+//        doneContentChartView.snp.makeConstraints { make -> Void in
+//            make.centerX.equalTo(view.bounds.width * 0.5)
+//            make.centerY.equalTo(view.bounds.height * 0.8)
+//            make.width.equalTo(300)
+//            make.height.equalTo(300)
+//        }
         
-        contentsView.addSubview(doneContentUIImageView)
-        doneContentUIImageView.backgroundColor = .white
-        doneContentUIImageView.snp.makeConstraints { make -> Void in
-            make.centerX.equalTo(view.bounds.width * 0.5)
-            make.centerY.equalTo(view.bounds.height * 0.8)
-            make.width.equalTo(80)
-            make.height.equalTo(80)
-        }
-        */
+//        contentsView.addSubview(doneContentUIImageView)
+//        doneContentUIImageView.backgroundColor = .white
+//        doneContentUIImageView.snp.makeConstraints { make -> Void in
+//            make.centerX.equalTo(view.bounds.width * 0.5)
+//            make.centerY.equalTo(view.bounds.height * 0.8)
+//            make.width.equalTo(80)
+//            make.height.equalTo(80)
+//        }
         
         scrollView.addSubview(contentsView)
         contentsView.snp.makeConstraints { make -> Void in

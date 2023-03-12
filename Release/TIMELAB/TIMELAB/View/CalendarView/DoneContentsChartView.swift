@@ -30,11 +30,8 @@ class DoneContentsChartView: PieChartView {
     }
     
     func setupCharts() {
-        self.centerText = "グラフ"
-//        self.delegate = self   // ViewController に移行
-        
         let dataSet = PieChartDataSet(entries: dataEntries, label: "")
-        dataSet.colors = ChartColorTemplates.liberty()
+        dataSet.colors = ChartColorTemplates.timesOfDay()   // [UIColor]
         dataSet.entryLabelFont = NSUIFont(name: NSUIFont.TextStyle.title1.rawValue, size: 100)
         dataSet.drawValuesEnabled = false
         self.data = PieChartData(dataSet: dataSet)
@@ -42,6 +39,7 @@ class DoneContentsChartView: PieChartView {
         self.rotationEnabled = false
         self.drawEntryLabelsEnabled = false
         self.legend.enabled = false
+        self.drawHoleEnabled = false
     }
     
     required init?(coder aDecoder: NSCoder) { fatalError("init(coder:) has not been implemented") }

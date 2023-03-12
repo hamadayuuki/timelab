@@ -8,12 +8,14 @@
 import UIKit
 import SnapKit
 import FSCalendar
+import Charts
 
-class CalendarDetailViewController: UIViewController {
+class CalendarDetailViewController: UIViewController, ChartViewDelegate {
     
     var date: String!
     var enterAndLeaveTimesOfDay: [[String: Any]]!
     var stayingTimeStringOfDay: String!  // 1時間 23分 45分
+    var doneContentChartView: DoneContentsChartView!
     
     init(date: String, enterAndLeaveTimesOfDay: [[String: Any]], stayingTimeStringOfDay: String) {
         super.init(nibName: nil, bundle: nil)
@@ -21,6 +23,9 @@ class CalendarDetailViewController: UIViewController {
         self.date = date
         self.enterAndLeaveTimesOfDay = enterAndLeaveTimesOfDay
         self.stayingTimeStringOfDay = stayingTimeStringOfDay
+        
+        self.doneContentChartView = DoneContentsChartView()
+        self.doneContentChartView.delegate = self
     }
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
     
@@ -67,49 +72,57 @@ class CalendarDetailViewController: UIViewController {
             make.top.equalTo(calendarDateFooterLabel.snp.bottom).offset(90)
         }
         
-        // 入退室時刻表のフッター
-        view.addSubview(footerEnterTimeLabel)
-        footerEnterTimeLabel.snp.makeConstraints { make -> Void in
-            make.centerX.equalTo(view.bounds.width * 0.35)
-            make.top.equalTo(timeDetailLabel.snp.bottom).offset(60)
-            make.height.equalTo(50)
-            make.width.equalTo(view.bounds.width * 0.3)
-        }
-        view.addSubview(footerLeaveTimeLabel)
-        footerLeaveTimeLabel.snp.makeConstraints { make -> Void in
-            make.centerX.equalTo(view.bounds.width * 0.65)
-            make.top.equalTo(timeDetailLabel.snp.bottom).offset(60)
-            make.height.equalTo(50)
-            make.width.equalTo(view.bounds.width * 0.3)
+        view.addSubview(doneContentChartView)
+        doneContentChartView.snp.makeConstraints { make -> Void in
+            make.centerX.equalTo(view.bounds.width * 0.5)
+            make.top.equalTo(timeDetailLabel.snp.bottom).offset(50)
+            make.width.equalTo(300)
+            make.height.equalTo(300)
         }
         
-        // 入退室時刻表のボディー
-        let cellHeight = 30
-        let cellWidth = view.bounds.width * 0.3
-        var tableCount = 0
-        for enterAndLeaveTimeOfDay in self.enterAndLeaveTimesOfDay {
-            // 左側 : 入室時刻
-            let enterTimeString = DateUtils.stringFromDate(date: enterAndLeaveTimeOfDay["enterAtDate"] as! Date, format: "HH:mm")   // 23:45
-            self.timeTabelLabel = TimeTableLabel(text: enterTimeString, fontSize: 20, isEnterTime: false)
-            view.addSubview(timeTabelLabel)
-            timeTabelLabel.snp.makeConstraints { make -> Void in
-                make.centerX.equalTo(footerEnterTimeLabel.snp.centerX)
-                make.top.equalTo(footerEnterTimeLabel.snp.bottom).offset(10 + (tableCount * cellHeight))   // 初期位置 + (セル同士の間隔)
-                make.height.equalTo(cellHeight)
-                make.width.equalTo(cellWidth)
-            }
-            // 右側 : 退室時刻
-            let leaveTimeString = DateUtils.stringFromDate(date: enterAndLeaveTimeOfDay["leaveAtDate"] as! Date, format: "HH:mm")   // 23:45
-            self.timeTabelLabel = TimeTableLabel(text: leaveTimeString, fontSize: 20, isEnterTime: true)
-            view.addSubview(timeTabelLabel)
-            timeTabelLabel.snp.makeConstraints { make -> Void in
-                make.centerX.equalTo(footerLeaveTimeLabel.snp.centerX)
-                make.top.equalTo(footerLeaveTimeLabel.snp.bottom).offset(10 + (tableCount * cellHeight))
-                make.height.equalTo(cellHeight)
-                make.width.equalTo(cellWidth)
-            }
-            tableCount += 1
-        }
+        // 入退室時刻表のフッター
+//        view.addSubview(footerEnterTimeLabel)
+//        footerEnterTimeLabel.snp.makeConstraints { make -> Void in
+//            make.centerX.equalTo(view.bounds.width * 0.35)
+//            make.top.equalTo(timeDetailLabel.snp.bottom).offset(60)
+//            make.height.equalTo(50)
+//            make.width.equalTo(view.bounds.width * 0.3)
+//        }
+//        view.addSubview(footerLeaveTimeLabel)
+//        footerLeaveTimeLabel.snp.makeConstraints { make -> Void in
+//            make.centerX.equalTo(view.bounds.width * 0.65)
+//            make.top.equalTo(timeDetailLabel.snp.bottom).offset(60)
+//            make.height.equalTo(50)
+//            make.width.equalTo(view.bounds.width * 0.3)
+//        }
+//
+//        // 入退室時刻表のボディー
+//        let cellHeight = 30
+//        let cellWidth = view.bounds.width * 0.3
+//        var tableCount = 0
+//        for enterAndLeaveTimeOfDay in self.enterAndLeaveTimesOfDay {
+//            // 左側 : 入室時刻
+//            let enterTimeString = DateUtils.stringFromDate(date: enterAndLeaveTimeOfDay["enterAtDate"] as! Date, format: "HH:mm")   // 23:45
+//            self.timeTabelLabel = TimeTableLabel(text: enterTimeString, fontSize: 20, isEnterTime: false)
+//            view.addSubview(timeTabelLabel)
+//            timeTabelLabel.snp.makeConstraints { make -> Void in
+//                make.centerX.equalTo(footerEnterTimeLabel.snp.centerX)
+//                make.top.equalTo(footerEnterTimeLabel.snp.bottom).offset(10 + (tableCount * cellHeight))   // 初期位置 + (セル同士の間隔)
+//                make.height.equalTo(cellHeight)
+//                make.width.equalTo(cellWidth)
+//            }
+//            // 右側 : 退室時刻
+//            let leaveTimeString = DateUtils.stringFromDate(date: enterAndLeaveTimeOfDay["leaveAtDate"] as! Date, format: "HH:mm")   // 23:45
+//            self.timeTabelLabel = TimeTableLabel(text: leaveTimeString, fontSize: 20, isEnterTime: true)
+//            view.addSubview(timeTabelLabel)
+//            timeTabelLabel.snp.makeConstraints { make -> Void in
+//                make.centerX.equalTo(footerLeaveTimeLabel.snp.centerX)
+//                make.top.equalTo(footerLeaveTimeLabel.snp.bottom).offset(10 + (tableCount * cellHeight))
+//                make.height.equalTo(cellHeight)
+//                make.width.equalTo(cellWidth)
+//            }
+//            tableCount += 1
+//        }
         
 //        // Done
 //        view.addSubview(doneUIImageView)

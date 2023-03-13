@@ -141,7 +141,7 @@ class CalendarViewController: UIViewController {
     
     // TODO: 計算量を少なくする
     func setEnterAndLeaveTimesOfDay(year: Int, month: Int, day: Int, times: [[String: Any]]) -> [[String: Any]] {
-        var enterAndLeaveTimesOfDay: [[String: Any]] = []
+        var enterAndLeaveTimesOfDay: [[String: Any]] = []    // ["enterAtDate": Data, "leaveAtDate": Data, "stayingTimeAtSecond": Int]
         for time in times {
             // 入退室した時刻を日付から取得
             let enterAtDate = time["enterAtDate"] as? Date ?? Date()
@@ -229,8 +229,8 @@ class CalendarViewController: UIViewController {
         cellDescriptionHorizontalView.spacing = 4
         
         // 円グラフ
-        doneContentChartView = DoneContentsChartView()
-        doneContentChartView.delegate = self
+//        doneContentChartView = DoneContentsChartView()
+//        doneContentChartView.delegate = self
         
         // 円グラフのアイコン
 //        doneContentUIImageView = DoneContentUIImageView(uiImage: UIImage())

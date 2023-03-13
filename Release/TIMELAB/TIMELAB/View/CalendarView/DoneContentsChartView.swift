@@ -9,22 +9,16 @@ import UIKit
 import Charts
 
 class DoneContentsChartView: PieChartView {
-    let dataList = [
-        (value: 10.0, label: "A", icon: UIImage(named: "Flask")),
-        (value: 20.0, label: "B", icon: UIImage(named: "Lupe")),
-        (value: 30.0, label: "C", icon: UIImage(named: "PencilAndEraser")),
-        (value: 20.0, label: "D", icon: UIImage(named: "PencileAndNote")),
-        (value: 20.0, label: "E", icon: UIImage(named: "Television"))
-    ]
     var dataEntries: [PieChartDataEntry]!
     
-    init() {
+    init(dataEntries: [PieChartDataEntry]) {
         super.init(frame: .zero)
         
-        self.dataEntries = []
-        for i in 0..<dataList.count {
-            self.dataEntries.append(PieChartDataEntry(value: dataList[i].value, label: dataList[i].label))
-        }
+        self.dataEntries = dataEntries
+//        self.dataEntries = []
+//        for data in dataList {
+//            self.dataEntries.append((value: data.value, label: data.label))
+//        }
         
         setupCharts()
     }

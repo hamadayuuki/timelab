@@ -118,6 +118,7 @@
 		D477CB5928200D9100B7A07B /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D477CB5828200D9100B7A07B /* TabBarViewController.swift */; };
 		D487C4C329BE535400022E3C /* ChartColorTemplates+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D487C4C229BE535400022E3C /* ChartColorTemplates+Extension.swift */; };
 		D487C4C529BE5BFF00022E3C /* TimeDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D487C4C429BE5BFF00022E3C /* TimeDirection.swift */; };
+		D487C4C729BE670200022E3C /* ClockTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = D487C4C629BE670200022E3C /* ClockTime.swift */; };
 		D4B072942952CF4C00CDD15C /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = D4B072932952CF4C00CDD15C /* FirebaseAnalytics */; };
 		D4B072962952CF4C00CDD15C /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = D4B072952952CF4C00CDD15C /* FirebaseAuth */; };
 		D4B072982952CF4C00CDD15C /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = D4B072972952CF4C00CDD15C /* FirebaseDatabase */; };
@@ -241,6 +242,7 @@
 		D477CB5828200D9100B7A07B /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		D487C4C229BE535400022E3C /* ChartColorTemplates+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChartColorTemplates+Extension.swift"; sourceTree = "<group>"; };
 		D487C4C429BE5BFF00022E3C /* TimeDirection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeDirection.swift; sourceTree = "<group>"; };
+		D487C4C629BE670200022E3C /* ClockTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockTime.swift; sourceTree = "<group>"; };
 		D4B1787828B3D316005F6EC4 /* CalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewModel.swift; sourceTree = "<group>"; };
 		D4BDC2CF2848E8610087700D /* RegisterRoomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterRoomViewController.swift; sourceTree = "<group>"; };
 		D4BDC2D12848E8BC0087700D /* RegisterRoomLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterRoomLabel.swift; sourceTree = "<group>"; };
@@ -458,6 +460,7 @@
 				D465BF44282A96DB00C2FE2A /* User.swift */,
 				D465BF4C2839380C00C2FE2A /* LogInResult.swift */,
 				D469A9D0286F1F2D0049F1B8 /* QrCode.swift */,
+				D487C4C629BE670200022E3C /* ClockTime.swift */,
 			);
 			path = Struct;
 			sourceTree = "<group>";
@@ -739,6 +742,7 @@
 				D427F67C27FD899200E7F4E9 /* UIColorExtension.swift in Sources */,
 				D427F6DD28032C9200E7F4E9 /* UILabelExtension.swift in Sources */,
 				D469AA402879FF3C0049F1B8 /* FetchUserModel.swift in Sources */,
+				D487C4C729BE670200022E3C /* ClockTime.swift in Sources */,
 				D427F6E228040DB500E7F4E9 /* ChooseRegisterOrLogInButton.swift in Sources */,
 				D469A9D1286F1F2D0049F1B8 /* QrCode.swift in Sources */,
 				D477CB0D280C52B100B7A07B /* CalendarView.swift in Sources */,

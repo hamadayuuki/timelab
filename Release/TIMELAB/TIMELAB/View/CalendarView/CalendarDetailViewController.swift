@@ -13,7 +13,7 @@ import Charts
 class CalendarDetailViewController: UIViewController, ChartViewDelegate {
     
     var date: String!
-    var enterAndLeaveTimesOfDay: [[String: Any]]!
+    var enterAndLeaveTimesOfDay: [[String: Any]]!   // ["enterAtDate": Data, "leaveAtDate": Data, "stayingTimeAtSecond": Int]
     var stayingTimeStringOfDay: String!  // 1時間 23分 45分
     var doneContentChartView: DoneContentsChartView!
     
@@ -24,7 +24,9 @@ class CalendarDetailViewController: UIViewController, ChartViewDelegate {
         self.enterAndLeaveTimesOfDay = enterAndLeaveTimesOfDay
         self.stayingTimeStringOfDay = stayingTimeStringOfDay
         
-        self.doneContentChartView = DoneContentsChartView()
+        let clockTimes = createClockTimes()
+        let dataEntries = createPieChartDataEntries(clockTimes: clockTimes)
+        self.doneContentChartView = DoneContentsChartView(dataEntries: dataEntries)
         self.doneContentChartView.delegate = self
     }
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
@@ -46,6 +48,39 @@ class CalendarDetailViewController: UIViewController, ChartViewDelegate {
     }
     
     // MARK: - Function
+    private func createClockTimes() -> [ClockTime] {
+        if self.enterAndLeaveTimesOfDay.count == 0 {
+            return [ClockTime(start: "00:00", end: "23:59")]
+        }
+        
+        var clockTimes: [ClockTime] = []
+        let firstEnterTimeString = DateUtils.stringFromDate(date: self.enterAndLeaveTimesOfDay.first!["enterAtDate"] as! Date, format: "HH:mm")
+        let lastLeaveTimeString = DateUtils.stringFromDate(date: self.enterAndLeaveTimesOfDay.last!["leaveAtDate"] as! Date, format: "HH:mm")
+        // "00:00"〜初入室時刻 を追加
+        if firstEnterTimeString != "00:00" {
+            clockTimes.append(ClockTime(start: "00:00", end: DateUtils.stringFromDate(date: self.enterAndLeaveTimesOfDay.first!["enterAtDate"] as! Date, format: "HH:mm")))
+        }
+        for time in self.enterAndLeaveTimesOfDay {
+            clockTimes.append(ClockTime(start: DateUtils.stringFromDate(date: time["enterAtDate"] as! Date, format: "HH:mm"), end: DateUtils.stringFromDate(date: time["leaveAtDate"] as! Date, format: "HH:mm")))
+        }
+        // 最終退室時刻〜"23:59" を追加
+        if lastLeaveTimeString != "23:59" {
+            clockTimes.append(ClockTime(start: DateUtils.stringFromDate(date: self.enterAndLeaveTimesOfDay.last!["leaveAtDate"] as! Date, format: "HH:mm"), end: "23:59"))
+        }
+        return clockTimes
+    }
+    
+    private func createPieChartDataEntries(clockTimes: [ClockTime]) -> [PieChartDataEntry] {
+        var dataList: [PieChartDataEntry] = []
+        for time in clockTimes {
+            let startTime = (Int(time.start.components(separatedBy: ":")[0])! * 60) + Int(time.start.components(separatedBy: ":")[1])!
+            let endTime = (Int(time.end.components(separatedBy: ":")[0])! * 60) + Int(time.end.components(separatedBy: ":")[1])!
+            let stayingMinute = endTime - startTime
+            dataList.append(PieChartDataEntry(value: Double(stayingMinute), label: "\(time.start)〜\(time.end)"))
+        }
+        return dataList
+    }
+    
     func setupLayout() {
         self.calendarDateFooterLabel = CalendarDateFooterLabel(text: self.date)
         self.timeDetailLabel = DetailLabel(text: "滞在時間 : " + self.stayingTimeStringOfDay, fontSize: 20)   // 滞在時間 : 1時間 23分 45秒

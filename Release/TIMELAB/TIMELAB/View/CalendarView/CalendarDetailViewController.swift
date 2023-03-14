@@ -58,14 +58,16 @@ class CalendarDetailViewController: UIViewController, ChartViewDelegate {
         var clockTimes: [ClockTime] = []
         let firstEnterTimeString = DateUtils.stringFromDate(date: self.enterAndLeaveTimesOfDay.first!["enterAtDate"] as! Date, format: "HH:mm")
         let lastLeaveTimeString = DateUtils.stringFromDate(date: self.enterAndLeaveTimesOfDay.last!["leaveAtDate"] as! Date, format: "HH:mm")
-        // "00:00"〜初入室時刻 を追加
+        // "00:00"〜初入室時刻 を追加, 徹夜の有無に関わらず実行される
         if firstEnterTimeString != "00:00" {
             clockTimes.append(ClockTime(start: "00:00", end: DateUtils.stringFromDate(date: self.enterAndLeaveTimesOfDay.first!["enterAtDate"] as! Date, format: "HH:mm")))
-        } else {
-            isAllNight = true
         }
-        for time in self.enterAndLeaveTimesOfDay {
-            clockTimes.append(ClockTime(start: DateUtils.stringFromDate(date: time["enterAtDate"] as! Date, format: "HH:mm"), end: DateUtils.stringFromDate(date: time["leaveAtDate"] as! Date, format: "HH:mm")))
+        for i in 0..<self.enterAndLeaveTimesOfDay.count {
+            clockTimes.append(ClockTime(start: DateUtils.stringFromDate(date: self.enterAndLeaveTimesOfDay[i]["enterAtDate"] as! Date, format: "HH:mm"), end: DateUtils.stringFromDate(date: self.enterAndLeaveTimesOfDay[i]["leaveAtDate"] as! Date, format: "HH:mm")))
+            // 1日に2回以上入室した場合に 間の時間を退室とする
+            if i != self.enterAndLeaveTimesOfDay.count - 1 {
+                clockTimes.append(ClockTime(start: DateUtils.stringFromDate(date: self.enterAndLeaveTimesOfDay[i]["leaveAtDate"] as! Date, format: "HH:mm"), end: DateUtils.stringFromDate(date: self.enterAndLeaveTimesOfDay[i + 1]["enterAtDate"] as! Date, format: "HH:mm")))
+            }
         }
         // 最終退室時刻〜"23:59" を追加
         if lastLeaveTimeString != "23:59" {
@@ -75,14 +77,15 @@ class CalendarDetailViewController: UIViewController, ChartViewDelegate {
     }
     
     private func createPieChartDataEntries(clockTimes: [ClockTime]) -> [PieChartDataEntry] {
-        var dataList: [PieChartDataEntry] = []
+        var dataEntries: [PieChartDataEntry] = []
         for time in clockTimes {
             let startTime = (Int(time.start.components(separatedBy: ":")[0])! * 60) + Int(time.start.components(separatedBy: ":")[1])!
             let endTime = (Int(time.end.components(separatedBy: ":")[0])! * 60) + Int(time.end.components(separatedBy: ":")[1])!
-            let stayingMinute = endTime - startTime
-            dataList.append(PieChartDataEntry(value: Double(stayingMinute), label: "\(time.start)〜\(time.end)"))
+            var stayingMinute = endTime - startTime
+            if stayingMinute == 0 { stayingMinute += 1 }   // 滞在時間が1分未満
+            dataEntries.append(PieChartDataEntry(value: Double(stayingMinute), label: "\(time.start)〜\(time.end)"))
         }
-        return dataList
+        return dataEntries
     }
     
     func setupLayout() {

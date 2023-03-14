@@ -15,4 +15,12 @@ extension ChartColorTemplates {
             Color.navyBlue.UIColor,
         ]
     }
+    
+    // 00:00時点に研究室へ滞在している場合を想定
+    @objc open class func timesOfDayAllNight() -> [UIColor] {
+        return [
+            Color.navyBlue.UIColor,
+            Color.superLightGray.UIColor,
+        ]
+    }
 }

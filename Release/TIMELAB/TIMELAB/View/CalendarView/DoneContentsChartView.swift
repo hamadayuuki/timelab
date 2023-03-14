@@ -10,11 +10,13 @@ import Charts
 
 class DoneContentsChartView: PieChartView {
     var dataEntries: [PieChartDataEntry]!
+    var isAllNight: Bool!
     
-    init(dataEntries: [PieChartDataEntry]) {
+    init(dataEntries: [PieChartDataEntry], isAllNight: Bool) {
         super.init(frame: .zero)
         
         self.dataEntries = dataEntries
+        self.isAllNight = isAllNight
 //        self.dataEntries = []
 //        for data in dataList {
 //            self.dataEntries.append((value: data.value, label: data.label))
@@ -25,7 +27,8 @@ class DoneContentsChartView: PieChartView {
     
     func setupCharts() {
         let dataSet = PieChartDataSet(entries: dataEntries, label: "")
-        dataSet.colors = ChartColorTemplates.timesOfDay()   // [UIColor]
+        if isAllNight { dataSet.colors = ChartColorTemplates.timesOfDayAllNight() }   // [UIColor]
+        else { dataSet.colors = ChartColorTemplates.timesOfDay() }
         dataSet.entryLabelFont = NSUIFont(name: NSUIFont.TextStyle.title1.rawValue, size: 100)
         dataSet.drawValuesEnabled = false
         self.data = PieChartData(dataSet: dataSet)

@@ -16,17 +16,19 @@ class CalendarDetailViewController: UIViewController, ChartViewDelegate {
     var enterAndLeaveTimesOfDay: [[String: Any]]!   // ["enterAtDate": Data, "leaveAtDate": Data, "stayingTimeAtSecond": Int]
     var stayingTimeStringOfDay: String!  // 1時間 23分 45分
     var doneContentChartView: DoneContentsChartView!
+    var isAllNight: Bool!
     
-    init(date: String, enterAndLeaveTimesOfDay: [[String: Any]], stayingTimeStringOfDay: String) {
+    init(date: String, enterAndLeaveTimesOfDay: [[String: Any]], stayingTimeStringOfDay: String, isAllNight: Bool) {
         super.init(nibName: nil, bundle: nil)
         
         self.date = date
         self.enterAndLeaveTimesOfDay = enterAndLeaveTimesOfDay
         self.stayingTimeStringOfDay = stayingTimeStringOfDay
+        self.isAllNight = isAllNight
         
         let clockTimes = createClockTimes()
         let dataEntries = createPieChartDataEntries(clockTimes: clockTimes)
-        self.doneContentChartView = DoneContentsChartView(dataEntries: dataEntries)
+        self.doneContentChartView = DoneContentsChartView(dataEntries: dataEntries, isAllNight: isAllNight)
         self.doneContentChartView.delegate = self
     }
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
@@ -59,6 +61,8 @@ class CalendarDetailViewController: UIViewController, ChartViewDelegate {
         // "00:00"〜初入室時刻 を追加
         if firstEnterTimeString != "00:00" {
             clockTimes.append(ClockTime(start: "00:00", end: DateUtils.stringFromDate(date: self.enterAndLeaveTimesOfDay.first!["enterAtDate"] as! Date, format: "HH:mm")))
+        } else {
+            isAllNight = true
         }
         for time in self.enterAndLeaveTimesOfDay {
             clockTimes.append(ClockTime(start: DateUtils.stringFromDate(date: time["enterAtDate"] as! Date, format: "HH:mm"), end: DateUtils.stringFromDate(date: time["leaveAtDate"] as! Date, format: "HH:mm")))

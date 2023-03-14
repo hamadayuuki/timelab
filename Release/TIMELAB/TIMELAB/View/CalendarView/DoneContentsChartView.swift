@@ -9,32 +9,26 @@ import UIKit
 import Charts
 
 class DoneContentsChartView: PieChartView {
-    let dataList = [
-        (value: 10.0, label: "A", icon: UIImage(named: "Flask")),
-        (value: 20.0, label: "B", icon: UIImage(named: "Lupe")),
-        (value: 30.0, label: "C", icon: UIImage(named: "PencilAndEraser")),
-        (value: 20.0, label: "D", icon: UIImage(named: "PencileAndNote")),
-        (value: 20.0, label: "E", icon: UIImage(named: "Television"))
-    ]
     var dataEntries: [PieChartDataEntry]!
+    var isAllNight: Bool!
     
-    init() {
+    init(dataEntries: [PieChartDataEntry], isAllNight: Bool) {
         super.init(frame: .zero)
         
-        self.dataEntries = []
-        for i in 0..<dataList.count {
-            self.dataEntries.append(PieChartDataEntry(value: dataList[i].value, label: dataList[i].label))
-        }
+        self.dataEntries = dataEntries
+        self.isAllNight = isAllNight
+//        self.dataEntries = []
+//        for data in dataList {
+//            self.dataEntries.append((value: data.value, label: data.label))
+//        }
         
         setupCharts()
     }
     
     func setupCharts() {
-        self.centerText = "グラフ"
-//        self.delegate = self   // ViewController に移行
-        
         let dataSet = PieChartDataSet(entries: dataEntries, label: "")
-        dataSet.colors = ChartColorTemplates.liberty()
+        if isAllNight { dataSet.colors = ChartColorTemplates.timesOfDayAllNight() }   // [UIColor]
+        else { dataSet.colors = ChartColorTemplates.timesOfDay() }
         dataSet.entryLabelFont = NSUIFont(name: NSUIFont.TextStyle.title1.rawValue, size: 100)
         dataSet.drawValuesEnabled = false
         self.data = PieChartData(dataSet: dataSet)
@@ -42,6 +36,7 @@ class DoneContentsChartView: PieChartView {
         self.rotationEnabled = false
         self.drawEntryLabelsEnabled = false
         self.legend.enabled = false
+        self.drawHoleEnabled = false
     }
     
     required init?(coder aDecoder: NSCoder) { fatalError("init(coder:) has not been implemented") }

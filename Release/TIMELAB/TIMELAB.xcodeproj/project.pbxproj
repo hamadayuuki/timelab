@@ -116,6 +116,9 @@
 		D477CB54281FB30F00B7A07B /* ConfirmOtherMemberUserIconButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D477CB53281FB30F00B7A07B /* ConfirmOtherMemberUserIconButton.swift */; };
 		D477CB56281FB3EC00B7A07B /* ConfirmOtherMemberLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D477CB55281FB3EC00B7A07B /* ConfirmOtherMemberLabel.swift */; };
 		D477CB5928200D9100B7A07B /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D477CB5828200D9100B7A07B /* TabBarViewController.swift */; };
+		D487C4C329BE535400022E3C /* ChartColorTemplates+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D487C4C229BE535400022E3C /* ChartColorTemplates+Extension.swift */; };
+		D487C4C529BE5BFF00022E3C /* TimeDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D487C4C429BE5BFF00022E3C /* TimeDirection.swift */; };
+		D487C4C729BE670200022E3C /* ClockTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = D487C4C629BE670200022E3C /* ClockTime.swift */; };
 		D4B072942952CF4C00CDD15C /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = D4B072932952CF4C00CDD15C /* FirebaseAnalytics */; };
 		D4B072962952CF4C00CDD15C /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = D4B072952952CF4C00CDD15C /* FirebaseAuth */; };
 		D4B072982952CF4C00CDD15C /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = D4B072972952CF4C00CDD15C /* FirebaseDatabase */; };
@@ -237,6 +240,9 @@
 		D477CB53281FB30F00B7A07B /* ConfirmOtherMemberUserIconButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmOtherMemberUserIconButton.swift; sourceTree = "<group>"; };
 		D477CB55281FB3EC00B7A07B /* ConfirmOtherMemberLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmOtherMemberLabel.swift; sourceTree = "<group>"; };
 		D477CB5828200D9100B7A07B /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
+		D487C4C229BE535400022E3C /* ChartColorTemplates+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChartColorTemplates+Extension.swift"; sourceTree = "<group>"; };
+		D487C4C429BE5BFF00022E3C /* TimeDirection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeDirection.swift; sourceTree = "<group>"; };
+		D487C4C629BE670200022E3C /* ClockTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockTime.swift; sourceTree = "<group>"; };
 		D4B1787828B3D316005F6EC4 /* CalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewModel.swift; sourceTree = "<group>"; };
 		D4BDC2CF2848E8610087700D /* RegisterRoomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterRoomViewController.swift; sourceTree = "<group>"; };
 		D4BDC2D12848E8BC0087700D /* RegisterRoomLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterRoomLabel.swift; sourceTree = "<group>"; };
@@ -304,6 +310,7 @@
 				D427F6DC28032C9200E7F4E9 /* UILabelExtension.swift */,
 				D465BD5C282A417400C2FE2A /* ReactiveExtension.swift */,
 				D46479852881DCC600F72EEE /* DateExtension.swift */,
+				D487C4C229BE535400022E3C /* ChartColorTemplates+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -334,6 +341,7 @@
 				D465BF52283CE5F300C2FE2A /* TransitionQrScannerType.swift */,
 				D4214ED9285B7DC200ECEBE8 /* PositionType.swift */,
 				D4270D1D29426DBD0086C219 /* Setting.swift */,
+				D487C4C429BE5BFF00022E3C /* TimeDirection.swift */,
 			);
 			path = Enum;
 			sourceTree = "<group>";
@@ -452,6 +460,7 @@
 				D465BF44282A96DB00C2FE2A /* User.swift */,
 				D465BF4C2839380C00C2FE2A /* LogInResult.swift */,
 				D469A9D0286F1F2D0049F1B8 /* QrCode.swift */,
+				D487C4C629BE670200022E3C /* ClockTime.swift */,
 			);
 			path = Struct;
 			sourceTree = "<group>";
@@ -727,11 +736,13 @@
 				D4BDC2D42848E8DE0087700D /* RegisterRoomTextField.swift in Sources */,
 				D427F6D528031EB300E7F4E9 /* LogInTextField.swift in Sources */,
 				D427F6D928031F5100E7F4E9 /* LogInSecretButton.swift in Sources */,
+				D487C4C529BE5BFF00022E3C /* TimeDirection.swift in Sources */,
 				D469AA42287ADC7D0049F1B8 /* FetchRoomModel.swift in Sources */,
 				D46479842881700700F72EEE /* FetchTimeModel.swift in Sources */,
 				D427F67C27FD899200E7F4E9 /* UIColorExtension.swift in Sources */,
 				D427F6DD28032C9200E7F4E9 /* UILabelExtension.swift in Sources */,
 				D469AA402879FF3C0049F1B8 /* FetchUserModel.swift in Sources */,
+				D487C4C729BE670200022E3C /* ClockTime.swift in Sources */,
 				D427F6E228040DB500E7F4E9 /* ChooseRegisterOrLogInButton.swift in Sources */,
 				D469A9D1286F1F2D0049F1B8 /* QrCode.swift in Sources */,
 				D477CB0D280C52B100B7A07B /* CalendarView.swift in Sources */,
@@ -757,6 +768,7 @@
 				D4716C6C294480CB007D1936 /* MyProfileViewController.swift in Sources */,
 				D465BF4D2839380C00C2FE2A /* LogInResult.swift in Sources */,
 				D4BDC2D62848E92A0087700D /* RegisterRoomButton.swift in Sources */,
+				D487C4C329BE535400022E3C /* ChartColorTemplates+Extension.swift in Sources */,
 				D4BDC2D82848E9710087700D /* RegisterRoomUIImageView.swift in Sources */,
 				D427F6E428040DD600E7F4E9 /* ChooseRegisterOrLogInUIImageView.swift in Sources */,
 				D427F69B27FFE54700E7F4E9 /* WelcomeViewController.swift in Sources */,

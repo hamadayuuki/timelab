@@ -141,7 +141,7 @@ class CalendarViewController: UIViewController {
     
     // TODO: 計算量を少なくする
     func setEnterAndLeaveTimesOfDay(year: Int, month: Int, day: Int, times: [[String: Any]]) -> [[String: Any]] {
-        var enterAndLeaveTimesOfDay: [[String: Any]] = []
+        var enterAndLeaveTimesOfDay: [[String: Any]] = []    // ["enterAtDate": Data, "leaveAtDate": Data, "stayingTimeAtSecond": Int]
         for time in times {
             // 入退室した時刻を日付から取得
             let enterAtDate = time["enterAtDate"] as? Date ?? Date()
@@ -191,6 +191,29 @@ class CalendarViewController: UIViewController {
         return "\(stayingHour)時間 \(stayingMinute)分 \(stayingSecond)秒"
     }
     
+    private func checkIsAllNight(year: Int, month: Int, day: Int, times: [[String: Any]]) -> Bool {
+        // 前日の "yyyy-M-d" を取得
+        let today = DateUtils.dateFromString(string: "\(year)-\(month)-\(day)", format: "yyyy-M-d")
+        let yesterdayDate = Calendar.current.date(byAdding: .day, value: -1, to: today) ?? Date()
+        let yesterdayYearMonthDay = DateUtils.stringFromDate(date: yesterdayDate, format: "yyyy-M-d")
+        
+        for time in times {
+            // 入退室した時刻を日付から取得
+            let enterAtDate = time["enterAtDate"] as? Date ?? Date()   // TODO: エラー処理を追加
+            let enterYearAndMonthAndDay = DateUtils.stringFromDate(date: enterAtDate, format: "yyyy-M-d")   // timeの"yyyy-M-d"
+            // 選択した日付と一致するデータを取得
+            if (enterYearAndMonthAndDay == yesterdayYearMonthDay) {
+                // 入室と退室で日付が異なるとき
+                let leaveAtDate = time["leaveAtDate"] as? Date ?? Date()
+                let leaveYearAndMonthAndDay = DateUtils.stringFromDate(date: leaveAtDate, format: "yyyy-M-d")
+                if (enterYearAndMonthAndDay != leaveYearAndMonthAndDay) {
+                    return true
+                }
+            }
+        }
+        return false
+    }
+    
     private func setupLayout() {
 //        var iconUIImage = UIImage(named: "UserIcon1")?.reSizeImage(reSize: CGSize(width: 50, height: 50))
 //        iconUIImage = iconUIImage?.withRenderingMode(.alwaysOriginal)
@@ -229,11 +252,11 @@ class CalendarViewController: UIViewController {
         cellDescriptionHorizontalView.spacing = 4
         
         // 円グラフ
-        doneContentChartView = DoneContentsChartView()
-        doneContentChartView.delegate = self
+//        doneContentChartView = DoneContentsChartView()
+//        doneContentChartView.delegate = self
         
         // 円グラフのアイコン
-        doneContentUIImageView = DoneContentUIImageView(uiImage: UIImage())
+//        doneContentUIImageView = DoneContentUIImageView(uiImage: UIImage())
         
         // MARK: - addSubview/layer
         contentsView.addSubview(calendarView)
@@ -255,24 +278,22 @@ class CalendarViewController: UIViewController {
             make.top.equalTo(calendarView.snp.bottom).offset(20)
         }
         
-        /*
-        contentsView.addSubview(doneContentChartView)
-        doneContentChartView.snp.makeConstraints { make -> Void in
-            make.centerX.equalTo(view.bounds.width * 0.5)
-            make.centerY.equalTo(view.bounds.height * 0.8)
-            make.width.equalTo(300)
-            make.height.equalTo(300)
-        }
+//        contentsView.addSubview(doneContentChartView)
+//        doneContentChartView.snp.makeConstraints { make -> Void in
+//            make.centerX.equalTo(view.bounds.width * 0.5)
+//            make.centerY.equalTo(view.bounds.height * 0.8)
+//            make.width.equalTo(300)
+//            make.height.equalTo(300)
+//        }
         
-        contentsView.addSubview(doneContentUIImageView)
-        doneContentUIImageView.backgroundColor = .white
-        doneContentUIImageView.snp.makeConstraints { make -> Void in
-            make.centerX.equalTo(view.bounds.width * 0.5)
-            make.centerY.equalTo(view.bounds.height * 0.8)
-            make.width.equalTo(80)
-            make.height.equalTo(80)
-        }
-        */
+//        contentsView.addSubview(doneContentUIImageView)
+//        doneContentUIImageView.backgroundColor = .white
+//        doneContentUIImageView.snp.makeConstraints { make -> Void in
+//            make.centerX.equalTo(view.bounds.width * 0.5)
+//            make.centerY.equalTo(view.bounds.height * 0.8)
+//            make.width.equalTo(80)
+//            make.height.equalTo(80)
+//        }
         
         scrollView.addSubview(contentsView)
         contentsView.snp.makeConstraints { make -> Void in
@@ -303,8 +324,9 @@ extension CalendarViewController: CalendarViewDelegate {
         let dateString = "\(month)月\(day)日 (\(dayOfWeek))"
         let enterAndLeaveTimesOfDay = setEnterAndLeaveTimesOfDay(year: year, month: month, day: day, times: self.times)
         let stayingTimeStringOfDay = setStayingTimeStringOfDay(year: year, month: month, day: day, times: self.times)
+        let isAllNight = checkIsAllNight(year: year, month: month, day: day, times: self.times)
         // モーダル表示, setupFloatingPanel() 実行ずみ の状態で呼ばれる
-        let calendarDetailViewCotroller = CalendarDetailViewController(date: dateString, enterAndLeaveTimesOfDay: enterAndLeaveTimesOfDay, stayingTimeStringOfDay: stayingTimeStringOfDay)
+        let calendarDetailViewCotroller = CalendarDetailViewController(date: dateString, enterAndLeaveTimesOfDay: enterAndLeaveTimesOfDay, stayingTimeStringOfDay: stayingTimeStringOfDay, isAllNight: isAllNight)
         self.fpc.set(contentViewController: calendarDetailViewCotroller)
         self.fpc.addPanel(toParent: self, animated: true)
     }

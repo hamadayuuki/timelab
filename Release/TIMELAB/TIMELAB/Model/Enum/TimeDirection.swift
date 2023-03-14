@@ -16,9 +16,9 @@ enum TimeDirection {
     var timeText: String {
         switch self {
         case .north: return "0"
-        case .south: return "6"
-        case .west: return "12"
-        case .east: return "18"
+        case .south: return "12"
+        case .west: return "18"
+        case .east: return "6"
         }
     }
 }

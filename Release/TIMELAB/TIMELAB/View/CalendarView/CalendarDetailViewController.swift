@@ -118,8 +118,8 @@ class CalendarDetailViewController: UIViewController, ChartViewDelegate {
         doneContentChartView.snp.makeConstraints { make -> Void in
             make.centerX.equalTo(view.bounds.width * 0.5)
             make.top.equalTo(timeDetailLabel.snp.bottom).offset(50)
-            make.width.equalTo(300)
-            make.height.equalTo(300)
+            make.width.equalTo(280)
+            make.height.equalTo(280)
         }
         
         for direction: TimeDirection in [.north, .east, .south, .west]{

@@ -72,9 +72,10 @@ class QrCodeScannerViewController: UIViewController {
     }
     
     private func setLayout() {
+        let diffY: CGFloat = 50.0
         self.title = "QRコード"
         
-        maskCaLayer = MaskCaLayer(view: self.view, maskWidth: 300, maskHeight: 300, cornerRadius: 10.0)
+        maskCaLayer = MaskCaLayer(view: self.view, maskWidth: 300, maskHeight: 300, diffY: diffY, cornerRadius: 10.0)
         
 //        qrTextLabel = QrCodeScannerLabel(text: "", size: 20.0, weight: .bold, color: Color.navyBlue.UIColor, backgroundColor: Color.white.UIColor)
 //        qrTextLabel.adjustsFontSizeToFitWidth = true   // 大きさを自動で変更
@@ -148,7 +149,7 @@ class QrCodeScannerViewController: UIViewController {
         view.addSubview(qrWindowUIImageView)
         qrWindowUIImageView.snp.makeConstraints { (make) -> Void in
             make.centerX.equalTo(view.bounds.width / 2)
-            make.centerY.equalTo(view.bounds.height / 2)
+            make.centerY.equalTo((view.bounds.height / 2) - (diffY * 2))
             make.width.equalTo(300)   // 画像が描画される時にできる余白 100
             make.height.equalTo(300)
          }

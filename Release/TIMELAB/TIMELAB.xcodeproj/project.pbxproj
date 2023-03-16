@@ -119,6 +119,7 @@
 		D487C4C329BE535400022E3C /* ChartColorTemplates+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D487C4C229BE535400022E3C /* ChartColorTemplates+Extension.swift */; };
 		D487C4C529BE5BFF00022E3C /* TimeDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D487C4C429BE5BFF00022E3C /* TimeDirection.swift */; };
 		D487C4C729BE670200022E3C /* ClockTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = D487C4C629BE670200022E3C /* ClockTime.swift */; };
+		D487C4CA29C3261B00022E3C /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D487C4C929C3261B00022E3C /* LaunchViewController.swift */; };
 		D4B072942952CF4C00CDD15C /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = D4B072932952CF4C00CDD15C /* FirebaseAnalytics */; };
 		D4B072962952CF4C00CDD15C /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = D4B072952952CF4C00CDD15C /* FirebaseAuth */; };
 		D4B072982952CF4C00CDD15C /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = D4B072972952CF4C00CDD15C /* FirebaseDatabase */; };
@@ -243,6 +244,7 @@
 		D487C4C229BE535400022E3C /* ChartColorTemplates+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChartColorTemplates+Extension.swift"; sourceTree = "<group>"; };
 		D487C4C429BE5BFF00022E3C /* TimeDirection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeDirection.swift; sourceTree = "<group>"; };
 		D487C4C629BE670200022E3C /* ClockTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockTime.swift; sourceTree = "<group>"; };
+		D487C4C929C3261B00022E3C /* LaunchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
 		D4B1787828B3D316005F6EC4 /* CalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewModel.swift; sourceTree = "<group>"; };
 		D4BDC2CF2848E8610087700D /* RegisterRoomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterRoomViewController.swift; sourceTree = "<group>"; };
 		D4BDC2D12848E8BC0087700D /* RegisterRoomLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterRoomLabel.swift; sourceTree = "<group>"; };
@@ -318,6 +320,7 @@
 		D427F67D27FD89DB00E7F4E9 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				D487C4C829C3260700022E3C /* LaunchView */,
 				D4BDC2CE2848E83D0087700D /* RegisterRoomView */,
 				D427F67427FD78A300E7F4E9 /* QrCodeScannerView */,
 				D427F6DE28040D0300E7F4E9 /* ChooseRegisterOrLogInView */,
@@ -559,6 +562,14 @@
 			path = TabBarView;
 			sourceTree = "<group>";
 		};
+		D487C4C829C3260700022E3C /* LaunchView */ = {
+			isa = PBXGroup;
+			children = (
+				D487C4C929C3261B00022E3C /* LaunchViewController.swift */,
+			);
+			path = LaunchView;
+			sourceTree = "<group>";
+		};
 		D4BDC2CE2848E83D0087700D /* RegisterRoomView */ = {
 			isa = PBXGroup;
 			children = (
@@ -763,6 +774,7 @@
 				D44F5D9A292A8CD200DE7818 /* TabBarViewModel.swift in Sources */,
 				D427F67827FD7FD600E7F4E9 /* MaskCaLayer.swift in Sources */,
 				D427F68827FD994700E7F4E9 /* QrCodeScannerUiImageView.swift in Sources */,
+				D487C4CA29C3261B00022E3C /* LaunchViewController.swift in Sources */,
 				D4BDC2E0284FA8EA0087700D /* TransitionToMemoViewController.swift in Sources */,
 				D469A9DB286F58B10049F1B8 /* SaveRoomQrCodeModel.swift in Sources */,
 				D4716C6C294480CB007D1936 /* MyProfileViewController.swift in Sources */,

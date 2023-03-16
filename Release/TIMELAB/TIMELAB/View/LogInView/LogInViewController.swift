@@ -28,7 +28,7 @@ class LogInViewController: UIViewController {
     var passwordTextField: LogInTextField!
     var passwordSceretButton: LogInSecretButton!
     var validatePasswordLabel: LogInLabel!
-    var forgetPasswordLabel: LogInLabel!
+//    var forgetPasswordLabel: LogInLabel!
     var errorMessageLabel: LogInLabel!
     var logInButton: LogInButton!
     
@@ -58,7 +58,7 @@ class LogInViewController: UIViewController {
         passwordTextField.isSecureTextEntry = true
         passwordSceretButton = LogInSecretButton(imageSize: CGSize(width: 18, height: 18))
         validatePasswordLabel = LogInLabel(text: "", size: 10)
-        forgetPasswordLabel = LogInLabel(text: "パスワードを忘れた？", size: 13, textColor: Color.gray.UIColor)
+//        forgetPasswordLabel = LogInLabel(text: "パスワードを忘れた？", size: 13, textColor: Color.gray.UIColor)
 //        forgetPasswordLabel.underLine(color: Color.gray.UIColor, thickness: 1)   // SnapKit でレイアウトしているため使用できない
         
         errorMessageLabel = LogInLabel(text: "", size: 15, textColor: .red)
@@ -76,11 +76,11 @@ class LogInViewController: UIViewController {
             make.centerX.equalTo(view.bounds.width * 0.5)
             make.centerY.equalTo(view.bounds.height * 0.5)
         }
-        view.addSubview(forgetPasswordLabel)
-        forgetPasswordLabel.snp.makeConstraints { make -> Void in
-            make.top.equalTo(logInTextFieldVerticalView.snp.bottom).offset(5)
-            make.right.equalTo(logInTextFieldVerticalView.snp.right)
-        }
+//        view.addSubview(forgetPasswordLabel)
+//        forgetPasswordLabel.snp.makeConstraints { make -> Void in
+//            make.top.equalTo(logInTextFieldVerticalView.snp.bottom).offset(5)
+//            make.right.equalTo(logInTextFieldVerticalView.snp.right)
+//        }
         
         // 左端の座標を logInVerticalView に合わせるため、logInVerticalView より後に描画
         view.addSubview(introductionHorizontal)
@@ -96,7 +96,8 @@ class LogInViewController: UIViewController {
         view.addSubview(errorMessageLabel)
         errorMessageLabel.snp.makeConstraints { make -> Void in
             make.centerX.equalTo(view.bounds.width * 0.5)
-            make.top.equalTo(forgetPasswordLabel.snp.bottom).offset(20)
+//            make.top.equalTo(forgetPasswordLabel.snp.bottom).offset(20)
+            make.top.equalTo(logInTextFieldVerticalView.snp.bottom).offset(20)
         }
         
         view.addSubview(logInButton)

@@ -9,9 +9,9 @@ import UIKit
 
 // マスク(灰色の背景に 透明の正方形)を描画
 class MaskCaLayer: CALayer {
-    init(view: UIView, maskWidth: CGFloat, maskHeight: CGFloat, cornerRadius: CGFloat) {
+    init(view: UIView, maskWidth: CGFloat, maskHeight: CGFloat, diffY: CGFloat,cornerRadius: CGFloat) {
         let centerX = view.bounds.width / 2.0
-        let centerY = view.bounds.height / 2.0
+        let centerY = (view.bounds.height / 2.0) - diffY
         super.init()
         
         // くり抜かれる レイヤー

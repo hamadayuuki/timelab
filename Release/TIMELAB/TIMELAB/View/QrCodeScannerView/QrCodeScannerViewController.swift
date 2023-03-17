@@ -10,6 +10,7 @@ import SnapKit
 import QRScanner
 import RxCocoa
 import RxSwift
+import PKHUD
 
 class QrCodeScannerViewController: UIViewController {
     
@@ -226,58 +227,64 @@ extension QrCodeScannerViewController: QRScannerViewDelegate {
     
     func qrScannerView(_ qrScannerView: QRScannerView, didSuccess code: String) {
         print(code)
-//        qrTextLabel.text = code
-        
-//        qrScanViewModel = QrScanViewModel(roomId: code)
-        let qrCodeScannerViewModel = QrCodeScannerViewModel(roomId: code)
-        
-        qrCodeScannerViewModel.isRegisterUserState
-            .drive { isSuccess in
-                print("ユーザーの滞在状況登録: ", isSuccess)
-            }
-            .disposed(by: disposeBag)
-        
-        qrCodeScannerViewModel.isRegisterUserStateToRooms
-            .drive { isSuccess in
-                print("滞在状況をRoomへ登録: ", isSuccess)
-            }
-            .disposed(by: disposeBag)
-        
-        qrCodeScannerViewModel.isRegisterUserToRooms
-            .drive { isSuccess in
-                print("部屋の allUser/Clients に追加: ", isSuccess)
-            }
-            .disposed(by: disposeBag)
-        
-        qrCodeScannerViewModel.isRegisterRoomToUsers
-            .drive { isSuccess in
-                print("ユーザーへ部屋の登録: ", isSuccess)
-            }
-            .disposed(by: disposeBag)
-        
-        qrCodeScannerViewModel.isRegisterTimeWhenEnter
-            .filter { $0 == true }
-            .drive { isSuccess in
-                print("入室時刻情報の登録: ", isSuccess)
+
+        // 部屋のIDは20桁
+        if code.count == 20 {
+            let qrCodeScannerViewModel = QrCodeScannerViewModel(roomId: code)
+            
+            qrCodeScannerViewModel.isRegisterUserState
+                .drive { isSuccess in
+                    print("ユーザーの滞在状況登録: ", isSuccess)
+                }
+                .disposed(by: disposeBag)
+            
+            qrCodeScannerViewModel.isRegisterUserStateToRooms
+                .drive { isSuccess in
+                    print("滞在状況をRoomへ登録: ", isSuccess)
+                }
+                .disposed(by: disposeBag)
+            
+            qrCodeScannerViewModel.isRegisterUserToRooms
+                .drive { isSuccess in
+                    print("部屋の allUser/Clients に追加: ", isSuccess)
+                }
+                .disposed(by: disposeBag)
+            
+            qrCodeScannerViewModel.isRegisterRoomToUsers
+                .drive { isSuccess in
+                    print("ユーザーへ部屋の登録: ", isSuccess)
+                }
+                .disposed(by: disposeBag)
+            
+            qrCodeScannerViewModel.isRegisterTimeWhenEnter
+                .filter { $0 == true }
+                .drive { isSuccess in
+                    print("入室時刻情報の登録: ", isSuccess)
+                    self.dismiss(animated: true)
+                }
+                .disposed(by: disposeBag)
+            
+            // TODO: 時間表示を変更
+            qrCodeScannerViewModel.enterTimeDic
+                .subscribe { dic in
+                    print("入室時刻の取得: ", dic["enterTimeDate"])
+                }
+                .disposed(by: disposeBag)
+            
+            qrCodeScannerViewModel.isRegisterTimeWhenLeave
+                .filter { $0 == true }
+                .drive { isSuccess in
+                    print("退室時刻, 滞在時間の登録: ", isSuccess)
+                    self.dismiss(animated: true)
+                }
+                .disposed(by: disposeBag)
+            
+        } else {
+            HUD.flash(.labeledError(title: "", subtitle: "存在しない部屋です"), onView: view, delay: 1) { _ in
                 self.dismiss(animated: true)
+                return
             }
-            .disposed(by: disposeBag)
-        
-        // TODO: 時間表示を変更
-        qrCodeScannerViewModel.enterTimeDic
-            .subscribe { dic in
-                print("入室時刻の取得: ", dic["enterTimeDate"])
-            }
-            .disposed(by: disposeBag)
-        
-        qrCodeScannerViewModel.isRegisterTimeWhenLeave
-            .filter { $0 == true }
-            .drive { isSuccess in
-                print("退室時刻, 滞在時間の登録: ", isSuccess)
-                self.dismiss(animated: true)
-            }
-            .disposed(by: disposeBag)
-        
+        }
     }
     
     // ライトのオンオフ

@@ -887,6 +887,9 @@
 				GCC_PREPROCESSOR_DEFINITIONS = Develop;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TIMELAB/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "QRコード読み取りに、カメラを使用します。";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "アルバムに画像を保存します。";
+				INFOPLIST_KEY_NSUserTrackingUsageDescription = "許可するとお客さまに最適化された広告が表示されやすくなります。";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -1032,6 +1035,9 @@
 				GCC_PREPROCESSOR_DEFINITIONS = Debug;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TIMELAB/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "QRコード読み取りに、カメラを使用します。";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "アルバムに画像を保存します。";
+				INFOPLIST_KEY_NSUserTrackingUsageDescription = "許可するとお客さまに最適化された広告が表示されやすくなります。";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -1061,6 +1067,9 @@
 				GCC_PREPROCESSOR_DEFINITIONS = Release;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TIMELAB/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "QRコード読み取りに、カメラを使用します。";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "アルバムに画像を保存します。";
+				INFOPLIST_KEY_NSUserTrackingUsageDescription = "許可するとお客さまに最適化された広告が表示されやすくなります。";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";

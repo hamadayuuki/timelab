@@ -55,6 +55,17 @@ class CalendarDetailViewController: UIViewController, ChartViewDelegate {
             return [ClockTime(start: "00:00", end: "23:59")]
         }
         
+        // 入退室時刻の並び替え
+        var saveTimes: [[String: Any]] = []
+        for time in self.enterAndLeaveTimesOfDay {
+            if (DateUtils.stringFromDate(date: time["enterAtDate"] as! Date, format: "HH:mm")) == "00:00" {
+                saveTimes.insert(time, at: 0)
+            } else {
+                saveTimes.append(time)
+            }
+        }
+        self.enterAndLeaveTimesOfDay = saveTimes
+        
         var clockTimes: [ClockTime] = []
         let firstEnterTimeString = DateUtils.stringFromDate(date: self.enterAndLeaveTimesOfDay.first!["enterAtDate"] as! Date, format: "HH:mm")
         let lastLeaveTimeString = DateUtils.stringFromDate(date: self.enterAndLeaveTimesOfDay.last!["leaveAtDate"] as! Date, format: "HH:mm")

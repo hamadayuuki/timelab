@@ -50,6 +50,8 @@ class QrCodeScannerViewController: UIViewController {
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+
+        qrCodeScannerView.stopRunning()
         if #available(iOS 13.0, *) {
             presentingViewController?.beginAppearanceTransition(true, animated: animated)
             presentingViewController?.endAppearanceTransition()

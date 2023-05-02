@@ -16,6 +16,7 @@ class RegisterRoomTextField: UITextField {
         let height = 50
         let leftPaddingFrame = CGRect(x:0, y:0, width: 10, height: height)
         let rightPaddingFrame = CGRect(x: 0, y: 0, width: isSecretButton ? 40 : 10, height: height)
+        self.textColor = Color.navyBlue.UIColor
         self.frame = CGRect(x: 0, y: 0, width: width, height: height)
         self.placeholder = placeholder
         self.font = .systemFont(ofSize: 20, weight: .bold)

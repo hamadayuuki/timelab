@@ -257,6 +257,7 @@
 		D4BDC2DF284FA8EA0087700D /* TransitionToMemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionToMemoViewController.swift; sourceTree = "<group>"; };
 		D4D9FA9328DFF41C003C2C94 /* ConfirmOtherMemberStayStateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmOtherMemberStayStateViewModel.swift; sourceTree = "<group>"; };
 		D4D9FA9528E08CDC003C2C94 /* ConfirmUserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmUserViewModel.swift; sourceTree = "<group>"; };
+		D4F80DAF2A2E0C380063D2C8 /* TIMELAB.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TIMELAB.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -496,6 +497,7 @@
 		D476DFB827FD398500A1EDE3 /* TIMELAB */ = {
 			isa = PBXGroup;
 			children = (
+				D4F80DAF2A2E0C380063D2C8 /* TIMELAB.entitlements */,
 				D476DFB927FD398500A1EDE3 /* AppDelegate.swift */,
 				D476DFBB27FD398500A1EDE3 /* SceneDelegate.swift */,
 				D435167A28E300B700DCF919 /* Other */,
@@ -881,6 +883,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = TIMELAB/TIMELAB.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = BR3T8YBB5L;
@@ -1029,6 +1032,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = TIMELAB/TIMELAB.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = BR3T8YBB5L;
@@ -1061,6 +1065,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = TIMELAB/TIMELAB.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = BR3T8YBB5L;

@@ -10,7 +10,7 @@ import Firebase
 import AppTrackingTransparency  // ATT
 import AdSupport  // ATT
 
-class SceneDelegate: UIResponder, UIWindowSceneDelegate {
+class SceneDelegate: UIResponder, UIWindowSceneDelegate, UISceneDelegate {
 
     var window: UIWindow?
 
@@ -26,6 +26,28 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.window = window
         window.makeKeyAndVisible()
         
+        // アプリのタスクが終了している状態から Firebase Dynamic Links を用いてアプリを起動した時
+        if let userActivity = connectionOptions.userActivities.first(where: { $0.webpageURL != nil }) {
+            guard let url = userActivity.webpageURL else { return }
+            if let user = Auth.auth().currentUser { return }
+            
+            DynamicLinks.dynamicLinks().handleUniversalLink(url) { [weak self] dynamicLink, err in
+                if err != nil { return } else {
+                    guard let url = dynamicLink?.url else { return }
+                    guard (dynamicLink?.matchType == .unique || dynamicLink?.matchType == .default) else { return }
+                    guard let components = URLComponents(url: url, resolvingAgainstBaseURL: false) ,let queryItems = components.queryItems else { return }
+
+                    // ユーザー登録に関する Dynamic Links の場合
+                    if url.absoluteString.components(separatedBy: "/usersignup").count >= 2 {
+                        if let email = UserDefaults.standard.string(forKey: "email"), let password = UserDefaults.standard.string(forKey: "password") {   // ユーザー登録時(メール認証送信直前) UserDefaultを用いる
+//                            self?.window?.rootViewController = LogInViewController()   // TODO: 他の画面が先に表示される。 クロージャの中で画面遷移を行っているから他画面と表示のタイミングがずれる。
+                        }
+                    }
+
+                }
+            }
+        }
+        
         if let user = Auth.auth().currentUser  {
             window.rootViewController = TabBarViewController()   // 起動時の画面遷移
         } else {
@@ -40,6 +62,26 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 //       self.window = window
 //       window.rootViewController = CalendarDetailViewController()
 //       window.makeKeyAndVisible()
+    }
+    
+    func scene(_ scene: UIScene, continue userActivity: NSUserActivity) {
+        guard let url = userActivity.webpageURL else { return }
+        if let user = Auth.auth().currentUser { return }
+        
+        // アプリのタスクが終了"していない"状態から Firebase Dynamic Links を用いてアプリを起動した時
+        DynamicLinks.dynamicLinks().handleUniversalLink(url) { [weak self] dynamicLink, err in
+            if err != nil { return } else {
+                guard let url = dynamicLink?.url else { return }
+                guard (dynamicLink?.matchType == .unique || dynamicLink?.matchType == .default) else { return }
+                guard let components = URLComponents(url: url, resolvingAgainstBaseURL: false) ,let queryItems = components.queryItems else { return }
+
+                if url.absoluteString.components(separatedBy: "/usersignup").count >= 2 {
+                    if let email = UserDefaults.standard.string(forKey: "email"), let password = UserDefaults.standard.string(forKey: "password") {
+//                        self?.window?.rootViewController = LogInViewController()
+                    }
+                }
+            }
+        }
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

@@ -22,13 +22,16 @@ class CheckRegisterUserViewController: UIViewController {
         super.viewDidLoad()
         
         setupLayout()
+        
+        HUD.dimsBackground = false
+        HUD.show(.progress)
     }
     
     // MARK: - Function
     func setupLayout() {
         view.backgroundColor = Color.white.UIColor
         
-        checkRegisterUserLabel = RegisterLabel(text: "登録しています", size: 25)
+        checkRegisterUserLabel = RegisterLabel(text: "登録しています", size: 30)
         checkRegisterUserMessageLabel = RegisterLabel(text: "もう少しお待ちください", size: 15)
         
         
@@ -41,7 +44,7 @@ class CheckRegisterUserViewController: UIViewController {
         view.addSubview(checkRegisterUserVertical)
         checkRegisterUserVertical.snp.makeConstraints { make -> Void in
             make.centerX.equalTo(view.bounds.width * 0.5)
-            make.centerY.equalTo(view.bounds.height * 0.5)
+            make.centerY.equalTo(view.bounds.height * 0.3)
         }
     }
 }

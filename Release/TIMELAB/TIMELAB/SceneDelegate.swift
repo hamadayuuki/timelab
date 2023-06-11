@@ -52,7 +52,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UISceneDelegate {
             window.rootViewController = TabBarViewController()   // 起動時の画面遷移
         } else {
             // Push通知, 遷移先でPresent遷移を可能にするため
-            let chooseRegisterOrLogInViewController = ChooseRegisterOrLogInViewController()   // 起動時の画面遷移
+            let chooseRegisterOrLogInViewController = CheckRegisterUserViewController()   // 起動時の画面遷移
             let navigationController = UINavigationController(rootViewController: chooseRegisterOrLogInViewController)
             window.rootViewController = navigationController
         }

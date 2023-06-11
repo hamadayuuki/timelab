@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		D41A52672A3591C000463CCF /* FirebaseDynamicLinks.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41A52662A3591C000463CCF /* FirebaseDynamicLinks.swift */; };
 		D41A52692A35ADC700463CCF /* PleaseConfirmEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41A52682A35ADC700463CCF /* PleaseConfirmEmailViewController.swift */; };
+		D41A526B2A35B33500463CCF /* CheckRegisterUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41A526A2A35B33500463CCF /* CheckRegisterUserViewController.swift */; };
 		D4214EDA285B7DC200ECEBE8 /* PositionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4214ED9285B7DC200ECEBE8 /* PositionType.swift */; };
 		D4270D1C294257A30086C219 /* WebUIViewContorller.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4270D1B294257A30086C219 /* WebUIViewContorller.swift */; };
 		D4270D1E29426DBD0086C219 /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4270D1D29426DBD0086C219 /* Setting.swift */; };
@@ -145,6 +146,7 @@
 /* Begin PBXFileReference section */
 		D41A52662A3591C000463CCF /* FirebaseDynamicLinks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseDynamicLinks.swift; sourceTree = "<group>"; };
 		D41A52682A35ADC700463CCF /* PleaseConfirmEmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PleaseConfirmEmailViewController.swift; sourceTree = "<group>"; };
+		D41A526A2A35B33500463CCF /* CheckRegisterUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckRegisterUserViewController.swift; sourceTree = "<group>"; };
 		D4214ED9285B7DC200ECEBE8 /* PositionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionType.swift; sourceTree = "<group>"; };
 		D4270D1B294257A30086C219 /* WebUIViewContorller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebUIViewContorller.swift; sourceTree = "<group>"; };
 		D4270D1D29426DBD0086C219 /* Setting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
@@ -379,6 +381,7 @@
 			children = (
 				D427F68E27FF178300E7F4E9 /* RegisterUserViewController.swift */,
 				D41A52682A35ADC700463CCF /* PleaseConfirmEmailViewController.swift */,
+				D41A526A2A35B33500463CCF /* CheckRegisterUserViewController.swift */,
 				D427F69A27FFE54700E7F4E9 /* WelcomeViewController.swift */,
 				D427F69E27FFEE3D00E7F4E9 /* RegisterNickNameViewController.swift */,
 				D427F6A027FFFCE500E7F4E9 /* RegisterUserIconViewController.swift */,
@@ -715,6 +718,7 @@
 				D44F5D98292A866700DE7818 /* MenuButton.swift in Sources */,
 				D477CB46281927BD00B7A07B /* RankingUserIconButton.swift in Sources */,
 				D427F67627FD78CA00E7F4E9 /* QrCodeScannerViewController.swift in Sources */,
+				D41A526B2A35B33500463CCF /* CheckRegisterUserViewController.swift in Sources */,
 				D469A9CD286F148A0049F1B8 /* CalendarScrollView.swift in Sources */,
 				D4BDC2DE284F9FD40087700D /* SaveRoomQrCodeButton.swift in Sources */,
 				D4BDC2D22848E8BC0087700D /* RegisterRoomLabel.swift in Sources */,

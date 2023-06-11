@@ -138,4 +138,34 @@ class RegisterUserModel {
         
     }
     
+    // MARK: Firebase Dynamic Links
+    
+    func createActionCodeSettings() -> ActionCodeSettings {
+        let dynamicLinkUrl = "https://timelab.page.link"
+        let actionCodeSettings = ActionCodeSettings()
+        actionCodeSettings.url = URL(string: dynamicLinkUrl)
+        // The sign-in operation has to always be completed in the app.
+        actionCodeSettings.handleCodeInApp = true
+        actionCodeSettings.setIOSBundleID(Bundle.main.bundleIdentifier!)
+        return actionCodeSettings
+    }
+    
+    func sendSingInLink(name: String, email: String, password: String) -> Observable<Bool> {
+        return Observable<Bool>.create { observer in
+            let actionCodeSettings = self.createActionCodeSettings()
+            
+            Auth.auth().sendSignInLink(toEmail: email, actionCodeSettings: actionCodeSettings) { error in
+                if let error = error {
+                    print("sendSignInLInk Error")
+                    observer.onNext(false)
+                }
+                UserDefaults.standard.set(email, forKey: "email")
+                UserDefaults.standard.set(password, forKey: "password")
+                observer.onNext(true)
+                print("success sendSignInLink")
+            }
+            return Disposables.create { print("Observable: Dispose") }
+        }
+    }
+    
 }

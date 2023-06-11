@@ -378,6 +378,7 @@
 			isa = PBXGroup;
 			children = (
 				D427F68E27FF178300E7F4E9 /* RegisterUserViewController.swift */,
+				D41A52682A35ADC700463CCF /* PleaseConfirmEmailViewController.swift */,
 				D427F69A27FFE54700E7F4E9 /* WelcomeViewController.swift */,
 				D427F69E27FFEE3D00E7F4E9 /* RegisterNickNameViewController.swift */,
 				D427F6A027FFFCE500E7F4E9 /* RegisterUserIconViewController.swift */,
@@ -388,7 +389,6 @@
 				D427F69827FF243200E7F4E9 /* RegisterSecretButton.swift */,
 				D427F69C27FFE60700E7F4E9 /* RegisterUIImageView.swift */,
 				D427F6A227FFFD1400E7F4E9 /* RegisterUserIconButton.swift */,
-				D41A52682A35ADC700463CCF /* PleaseConfirmEmailViewController.swift */,
 			);
 			path = RegisterUserView;
 			sourceTree = "<group>";

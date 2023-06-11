@@ -198,8 +198,8 @@ class RegisterUserViewController: UIViewController {
                 if self.isProgressView && result {
                     HUD.hide()
                     // push画面遷移
-                    let welcomeViewController = WelcomeViewController()
-                    self.navigationController?.pushViewController(welcomeViewController, animated: true)
+                    let pleaseConfirmEmailViewController = PleaseConfirmEmailViewController()
+                    self.navigationController?.pushViewController(pleaseConfirmEmailViewController, animated: true)
                 }
             }
             .disposed(by: disposeBag)

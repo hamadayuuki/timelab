@@ -58,6 +58,7 @@ class RegisterUserViewModel {
         }
         .distinctUntilChanged()
         
+        //  MARK: SignUp to Auth
         // アカウント作成
         let nameAndEmailAndPassword = Driver.combineLatest(input.name, input.email, input.password) { (name: $0, email: $1, password: $2) }
         signUpResult = input.signUpTaps
@@ -76,6 +77,8 @@ class RegisterUserViewModel {
             .map { user in return user.isValid }
             .asDriver(onErrorJustReturn: false )
         
+        // MARK: SignUp to Store
+        
         // ユーザー情報を FireStore へ登録
         //  ↓ Observable<Observable<Bool>>
         let userToFireStoreResult = signUpResult
@@ -93,13 +96,6 @@ class RegisterUserViewModel {
                 return bool
             }
             .asDriver(onErrorJustReturn: false)
-            
-        // アカウント作成可能か
-        // ! ここに isSignUp をいれないと、アカウント登録が呼ばれない → 実装を変更する必要あり
-        canSignUp = Driver.combineLatest(nameValidation, emailValidation, passwordValidation, passwordConfirmValidation){ (name, email, password, passwordConfirm) in
-            validationModel.ValidateCanRegister(nameIsValid: name.isValid, emailIsValid: email.isValid, passwordIsValid: password.isValid, passwordConfirmIsValid: passwordConfirm.isValid)
-        }
-        .distinctUntilChanged()
     }
     
 }

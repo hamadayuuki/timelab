@@ -37,6 +37,17 @@ class RegisterUserModel {
         }// return
     }
     
+    func registerUserToFireAuth(email: String, password: String) async throws -> Bool {
+        do {
+            let authResult = try await Auth.auth().createUser(withEmail: email, password: password)
+            print("Success RegisterUser Auth")
+            return true
+        } catch {
+            print("Error RegisterUser Auth")
+            return false
+        }
+    }
+    
     func registerUserToFireStore(email: String, uid: String, name: String, iconName: String) -> Observable<Bool> {
         
         return Observable<Bool>.create { observer in

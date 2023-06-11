@@ -12,6 +12,7 @@ import PKHUD
 // メール認証から遷移する
 // 主にユーザー登録の処理を行う
 class CheckRegisterUserViewController: UIViewController {
+    let checkRegisterUserViewModel = CheckRegisterUserViewModel()
     
     // MARK: - UI Parts
     var checkRegisterUserLabel: RegisterLabel!
@@ -22,9 +23,18 @@ class CheckRegisterUserViewController: UIViewController {
         super.viewDidLoad()
         
         setupLayout()
+        setupBinding()
         
         HUD.dimsBackground = false
         HUD.show(.progress)
+        checkRegisterUserViewModel.setEmailAndPassword()
+        Task {
+            do {
+                try await checkRegisterUserViewModel.registerUserToAuth()
+            } catch {
+                print("Catch checkRegisterUserViewModel.registerUserToAuth()")
+            }
+        }
     }
     
     // MARK: - Function
@@ -46,5 +56,18 @@ class CheckRegisterUserViewController: UIViewController {
             make.centerX.equalTo(view.bounds.width * 0.5)
             make.centerY.equalTo(view.bounds.height * 0.3)
         }
+    }
+    
+    func setupBinding() {
+        checkRegisterUserViewModel.authResult
+            .subscribe { authResult in
+                if authResult {
+                    print("Success Auth")
+                    HUD.hide()
+                } else {
+                    print("Error Auth")
+                    HUD.show(.error)
+                }
+            }
     }
 }

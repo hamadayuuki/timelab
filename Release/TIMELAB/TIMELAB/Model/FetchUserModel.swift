@@ -37,9 +37,12 @@ class FetchUserModel {
             let db = Firestore.firestore()
             db.collection("Users").document(uid).getDocument { (document, err) in
                if let document = document {
-                   var data = document.data()!
-                   print("data: ", data)
-                   observer.onNext(data)
+                   if let data = document.data() {
+                       print("data: ", data)
+                       observer.onNext(data)
+                   } else {
+                       observer.onNext(["": ""])
+                   }
                 } else {
                     print("Document does not exist")
                     observer.onNext(["": ""])

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D41A52672A3591C000463CCF /* FirebaseDynamicLinks.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41A52662A3591C000463CCF /* FirebaseDynamicLinks.swift */; };
 		D4214EDA285B7DC200ECEBE8 /* PositionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4214ED9285B7DC200ECEBE8 /* PositionType.swift */; };
 		D4270D1C294257A30086C219 /* WebUIViewContorller.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4270D1B294257A30086C219 /* WebUIViewContorller.swift */; };
 		D4270D1E29426DBD0086C219 /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4270D1D29426DBD0086C219 /* Setting.swift */; };
@@ -141,6 +142,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D41A52662A3591C000463CCF /* FirebaseDynamicLinks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseDynamicLinks.swift; sourceTree = "<group>"; };
 		D4214ED9285B7DC200ECEBE8 /* PositionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionType.swift; sourceTree = "<group>"; };
 		D4270D1B294257A30086C219 /* WebUIViewContorller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebUIViewContorller.swift; sourceTree = "<group>"; };
 		D4270D1D29426DBD0086C219 /* Setting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
@@ -365,6 +367,7 @@
 				D4716C712945B420007D1936 /* DeleteRoomModel.swift */,
 				D469AA3B2879ED8B0049F1B8 /* RegisterTimeModel.swift */,
 				D46479832881700700F72EEE /* FetchTimeModel.swift */,
+				D41A52662A3591C000463CCF /* FirebaseDynamicLinks.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -752,6 +755,7 @@
 				D427F67C27FD899200E7F4E9 /* UIColorExtension.swift in Sources */,
 				D427F6DD28032C9200E7F4E9 /* UILabelExtension.swift in Sources */,
 				D469AA402879FF3C0049F1B8 /* FetchUserModel.swift in Sources */,
+				D41A52672A3591C000463CCF /* FirebaseDynamicLinks.swift in Sources */,
 				D487C4C729BE670200022E3C /* ClockTime.swift in Sources */,
 				D427F6E228040DB500E7F4E9 /* ChooseRegisterOrLogInButton.swift in Sources */,
 				D469A9D1286F1F2D0049F1B8 /* QrCode.swift in Sources */,

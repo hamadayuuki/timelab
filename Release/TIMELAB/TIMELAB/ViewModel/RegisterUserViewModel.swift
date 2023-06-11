@@ -19,9 +19,12 @@ class RegisterUserViewModel {
     let isSignUp: Driver<Bool>
     var canSignUp: Driver<Bool>
     let isUserToFireStore: Driver<Bool>
+    var sendSignInLinks = PublishSubject<Void>()
     
     let disposeBag = DisposeBag()   // ここで初期化しないと 処理が走らない場合あり
     
+    let dynamicLinks = FirebaseDynamicLinks()
+
     // input: V から通知を受け取れるよう、初期化
     init(input: (
         name: Driver<String>,
@@ -98,6 +101,15 @@ class RegisterUserViewModel {
             .asDriver(onErrorJustReturn: false)
     }
     
+    func sendSignInLinks(email: String, password: String) async throws {
+        do {
+            try await self.dynamicLinks.sendSingInLink(email: email, password: password)
+            self.sendSignInLinks.onNext(())
+        } catch {
+            // エラー処理
+        }
+        
+    }
 }
 
 

@@ -228,6 +228,25 @@ class RegisterUserViewController: UIViewController {
             }
             .disposed(by: disposeBag)
         
+        registerButton.rx.tap
+            .subscribe { [weak self] _ in
+                guard let self = self else { return }
+                Task {
+                    do {
+                        try await self.registerUserViewModel.sendSignInLinks(email: self.emailTextField.text!, password: self.passwordTextField.text!)
+                    } catch {
+                        print("Error sendSignInLinks")
+                    }
+                }
+            }
+            .disposed(by: disposeBag)
+        
+        registerUserViewModel.sendSignInLinks
+            .subscribe { _ in
+                print("メール送信 成功")
+            }
+            .disposed(by: disposeBag)
+        
         // 背景をタップしたらキーボードを隠す
         let tapBackground = UITapGestureRecognizer()
         tapBackground.rx.event

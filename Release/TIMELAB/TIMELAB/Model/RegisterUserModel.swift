@@ -37,14 +37,15 @@ class RegisterUserModel {
         }// return
     }
     
-    func registerUserToFireAuth(email: String, password: String) async throws -> Bool {
+    func registerUserToFireAuth(email: String, password: String) async throws -> (Bool, String?) {
         do {
             let authResult = try await Auth.auth().createUser(withEmail: email, password: password)
+            let uid = authResult.user.uid
             print("Success RegisterUser Auth")
-            return true
+            return (true, uid)
         } catch {
             print("Error RegisterUser Auth")
-            return false
+            return (false, nil)
         }
     }
     

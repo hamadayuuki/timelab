@@ -16,6 +16,7 @@ class CheckRegisterUserViewModel {
     
     var authResult = PublishSubject<Bool>()
     var storeResult = PublishSubject<Bool>()
+    var uid = PublishSubject<String?>()
     
     func setEmailAndPassword() {
 //        self.email = UserDefaults.standard.string(forKey: "email")
@@ -27,8 +28,9 @@ class CheckRegisterUserViewModel {
     
     func registerUserToAuth() async throws {
         do {
-            let authResult = try await self.registerUserModel.registerUserToFireAuth(email: self.email, password: self.password)
+            let (authResult, uid) = try await self.registerUserModel.registerUserToFireAuth(email: self.email, password: self.password)
             self.authResult.onNext(authResult)
+            self.uid.onNext(uid)
         } catch {
             self.authResult.onNext(false)
         }

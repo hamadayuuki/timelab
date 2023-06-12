@@ -21,6 +21,17 @@ class CheckRegisterUserViewController: UIViewController {
     var checkRegisterUserLabel: RegisterLabel!
     var checkRegisterUserMessageLabel: RegisterLabel!
     
+    var name: String!
+    var iconName: String!
+    
+    init(name: String, iconName: String) {
+        super.init(nibName: nil, bundle: nil)
+        
+        self.name = name
+        self.iconName = iconName
+    }
+    required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
+    
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,14 +73,14 @@ class CheckRegisterUserViewController: UIViewController {
     }
     
     func setupBinding() {
-        checkRegisterUserViewModel.authResult
-            .subscribe { [weak self] authResult in
+        Observable.combineLatest(checkRegisterUserViewModel.authResult, checkRegisterUserViewModel.uid)
+            .subscribe { [weak self] authResult, uid in
                 guard let self = self else { return }
-                if authResult {
+                if authResult, let uid = uid {
                     print("Success Auth")
                     Task {
                         do {
-                            try await self.checkRegisterUserViewModel.registerUserToStore(uid: "uid0000", name: "name0000", iconName: "iconName2")
+                            try await self.checkRegisterUserViewModel.registerUserToStore(uid: uid, name: self.name, iconName: self.iconName)
                         } catch {
                             print("Error Auth try await self.checkRegisterUserViewModel")
                             HUD.show(.error)

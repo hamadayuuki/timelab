@@ -37,7 +37,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UISceneDelegate {
                             let methods = try await Auth.auth().fetchSignInMethods(forEmail: email)   // 登録していない:[], 登録済み:["password"]
                             // 入力したメール が 登録済みのメール なら
                             if !methods.isEmpty {
-                                window.rootViewController = ChooseRegisterOrLogInViewController()
+                                translationWithNavigationController(toViewController: ChooseRegisterOrLogInViewController())
                             }
                         }
                     } catch { return }
@@ -45,6 +45,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UISceneDelegate {
                 
                 // アプリのタスクが終了している状態から Firebase Dynamic Links を用いてアプリを起動した時
                 DynamicLinks.dynamicLinks().handleUniversalLink(url) { [weak self] dynamicLink, err in
+                    guard let self = self else { return }
+                    
                     if err != nil { return } else {
                         guard let url = dynamicLink?.url else { return }
                         guard (dynamicLink?.matchType == .unique || dynamicLink?.matchType == .default) else { return }
@@ -53,7 +55,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UISceneDelegate {
                         // ユーザー登録に関する Dynamic Links の場合
                         if url.absoluteString.components(separatedBy: "/usersignup").count >= 2 {
                             if let password = UserDefaults.standard.string(forKey: "password") {   // ユーザー登録時(メール認証送信直前) UserDefaultを用いる
-                                self?.window?.rootViewController = LogInViewController()   // TODO: 他の画面が先に表示される。 クロージャの中で画面遷移を行っているから他画面と表示のタイミングがずれる。
+                                self.translationWithNavigationController(toViewController: LogInViewController())   // TODO: 他の画面が先に表示される。 クロージャの中で画面遷移を行っているから他画面と表示のタイミングがずれる。
                             }
                         }
 
@@ -66,14 +68,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UISceneDelegate {
 //            window.rootViewController = TabBarViewController()   // 起動時の画面遷移
             window.rootViewController = CheckRegisterUserViewController()
             // MARK: デバッグ用
-//            let registerNickNameViewController = RegisterNickNameViewController()   // 遷移先で画面遷移を可能とするため rootViewController で画面遷移
-//            let navigationController = UINavigationController(rootViewController: registerNickNameViewController)
-//            window.rootViewController = navigationController
+//            translationWithNavigationController(toViewController: RegisterNickNameViewController())
         } else {
             // Push通知, 遷移先でPresent遷移を可能にするため
-            let chooseRegisterOrLogInViewController = ChooseRegisterOrLogInViewController()   // 起動時の画面遷移
-            let navigationController = UINavigationController(rootViewController: chooseRegisterOrLogInViewController)
-            window.rootViewController = navigationController
+            translationWithNavigationController(toViewController: ChooseRegisterOrLogInViewController())   // 起動時の画面遷移
         }
         
         // Present遷移
@@ -96,13 +94,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UISceneDelegate {
                         let methods = try await Auth.auth().fetchSignInMethods(forEmail: email)   // 登録していない:[], 登録済み:["password"]
                         // 入力したメール が 登録済みのメール なら
                         if !methods.isEmpty {
-                            window?.rootViewController = ChooseRegisterOrLogInViewController()
+                            translationWithNavigationController(toViewController: ChooseRegisterOrLogInViewController())
                         }
                     }
                 } catch { return }
             }
             
             DynamicLinks.dynamicLinks().handleUniversalLink(url) { [weak self] dynamicLink, err in
+                guard let self = self else { return }
+                
                 if err != nil { return } else {
                     guard let url = dynamicLink?.url else { return }
                     guard (dynamicLink?.matchType == .unique || dynamicLink?.matchType == .default) else { return }
@@ -111,7 +111,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UISceneDelegate {
                     // ユーザー登録に関する Dynamic Links の場合
                     if url.absoluteString.components(separatedBy: "/usersignup").count >= 2 {
                         if let password = UserDefaults.standard.string(forKey: "password") {   // ユーザー登録時(メール認証送信直前) UserDefaultを用いる
-                            self?.window?.rootViewController = LogInViewController()   // TODO: 他の画面が先に表示される。 クロージャの中で画面遷移を行っているから他画面と表示のタイミングがずれる。
+                            self.translationWithNavigationController(toViewController: LogInViewController())   // TODO: 他の画面が先に表示される。 クロージャの中で画面遷移を行っているから他画面と表示のタイミングがずれる。
                         }
                     }
 
@@ -145,6 +145,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UISceneDelegate {
         // Called as the scene transitions from the foreground to the background.
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
+    }
+    
+    // MARK: Functions
+    
+    func translationWithNavigationController(toViewController: UIViewController) {
+        let navigationController = UINavigationController(rootViewController: toViewController)
+        self.window?.rootViewController = navigationController
     }
 
 

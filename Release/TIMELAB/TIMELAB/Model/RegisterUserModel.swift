@@ -78,6 +78,27 @@ class RegisterUserModel {
         
     }
     
+    func registerUserToFireStore(email: String, uid: String, iconName: String) async throws -> Bool {
+        let document = [
+            "name": "",
+            "email": email,
+            "uid": uid,
+            "iconName": iconName,
+            "type": "client",   // TODO: 可変に
+            "rooms": [],
+            "createAt": Timestamp(),
+            "updateAt": Timestamp()
+        ] as [String : Any]
+        
+        let userRef = Firestore.firestore().collection("Users")
+        do {
+            try await userRef.document(uid).setData(document)
+            return true
+        } catch {
+            return false
+        }
+    }
+    
     func updateIconNameToFireStore(uid: String, iconName: String) -> Observable<Bool> {
         Observable<Bool>.create { observer in
             let updateData = ["iconName": iconName]

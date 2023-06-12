@@ -37,7 +37,7 @@ class WelcomeViewController: UIViewController {
         welcomeLabel = RegisterLabel(text: "ようこそ！！", size: 30)
         welcomeMessageLabel = RegisterLabel(text: "これから研究を頑張っていきましょう", size: 15)
         welcomeUIImageView = RegisterUIImageView(name: "Welcome")
-        moveRegisterNickNameView = RegisterButton(text: "ニックネームを入力", textSize: 15)
+        moveRegisterNickNameView = RegisterButton(text: "アプリを始める", textSize: 15)
         
         
         let welcomeVertical = UIStackView(arrangedSubviews: [welcomeLabel, welcomeMessageLabel, welcomeUIImageView])

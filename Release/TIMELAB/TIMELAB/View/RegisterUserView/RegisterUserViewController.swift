@@ -235,4 +235,21 @@ class RegisterUserViewController: UIViewController {
             .disposed(by: disposeBag)
         
     }
+    
+    func resetLayout() {
+        self.nameTextField.text = ""
+        self.validateNameLabel.text = "※ "
+        self.validateNameLabel.textColor = Color.navyBlue.UIColor
+        self.emailTextField.text = ""
+        self.validateEmailLabel.text = "※ "
+        self.validateEmailLabel.textColor = Color.navyBlue.UIColor
+        self.passwordTextField.text = ""
+        self.validatePasswordLabel.text = "※ "
+        self.validatePasswordLabel.textColor = Color.navyBlue.UIColor
+        self.passwordConfirmTextField.text = ""
+        self.validatePasswordConfirmLabel.text = "※ "
+        self.validatePasswordConfirmLabel.textColor = Color.navyBlue.UIColor
+        self.registerButton.isSelected = false
+        self.registerButton.isEnabled = false
+    }
 }

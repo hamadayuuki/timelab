@@ -36,6 +36,7 @@ class CheckRegisterUserViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.navigationItem.hidesBackButton = true
         setupLayout()
         setupBinding()
         
@@ -98,6 +99,9 @@ class CheckRegisterUserViewController: UIViewController {
                 guard let self = self else { return }
                 print("Success Auth+Store")
                 HUD.hide()
+                // Push画面遷移
+                let welcomeViewController = WelcomeViewController()
+                self.navigationController?.pushViewController(welcomeViewController, animated: true)
             }
             .disposed(by: disposeBag)
     }

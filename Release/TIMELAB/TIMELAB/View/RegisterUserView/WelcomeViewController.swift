@@ -80,8 +80,8 @@ class WelcomeViewController: UIViewController {
                 self.moveRegisterNickNameView.isSelected = !self.moveRegisterNickNameView.isSelected
                 self.moveRegisterNickNameView.backgroundColor = self.moveRegisterNickNameView.isSelected ? Color.lightGray.UIColor : Color.navyBlue.UIColor
                 // push画面遷移
-                let registerNickNameViewController = RegisterNickNameViewController()
-                self.navigationController?.pushViewController(registerNickNameViewController, animated: true)
+                let tabBarViewController = TabBarViewController()
+                self.navigationController?.pushViewController(tabBarViewController, animated: true)
             }
             .disposed(by: disposeBag)
     }

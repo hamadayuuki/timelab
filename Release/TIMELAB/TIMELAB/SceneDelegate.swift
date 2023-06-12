@@ -44,6 +44,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UISceneDelegate {
                 }
                 
                 // アプリのタスクが終了している状態から Firebase Dynamic Links を用いてアプリを起動した時
+                // TODO: この場合、「アカウント登録途中だった可能性があります」とトーストでメッセージ表示 ← アカウント登録途中で離脱したユーザーが『なぜこの画面(RegisterNickNameViewController)が出たのだろう』と疑問を持ったときのため
                 DynamicLinks.dynamicLinks().handleUniversalLink(url) { [weak self] dynamicLink, err in
                     guard let self = self else { return }
                     
@@ -55,7 +56,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UISceneDelegate {
                         // ユーザー登録に関する Dynamic Links の場合
                         if url.absoluteString.components(separatedBy: "/usersignup").count >= 2 {
                             if let password = UserDefaults.standard.string(forKey: "password") {   // ユーザー登録時(メール認証送信直前) UserDefaultを用いる
-                                self.translationWithNavigationController(toViewController: LogInViewController())   // TODO: 他の画面が先に表示される。 クロージャの中で画面遷移を行っているから他画面と表示のタイミングがずれる。
+                                self.translationWithNavigationController(toViewController: RegisterNickNameViewController())   // TODO: 他の画面が先に表示される。 クロージャの中で画面遷移を行っているから他画面と表示のタイミングがずれる。
                             }
                         }
                     }
@@ -65,9 +66,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UISceneDelegate {
         
         if let user = Auth.auth().currentUser  {
 //            window.rootViewController = TabBarViewController()   // 起動時の画面遷移
-            window.rootViewController = CheckRegisterUserViewController()
             // MARK: デバッグ用
-//            translationWithNavigationController(toViewController: RegisterNickNameViewController())
+            translationWithNavigationController(toViewController: RegisterNickNameViewController())
         } else {
             // Push通知, 遷移先でPresent遷移を可能にするため
             translationWithNavigationController(toViewController: ChooseRegisterOrLogInViewController())   // 起動時の画面遷移
@@ -104,7 +104,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UISceneDelegate {
                     // ユーザー登録に関する Dynamic Links の場合
                     if url.absoluteString.components(separatedBy: "/usersignup").count >= 2 {
                         if let password = UserDefaults.standard.string(forKey: "password") {   // ユーザー登録時(メール認証送信直前) UserDefaultを用いる
-                            self.translationWithNavigationController(toViewController: LogInViewController())   // TODO: 他の画面が先に表示される。 クロージャの中で画面遷移を行っているから他画面と表示のタイミングがずれる。
+                            self.translationWithNavigationController(toViewController: RegisterNickNameViewController())   // TODO: 他の画面が先に表示される。 クロージャの中で画面遷移を行っているから他画面と表示のタイミングがずれる。
                         }
                     }
                 }

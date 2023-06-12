@@ -15,10 +15,6 @@ class RegisterUserViewModel {
     let passwordValidation: Driver<ValidationResult>
     let passwordConfirmValidation: Driver<ValidationResult>
     
-    let signUpResult: Driver<User>
-    let isSignUp: Driver<Bool>
-    var canSignUp: Driver<Bool>
-    let isUserToFireStore: Driver<Bool>
     var sendSignInLinks = PublishSubject<Void>()
     
     let disposeBag = DisposeBag()   // ここで初期化しないと 処理が走らない場合あり
@@ -53,52 +49,6 @@ class RegisterUserViewModel {
             .map { (password, passwordConfirm) in
                 validationModel.ValidatePasswordConfirm(password: password, passwordConfirm: passwordConfirm)
             }
-        
-        // アカウント作成可能か
-        // ! ここに isSignUp をいれないと、アカウント登録が呼ばれない → 実装を変更する必要あり
-        canSignUp = Driver.combineLatest(nameValidation, emailValidation, passwordValidation, passwordConfirmValidation){ (name, email, password, passwordConfirm) in
-            validationModel.ValidateCanRegister(nameIsValid: name.isValid, emailIsValid: email.isValid, passwordIsValid: password.isValid, passwordConfirmIsValid: passwordConfirm.isValid)
-        }
-        .distinctUntilChanged()
-        
-        //  MARK: SignUp to Auth
-        // アカウント作成
-        let nameAndEmailAndPassword = Driver.combineLatest(input.name, input.email, input.password) { (name: $0, email: $1, password: $2) }
-        signUpResult = input.signUpTaps
-            .asObservable()
-            .withLatestFrom(nameAndEmailAndPassword)
-            .flatMapLatest { tuple in
-                signUpAPI.registerUserToFireAuth(name: tuple.name, email: tuple.email, password: tuple.password)   // User型 で返ってくる
-            }
-            .asDriver(onErrorJustReturn: User(name: "", email: "", uid: "", isValid: false))
-        
-        // M でのアカウント登録結果を受け取り、V に渡している, M→VM, VM→M
-        //         ↓ Observable<User>
-        isSignUp = signUpResult
-            .asObservable()
-            .filter { $0.isValid }
-            .map { user in return user.isValid }
-            .asDriver(onErrorJustReturn: false )
-        
-        // MARK: SignUp to Store
-        
-        // ユーザー情報を FireStore へ登録
-        //  ↓ Observable<Observable<Bool>>
-        let userToFireStoreResult = signUpResult
-            .asObservable()
-            .filter { $0.isValid }
-            .map { user in
-                signUpAPI.registerUserToFireStore(email: user.email, uid: user.uid, name: user.name, iconName: "UserIcon1")   // iconName は後に更新する
-            }
-            .share(replay: 1)
-        
-        // ユーザー情報を FireStore へ登録できたかどうか を V へ通知
-        isUserToFireStore = userToFireStoreResult
-            .filter { $0 != nil }
-            .flatMapLatest { bool in   // 値を通知する時には flatMapLatest を使う,
-                return bool
-            }
-            .asDriver(onErrorJustReturn: false)
     }
     
     func sendSignInLinks(email: String, password: String) async throws {

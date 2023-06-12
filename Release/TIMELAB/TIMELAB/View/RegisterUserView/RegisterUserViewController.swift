@@ -175,58 +175,6 @@ class RegisterUserViewController: UIViewController {
         registerUserViewModel.passwordConfirmValidation
             .drive(validatePasswordConfirmLabel.rx.validationResult)
             .disposed(by: disposeBag)
-
-        // FireAuth への登録
-        let canSingUp = registerUserViewModel.canSignUp
-            .drive(onNext: { [weak self] canSingUp  in
-                self?.registerButton.isEnabled = canSingUp
-                self?.registerButton.backgroundColor = canSingUp ? Color.navyBlue.UIColor : Color.lightGray.UIColor
-                print("canSingUp: ", canSingUp)
-            })
-            .disposed(by: disposeBag)
-        
-        // これがないと アカウント登録メソッド(M) が呼ばれない
-        registerUserViewModel.isSignUp
-            .drive { result in
-                print("V, FireAuth へユーザー登録 result: ", result)
-            }
-            .disposed(by: disposeBag)
-
-        registerUserViewModel.isUserToFireStore
-            .drive { result in   // この後の .disposed(by: disposedBag) がないと Bool型 として受け取られない
-                print("V, FireStore へユーザー登録: ", result)
-                if self.isProgressView && result {
-                    HUD.hide()
-                    // push画面遷移
-                    let pleaseConfirmEmailViewController = PleaseConfirmEmailViewController()
-                    self.navigationController?.pushViewController(pleaseConfirmEmailViewController, animated: true)
-                }
-            }
-            .disposed(by: disposeBag)
-
-        registerUserViewModel.signUpResult
-            .drive { user in
-                if !user.isValid {   // false の場合、ユーザー情報をFireStoreへ登録する処理 は実行されない
-                    // ×画面 を描画
-                    HUD.flash(.error, delay: 1) { _ in
-                        self.nameTextField.text = ""
-                        self.validateNameLabel.text = "※ "
-                        self.validateNameLabel.textColor = Color.navyBlue.UIColor
-                        self.emailTextField.text = ""
-                        self.validateEmailLabel.text = "※ "
-                        self.validateEmailLabel.textColor = Color.navyBlue.UIColor
-                        self.passwordTextField.text = ""
-                        self.validatePasswordLabel.text = "※ "
-                        self.validatePasswordLabel.textColor = Color.navyBlue.UIColor
-                        self.passwordConfirmTextField.text = ""
-                        self.validatePasswordConfirmLabel.text = "※ "
-                        self.validatePasswordConfirmLabel.textColor = Color.navyBlue.UIColor
-                        self.registerButton.isSelected = false
-                        self.registerButton.isEnabled = false
-                    }
-                }
-            }
-            .disposed(by: disposeBag)
         
         registerButton.rx.tap
             .subscribe { [weak self] _ in
@@ -234,7 +182,13 @@ class RegisterUserViewController: UIViewController {
                 Task {
                     do {
                         try await self.registerUserViewModel.sendSignInLinks(email: self.emailTextField.text!, password: self.passwordTextField.text!)
+                        HUD.hide()
+                        // push画面遷移
+                        let pleaseConfirmEmailViewController = PleaseConfirmEmailViewController()
+                        self.navigationController?.pushViewController(pleaseConfirmEmailViewController, animated: true)
                     } catch {
+                        self.resetLayout()
+                        HUD.flash(.error, delay: 1.0)
                         print("Error sendSignInLinks")
                     }
                 }

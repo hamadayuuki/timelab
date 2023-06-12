@@ -65,9 +65,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UISceneDelegate {
         }
         
         if let user = Auth.auth().currentUser  {
-//            window.rootViewController = TabBarViewController()   // 起動時の画面遷移
+            window.rootViewController = TabBarViewController()   // 起動時の画面遷移
             // MARK: デバッグ用
-            translationWithNavigationController(toViewController: RegisterNickNameViewController())
+//            translationWithNavigationController(toViewController: RegisterNickNameViewController())
         } else {
             // Push通知, 遷移先でPresent遷移を可能にするため
             translationWithNavigationController(toViewController: ChooseRegisterOrLogInViewController())   // 起動時の画面遷移

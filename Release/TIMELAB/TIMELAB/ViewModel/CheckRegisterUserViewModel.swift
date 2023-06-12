@@ -5,6 +5,7 @@
 //  Created by 濵田　悠樹 on 2023/06/11.
 //
 
+import Firebase
 import RxSwift
 
 @MainActor
@@ -19,11 +20,8 @@ class CheckRegisterUserViewModel {
     var uid = PublishSubject<String?>()
     
     func setEmailAndPassword() {
-//        self.email = UserDefaults.standard.string(forKey: "email")
-//        self.password = UserDefaults.standard.string(forKey: "password")
-        
-        self.email = "user0000@gmail.com"
-        self.password = "user0000"
+        self.email = UserDefaults.standard.string(forKey: "email") as! String   // FirebaseDynamicLinksを使用してメール送信したとき保存される
+        self.password = UserDefaults.standard.string(forKey: "password") as! String
     }
     
     func registerUserToAuth() async throws {
@@ -39,7 +37,7 @@ class CheckRegisterUserViewModel {
     // TODO: 引数でデータを受け取らないように変更, VMの変数に値を代入し使用(例: email, password)
     func registerUserToStore(uid: String, name: String, iconName: String) async throws {
         do {
-            let storeResult = try await self.registerUserModel.registerUserToFireStore(email: self.email, uid: uid, iconName: iconName)
+            let storeResult = try await self.registerUserModel.registerUserToFireStore(email: self.email, uid: uid, name: name, iconName: iconName)
             self.storeResult.onNext(storeResult)
         } catch {
             self.storeResult.onNext(false)

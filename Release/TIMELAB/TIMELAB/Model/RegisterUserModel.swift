@@ -49,39 +49,9 @@ class RegisterUserModel {
         }
     }
     
-    func registerUserToFireStore(email: String, uid: String, name: String, iconName: String) -> Observable<Bool> {
-        
-        return Observable<Bool>.create { observer in
-            
-            let document = [
-                "name": name,
-                "email": email,
-                "uid": uid,
-                "iconName": iconName,
-                "type": "client",   // TODO: 可変に
-                "rooms": [],
-                "createAt": Timestamp(),
-                "updateAt": Timestamp()
-            ] as [String : Any]
-            
-            let userRef = Firestore.firestore().collection("Users")
-            userRef.document(uid).setData(document) { err in
-                if let err = err {
-                    print("FireStoreへの登録に失敗: ", err)
-                    observer.onNext(false)
-                }
-                print("FireStoreへの登録に成功")
-                observer.onNext(true)
-            }
-            return Disposables.create { print("Observable: Dispose") }
-            
-        }
-        
-    }
-    
-    func registerUserToFireStore(email: String, uid: String, iconName: String) async throws -> Bool {
+    func registerUserToFireStore(email: String, uid: String, name: String, iconName: String) async throws -> Bool {
         let document = [
-            "name": "",
+            "name": name,
             "email": email,
             "uid": uid,
             "iconName": iconName,
@@ -114,6 +84,21 @@ class RegisterUserModel {
                 }
             }
             return Disposables.create { print("Observable: Dispose") }
+        }
+    }
+    
+    func updateUserInfoToFireStore(uid: String, name: String, iconName: String) async throws -> Bool {
+        let updateData = [
+            "name": name,
+            "iconName": iconName
+        ]
+        
+        let usersRef = Firestore.firestore().collection("Users")
+        do {
+            try await usersRef.document(uid).updateData(updateData)
+            return true
+        } catch {
+            return false
         }
     }
     

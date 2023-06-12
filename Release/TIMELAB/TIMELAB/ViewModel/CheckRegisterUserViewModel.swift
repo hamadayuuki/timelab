@@ -15,13 +15,14 @@ class CheckRegisterUserViewModel {
     var password = ""
     
     var authResult = PublishSubject<Bool>()
+    var storeResult = PublishSubject<Bool>()
     
     func setEmailAndPassword() {
 //        self.email = UserDefaults.standard.string(forKey: "email")
 //        self.password = UserDefaults.standard.string(forKey: "password")
         
-        self.email = "haruni.hamada@gmail.com"
-        self.password = "haruniharuni"
+        self.email = "user0000@gmail.com"
+        self.password = "user0000"
     }
     
     func registerUserToAuth() async throws {
@@ -33,7 +34,13 @@ class CheckRegisterUserViewModel {
         }
     }
     
-    func registerUserToStore() {
-        
+    // TODO: 引数でデータを受け取らないように変更, VMの変数に値を代入し使用(例: email, password)
+    func registerUserToStore(uid: String, name: String, iconName: String) async throws {
+        do {
+            let storeResult = try await self.registerUserModel.registerUserToFireStore(email: self.email, uid: uid, iconName: iconName)
+            self.storeResult.onNext(storeResult)
+        } catch {
+            self.storeResult.onNext(false)
+        }
     }
 }

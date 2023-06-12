@@ -8,10 +8,13 @@
 import UIKit
 import SnapKit
 import PKHUD
+import RxSwift
 
 // メール認証から遷移する
 // 主にユーザー登録の処理を行う
 class CheckRegisterUserViewController: UIViewController {
+    let disposeBag = DisposeBag()
+    
     let checkRegisterUserViewModel = CheckRegisterUserViewModel()
     
     // MARK: - UI Parts
@@ -60,14 +63,31 @@ class CheckRegisterUserViewController: UIViewController {
     
     func setupBinding() {
         checkRegisterUserViewModel.authResult
-            .subscribe { authResult in
+            .subscribe { [weak self] authResult in
+                guard let self = self else { return }
                 if authResult {
                     print("Success Auth")
-                    HUD.hide()
+                    Task {
+                        do {
+                            try await self.checkRegisterUserViewModel.registerUserToStore(uid: "uid0000", name: "name0000", iconName: "iconName2")
+                        } catch {
+                            print("Error Auth try await self.checkRegisterUserViewModel")
+                            HUD.show(.error)
+                        }
+                    }
                 } else {
                     print("Error Auth")
                     HUD.show(.error)
                 }
             }
+        
+        Observable.combineLatest(checkRegisterUserViewModel.authResult, checkRegisterUserViewModel.storeResult)
+            .filter { $0 && $1 }
+            .subscribe { [weak self] _, _ in
+                guard let self = self else { return }
+                print("Success Auth+Store")
+                HUD.hide()
+            }
+            .disposed(by: disposeBag)
     }
 }

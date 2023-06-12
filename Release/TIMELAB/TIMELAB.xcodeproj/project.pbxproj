@@ -383,11 +383,11 @@
 			children = (
 				D427F68E27FF178300E7F4E9 /* RegisterUserViewController.swift */,
 				D41A52682A35ADC700463CCF /* PleaseConfirmEmailViewController.swift */,
-				D41A526A2A35B33500463CCF /* CheckRegisterUserViewController.swift */,
-				D427F69A27FFE54700E7F4E9 /* WelcomeViewController.swift */,
 				D427F69E27FFEE3D00E7F4E9 /* RegisterNickNameViewController.swift */,
 				D427F6A027FFFCE500E7F4E9 /* RegisterUserIconViewController.swift */,
 				D427F6A42800236C00E7F4E9 /* ConfirmUserViewController.swift */,
+				D41A526A2A35B33500463CCF /* CheckRegisterUserViewController.swift */,
+				D427F69A27FFE54700E7F4E9 /* WelcomeViewController.swift */,
 				D427F69027FF17FC00E7F4E9 /* RegisterLabel.swift */,
 				D427F69227FF181900E7F4E9 /* RegisterButton.swift */,
 				D427F69427FF183100E7F4E9 /* RegisterTextField.swift */,
@@ -443,8 +443,8 @@
 			isa = PBXGroup;
 			children = (
 				D465BD5A282A3AD700C2FE2A /* RegisterUserViewModel.swift */,
-				D41A526C2A35B8B600463CCF /* CheckRegisterUserViewModel.swift */,
 				D4D9FA9528E08CDC003C2C94 /* ConfirmUserViewModel.swift */,
+				D41A526C2A35B8B600463CCF /* CheckRegisterUserViewModel.swift */,
 				D465BF4828391A1600C2FE2A /* LogInViewModel.swift */,
 				D469A9D4286F23D80049F1B8 /* RegisterRoomViewModel.swift */,
 				D469A9D8286F57830049F1B8 /* SaveRoomQrCodeViewModel.swift */,

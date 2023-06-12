@@ -15,7 +15,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UISceneDelegate {
     var window: UIWindow?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        
         guard let _ = (scene as? UIWindowScene) else { return }
         
         // アプリ起動時に表示する画面の描画
@@ -26,33 +25,53 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UISceneDelegate {
         self.window = window
         window.makeKeyAndVisible()
         
-        // アプリのタスクが終了している状態から Firebase Dynamic Links を用いてアプリを起動した時
-        if let userActivity = connectionOptions.userActivities.first(where: { $0.webpageURL != nil }) {
-            guard let url = userActivity.webpageURL else { return }
-            if let user = Auth.auth().currentUser { return }
-            
-            DynamicLinks.dynamicLinks().handleUniversalLink(url) { [weak self] dynamicLink, err in
-                if err != nil { return } else {
-                    guard let url = dynamicLink?.url else { return }
-                    guard (dynamicLink?.matchType == .unique || dynamicLink?.matchType == .default) else { return }
-                    guard let components = URLComponents(url: url, resolvingAgainstBaseURL: false) ,let queryItems = components.queryItems else { return }
-
-                    // ユーザー登録に関する Dynamic Links の場合
-                    if url.absoluteString.components(separatedBy: "/usersignup").count >= 2 {
-                        if let email = UserDefaults.standard.string(forKey: "email"), let password = UserDefaults.standard.string(forKey: "password") {   // ユーザー登録時(メール認証送信直前) UserDefaultを用いる
-//                            self?.window?.rootViewController = LogInViewController()   // TODO: 他の画面が先に表示される。 クロージャの中で画面遷移を行っているから他画面と表示のタイミングがずれる。
+        // ログイン状態でないか確認
+        if let user = Auth.auth().currentUser { }
+        else {
+            if let userActivity = connectionOptions.userActivities.first(where: { $0.webpageURL != nil }) {
+                guard let url = userActivity.webpageURL else { return }
+                if let email = UserDefaults.standard.string(forKey: "email") {
+                    // メールアドレスが Auth へ登録済みの場合は return
+                    do {
+                        Task {
+                            let methods = try await Auth.auth().fetchSignInMethods(forEmail: email)   // 登録していない:[], 登録済み:["password"]
+                            // 入力したメール が 登録済みのメール なら
+                            if !methods.isEmpty {
+                                window.rootViewController = ChooseRegisterOrLogInViewController()
+                            }
                         }
-                    }
+                    } catch { return }
+                }
+                
+                // アプリのタスクが終了している状態から Firebase Dynamic Links を用いてアプリを起動した時
+                DynamicLinks.dynamicLinks().handleUniversalLink(url) { [weak self] dynamicLink, err in
+                    if err != nil { return } else {
+                        guard let url = dynamicLink?.url else { return }
+                        guard (dynamicLink?.matchType == .unique || dynamicLink?.matchType == .default) else { return }
+                        guard let components = URLComponents(url: url, resolvingAgainstBaseURL: false) ,let queryItems = components.queryItems else { return }
 
+                        // ユーザー登録に関する Dynamic Links の場合
+                        if url.absoluteString.components(separatedBy: "/usersignup").count >= 2 {
+                            if let password = UserDefaults.standard.string(forKey: "password") {   // ユーザー登録時(メール認証送信直前) UserDefaultを用いる
+                                self?.window?.rootViewController = LogInViewController()   // TODO: 他の画面が先に表示される。 クロージャの中で画面遷移を行っているから他画面と表示のタイミングがずれる。
+                            }
+                        }
+
+                    }
                 }
             }
         }
         
         if let user = Auth.auth().currentUser  {
-            window.rootViewController = TabBarViewController()   // 起動時の画面遷移
+//            window.rootViewController = TabBarViewController()   // 起動時の画面遷移
+            window.rootViewController = CheckRegisterUserViewController()
+            // MARK: デバッグ用
+//            let registerNickNameViewController = RegisterNickNameViewController()   // 遷移先で画面遷移を可能とするため rootViewController で画面遷移
+//            let navigationController = UINavigationController(rootViewController: registerNickNameViewController)
+//            window.rootViewController = navigationController
         } else {
             // Push通知, 遷移先でPresent遷移を可能にするため
-            let chooseRegisterOrLogInViewController = CheckRegisterUserViewController()   // 起動時の画面遷移
+            let chooseRegisterOrLogInViewController = ChooseRegisterOrLogInViewController()   // 起動時の画面遷移
             let navigationController = UINavigationController(rootViewController: chooseRegisterOrLogInViewController)
             window.rootViewController = navigationController
         }
@@ -64,21 +83,38 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UISceneDelegate {
 //       window.makeKeyAndVisible()
     }
     
+    // アプリのタスクが終了して"いない"状態から Firebase Dynamic Links を用いてアプリを起動した時
     func scene(_ scene: UIScene, continue userActivity: NSUserActivity) {
         guard let url = userActivity.webpageURL else { return }
-        if let user = Auth.auth().currentUser { return }
         
-        // アプリのタスクが終了"していない"状態から Firebase Dynamic Links を用いてアプリを起動した時
-        DynamicLinks.dynamicLinks().handleUniversalLink(url) { [weak self] dynamicLink, err in
-            if err != nil { return } else {
-                guard let url = dynamicLink?.url else { return }
-                guard (dynamicLink?.matchType == .unique || dynamicLink?.matchType == .default) else { return }
-                guard let components = URLComponents(url: url, resolvingAgainstBaseURL: false) ,let queryItems = components.queryItems else { return }
-
-                if url.absoluteString.components(separatedBy: "/usersignup").count >= 2 {
-                    if let email = UserDefaults.standard.string(forKey: "email"), let password = UserDefaults.standard.string(forKey: "password") {
-//                        self?.window?.rootViewController = LogInViewController()
+        if let user = Auth.auth().currentUser { }   // ログイン状態でないか確認
+        else {
+            if let email = UserDefaults.standard.string(forKey: "email") {
+                // メールアドレスが Auth へ登録済みの場合は return
+                do {
+                    Task {
+                        let methods = try await Auth.auth().fetchSignInMethods(forEmail: email)   // 登録していない:[], 登録済み:["password"]
+                        // 入力したメール が 登録済みのメール なら
+                        if !methods.isEmpty {
+                            window?.rootViewController = ChooseRegisterOrLogInViewController()
+                        }
                     }
+                } catch { return }
+            }
+            
+            DynamicLinks.dynamicLinks().handleUniversalLink(url) { [weak self] dynamicLink, err in
+                if err != nil { return } else {
+                    guard let url = dynamicLink?.url else { return }
+                    guard (dynamicLink?.matchType == .unique || dynamicLink?.matchType == .default) else { return }
+                    guard let components = URLComponents(url: url, resolvingAgainstBaseURL: false) ,let queryItems = components.queryItems else { return }
+
+                    // ユーザー登録に関する Dynamic Links の場合
+                    if url.absoluteString.components(separatedBy: "/usersignup").count >= 2 {
+                        if let password = UserDefaults.standard.string(forKey: "password") {   // ユーザー登録時(メール認証送信直前) UserDefaultを用いる
+                            self?.window?.rootViewController = LogInViewController()   // TODO: 他の画面が先に表示される。 クロージャの中で画面遷移を行っているから他画面と表示のタイミングがずれる。
+                        }
+                    }
+
                 }
             }
         }

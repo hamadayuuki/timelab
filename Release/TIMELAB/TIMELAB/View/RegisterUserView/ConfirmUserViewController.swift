@@ -12,10 +12,15 @@ import RxSwift
 import PKHUD
 
 class ConfirmUserViewController: UIViewController {
-    
     let disposeBag = DisposeBag()
     var userName = ""
     var iconName = ""
+    
+    // MARK: - UI Parts
+    var descriptionLabel: RegisterLabel!
+    var userIconButton: RegisterUserIconButton!
+    var userNameLabel: RegisterLabel!
+    var registerButton: RegisterButton!
     
     init(userName: String, iconName: String) {
         super.init(nibName: nil, bundle: nil)   // ViewController の super.init()
@@ -24,12 +29,6 @@ class ConfirmUserViewController: UIViewController {
         self.iconName = iconName
     }
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
-    
-    // MARK: - UI Parts
-    var descriptionLabel: RegisterLabel!
-    var userIconButton: RegisterUserIconButton!
-    var userNameLabel: RegisterLabel!
-    var registerButton: RegisterButton!
     
     // MARK: - Life Cycle
     override func viewDidLoad() {
@@ -69,22 +68,14 @@ class ConfirmUserViewController: UIViewController {
     }
     
     func setupBinding() {
-        let confirmUserViewModel = ConfirmUserViewModel(iconName: self.iconName, updateButtonTap: registerButton.rx.tap.asSignal())
-        
-        confirmUserViewModel.isUpadateUserIconNameToFireStore
-            .drive { isUpdate in
-                print("isUpadate: \(isUpdate)")
-                if isUpdate {
-                    self.registerButton.isSelected = !self.registerButton.isSelected
-                    self.registerButton.backgroundColor = self.registerButton.isSelected ? Color.lightGray.UIColor : Color.navyBlue.UIColor
-                    // Push画面遷移
-                    let checkRegisterUserViewController = CheckRegisterUserViewController(name: self.userName, iconName: self.iconName)
-                    self.navigationController?.pushViewController(checkRegisterUserViewController, animated: true)
-                } else {
-                    HUD.show(.labeledError(title: "登録に失敗", subtitle: ""))
-                }
-                
+        self.registerButton.rx.tap
+            .subscribe { [weak self] _ in
+                guard let self = self else { return }
+                // Push画面遷移
+                let checkRegisterUserViewController = CheckRegisterUserViewController(name: self.userName, iconName: self.iconName)
+                self.navigationController?.pushViewController(checkRegisterUserViewController, animated: true)
             }
+            .disposed(by: disposeBag)
     }
 }
 

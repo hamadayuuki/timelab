@@ -58,7 +58,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UISceneDelegate {
                                 self.translationWithNavigationController(toViewController: LogInViewController())   // TODO: 他の画面が先に表示される。 クロージャの中で画面遷移を行っているから他画面と表示のタイミングがずれる。
                             }
                         }
-
                     }
                 }
             }
@@ -73,12 +72,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UISceneDelegate {
             // Push通知, 遷移先でPresent遷移を可能にするため
             translationWithNavigationController(toViewController: ChooseRegisterOrLogInViewController())   // 起動時の画面遷移
         }
-        
-        // Present遷移
-//       let window = UIWindow(windowScene: windowScene)
-//       self.window = window
-//       window.rootViewController = CalendarDetailViewController()
-//       window.makeKeyAndVisible()
     }
     
     // アプリのタスクが終了して"いない"状態から Firebase Dynamic Links を用いてアプリを起動した時
@@ -114,7 +107,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UISceneDelegate {
                             self.translationWithNavigationController(toViewController: LogInViewController())   // TODO: 他の画面が先に表示される。 クロージャの中で画面遷移を行っているから他画面と表示のタイミングがずれる。
                         }
                     }
-
                 }
             }
         }

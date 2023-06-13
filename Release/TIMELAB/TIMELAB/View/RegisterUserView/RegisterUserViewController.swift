@@ -21,9 +21,6 @@ class RegisterUserViewController: UIViewController {
     
     // MARK: - UI Parts
     var introductionLabel: RegisterLabel!
-    var nameLabel: RegisterLabel!
-    var nameTextField: RegisterTextField!
-    var validateNameLabel: RegisterLabel!
     var emailLabel: RegisterLabel!
     var emailTextField: RegisterTextField!
     var validateEmailLabel: RegisterLabel!
@@ -54,9 +51,6 @@ class RegisterUserViewController: UIViewController {
         let height = view.bounds.height
         
         introductionLabel = RegisterLabel(text: "アカウントの作成", size: 30)
-        nameLabel = RegisterLabel(text: "名前", size: 18)
-        nameTextField = RegisterTextField(placeholder: "", isSecretButton: false)
-        validateNameLabel = RegisterLabel(text: "", size: 13)
         emailLabel = RegisterLabel(text: "メールアドレス", size: 18)
         emailTextField = RegisterTextField(placeholder: "", isSecretButton: false)
         validateEmailLabel = RegisterLabel(text: "", size: 13)
@@ -104,14 +98,6 @@ class RegisterUserViewController: UIViewController {
     }
     
     func setupRegisterVerticalView() -> UIStackView {
-        // 名前
-        let nameVerticalView = UIStackView(arrangedSubviews: [nameLabel, nameTextField])
-        nameVerticalView.axis = .vertical
-        nameVerticalView.spacing = 5
-        let nameHorizontalView = UIStackView(arrangedSubviews: [nameVerticalView, validateNameLabel])
-        nameHorizontalView.axis = .horizontal
-        nameHorizontalView.spacing = 5
-        
         // メールアドレス
         let emailVerticalView = UIStackView(arrangedSubviews: [emailLabel, emailTextField])
         emailVerticalView.axis = .vertical
@@ -140,7 +126,7 @@ class RegisterUserViewController: UIViewController {
         passwordConfirmHorizontalView.spacing = 5
         
         // 全体
-        let registerVerticalView = UIStackView(arrangedSubviews: [introductionLabel, nameHorizontalView, emailHorizontalView, passwordHorizontalView, passwordConfirmHorizontalView])
+        let registerVerticalView = UIStackView(arrangedSubviews: [introductionLabel, emailHorizontalView, passwordHorizontalView, passwordConfirmHorizontalView])
         registerVerticalView.axis = .vertical
         registerVerticalView.distribution = .fillEqually   // 要素の大きさを均等にする
         registerVerticalView.spacing = 20
@@ -152,17 +138,11 @@ class RegisterUserViewController: UIViewController {
         
         // VM とのつながり, input にイベントを送る(テキストの変更やボタンのタップ等), 送るだけ, 登録のようなイメージ
         registerUserViewModel = RegisterUserViewModel(input: (
-            name: nameTextField.rx.text.orEmpty.asDriver(),
             email: emailTextField.rx.text.orEmpty.asDriver(),
             password: passwordTextField.rx.text.orEmpty.asDriver(),
             passwordConfirm: passwordConfirmTextField.rx.text.orEmpty.asDriver(),
             signUpTaps: registerButton.rx.tap.asSignal()   // ボタンのタップには Single を使用する
         ), signUpAPI: RegisterUserModel())
-
-        // MV からデータ受け取る, データの値を変更
-        registerUserViewModel.nameValidation
-            .drive(validateNameLabel.rx.validationResult)   // VM で 戻り値を ValidationResult にしているため,受け取りもvalidationResultにする, Rective の extension を実装する必要あり
-            .disposed(by: disposeBag)
 
         registerUserViewModel.emailValidation
             .drive(validateEmailLabel.rx.validationResult)
@@ -237,9 +217,6 @@ class RegisterUserViewController: UIViewController {
     }
     
     func resetLayout() {
-        self.nameTextField.text = ""
-        self.validateNameLabel.text = "※ "
-        self.validateNameLabel.textColor = Color.navyBlue.UIColor
         self.emailTextField.text = ""
         self.validateEmailLabel.text = "※ "
         self.validateEmailLabel.textColor = Color.navyBlue.UIColor

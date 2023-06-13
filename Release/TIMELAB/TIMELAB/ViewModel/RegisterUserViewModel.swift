@@ -10,7 +10,6 @@ import RxSwift
 import RxCocoa
 
 class RegisterUserViewModel {
-    let nameValidation: Driver<ValidationResult>
     let emailValidation: Driver<ValidationResult>
     let passwordValidation: Driver<ValidationResult>
     let passwordConfirmValidation: Driver<ValidationResult>
@@ -23,7 +22,6 @@ class RegisterUserViewModel {
 
     // input: V から通知を受け取れるよう、初期化
     init(input: (
-        name: Driver<String>,
         email: Driver<String>,
         password: Driver<String>,
         passwordConfirm: Driver<String>,
@@ -33,10 +31,6 @@ class RegisterUserViewModel {
         let validationModel = ValidationModel()
         
         // V からの通知(データも?)を受け取り M に処理を任せる, V から呼ばれることでデータ送信(VM→V)を行える
-        nameValidation = input.name
-            .map { name in
-                validationModel.ValidateName(name: name)
-            }
         emailValidation = input.email
             .map { email in
                 validationModel.ValidateEmail(email: email)

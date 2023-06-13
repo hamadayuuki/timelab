@@ -13,11 +13,6 @@ class ValidationModel {
     
     // MARK: - RegisterUser
     //                                 ↓ データの状態(enum)
-    func ValidateName(name: String) -> ValidationResult {
-        if (name.count == 0) { return .empty(message: " ※") }
-        return .ok(message: "OK")
-    }
-    
     func ValidateEmail(email: String) -> ValidationResult {
         if (email.count == 0) { return .empty(message: " ※") }
         return .ok(message: "OK")
@@ -36,8 +31,8 @@ class ValidationModel {
         return .failed(message: " ")
     }
     
-    func ValidateCanRegister(nameIsValid: Bool, emailIsValid: Bool, passwordIsValid: Bool, passwordConfirmIsValid: Bool) -> Bool {
-        if (nameIsValid && emailIsValid && passwordIsValid && passwordConfirmIsValid) {
+    func ValidateCanRegister(emailIsValid: Bool, passwordIsValid: Bool, passwordConfirmIsValid: Bool) -> Bool {
+        if (emailIsValid && passwordIsValid && passwordConfirmIsValid) {
             return true
         }
         return false

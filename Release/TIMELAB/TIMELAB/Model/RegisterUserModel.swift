@@ -37,34 +37,37 @@ class RegisterUserModel {
         }// return
     }
     
-    func registerUserToFireStore(email: String, uid: String, name: String, iconName: String) -> Observable<Bool> {
-        
-        return Observable<Bool>.create { observer in
-            
-            let document = [
-                "name": name,
-                "email": email,
-                "uid": uid,
-                "iconName": iconName,
-                "type": "client",   // TODO: 可変に
-                "rooms": [],
-                "createAt": Timestamp(),
-                "updateAt": Timestamp()
-            ] as [String : Any]
-            
-            let userRef = Firestore.firestore().collection("Users")
-            userRef.document(uid).setData(document) { err in
-                if let err = err {
-                    print("FireStoreへの登録に失敗: ", err)
-                    observer.onNext(false)
-                }
-                print("FireStoreへの登録に成功")
-                observer.onNext(true)
-            }
-            return Disposables.create { print("Observable: Dispose") }
-            
+    func registerUserToFireAuth(email: String, password: String) async throws -> (Bool, String?) {
+        do {
+            let authResult = try await Auth.auth().createUser(withEmail: email, password: password)
+            let uid = authResult.user.uid
+            print("Success RegisterUser Auth")
+            return (true, uid)
+        } catch {
+            print("Error RegisterUser Auth")
+            return (false, nil)
         }
+    }
+    
+    func registerUserToFireStore(email: String, uid: String, name: String, iconName: String) async throws -> Bool {
+        let document = [
+            "name": name,
+            "email": email,
+            "uid": uid,
+            "iconName": iconName,
+            "type": "client",   // TODO: 可変に
+            "rooms": [],
+            "createAt": Timestamp(),
+            "updateAt": Timestamp()
+        ] as [String : Any]
         
+        let userRef = Firestore.firestore().collection("Users")
+        do {
+            try await userRef.document(uid).setData(document)
+            return true
+        } catch {
+            return false
+        }
     }
     
     func updateIconNameToFireStore(uid: String, iconName: String) -> Observable<Bool> {
@@ -81,6 +84,21 @@ class RegisterUserModel {
                 }
             }
             return Disposables.create { print("Observable: Dispose") }
+        }
+    }
+    
+    func updateUserInfoToFireStore(uid: String, name: String, iconName: String) async throws -> Bool {
+        let updateData = [
+            "name": name,
+            "iconName": iconName
+        ]
+        
+        let usersRef = Firestore.firestore().collection("Users")
+        do {
+            try await usersRef.document(uid).updateData(updateData)
+            return true
+        } catch {
+            return false
         }
     }
     
@@ -136,6 +154,36 @@ class RegisterUserModel {
             return Disposables.create { print("Observable: Dispose") }
         }
         
+    }
+    
+    // MARK: Firebase Dynamic Links
+    
+    func createActionCodeSettings() -> ActionCodeSettings {
+        let dynamicLinkUrl = "https://timelab.page.link"
+        let actionCodeSettings = ActionCodeSettings()
+        actionCodeSettings.url = URL(string: dynamicLinkUrl)
+        // The sign-in operation has to always be completed in the app.
+        actionCodeSettings.handleCodeInApp = true
+        actionCodeSettings.setIOSBundleID(Bundle.main.bundleIdentifier!)
+        return actionCodeSettings
+    }
+    
+    func sendSingInLink(name: String, email: String, password: String) -> Observable<Bool> {
+        return Observable<Bool>.create { observer in
+            let actionCodeSettings = self.createActionCodeSettings()
+            
+            Auth.auth().sendSignInLink(toEmail: email, actionCodeSettings: actionCodeSettings) { error in
+                if let error = error {
+                    print("sendSignInLInk Error")
+                    observer.onNext(false)
+                }
+                UserDefaults.standard.set(email, forKey: "email")
+                UserDefaults.standard.set(password, forKey: "password")
+                observer.onNext(true)
+                print("success sendSignInLink")
+            }
+            return Disposables.create { print("Observable: Dispose") }
+        }
     }
     
 }

@@ -37,7 +37,7 @@ class WelcomeViewController: UIViewController {
         welcomeLabel = RegisterLabel(text: "ようこそ！！", size: 30)
         welcomeMessageLabel = RegisterLabel(text: "これから研究を頑張っていきましょう", size: 15)
         welcomeUIImageView = RegisterUIImageView(name: "Welcome")
-        moveRegisterNickNameView = RegisterButton(text: "ニックネームを入力", textSize: 15)
+        moveRegisterNickNameView = RegisterButton(text: "アプリを始める", textSize: 15)
         
         
         let welcomeVertical = UIStackView(arrangedSubviews: [welcomeLabel, welcomeMessageLabel, welcomeUIImageView])
@@ -80,8 +80,8 @@ class WelcomeViewController: UIViewController {
                 self.moveRegisterNickNameView.isSelected = !self.moveRegisterNickNameView.isSelected
                 self.moveRegisterNickNameView.backgroundColor = self.moveRegisterNickNameView.isSelected ? Color.lightGray.UIColor : Color.navyBlue.UIColor
                 // push画面遷移
-                let registerNickNameViewController = RegisterNickNameViewController()
-                self.navigationController?.pushViewController(registerNickNameViewController, animated: true)
+                let tabBarViewController = TabBarViewController()
+                self.navigationController?.pushViewController(tabBarViewController, animated: true)
             }
             .disposed(by: disposeBag)
     }

@@ -21,9 +21,6 @@ class RegisterUserViewController: UIViewController {
     
     // MARK: - UI Parts
     var introductionLabel: RegisterLabel!
-    var nameLabel: RegisterLabel!
-    var nameTextField: RegisterTextField!
-    var validateNameLabel: RegisterLabel!
     var emailLabel: RegisterLabel!
     var emailTextField: RegisterTextField!
     var validateEmailLabel: RegisterLabel!
@@ -54,9 +51,6 @@ class RegisterUserViewController: UIViewController {
         let height = view.bounds.height
         
         introductionLabel = RegisterLabel(text: "アカウントの作成", size: 30)
-        nameLabel = RegisterLabel(text: "名前", size: 18)
-        nameTextField = RegisterTextField(placeholder: "", isSecretButton: false)
-        validateNameLabel = RegisterLabel(text: "", size: 13)
         emailLabel = RegisterLabel(text: "メールアドレス", size: 18)
         emailTextField = RegisterTextField(placeholder: "", isSecretButton: false)
         validateEmailLabel = RegisterLabel(text: "", size: 13)
@@ -104,14 +98,6 @@ class RegisterUserViewController: UIViewController {
     }
     
     func setupRegisterVerticalView() -> UIStackView {
-        // 名前
-        let nameVerticalView = UIStackView(arrangedSubviews: [nameLabel, nameTextField])
-        nameVerticalView.axis = .vertical
-        nameVerticalView.spacing = 5
-        let nameHorizontalView = UIStackView(arrangedSubviews: [nameVerticalView, validateNameLabel])
-        nameHorizontalView.axis = .horizontal
-        nameHorizontalView.spacing = 5
-        
         // メールアドレス
         let emailVerticalView = UIStackView(arrangedSubviews: [emailLabel, emailTextField])
         emailVerticalView.axis = .vertical
@@ -140,7 +126,7 @@ class RegisterUserViewController: UIViewController {
         passwordConfirmHorizontalView.spacing = 5
         
         // 全体
-        let registerVerticalView = UIStackView(arrangedSubviews: [introductionLabel, nameHorizontalView, emailHorizontalView, passwordHorizontalView, passwordConfirmHorizontalView])
+        let registerVerticalView = UIStackView(arrangedSubviews: [introductionLabel, emailHorizontalView, passwordHorizontalView, passwordConfirmHorizontalView])
         registerVerticalView.axis = .vertical
         registerVerticalView.distribution = .fillEqually   // 要素の大きさを均等にする
         registerVerticalView.spacing = 20
@@ -152,17 +138,11 @@ class RegisterUserViewController: UIViewController {
         
         // VM とのつながり, input にイベントを送る(テキストの変更やボタンのタップ等), 送るだけ, 登録のようなイメージ
         registerUserViewModel = RegisterUserViewModel(input: (
-            name: nameTextField.rx.text.orEmpty.asDriver(),
             email: emailTextField.rx.text.orEmpty.asDriver(),
             password: passwordTextField.rx.text.orEmpty.asDriver(),
             passwordConfirm: passwordConfirmTextField.rx.text.orEmpty.asDriver(),
             signUpTaps: registerButton.rx.tap.asSignal()   // ボタンのタップには Single を使用する
         ), signUpAPI: RegisterUserModel())
-
-        // MV からデータ受け取る, データの値を変更
-        registerUserViewModel.nameValidation
-            .drive(validateNameLabel.rx.validationResult)   // VM で 戻り値を ValidationResult にしているため,受け取りもvalidationResultにする, Rective の extension を実装する必要あり
-            .disposed(by: disposeBag)
 
         registerUserViewModel.emailValidation
             .drive(validateEmailLabel.rx.validationResult)
@@ -175,56 +155,29 @@ class RegisterUserViewController: UIViewController {
         registerUserViewModel.passwordConfirmValidation
             .drive(validatePasswordConfirmLabel.rx.validationResult)
             .disposed(by: disposeBag)
-
-        // FireAuth への登録
-        let canSingUp = registerUserViewModel.canSignUp
-            .drive(onNext: { [weak self] canSingUp  in
-                self?.registerButton.isEnabled = canSingUp
-                self?.registerButton.backgroundColor = canSingUp ? Color.navyBlue.UIColor : Color.lightGray.UIColor
-                print("canSingUp: ", canSingUp)
-            })
-            .disposed(by: disposeBag)
         
-        // これがないと アカウント登録メソッド(M) が呼ばれない
-        registerUserViewModel.isSignUp
-            .drive { result in
-                print("V, FireAuth へユーザー登録 result: ", result)
-            }
-            .disposed(by: disposeBag)
-
-        registerUserViewModel.isUserToFireStore
-            .drive { result in   // この後の .disposed(by: disposedBag) がないと Bool型 として受け取られない
-                print("V, FireStore へユーザー登録: ", result)
-                if self.isProgressView && result {
-                    HUD.hide()
-                    // push画面遷移
-                    let welcomeViewController = WelcomeViewController()
-                    self.navigationController?.pushViewController(welcomeViewController, animated: true)
-                }
-            }
-            .disposed(by: disposeBag)
-
-        registerUserViewModel.signUpResult
-            .drive { user in
-                if !user.isValid {   // false の場合、ユーザー情報をFireStoreへ登録する処理 は実行されない
-                    // ×画面 を描画
-                    HUD.flash(.error, delay: 1) { _ in
-                        self.nameTextField.text = ""
-                        self.validateNameLabel.text = "※ "
-                        self.validateNameLabel.textColor = Color.navyBlue.UIColor
-                        self.emailTextField.text = ""
-                        self.validateEmailLabel.text = "※ "
-                        self.validateEmailLabel.textColor = Color.navyBlue.UIColor
-                        self.passwordTextField.text = ""
-                        self.validatePasswordLabel.text = "※ "
-                        self.validatePasswordLabel.textColor = Color.navyBlue.UIColor
-                        self.passwordConfirmTextField.text = ""
-                        self.validatePasswordConfirmLabel.text = "※ "
-                        self.validatePasswordConfirmLabel.textColor = Color.navyBlue.UIColor
-                        self.registerButton.isSelected = false
-                        self.registerButton.isEnabled = false
+        registerButton.rx.tap
+            .subscribe { [weak self] _ in
+                guard let self = self else { return }
+                Task {
+                    do {
+                        try await self.registerUserViewModel.sendSignInLinks(email: self.emailTextField.text!, password: self.passwordTextField.text!)
+                        HUD.hide()
+                        // push画面遷移
+                        let pleaseConfirmEmailViewController = PleaseConfirmEmailViewController()
+                        self.navigationController?.pushViewController(pleaseConfirmEmailViewController, animated: true)
+                    } catch {
+                        self.resetLayout()
+                        HUD.flash(.error, delay: 1.0)
+                        print("Error sendSignInLinks")
                     }
                 }
+            }
+            .disposed(by: disposeBag)
+        
+        registerUserViewModel.sendSignInLinks
+            .subscribe { _ in
+                print("メール送信 成功")
             }
             .disposed(by: disposeBag)
         
@@ -261,5 +214,19 @@ class RegisterUserViewController: UIViewController {
             }
             .disposed(by: disposeBag)
         
+    }
+    
+    func resetLayout() {
+        self.emailTextField.text = ""
+        self.validateEmailLabel.text = "※ "
+        self.validateEmailLabel.textColor = Color.navyBlue.UIColor
+        self.passwordTextField.text = ""
+        self.validatePasswordLabel.text = "※ "
+        self.validatePasswordLabel.textColor = Color.navyBlue.UIColor
+        self.passwordConfirmTextField.text = ""
+        self.validatePasswordConfirmLabel.text = "※ "
+        self.validatePasswordConfirmLabel.textColor = Color.navyBlue.UIColor
+        self.registerButton.isSelected = false
+        self.registerButton.isEnabled = false
     }
 }

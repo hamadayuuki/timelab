@@ -53,7 +53,7 @@ class RegisterRoomModel {
     func fetchQrCodeFromTimeLabAPI(roomId: String) -> Observable<Data> {
         
         return Observable<Data>.create { observer in
-            AF.request("https://timelab-api.herokuapp.com/createQrCode/\(roomId)").responseJSON { response in
+            AF.request("https://timelab-api.onrender.com/createQrCode/\(roomId)").responseJSON { response in
                 switch response.result {
                 case .success:
                     do {

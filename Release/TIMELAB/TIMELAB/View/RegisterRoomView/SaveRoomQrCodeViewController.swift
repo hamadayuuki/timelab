@@ -5,7 +5,7 @@
 //  Created by 濵田　悠樹 on 2022/06/07.
 //
 
-import UIKit
+import SwiftUI
 import SnapKit
 import RxSwift
 import RxCocoa
@@ -38,12 +38,23 @@ class SaveRoomQrCodeViewController: UIViewController {
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
+        displayRoomQrOnboardingView()
         setupLayout()
         setupBinding()
     }
     
     // MARK: - Function
+
+    private func displayRoomQrOnboardingView() {
+        let roomQrOnboardingVC = UIHostingController(rootView: RoomQrOnboardingView(dismiss: {
+            self.dismiss(animated: true)
+        }))
+        roomQrOnboardingVC.view.backgroundColor = .clear
+        self.modalPresentationStyle = .popover
+        self.present(roomQrOnboardingVC, animated: true)
+    }
+    
     private func setupLayout() {
         self.view.backgroundColor = .white
         

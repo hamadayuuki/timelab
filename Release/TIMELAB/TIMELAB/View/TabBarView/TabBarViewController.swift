@@ -65,6 +65,12 @@ class TabBarViewController: UITabBarController {
 //        let rankingViewIcon = UIImage(named: "RankingViewIcon")?.reSizeImage(reSize: CGSize(width: 23,height: 23))
 //        rankingView.tabBarItem = UITabBarItem(title: "ランキング", image: rankingViewIcon, selectedImage: rankingViewIcon)
 //        let rankingNavigationView = UINavigationController(rootViewController: rankingView)
+
+
+        let registerRoomVC = RegisterRoomViewController()
+        let rankingViewIcon = UIImage(named: "RankingViewIcon")?.reSizeImage(reSize: CGSize(width: 23,height: 23))
+        registerRoomVC.tabBarItem = UITabBarItem(title: "部屋作成", image: rankingViewIcon, selectedImage: rankingViewIcon)
+        let registerRoomNavigationView = UINavigationController(rootViewController: registerRoomVC)
         
         // メンバーの滞在状態確認画面
         let confirmOtherMemberStayStateView = ConfirmOtherMemberStayStateViewController(userIconButton: userIconButton, tabBarDelegate: self)
@@ -72,7 +78,7 @@ class TabBarViewController: UITabBarController {
         confirmOtherMemberStayStateView.tabBarItem = UITabBarItem(title: "他メンバー", image: confirmOtherMemberStayStateViewIcon, selectedImage: confirmOtherMemberStayStateViewIcon)
         let confirmOtherMemberStayStateNavigationView = UINavigationController(rootViewController: confirmOtherMemberStayStateView)
         
-        setViewControllers([calendarNavigationView, qrScanNavigationView, /*rankingNavigationView, */confirmOtherMemberStayStateNavigationView], animated: true)
+        setViewControllers([calendarNavigationView, qrScanNavigationView, registerRoomNavigationView, /*rankingNavigationView, */confirmOtherMemberStayStateNavigationView], animated: true)
     }
     
     func setupLayoutNavigationAndTab() {

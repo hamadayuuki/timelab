@@ -16,6 +16,7 @@ class RegisterRoomViewController: UIViewController {
     let disposeBag = DisposeBag()
     //var registerUserViewModel: RegisterUserViewModel!
     var isProgressView  = false
+    var isRegisterRoom = false
     
     // MARK: - UI Parts
     var introductionUIImageView: RegisterRoomUIImageView!
@@ -55,7 +56,7 @@ class RegisterRoomViewController: UIViewController {
         let height = view.bounds.height
         
         introductionUIImageView = RegisterRoomUIImageView(name: "DiscussionWomanAndMan", size: CGSize(width: 174, height: 131))
-        introductionLabel = RegisterRoomLabel(text: "ユーザー情報の入力",textAlignment: .left, size: 25)
+        introductionLabel = RegisterRoomLabel(text: "部屋情報の入力",textAlignment: .left, size: 25)
         
         univercityLabel = RegisterRoomLabel(text: "大学", textAlignment: .left, size: 15)
         univercityTextField = RegisterRoomTextField(placeholder: "", isSecretButton: false)
@@ -95,7 +96,8 @@ class RegisterRoomViewController: UIViewController {
             make.bottom.equalTo(introductionLabel.snp.top).offset(-10)
             make.left.equalTo(184)
         }
-        
+
+        registerRoomButton.backgroundColor = Color.lightGray.UIColor
         view.addSubview(registerRoomButton)
         registerRoomButton.snp.makeConstraints { make -> Void in
             make.centerX.equalTo(view.bounds.width * 0.5)
@@ -173,14 +175,32 @@ class RegisterRoomViewController: UIViewController {
         registerRoomViewModel.roomValidation
             .drive(validateRoomLabel.rx.validationResult)
             .disposed(by: disposeBag)
-        
+
+        Observable.combineLatest(
+            registerRoomViewModel.universityValidation.asObservable(),
+            registerRoomViewModel.departmentValidation.asObservable(),
+            registerRoomViewModel.courseValidation.asObservable(),
+            registerRoomViewModel.roomValidation.asObservable()
+        )
+        .subscribe { [weak self] (university, department, course, room) in
+            guard let self else { return }
+
+            self.isRegisterRoom = university.isValid && department.isValid && course.isValid && room.isValid
+            self.registerRoomButton.backgroundColor = self.isRegisterRoom ? Color.navyBlue.UIColor : Color.lightGray.UIColor
+        }
+        .disposed(by: disposeBag)
+
         // ! ローディング画面を閉じるプログラムより 先(上) に書く必要がある, 後(下) に書くと実行が後回しになる
         registerRoomButton.rx.tap
-            .subscribe { _ in
-                print("登録ボタンをタップしました")
-                print("rx.tap selfisProgressView: ", self.isProgressView)
-                HUD.show(.progress)
-                self.isProgressView = true
+            .subscribe { [weak self] _ in
+                guard let self else { return }
+
+                if self.isRegisterRoom {
+                    print("登録ボタンをタップしました")
+                    print("rx.tap selfisProgressView: ", self.isProgressView)
+                    HUD.show(.progress)
+                    self.isProgressView = true
+                }
             }
             .disposed(by: disposeBag)
         

@@ -64,6 +64,9 @@ class RegisterRoomViewModel {
         let roomsDocumentId = input.registerButton
             .asObservable()
             .withLatestFrom(createRoomDatas)
+            .filter { tuple in
+                !tuple.university.isEmpty && !tuple.department.isEmpty && !tuple.course.isEmpty && !tuple.room.isEmpty
+            }
             .flatMapLatest { tuple in
 //                signUpAPI.createUserToFireAuth(email: tuple.university, password: tuple.department)
                 registerRoomModel.createRoomToFireStore(university: tuple.university, department: tuple.department, course: tuple.course, room: tuple.room, hostUserId: tuple.uid)

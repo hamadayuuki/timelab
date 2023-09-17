@@ -5,7 +5,7 @@
 //  Created by 濵田　悠樹 on 2022/06/07.
 //
 
-import UIKit
+import SwiftUI
 import SnapKit
 import RxSwift
 import RxCocoa
@@ -38,12 +38,23 @@ class SaveRoomQrCodeViewController: UIViewController {
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
+        displayRoomQrOnboardingView()
         setupLayout()
         setupBinding()
     }
     
     // MARK: - Function
+
+    private func displayRoomQrOnboardingView() {
+        let roomQrOnboardingVC = UIHostingController(rootView: RoomQrOnboardingView(dismiss: {
+            self.dismiss(animated: true)
+        }))
+        roomQrOnboardingVC.view.backgroundColor = .clear
+        self.modalPresentationStyle = .popover
+        self.present(roomQrOnboardingVC, animated: true)
+    }
+    
     private func setupLayout() {
         self.view.backgroundColor = .white
         
@@ -51,7 +62,7 @@ class SaveRoomQrCodeViewController: UIViewController {
         let height = view.bounds.height
         
         introductionUIImageView = RegisterRoomUIImageView(name: "ChatRobot", size: CGSize(width: 263, height: 197))
-        introductionLabel = RegisterRoomLabel(text: "太田研究室\nQRコード作成完了！", size: 25, color: Color.orange.UIColor)
+        introductionLabel = RegisterRoomLabel(text: "QRコード作成完了！", size: 25, color: Color.orange.UIColor)
         //explanationNextStepLabel = RegisterRoomLabel(text: "続きてID登録に入ります", size: 12)
         explanationNextStepLabel = RegisterRoomLabel(text: "", size: 12)
         

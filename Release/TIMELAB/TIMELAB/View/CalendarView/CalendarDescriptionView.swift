@@ -60,10 +60,11 @@ struct DescriptionColorView: View {
             }) {
                 Image(systemName: "multiply.circle")
                     .resizable()
-                    .frame(width: 40, height: 40)
+                    .frame(width: 30, height: 30)
                     .foregroundColor(.black.opacity(0.8))
             }
             .padding(.top, 15)
+            .padding(.trailing, 15)
         }
     }
 }

@@ -5,7 +5,7 @@
 //  Created by 濵田　悠樹 on 2022/04/17.
 //
 
-import UIKit
+import SwiftUI
 import SnapKit
 import FSCalendar
 import FloatingPanel
@@ -64,6 +64,7 @@ class CalendarViewController: UIViewController {
         self.calendarView = CalendarView(dateAndStayingTimeDic: self.enterScheduleAndStayingTimeDic)
         HUD.show(.progress)
         setupMonthCalendarTime()
+        setupNavigationBar()
 //        setupLayout()   // setupMonthCalendarTime() 内で呼ばれる
 //        setupBinding()   // setupMonthCalendarTime() 内で呼ばれる
 //        setupFloatingPanel()   // setupMonthCalendarTime() 内で呼ばれる
@@ -77,6 +78,20 @@ class CalendarViewController: UIViewController {
     }
     
     // MARK: - Function
+    func setupNavigationBar() {
+        let infoButton = UIBarButtonItem(image: UIImage(systemName: "questionmark.circle")!, style: .plain, target: self, action: #selector(infoButtonTapped))
+        navigationItem.rightBarButtonItem = infoButton
+    }
+
+    @objc func infoButtonTapped(_ sender: UIButton){
+        let calendarDescriptionView = UIHostingController(rootView: CalendarDescriptionView(dismiss: {
+            self.dismiss(animated: true)
+        }))
+        calendarDescriptionView.view.backgroundColor = .clear
+        self.modalPresentationStyle = .popover
+        self.present(calendarDescriptionView, animated: true)
+    }
+
     func setupMonthCalendarTime() {
         let calendarViewModel = CalendarViewModel()
         let dateFormatter = DateFormatter()

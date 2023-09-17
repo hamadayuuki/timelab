@@ -28,7 +28,7 @@ struct RoomQrOnboardingView: View {
         }
         .padding(10)
         .tabViewStyle(PageTabViewStyle(indexDisplayMode: .automatic))
-        .frame(width: 482 * 0.6, height: 764 * 0.6)
+        .frame(width: 482 * 0.65, height: 764 * 0.6)
         .overlay(
             RoundedRectangle(cornerRadius: 50)
                 .stroke(.gray, lineWidth: 2)

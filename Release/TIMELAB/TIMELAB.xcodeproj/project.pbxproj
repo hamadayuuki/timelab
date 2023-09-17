@@ -135,6 +135,7 @@
 		D4BDC2DE284F9FD40087700D /* SaveRoomQrCodeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BDC2DD284F9FD40087700D /* SaveRoomQrCodeButton.swift */; };
 		D4BDC2E0284FA8EA0087700D /* TransitionToMemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BDC2DF284FA8EA0087700D /* TransitionToMemoViewController.swift */; };
 		D4D019E32AAF724800BCFFBA /* RoomQrOnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D019E22AAF724800BCFFBA /* RoomQrOnboardingView.swift */; };
+		D4D019E52AB6EC4C00BCFFBA /* CalendarDescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D019E42AB6EC4C00BCFFBA /* CalendarDescriptionView.swift */; };
 		D4D9FA9428DFF41C003C2C94 /* ConfirmOtherMemberStayStateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D9FA9328DFF41C003C2C94 /* ConfirmOtherMemberStayStateViewModel.swift */; };
 		D4F80DB22A2E104A0063D2C8 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = D4F80DB12A2E104A0063D2C8 /* FirebaseAnalytics */; };
 		D4F80DB42A2E104A0063D2C8 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = D4F80DB32A2E104A0063D2C8 /* FirebaseAuth */; };
@@ -263,6 +264,7 @@
 		D4BDC2DD284F9FD40087700D /* SaveRoomQrCodeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveRoomQrCodeButton.swift; sourceTree = "<group>"; };
 		D4BDC2DF284FA8EA0087700D /* TransitionToMemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionToMemoViewController.swift; sourceTree = "<group>"; };
 		D4D019E22AAF724800BCFFBA /* RoomQrOnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomQrOnboardingView.swift; sourceTree = "<group>"; };
+		D4D019E42AB6EC4C00BCFFBA /* CalendarDescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDescriptionView.swift; sourceTree = "<group>"; };
 		D4D9FA9328DFF41C003C2C94 /* ConfirmOtherMemberStayStateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmOtherMemberStayStateViewModel.swift; sourceTree = "<group>"; };
 		D4F80DAF2A2E0C380063D2C8 /* TIMELAB.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TIMELAB.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -538,6 +540,7 @@
 				D477CB2C281309B600B7A07B /* DetailLabel.swift */,
 				D435167D28E3051500DCF919 /* TimeTableLabel.swift */,
 				D477CB2E281309CA00B7A07B /* CalendarDateFooterLabel.swift */,
+				D4D019E42AB6EC4C00BCFFBA /* CalendarDescriptionView.swift */,
 			);
 			path = CalendarView;
 			sourceTree = "<group>";
@@ -729,6 +732,7 @@
 				D427F68227FD8A6600E7F4E9 /* Color.swift in Sources */,
 				D4270D1C294257A30086C219 /* WebUIViewContorller.swift in Sources */,
 				D427F68427FD956000E7F4E9 /* QrCodeScannerLabel.swift in Sources */,
+				D4D019E52AB6EC4C00BCFFBA /* CalendarDescriptionView.swift in Sources */,
 				D427F68F27FF178300E7F4E9 /* RegisterUserViewController.swift in Sources */,
 				D427F68A27FDB50B00E7F4E9 /* UIImageExtension.swift in Sources */,
 				D477CB12280D43FD00B7A07B /* CalendarDetailViewController.swift in Sources */,
